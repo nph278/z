@@ -52,7 +52,7 @@ make_notification = (s) => {
 }
 
 window.onload = () => {
-    make_notification("Not Associated With East Mecklenburg Or Eagle Or Beagle!!");
+    make_notification("Not Associated With East Mecklenburg Or The Eagle Or Beagle Thereof");
     make_notification("it ha$ come to the ATTENTION of zeagle management that two web$ite$ are using $imilar names to the zeagle to decieve readers and $teal profit$. the$e are not OFFICIAL outlet$ of new$ media");
 }
 
