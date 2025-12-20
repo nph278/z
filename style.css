@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
+
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    background-size: contain;
+    background-image: url('./bg.gif');
+    background-color: #090b18;
+}
+
+
+h1, section {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-color: white;
+    border-style: dashed;
+    color: white;
+    background: black;
+    font-size: 20pt;
+    word-break: break-word;
+    max-width: 30em;
+}
+
+h1 {
+    padding: 3%;
+    max-width: 800px;
+}
+
+h1 img {
+    width: 100%;
+}
+
+section {
+    padding: 0em;
+}
+
+img {
+    border-style: none;
+}
+
+#countdown p {
+    text-align: center;
+    margin: 0;
+    white-space: nowrap;
+    animation-name: pulse;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes pulse {
+    from {color: white;}
+    to {color: red;}
+}
+
+#count {
+    transform: scale(100%, 500%) translate(0, 18%);
+    font-family: "Libertinus Serif", times, serif;
+}
+
+.cd {
+    font-family: "BBH Bartle", sans-serif;
+}
+
+#cd1 {
+    font-size: 1.8em;
+}
+
+#cd2 {
+    font-size: 1.0em;
+}
+
+#cd3 {
+    font-size: 1.3em;
+}
+
+#rotate {
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: black;
+    font-family: "Libertinus Serif", times, serif;
+    width: 100%;
+    height: 100%;
+}
+
+#rotate img {
+    width: 100%;
+}
+
+@media (orientation: landscape) {
+    #rotate {
+        display: none;
+    }
+}
+
+@media screen and (width < 800px) {
+    #countdown {
+        display: none;
+    }
+}
+
+.qr {
+    position: fixed;
+    animation-name: blub;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blub {
+    from {filter: blur(0px);}
+    to {filter: blur(3px);}
+}
+
+#notifications {
+    z-index: 50;
+    position: fixed;
+    font-family: "Libertinus Serif", times, serif;
+    top: 0;
+    left: 0;
+    font-size: 15px;
+    transform-origin: top left;
+    animation-name: warblev;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes warblev {
+    from {transform: scale(100%, 200%);}
+    to {transform: scale(100%, 230%);}
+}
+
+@keyframes warbleh {
+    from {transform: scale(95%, 100%);}
+    to {transform: scale(105%, 100%);}
+}
+
+.notification {
+    display: block;
+    background-color: black;
+    color: white;
+    cursor: default;
+}
+
+.notification::after, .notification::before {
+    content: "🚨";
+}
+
+.bigslogan {
+    text-align: center;
+    font-family: "Monsieur La Doulaise", cursive;
+    font-size: 80px;
+    animation-name: warbleh;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.article {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+}
+
+.article h2 {
+    font-family: "BBH Bartle", sans-serif;
+    transform: scale(100%, 50%);
+}
+
+img.p {
+    width: 100%;
+    filter: invert() hue-rotate(0);
+    animation-name: para;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes para {
+    from {filter: invert() hue-rotate(0deg);}
+    to {filter: invert() hue-rotate(360deg);}
+}
