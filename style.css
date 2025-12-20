@@ -84,6 +84,8 @@ img {
     left: 0;
     top: 0;
     background-color: black;
+    background-image: url("./bio.webp");
+    background-size: contain;
     color: white;
     font-size: 50px;
     font-family: "Libertinus Serif", times, serif;
