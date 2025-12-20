@@ -59,7 +59,11 @@ window.onload = () => {
 let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
               "Unix Epoch Converter Free Download",
               "Wikipedia Timeline of Far FUture Inducted Into Unu$ual Articles$ List",
-             "Where To Inve$t In Clean <span class=air>Air</span> Future$"];
+              "Where To Inve$t In Clean <span class=air>Air</span> Future$",
+              "Cheezit cla$$ action suit: Check If U Qualify for Big Ca$h",
+              "Free Download New Animal Sounds",
+              "Free Download Uppercut To Your Jaw",
+              "10 $ecrets 2 E$cape Any E$cape Room"];
 
 setInterval(() => {
     make_notification(alerts[Math.floor(Math.random() * alerts.length)]);
