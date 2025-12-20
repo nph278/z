@@ -214,3 +214,10 @@ img.i {
     from {filter: invert() hue-rotate(0deg);}
     to {filter: invert() hue-rotate(360deg);}
 }
+
+#greetings {
+    font-size: 50px;
+    font-family: "Libertinus Serif", times, serif;
+    color: red;
+    text-align: center;
+}
