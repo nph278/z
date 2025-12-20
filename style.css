@@ -104,8 +104,20 @@ img {
 }
 
 @media screen and (width < 800px) {
-    #countdown {
-        display: none;
+    .cd {
+        transform: scale(80%, 100%);
+    }
+    #count {
+        transform: scale(80%, 500%) translate(0, 18%);
+    }
+}
+
+@media screen and (width < 750px) {
+    .cd {
+        transform: scale(70%, 100%);
+    }
+    #count {
+        transform: scale(70%, 500%) translate(0, 18%);
     }
 }
 
