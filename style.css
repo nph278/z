@@ -176,10 +176,22 @@ img {
 
 img.p {
     width: 100%;
-    filter: invert() hue-rotate(0);
     animation-name: para;
     animation-duration: 4s;
     animation-iteration-count: infinite;
+}
+
+img.i {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 50%;
+    max-width: 100%;
+    margin-bottom: 1em;
+    animation-name: warbleh;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 @keyframes para {
