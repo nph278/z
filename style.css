@@ -84,6 +84,8 @@ img {
     left: 0;
     top: 0;
     background-color: black;
+    color: white;
+    font-size: 50px;
     font-family: "Libertinus Serif", times, serif;
     width: 100%;
     height: 100%;
@@ -93,7 +95,7 @@ img {
     width: 100%;
 }
 
-@media (orientation: landscape) {
+@media screen and (orientation: landscape) {
     #rotate {
         display: none;
     }
