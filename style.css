@@ -10,6 +10,9 @@ html {
     background-color: #090b18;
 }
 
+body {
+    margin: 0;
+}
 
 h1, section {
     margin-left: auto;
@@ -27,7 +30,6 @@ h1, section {
 
 h1 {
     padding: 3%;
-    max-width: 800px;
 }
 
 h1 img {
@@ -179,7 +181,29 @@ img {
     animation-direction: alternate;
 }
 
-.article {
+@media screen and (width > 1300px) {
+    .article-pair {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    section.article {
+        display: inline-block;
+        margin-left: .5em;
+        margin-right: .5em;
+    }
+}
+
+@media screen and (width <= 1300px) {
+    section.article {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+}
+
+section.article {
     padding-left: 1em;
     padding-right: 1em;
     padding-bottom: 1em;
@@ -188,9 +212,12 @@ img {
 .article h2 {
     font-family: "BBH Bartle", sans-serif;
     transform: scale(100%, 50%);
+    filter: drop-shadow(5px 5px 0px red);
+    margin-bottom: 0;
 }
 
 img.p {
+    display: block;
     width: 100%;
     animation-name: para;
     animation-duration: 4s;
@@ -201,6 +228,7 @@ img.i {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0;
     min-width: 50%;
     max-width: 100%;
     margin-bottom: 1em;
@@ -208,6 +236,9 @@ img.i {
     animation-duration: 4s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    border-color: white;
+    border-style: solid;
+    border-width: 10px;
 }
 
 @keyframes para {
