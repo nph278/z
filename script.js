@@ -1,5 +1,5 @@
 setInterval(() => {
-    let a = 1766725200000 - Date.now();
+    let a = 1766466000000 - Date.now();
     let days = Math.floor(a/86400000);
     let hours = Math.floor((a/3600000)-24*days);
     let minutes = Math.floor((a/60000)-60*hours-1440*days);
