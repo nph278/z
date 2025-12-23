@@ -44,42 +44,6 @@ img {
     border-style: none;
 }
 
-#countdown p {
-    text-align: center;
-    margin: 0;
-    white-space: nowrap;
-    animation-name: pulse;
-    animation-duration: 5s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-@keyframes pulse {
-    from {color: white;}
-    to {color: red;}
-}
-
-#count {
-    transform: scale(100%, 500%) translate(0, 18%);
-    font-family: "Libertinus Serif", times, serif;
-}
-
-.cd {
-    font-family: "BBH Bartle", sans-serif;
-}
-
-#cd1 {
-    font-size: 1.8em;
-}
-
-#cd2 {
-    font-size: 1.0em;
-}
-
-#cd3 {
-    font-size: 1.3em;
-}
-
 #rotate {
     z-index: 100;
     position: fixed;
@@ -247,7 +211,7 @@ img.i {
 }
 
 #greetings {
-    font-size: 50px;
+    font-size: 30px;
     font-family: "Libertinus Serif", times, serif;
     color: red;
     text-align: center;

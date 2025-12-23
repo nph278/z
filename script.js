@@ -1,19 +1,4 @@
 setInterval(() => {
-    let a = 1766466000000 - Date.now();
-    let days = Math.floor(a/86400000);
-    let hours = Math.floor((a/3600000)-24*days);
-    let minutes = Math.floor((a/60000)-60*hours-1440*days);
-    let seconds = ((a/1000)-60*minutes-3600*hours-86400*days).toFixed(3);
-    let s = days +
-        " DAYS & " +
-        hours +
-        " HOURS & " +
-        minutes +
-        " MINUTES & " +
-        seconds +
-        Math.random().toFixed(10).toString().split(".")[1] +
-        " SECONDS";
-    document.querySelector("#count").innerText = s;
     document.querySelectorAll(".room").forEach((e) => {
         e.innerText=Math.floor(Math.random()*1000)
     });
