@@ -101,6 +101,7 @@ img {
 }
 
 #notifications {
+    user-select: none;
     z-index: 50;
     position: fixed;
     font-family: "Libertinus Serif", times, serif;
@@ -205,6 +206,11 @@ img.i {
     border-width: 10px;
 }
 
+.article p {
+    font-family: "Libertinus Serif", times, serif;
+    color: white;
+}
+
 @keyframes para {
     from {filter: invert() hue-rotate(0deg);}
     to {filter: invert() hue-rotate(360deg);}
@@ -225,4 +231,34 @@ img.i {
     width: 100vw;
     height: 100vh;
     display: none;
+}
+
+.eye {
+    color: red;
+    font-family: "Libertinus Serif", times, serif;
+    display: inline-block;
+    border-color: white;
+    border-width: 2px;
+    border-style: solid;
+    padding: .25em;
+    margin-bottom: 1em;
+    user-select: none;
+    cursor: pointer;
+    background-image: url('./bg.gif');
+    background-color: black;
+}
+
+.eye span {
+    background-image: none;
+    background-color: black;
+}
+
+.eye::after {
+    width: 4em;
+    height: 3em;
+    margin-left: 1em;
+    content: "";
+    display: inline-block;
+    background-image: url("./eye.png");
+    background-size: contain;
 }

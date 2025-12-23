@@ -39,6 +39,15 @@ make_notification = (s) => {
 window.onload = () => {
     make_notification("Not Associated With East Mecklenburg Or The Eagle Or Beagle Thereof");
     make_notification("it ha$ come to the ATTENTION of zeagle management that two web$ite$ are using $imilar names to the zeagle to decieve readers and $teal profit$. the$e are not OFFICIAL outlet$ of new$ media");
+    document.querySelectorAll(".eye").forEach(e => {
+        e.onclick = () => {
+            e.parentElement.querySelectorAll(".p").forEach(f => {
+                f.outerHTML = "<p>" + f.alt + "</p>";
+            });
+            e.outerHTML = "";
+            make_notification("While the Seeing-Eye is a Nece$$ary Establishment, transcripts are a Poor Replacement 4 The Original, and $o are Not Official Outlets of New$ Media");
+        };
+    });
 }
 
 let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
