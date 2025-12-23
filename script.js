@@ -72,3 +72,15 @@ setInterval(() => {
         e.innerText = oa[oan];
     });
 }, 200);
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'j') {
+        document.querySelector("#drye").style.display = "inline";
+    }
+});
+
+document.addEventListener('keyup', function(event) {
+    if (event.key === 'j') {
+        document.querySelector("#drye").style.display = "none";
+    }
+});
