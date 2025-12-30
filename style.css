@@ -262,3 +262,46 @@ img.i {
     background-image: url("./eye.png");
     background-size: contain;
 }
+
+@keyframes teeter {
+    0% {transform: rotate(-3deg);}
+    50% {transform: rotate(3deg);}
+    100% {transform: rotate(-3deg);}
+}
+
+#form {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    border-color: white;
+    border-style: dashed;
+    color: white;
+    background: black;
+    font-size: 25pt;
+    word-break: break-word;
+    max-width: 30em;
+    font-family: "Libertinus Serif", times, serif;
+    border-color: white;
+    border-width: 2px;
+    border-style: solid;
+    padding: .25em;
+    margin-bottom: 1em;
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    animation-name: teeter;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#form em::after, #form em::before {
+    width: 2em;
+    height: 2em;
+    content: "";
+    display: inline-block;
+    background-image: url("./bio.webp");
+    background-size: contain;
+}
