@@ -181,6 +181,14 @@ section.article {
     margin-bottom: 0;
 }
 
+.article.opinion h2 {
+    font-family: "BBH Bartle", sans-serif;
+    transform-origin: top left;
+    transform: scale(30%, 100%);
+    filter: drop-shadow(5px 5px 0px purple);
+    margin-bottom: 0;
+}
+
 img.p {
     display: block;
     width: 100%;
@@ -206,7 +214,7 @@ img.i {
     border-width: 10px;
 }
 
-.article p {
+.article p, .article ul {
     font-family: "Libertinus Serif", times, serif;
     color: white;
 }
