@@ -23,7 +23,7 @@ let make_qr = () => {
     setTimeout(() => {
         document.querySelector("#qr" + b).outerHTML = "";
     }, 5000);
-    if (t > 1000) {
+    if (t > 2000) {
         t -= 100;
     }
     setTimeout(make_qr, t);
