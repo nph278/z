@@ -312,4 +312,5 @@ img.i {
     display: inline-block;
     background-image: url("./bio.webp");
     background-size: contain;
+    transform: translate(0, .6em);
 }
