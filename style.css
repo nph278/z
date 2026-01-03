@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
 
 html {
     line-height: 1.15;
@@ -66,24 +67,6 @@ img {
 @media screen and (orientation: landscape) {
     #rotate {
         display: none;
-    }
-}
-
-@media screen and (width < 800px) {
-    .cd {
-        transform: scale(80%, 100%);
-    }
-    #count {
-        transform: scale(80%, 500%) translate(0, 18%);
-    }
-}
-
-@media screen and (width < 750px) {
-    .cd {
-        transform: scale(70%, 100%);
-    }
-    #count {
-        transform: scale(70%, 500%) translate(0, 18%);
     }
 }
 
@@ -183,8 +166,7 @@ section.article {
 
 .article.opinion h2 {
     font-family: "BBH Bartle", sans-serif;
-    transform-origin: top left;
-    transform: scale(30%, 100%);
+    transform: scale(100%, 50%);
     filter: drop-shadow(5px 5px 0px purple);
     margin-bottom: 0;
 }
@@ -195,6 +177,11 @@ img.p {
     animation-name: para;
     animation-duration: 4s;
     animation-iteration-count: infinite;
+}
+
+@keyframes para {
+    from {filter: invert() hue-rotate(0deg);}
+    to {filter: invert() hue-rotate(360deg);}
 }
 
 img.i {
@@ -214,14 +201,25 @@ img.i {
     border-width: 10px;
 }
 
-.article p, .article ul {
+.news p, .news ul {
     font-family: "Libertinus Serif", times, serif;
+    color: black;
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 1em;
+    animation-name: para;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+.opinion p, .opinion ul {
+    font-family: "Major Mono Display", monospace;
     color: white;
 }
 
-@keyframes para {
-    from {filter: invert() hue-rotate(0deg);}
-    to {filter: invert() hue-rotate(360deg);}
+.opinion .disclaimer {
+    font-family: "Libertinus Serif", times, serif;
+    font-style: italic;
 }
 
 #greetings {

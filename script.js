@@ -73,6 +73,44 @@ setInterval(() => {
     });
 }, 1000);
 
+function shuffle(array) {
+  let currentIndex = array.length;
+  while (currentIndex != 0) {
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
+
+const letters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".split("");
+document.querySelectorAll(".mix").forEach((e) => {
+    let n = 300+Math.random()*200;
+    setInterval(() => {
+        let old = e.innerText;
+        e.innerText = old.split(" ").map((w) => {
+            let start = 1;
+            let end = w.length-1;
+            while (start < w.length && !letters.includes(w[start])) {
+                start++;
+            }
+            while (end >= 0 && !letters.includes(w[end])) {
+                end--;
+            }
+            if (end > start) {
+                ws = [...w.slice(start,end).split("")];
+                shuffle(ws);
+                return w.slice(0,start) + ws.join("") + w.slice(end,w.length);
+            } else {
+                return w
+            }
+        }).join(" ");
+        setTimeout(() => {
+            e.innerText = old;
+        }, n);
+    }, 2 * n);
+});
+
 let oa = ["o", "a"];
 let oan = 0;
 setInterval(() => {
