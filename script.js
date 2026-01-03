@@ -86,8 +86,8 @@ function shuffle(array) {
 const letters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".split("");
 document.querySelectorAll(".mix").forEach((e) => {
     let n = 300+Math.random()*200;
+    let old = e.innerText;
     setInterval(() => {
-        let old = e.innerText;
         e.innerText = old.split(" ").map((w) => {
             let start = 1;
             let end = w.length-1;
