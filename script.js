@@ -123,6 +123,9 @@ setInterval(() => {
 document.addEventListener('keydown', function(event) {
     if (event.key === 'j') {
         document.querySelector("#drye").style.display = "inline";
+    } else if (event.ctrlKey && (event.key === 'g')) {
+        make_notification("Ctrl-G is not r3c0mm3nd3d, try Ctrl-F");
+        event.preventDefault();
     }
 });
 
