@@ -48,6 +48,9 @@ window.onload = () => {
             make_notification("While the Seeing-Eye is a Nece$$ary Establishment, transcripts are a Poor Replacement 4 The Original, and $o are Not Official Outlets of New$ Media");
         };
     });
+    document.querySelector("#focus").onclick = () => {
+        document.querySelector("#focus").outerHTML = "";
+    }
 }
 
 let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
@@ -133,4 +136,11 @@ document.addEventListener('keyup', function(event) {
     if (event.key === 'j') {
         document.querySelector("#drye").style.display = "none";
     }
+});
+
+document.addEventListener("focus", (event) => {
+    document.querySelector("#focus").style.display = "none";
+});
+document.addEventListener("blur", (event) => {
+    document.querySelector("#focus").style.display = "inline";
 });

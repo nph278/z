@@ -312,3 +312,12 @@ img.i {
     background-size: contain;
     transform: translate(0, .6em);
 }
+
+#focus {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 98;
+    width: 100vw;
+    display: none;
+}
