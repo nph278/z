@@ -61,7 +61,11 @@ let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
               "Free Download New Animal Sounds",
               "Free Download Uppercut To Your Jaw",
               "10 $ecrets 2 E$cape Any E$cape Room",
-              "Ca$hle$$ Equals Cla$$le$$"];
+              "Ca$hle$$ Equals Cla$$le$$",
+              "How can you tell if you have ever really been cold",
+              "1,000,000 Cows Decarbonated",
+              "New Weather Name Vote",
+              "Weather man strike postponed for rain delay"];
 
 setInterval(() => {
     make_notification(alerts[Math.floor(Math.random() * alerts.length)]);
