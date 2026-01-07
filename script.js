@@ -149,9 +149,9 @@ document.addEventListener('keyup', function(event) {
     }
 });
 
-document.addEventListener("focus", (event) => {
+window.addEventListener("focus", (event) => {
     document.querySelector("#focus").style.display = "none";
 });
-document.addEventListener("blur", (event) => {
+window.addEventListener("blur", (event) => {
     document.querySelector("#focus").style.display = "inline";
 });
