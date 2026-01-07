@@ -1,6 +1,6 @@
 setInterval(() => {
     document.querySelectorAll(".room").forEach((e) => {
-        e.innerText=Math.floor(Math.random()*1000)
+        e.innerText=Math.floor(100 + Math.random()*800)
     });
 }, 10);
 
