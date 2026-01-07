@@ -34,7 +34,7 @@ setTimeout(make_qr, 5000);
 make_notification = (s) => {
     uuid++;
     document.querySelector("#notifications").insertAdjacentHTML("beforeend", "<div class='notification' id='not"+uuid+"' onclick=\"document.querySelector('#not"+uuid+"').outerHTML=''\">" + s + " (CLICK2REMOVE)</div>");
-    if (((15 * document.querySelectorAll(".notification").length) / window.innerHeight) > .15) {
+    if (((15 * document.querySelectorAll(".notification").length) / window.innerHeight) > .23) {
         document.querySelectorAll(".notification")[0].outerHTML = "";
     }
 }
