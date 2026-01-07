@@ -34,11 +34,13 @@ setTimeout(make_qr, 5000);
 make_notification = (s) => {
     uuid++;
     document.querySelector("#notifications").insertAdjacentHTML("beforeend", "<div class='notification' id='not"+uuid+"' onclick=\"document.querySelector('#not"+uuid+"').outerHTML=''\">" + s + " (CLICK2REMOVE)</div>");
+    if (((15 * document.querySelectorAll(".notification").length) / window.innerHeight) > .15) {
+        document.querySelectorAll(".notification")[0].outerHTML = "";
+    }
 }
 
 window.onload = () => {
     make_notification("Not Associated With East Mecklenburg Or The Eagle Or Beagle Thereof");
-    make_notification("it ha$ come to the ATTENTION of zeagle management that two web$ite$ are using $imilar names to the zeagle to decieve readers and $teal profit$. the$e are not OFFICIAL outlet$ of new$ media");
     document.querySelectorAll(".eye").forEach(e => {
         e.onclick = () => {
             e.parentElement.querySelectorAll(".p").forEach(f => {
