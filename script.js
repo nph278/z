@@ -15,7 +15,7 @@ let t = 3000;
 let make_qr = () => {
     let w = Math.floor(window.innerWidth / 10) * (1 + ((Math.random()) - 0.50) * .5);
     uuid++;
-    make_element("<img class=qr id='qr" + uuid + "' src='" + qr_links[Math.floor(Math.random() * qr_links.length)] + "' width=" + w + " height=" + w + " style='top: " + Math.floor((window.innerHeight-w) * Math.random()) + "px; left: " + Math.floor((window.innerWidth-w) * Math.random()) + "px;' onclick='make_notification(\"New News is Rolling In\")'>");
+    make_element("<img class=qr id='qr" + uuid + "' src='" + qr_links[Math.floor(Math.random() * qr_links.length)] + "' width=" + w + " height=" + w + " style='top: " + Math.floor((window.innerHeight-w) * Math.random()) + "px; left: " + Math.floor((window.innerWidth-w) * Math.random()) + "px;' onclick='make_notification(\"New News is Rolling In. TURN ON AUDIO.\"); play_siren()'>");
     let b = uuid;
     setTimeout(() => {
         document.querySelector("#qr" + b).style.opacity = "50%";
@@ -30,6 +30,11 @@ let make_qr = () => {
 }
 
 setTimeout(make_qr, 5000);
+
+play_siren = () => {
+    const audio = new Audio("./siren.mp3");
+    audio.play();
+}
 
 make_notification = (s) => {
     uuid++;
