@@ -47,7 +47,7 @@ make_notification = (s) => {
 document.addEventListener('DOMContentLoaded', (event) => {
     const isInstagram = /Instagram/i.test(navigator.userAgent);
     if (isInstagram) {
-        document.querySelector("#rotate").innerHTML = "OPEN IN EXTERNAL BROWSER WITH TOP LEFT MENU";
+        document.querySelector("#rotate").innerHTML = "OPEN IN EXTERNAL BROWSER WITH TOP RIGHT MENU";
     }
     document.querySelector("#focus").onclick = () => {
         document.querySelector("#focus").outerHTML = "";
