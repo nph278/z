@@ -53,7 +53,7 @@ img {
     background-color: black;
     background-image: url("./bio.webp");
     background-size: contain;
-    color: white;
+    color: red;
     font-size: 50px;
     font-family: "Libertinus Serif", times, serif;
     width: 100vw;

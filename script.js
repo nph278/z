@@ -44,7 +44,14 @@ make_notification = (s) => {
     }
 }
 
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', (event) => {
+    const isInstagram = /Instagram/i.test(navigator.userAgent);
+    if (isInstagram) {
+        document.querySelector("#rotate").innerHTML = "OPEN IN EXTERNAL BROWSER WITH TOP LEFT MENU";
+    }
+    document.querySelector("#focus").onclick = () => {
+        document.querySelector("#focus").outerHTML = "";
+    }
     make_notification("Not Associated With East Mecklenburg Or The Eagle Or Beagle Thereof");
     document.querySelectorAll(".eye").forEach(e => {
         e.onclick = () => {
@@ -55,10 +62,7 @@ window.onload = () => {
             make_notification("While the Seeing-Eye is a Nece$$ary Establishment, transcripts are a Poor Replacement 4 The Original, and $o are Not Official Outlets of New$ Media");
         };
     });
-    document.querySelector("#focus").onclick = () => {
-        document.querySelector("#focus").outerHTML = "";
-    }
-}
+});
 
 let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
               "Unix Epoch Converter Free Download",
@@ -155,3 +159,4 @@ window.addEventListener("focus", (event) => {
 window.addEventListener("blur", (event) => {
     document.querySelector("#focus").style.display = "inline";
 });
+
