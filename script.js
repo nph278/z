@@ -77,7 +77,8 @@ let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
               "1,000,000 Cows Decarbonated",
               "New Weather Name Vote",
               "Weather man strike postponed for rain delay",
-              "Drye spotted wearing rose-tinted glasses"];
+              "Drye spotted wearing rose-tinted glasses",
+              "Big New Theorem Changes Everything"];
 
 setInterval(() => {
     make_notification(alerts[Math.floor(Math.random() * alerts.length)]);
