@@ -42,6 +42,26 @@ h1 img {
     width: 100%;
 }
 
+#ama {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-color: white;
+    border-style: dashed;
+    color: white;
+    background: black;
+    font-size: 20pt;
+    word-break: break-word;
+    max-width: 30em;
+    display: block;
+    padding: 3%;
+}
+
+#ama img {
+    width: 100%;
+}
+
 section {
     padding: 0em;
 }
