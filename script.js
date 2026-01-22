@@ -78,7 +78,8 @@ let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
               "New Weather Name Vote",
               "Weather man strike postponed for rain delay",
               "Drye spotted wearing rose-tinted glasses",
-              "Big New Theorem Changes Everything"];
+              "Big New Theorem Changes Everything",
+              "Free Download Accurate Nervous System Simulator"];
 
 setInterval(() => {
     make_notification(alerts[Math.floor(Math.random() * alerts.length)]);
