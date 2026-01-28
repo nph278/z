@@ -308,9 +308,9 @@ const phil = [
 const song = [
     "When the principal does it, that means it's not illegal",
     "Edde go to Bedde",
-    "Drye Theme Song",
+    "Drye Theme Song (2025 freestyle)",
     "A million Watts but no Power",
-    "Phone go home",
+    "Phone go home / Cellphone Hellphone",
     "Parker my Car",
     "Bald Eagle"
 ];
