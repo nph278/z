@@ -460,6 +460,9 @@ textarea {
 button,
 input { /* 1 */
   overflow: visible;
+  border-color: black;
+  border-style: solid;
+  border-width: 2px;
 }
 
 #ht {
