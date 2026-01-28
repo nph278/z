@@ -62,6 +62,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
             make_notification("While the Seeing-Eye is a Nece$$ary Establishment, transcripts are a Poor Replacement 4 The Original, and $o are Not Official Outlets of New$ Media");
         };
     });
+    let i = 0;
+    document.querySelectorAll(".hi").forEach((e) => {
+        const j = i;
+        let rememberHack=() => {
+            localStorage.setItem("last_id_remember_hack"+j,e.value);
+            console.log(e.value);
+        };
+        e.value = localStorage.getItem("last_id_remember_hack"+j);
+        console.log(localStorage.getItem("last_id_remember_hack"+j));
+        console.log(e.value);
+        i++;
+        e.addEventListener("input",rememberHack);
+        e.addEventListener("change",rememberHack);
+    })
 });
 
 let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
