@@ -43,6 +43,7 @@ h1 img {
     width: 100%;
 }
 
+
 section {
     padding: 0em;
 }
@@ -230,8 +231,8 @@ img.i {
     color: white;
 }
 
-.opinion .disclaimer {
-    font-family: "Libertinus Serif", times, serif;
+.disclaimer {
+    font-family: "Libertinus Serif", times, serif !important;
     font-style: italic;
 }
 
@@ -407,4 +408,65 @@ img.i {
     to {
         transform: rotate(360deg) translateX(0.05em) rotate(-360deg);
     }
+}
+
+#back {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    border-color: white;
+    border-style: dashed;
+    background: black;
+    font-size: 25pt;
+    word-break: break-word;
+    max-width: 30em;
+    font-family: "BBH Bartle", sans-serif;
+    border-color: white;
+    border-width: 2px;
+    border-style: solid;
+    padding: .25em;
+    margin-bottom: 1em;
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    animation-name: warbleh;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    color: green;
+}
+
+#horo {
+    image-rendering: pixelated;
+    font-family: "Major Mono Display", monospace;
+    padding: .5em;
+    background-image: url("./hdf.jpg");
+    background-size: 100%;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+  filter: invert();
+}
+
+button,
+input { /* 1 */
+  overflow: visible;
+}
+
+#ht {
+    text-align: center;
+    text-decoration: underline;
+}
+
+[type=number] {
+    width: 5rem;
 }
