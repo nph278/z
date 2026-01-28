@@ -24,14 +24,16 @@
       <p id=ht>
         Get your Daily Horoscope:
       </p>
-      <ul>
-        <li>Date and Year of Birth: <input type=date class=hi></li>
-        <li>Exact Time of Birth: <input type=time class=hi> and <input type=number max=59 class=hi> seconds</li>
-        <li>Favorite Color: <input type=color></li>
-      </ul>
-      <p>
-        <button onclick="horo()">Get Horoscope</button>
-      </p>
+      <form>
+        <ul>
+          <li>Date and Year of Birth: <input type=date class=hi autocomplete=on name=a></li>
+          <li>Exact Time of Birth: <input type=time class=hi autocomplete=on name=b> and <input type=number max=59 class=hi autocomplete=on name=c> seconds</li>
+          <li>Favorite Color: <input type=color autocomplete=on name=d></li>
+        </ul>
+        <p>
+          <input type=submit onclick="horo()" value="Get Horoscope">
+        </p>
+      </form>
     </section>
     <a id=form
        href="https://docs.google.com/forms/d/e/1FAIpQLSehmEjqLfNlGQ-WGRerqmtUF0LwqHfuGsnkBfajXABJeJ8PAA/viewform"
