@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.querySelector("#focus").onclick = () => {
         document.querySelector("#focus").outerHTML = "";
     }
+    document.querySelector("#drye").onclick = () => {
+        document.querySelector("#drye").outerHTML = "";
+    }
     make_notification("Not Associated With East Mecklenburg Or The Eagle Or Beagle Thereof");
     document.querySelectorAll(".eye").forEach(e => {
         e.onclick = () => {
