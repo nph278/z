@@ -336,13 +336,11 @@ img.i {
     display: none;
 }
 
-#insta {
+.extlink {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1em;
-    border-color: white;
-    border-style: dashed;
     background: black;
     font-size: 25pt;
     word-break: break-word;
@@ -362,6 +360,14 @@ img.i {
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     color: red;
+}
+
+#insta {
+    color: red;
+}
+
+#playlist {
+    color: green;
 }
 
 .special p {
