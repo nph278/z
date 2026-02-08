@@ -1,5 +1,3 @@
-// secret crossword simulator mode
-
 const size = 23;
 const fontwidth = 5;
 const cellwidth = fontwidth + 3;
@@ -35,6 +33,9 @@ const tonum = (a) => {
 let cheat;
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    let ismobile = false;
+    (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+
     const canvas = document.querySelector("canvas");
     const gridpixels = size * cellwidth + 1;
     const barheight = 20;
@@ -128,197 +129,200 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const y = (e.clientY - rect.top)/sizemult;
         const cellx = Math.floor(x/cellwidth);
         const celly = Math.floor(y/cellwidth);
-        const prev = grid[celly][cellx];
-        if (prev === "0") {
-            msg = "1";
-            clearmsg = 5;
-            grid[celly][cellx] = "1";
-            score += 1;
-            const n = neighbors([cellx, celly])
-            if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
-                path = n;
-                score += 1;
-            }
-        } else if ("12345678".includes(prev)) {
-            const n = neighbors([cellx, celly])
-            const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
-            if (sum > prev) {
-                grid[celly][cellx] = (+prev + 1).toString();
-                msg = (+prev + 1).toString();
+        if (ismobile && (celly >= size) && msg === "keyboard") {
+            handlekey(prompt("Enter a letter")[0]);
+        } else {
+            const prev = grid[celly][cellx];
+            if (prev === "0") {
+                msg = "1";
                 clearmsg = 5;
-                score += (+prev + 1);
-                shower(cellx, celly, 1);
+                grid[celly][cellx] = "1";
+                score += 1;
+                const n = neighbors([cellx, celly])
                 if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
                     path = n;
+                    score += 1;
+                }
+            } else if ("12345678".includes(prev)) {
+                const n = neighbors([cellx, celly])
+                const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
+                if (sum > prev) {
+                    grid[celly][cellx] = (+prev + 1).toString();
+                    msg = (+prev + 1).toString();
+                    clearmsg = 5;
                     score += (+prev + 1);
+                    shower(cellx, celly, 1);
+                    if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
+                        path = n;
+                        score += (+prev + 1);
+                    }
+                } else {
+                    msg = "No";
+                    clearmsg = 10;
                 }
-            } else {
-                msg = "No";
-                clearmsg = 10;
-            }
-        } else if (prev === "9") {
-            shower(cellx, celly, 1);
-            msg = "keyboard";
-            clearmsg = 0;
-            grid[celly][cellx] = "?";
-            score += 10;
-        } else if (abc.includes(prev)) {
-            const spell = getspell([cellx, celly]);
-            if (spell) {
-                shower(cellx, celly, 30);
-                score += 100;
-                msg = "*"+spell[1]+"*";
-                clearmsg = 20;
-                for (let i = 0; i < spell[1].length; i++) {
-                    if (spell[0]) {
-                        grid[celly + i][cellx] = "0";
-                    } else {
-                        grid[celly][cellx + i] = "0";
-                    }
-                }
-                if (spell[1] === "qr") {
-                    qrcount = 5;
-                } else if (nums.includes(spell[1])) {
-                    grid[celly][cellx] = "+";
-                    coolnum = (nums.indexOf(spell[1])).toString();
-                } else if (spell[1] === "english") {
-                    for (let i = 0; i < size; i++) {
-                        for (let j = 0; j < size; j++) {
-                            if (Math.random() < 0.1) {
-                                grid[i][j] = abc[Math.floor(Math.random()*26)];
-                            }
-                        }
-                    }
-                } else if (spell[1] === "hint") {
-                    const q = spells.filter(s => (s !== "hint"))
-                    const s = q[Math.floor(Math.random() * q.length)];
-                    for (let i = 0; i < s.length; i++) {
-                        for (let j = 0; j < s.length; j++) {
-                            grid[i][j] = i === j ? s[i] : "0";
-                        }
-                    }
-                } else if (spell[1] === "beagle") {
-                    for (let i = 0; i < size; i++) {
-                        grid[i].fill("☻");
-                        score = 666;
-                    }
-                    console.log(grid);
-                } else if (spell[1] === "parker") {
-                    for (let i = 0; i < size; i++) {
-                        grid[i][0] = "4";
-                        grid[i][1] = "9";
-                        grid[i][2] = "5";
-                        grid[i][3] = "o";
-                        grid[i][4] = "t";
-                        grid[i][5] = "o";
-                        grid[i][6] = "t";
-                    }
-                } else if (spell[1] === "pool") {
-                    for (let i = 0; i < size; i++) {
-                        grid[0][i] = "~";
-                        grid[1][i] = "~";
-                        grid[2][i] = "~";
-                        grid[3][i] = "☻";
-                    }
-                } else if (spell[1] === "drye") {
-                    dryes.push([cellx, celly]);
-                } else if (spell[1] === "tunnel") {
-                    const p = [];
-                    let x = Math.floor(size / 2);
-                    let y = 1;
-                    while (y < size-1) {
-                        const options = [0];
-                        if (x - 1 >= 0 && (p.length === 0 || p[p.length-1] !== 2)) {
-                            options.push(1);
-                        }
-                        if (x + 1 < size && (p.length === 0 || p[p.length-1] !== 1)) {
-                            options.push(2);
-                        }
-                        const o = options[Math.floor(Math.random() * options.length)];
-                        p.push(o);
-                        if (o === 1) {
-                            x--;
-                        } else if (o === 2) {
-                            x++;
+            } else if (prev === "9") {
+                shower(cellx, celly, 1);
+                msg = "keyboard";
+                clearmsg = 0;
+                grid[celly][cellx] = "?";
+                score += 10;
+            } else if (abc.includes(prev)) {
+                const spell = getspell([cellx, celly]);
+                if (spell) {
+                    shower(cellx, celly, 30);
+                    score += 100;
+                    msg = "*"+spell[1]+"*";
+                    clearmsg = 20;
+                    for (let i = 0; i < spell[1].length; i++) {
+                        if (spell[0]) {
+                            grid[celly + i][cellx] = "0";
                         } else {
-                            y++;
+                            grid[celly][cellx + i] = "0";
                         }
                     }
-                    x = Math.floor(size / 2);
-                    y = 1;
-                    grid[0][x-1] = "e";
-                    grid[0][x] = "m";
-                    grid[0][x+1] = "h";
-                    grid[0][x+2] = "s";
-                    const n = p[0];
-                    if (n === 1) {
-                        grid[y][x] = pipeul;
-                    } else if (n === 2) {
-                        grid[y][x] = pipeur;
-                    } else {
-                        grid[y][x] = pipev;
-                    }
-                    for (let i = 0; (i + 1) < p.length; i++) {
-                        const o = p[i];
-                        const n = p[i+1];
-                        shower(x, y, 5);
-                        data[y][x] = (1+(i%9)).toString();
-                        if (o === 1) {
-                            x--;
-                            if (n === 1) {
-                                grid[y][x] = pipeh;
-                            } else {
-                                grid[y][x] = pipedr;
+                    if (spell[1] === "qr") {
+                        qrcount = 5;
+                    } else if (nums.includes(spell[1])) {
+                        grid[celly][cellx] = "+";
+                        coolnum = (nums.indexOf(spell[1])).toString();
+                    } else if (spell[1] === "english") {
+                        for (let i = 0; i < size; i++) {
+                            for (let j = 0; j < size; j++) {
+                                if (Math.random() < 0.1) {
+                                    grid[i][j] = abc[Math.floor(Math.random()*26)];
+                                }
                             }
-                        } else if (o === 2) {
-                            x++;
-                            if (n === 2) {
-                                grid[y][x] = pipeh;
-                            } else {
-                                grid[y][x] = pipedl;
+                        }
+                    } else if (spell[1] === "hint") {
+                        const q = spells.filter(s => (s !== "hint"))
+                        const s = q[Math.floor(Math.random() * q.length)];
+                        for (let i = 0; i < s.length; i++) {
+                            for (let j = 0; j < s.length; j++) {
+                                grid[i][j] = i === j ? s[i] : "0";
                             }
+                        }
+                    } else if (spell[1] === "beagle") {
+                        for (let i = 0; i < size; i++) {
+                            grid[i].fill("☻");
+                            score = 666;
+                        }
+                        console.log(grid);
+                    } else if (spell[1] === "parker") {
+                        for (let i = 0; i < size; i++) {
+                            grid[i][0] = "4";
+                            grid[i][1] = "9";
+                            grid[i][2] = "5";
+                            grid[i][3] = "o";
+                            grid[i][4] = "t";
+                            grid[i][5] = "o";
+                            grid[i][6] = "t";
+                        }
+                    } else if (spell[1] === "pool") {
+                        for (let i = 0; i < size; i++) {
+                            grid[0][i] = "~";
+                            grid[1][i] = "~";
+                            grid[2][i] = "~";
+                            grid[3][i] = "☻";
+                        }
+                    } else if (spell[1] === "drye") {
+                        dryes.push([cellx, celly]);
+                    } else if (spell[1] === "tunnel") {
+                        const p = [];
+                        let x = Math.floor(size / 2);
+                        let y = 1;
+                        while (y < size-1) {
+                            const options = [0];
+                            if (x - 1 >= 0 && (p.length === 0 || p[p.length-1] !== 2)) {
+                                options.push(1);
+                            }
+                            if (x + 1 < size && (p.length === 0 || p[p.length-1] !== 1)) {
+                                options.push(2);
+                            }
+                            const o = options[Math.floor(Math.random() * options.length)];
+                            p.push(o);
+                            if (o === 1) {
+                                x--;
+                            } else if (o === 2) {
+                                x++;
+                            } else {
+                                y++;
+                            }
+                        }
+                        x = Math.floor(size / 2);
+                        y = 1;
+                        grid[0][x-1] = "e";
+                        grid[0][x] = "m";
+                        grid[0][x+1] = "h";
+                        grid[0][x+2] = "s";
+                        const n = p[0];
+                        if (n === 1) {
+                            grid[y][x] = pipeul;
+                        } else if (n === 2) {
+                            grid[y][x] = pipeur;
                         } else {
-                            y++;
-                            if (n === 1) {
-                                grid[y][x] = pipeul;
-                            } else if (n === 2) {
-                                grid[y][x] = pipeur;
+                            grid[y][x] = pipev;
+                        }
+                        for (let i = 0; (i + 1) < p.length; i++) {
+                            const o = p[i];
+                            const n = p[i+1];
+                            shower(x, y, 5);
+                            data[y][x] = (1+(i%9)).toString();
+                            if (o === 1) {
+                                x--;
+                                if (n === 1) {
+                                    grid[y][x] = pipeh;
+                                } else {
+                                    grid[y][x] = pipedr;
+                                }
+                            } else if (o === 2) {
+                                x++;
+                                if (n === 2) {
+                                    grid[y][x] = pipeh;
+                                } else {
+                                    grid[y][x] = pipedl;
+                                }
                             } else {
-                                grid[y][x] = pipev;
+                                y++;
+                                if (n === 1) {
+                                    grid[y][x] = pipeul;
+                                } else if (n === 2) {
+                                    grid[y][x] = pipeur;
+                                } else {
+                                    grid[y][x] = pipev;
+                                }
                             }
                         }
+                        const px = Math.min(Math.max(0, x-2), size-4);
+                        grid[size-1][px] = "i";
+                        grid[size-1][px+1] = "l";
+                        grid[size-1][px+2] = "h";
+                        grid[size-1][px+3] = "s";
                     }
-                    const px = Math.min(Math.max(0, x-2), size-4);
-                    grid[size-1][px] = "i";
-                    grid[size-1][px+1] = "l";
-                    grid[size-1][px+2] = "h";
-                    grid[size-1][px+3] = "s";
+                } else {
+                    msg = "No";
+                    clearmsg = 10;
                 }
-            } else {
-                msg = "No";
+            } else if (prev === "+") {
+                score += 13;
+                grid[celly][cellx] = coolnum;
+                neighbors([cellx, celly]).forEach((xy) => {
+                    if (grid[xy[1]][xy[0]] !== coolnum) {
+                        grid[xy[1]][xy[0]] = "+";
+                    }
+                });
+                msg = coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum;
                 clearmsg = 10;
+            } else if (prev === "☻") {
+                grid[celly][cellx] = "0";
+            } else if (pipe.includes(prev)) {
+                grid[celly][cellx] = data[celly][cellx] || "9";
+                data[celly][cellx] = false;
             }
-        } else if (prev === "+") {
-            score += 13;
-            grid[celly][cellx] = coolnum;
-            neighbors([cellx, celly]).forEach((xy) => {
-                if (grid[xy[1]][xy[0]] !== coolnum) {
-                    grid[xy[1]][xy[0]] = "+";
-                }
-            });
-            msg = coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum;
-            clearmsg = 10;
-        } else if (prev === "☻") {
-            grid[celly][cellx] = "0";
-        } else if (pipe.includes(prev)) {
-            grid[celly][cellx] = data[celly][cellx] || "9";
-            data[celly][cellx] = false;
+            requestAnimationFrame(draw);
         }
-        requestAnimationFrame(draw);
     }
 
-    document.addEventListener('keydown', (e) => {
-        const k = e.key.toLowerCase();
+    const handlekey = (k) => {
         let s = 0;
         if (abc.includes(k)) {
             let yes = false;
@@ -342,6 +346,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }
         requestAnimationFrame(draw);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        const k = e.key.toLowerCase();
+        handlekey(k);
     });
 
     const fgcolor = (a, x) => {
@@ -407,13 +416,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.fillStyle = fgcolor(value, frame);
                 const pat = font.slice(cp437[value]*5,cp437[value]*5+5).map(a=>[a%2, Math.floor(a/2)%2, Math.floor(a/4)%2, Math.floor(a/8)%2, Math.floor(a/16)%2]);
                 try {
-                for (let i = 0; i < fontwidth; i++) {
-                    for (let j = 0; j < fontwidth; j++) {
-                        if (pat[j][i]) {
-                            ctx.fillRect(x + 2 + i, y + 2 + j, 1, 1);
+                    for (let i = 0; i < fontwidth; i++) {
+                        for (let j = 0; j < fontwidth; j++) {
+                            if (pat[j][i]) {
+                                ctx.fillRect(x + 2 + i, y + 2 + j, 1, 1);
+                            }
                         }
                     }
-                }
                 } catch {
                     console.log(value);
                 }
@@ -434,7 +443,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         ctx.fillStyle = frame%2 ? "lightblue" : "white";
         ctx.font = "20px Courier";
-        ctx.fillText("Score: " + score, 0, gridpixels+ 16);
+        if (ismobile && msg === "keyboard") {
+            ctx.fillText("ClickHere2Type", 0, gridpixels+ 16);
+        } else {
+            ctx.fillText("Score: " + score, 0, gridpixels+ 16);
+        }
 
         if (path) {
             ctx.beginPath();
@@ -543,262 +556,262 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 const font = [
-  0, 0, 0, 0, 0,
-  10, 0, 4, 17, 14,
-  10, 0, 0, 14, 17,
-  27, 31, 31, 14, 4,
-  0, 0, 0, 0, 0,
-  0, 4, 10, 4, 14,
-  4, 14, 14, 4, 14,
-  0, 14, 14, 14, 0,
-  0, 0, 0, 0, 0,
-  0, 4, 10, 4, 0,
-  0, 0, 0, 0, 0,
-  30, 28, 31, 21, 7,
-  5, 13, 31, 12, 4,
-  20, 22, 31, 6, 4,
-  15, 10, 10, 10, 5,
-  21, 14, 27, 14, 21,
-  4, 12, 28, 12, 4,
-  4, 6, 7, 6, 4,
-  4, 14, 4, 14, 4,
-  10, 10, 10, 0, 10,
-  12, 11, 10, 10, 10,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 31, 31,
-  0, 0, 0, 0, 0,
-  4, 14, 21, 4, 4,
-  4, 4, 21, 14, 4,
-  4, 8, 31, 8, 4,
-  4, 2, 31, 2, 4,
-  0, 2, 2, 30, 0,
-  0, 14, 14, 14, 0,
-  4, 14, 31, 0, 0,
-  0, 0, 31, 14, 4,
-  0, 0, 0, 0, 0,
-  4, 4, 4, 0, 4,
-  10, 10, 0, 0, 0,
-  10, 31, 10, 31, 10,
-  31, 5, 31, 20, 31,
-  17, 8, 4, 2, 17,
-  6, 9, 22, 9, 22,
-  8, 4, 0, 0, 0,
-  8, 4, 4, 4, 8,
-  2, 4, 4, 4, 2,
-  21, 14, 31, 14, 21,
-  0, 4, 14, 4, 0,
-  0, 0, 0, 4, 2,
-  0, 0, 14, 0, 0,
-  0, 0, 0, 0, 2,
-  8, 4, 4, 4, 2,
-  14, 25, 21, 19, 14,
-  4, 6, 4, 4, 14,
-  14, 8, 14, 2, 14,
-  14, 8, 12, 8, 14,
-  2, 2, 10, 14, 8,
-  14, 2, 14, 8, 14,
-  6, 2, 14, 10, 14,
-  14, 8, 12, 8, 8,
-  14, 10, 14, 10, 14,
-  14, 10, 14, 8, 14,
-  0, 4, 0, 4, 0,
-  0, 4, 0, 4, 2,
-  8, 4, 2, 4, 8,
-  0, 14, 0, 14, 0,
-  2, 4, 8, 4, 2,
-  14, 17, 12, 0, 4,
-  14, 9, 5, 1, 14,
-  6, 9, 17, 31, 17,
-  7, 9, 15, 17, 15,
-  14, 17, 1, 17, 14,
-  15, 25, 17, 17, 15,
-  31, 1, 15, 1, 31,
-  31, 1, 15, 1, 1,
-  14, 1, 25, 17, 14,
-  9, 17, 31, 17, 17,
-  14, 4, 4, 4, 14,
-  12, 8, 8, 10, 14,
-  9, 5, 3, 5, 9,
-  1, 1, 1, 1, 15,
-  17, 27, 21, 17, 17,
-  17, 19, 21, 25, 17,
-  14, 25, 17, 17, 14,
-  7, 9, 7, 1, 1,
-  14, 17, 17, 25, 30,
-  7, 9, 7, 5, 9,
-  30, 1, 14, 16, 15,
-  31, 4, 4, 4, 4,
-  9, 17, 17, 17, 14,
-  10, 10, 10, 10, 4,
-  9, 17, 21, 21, 10,
-  17, 10, 4, 10, 17,
-  17, 10, 4, 4, 4,
-  31, 8, 4, 2, 31,
-  12, 4, 4, 4, 12,
-  2, 4, 4, 4, 8,
-  6, 4, 4, 4, 6,
-  4, 10, 0, 0, 0,
-  0, 0, 0, 0, 14,
-  4, 8, 0, 0, 0,
-  6, 9, 17, 31, 17,
-  7, 9, 15, 17, 15,
-  14, 17, 1, 17, 14,
-  15, 25, 17, 17, 15,
-  31, 1, 15, 1, 31,
-  31, 1, 15, 1, 1,
-  14, 1, 25, 17, 14,
-  9, 17, 31, 17, 17,
-  14, 4, 4, 4, 14,
-  12, 8, 8, 10, 14,
-  18, 10, 6, 10, 18,
-  1, 1, 1, 1, 15,
-  17, 27, 21, 17, 17,
-  17, 19, 21, 25, 17,
-  14, 25, 17, 17, 14,
-  7, 9, 7, 1, 1,
-  14, 17, 17, 25, 30,
-  7, 9, 7, 5, 9,
-  30, 1, 14, 16, 15,
-  31, 4, 4, 4, 4,
-  9, 17, 17, 17, 14,
-  10, 10, 10, 10, 4,
-  9, 17, 21, 21, 10,
-  17, 10, 4, 10, 17,
-  17, 10, 4, 4, 4,
-  31, 8, 4, 2, 31,
-  12, 4, 2, 4, 12,
-  4, 4, 4, 4, 4,
-  6, 4, 8, 4, 6,
-  10, 5, 0, 0, 0,
-  0, 4, 10, 10, 14,
-  0, 0, 0, 0, 0,
-  10, 0, 10, 10, 14,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  10, 0, 14, 10, 30,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  31, 17, 17, 17, 31,
-  0, 14, 10, 14, 0,
-  0, 0, 4, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 4, 0, 0,
-  0, 14, 10, 14, 0,
-  0, 0, 0, 0, 0,
-  10, 0, 14, 10, 30,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  10, 0, 14, 10, 14,
-  0, 0, 0, 0, 0,
-  3, 25, 11, 9, 11,
-  28, 23, 21, 21, 29,
-  0, 3, 1, 1, 1,
-  10, 0, 14, 10, 14,
-  10, 0, 10, 10, 14,
-  0, 0, 0, 0, 31,
-  12, 18, 7, 2, 31,
-  0, 0, 0, 0, 31,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 31,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  4, 0, 6, 17, 14,
-  0, 0, 28, 4, 4,
-  0, 0, 7, 4, 4,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  4, 0, 4, 4, 4,
-  4, 18, 9, 18, 4,
-  4, 9, 18, 9, 4,
-  0, 10, 0, 10, 0,
-  10, 21, 10, 21, 10,
-  21, 10, 21, 10, 21,
-  4, 4, 4, 4, 4,
-  4, 4, 7, 4, 4,
-  4, 7, 4, 7, 4,
-  10, 10, 11, 10, 10,
-  0, 0, 15, 10, 10,
-  0, 7, 4, 7, 4,
-  10, 11, 8, 11, 10,
-  10, 10, 10, 10, 10,
-  0, 15, 8, 11, 10,
-  10, 11, 8, 15, 0,
-  10, 10, 15, 0, 0,
-  4, 7, 4, 7, 0,
-  0, 0, 7, 4, 4,
-  4, 4, 28, 0, 0,
-  4, 4, 31, 0, 0,
-  0, 0, 31, 4, 4,
-  4, 4, 28, 4, 4,
-  0, 0, 31, 0, 0,
-  4, 4, 31, 4, 4,
-  4, 28, 4, 28, 4,
-  10, 10, 26, 10, 10,
-  10, 26, 2, 30, 0,
-  0, 30, 2, 26, 10,
-  10, 27, 0, 31, 0,
-  0, 31, 0, 27, 10,
-  10, 26, 2, 26, 10,
-  0, 31, 0, 31, 0,
-  10, 27, 0, 27, 10,
-  4, 31, 0, 31, 0,
-  10, 10, 31, 0, 0,
-  0, 31, 0, 31, 4,
-  0, 0, 31, 10, 10,
-  10, 10, 30, 0, 0,
-  4, 28, 4, 28, 0,
-  0, 28, 4, 28, 4,
-  0, 0, 30, 10, 10,
-  10, 10, 31, 10, 10,
-  4, 31, 4, 31, 4,
-  4, 4, 7, 0, 0,
-  0, 0, 28, 4, 4,
-  31, 31, 31, 31, 31,
-  0, 0, 31, 31, 31,
-  3, 3, 3, 3, 3,
-  24, 24, 24, 24, 24,
-  31, 31, 31, 0, 0,
-  0, 0, 0, 0, 0,
-  6, 9, 13, 17, 13,
-  0, 0, 0, 0, 0,
-  14, 17, 17, 17, 14,
-  0, 4, 10, 4, 0,
-  0, 0, 4, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 4, 0, 0,
-  0, 4, 10, 4, 0,
-  0, 0, 0, 0, 0,
-  14, 17, 17, 10, 27,
-  7, 1, 6, 9, 6,
-  0, 14, 31, 14, 0,
-  16, 14, 10, 14, 1,
-  12, 2, 14, 2, 12,
-  6, 9, 9, 9, 9,
-  14, 0, 14, 0, 14,
-  4, 14, 4, 0, 14,
-  2, 4, 8, 4, 14,
-  8, 4, 2, 4, 14,
-  8, 20, 4, 4, 4,
-  4, 4, 4, 5, 2,
-  4, 0, 14, 0, 4,
-  10, 5, 0, 10, 5,
-  4, 14, 4, 0, 0,
-  0, 14, 14, 14, 0,
-  0, 0, 4, 0, 0,
-  24, 8, 11, 10, 4,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0
+    0, 0, 0, 0, 0,
+    10, 0, 4, 17, 14,
+    10, 0, 0, 14, 17,
+    27, 31, 31, 14, 4,
+    0, 0, 0, 0, 0,
+    0, 4, 10, 4, 14,
+    4, 14, 14, 4, 14,
+    0, 14, 14, 14, 0,
+    0, 0, 0, 0, 0,
+    0, 4, 10, 4, 0,
+    0, 0, 0, 0, 0,
+    30, 28, 31, 21, 7,
+    5, 13, 31, 12, 4,
+    20, 22, 31, 6, 4,
+    15, 10, 10, 10, 5,
+    21, 14, 27, 14, 21,
+    4, 12, 28, 12, 4,
+    4, 6, 7, 6, 4,
+    4, 14, 4, 14, 4,
+    10, 10, 10, 0, 10,
+    12, 11, 10, 10, 10,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 31, 31,
+    0, 0, 0, 0, 0,
+    4, 14, 21, 4, 4,
+    4, 4, 21, 14, 4,
+    4, 8, 31, 8, 4,
+    4, 2, 31, 2, 4,
+    0, 2, 2, 30, 0,
+    0, 14, 14, 14, 0,
+    4, 14, 31, 0, 0,
+    0, 0, 31, 14, 4,
+    0, 0, 0, 0, 0,
+    4, 4, 4, 0, 4,
+    10, 10, 0, 0, 0,
+    10, 31, 10, 31, 10,
+    31, 5, 31, 20, 31,
+    17, 8, 4, 2, 17,
+    6, 9, 22, 9, 22,
+    8, 4, 0, 0, 0,
+    8, 4, 4, 4, 8,
+    2, 4, 4, 4, 2,
+    21, 14, 31, 14, 21,
+    0, 4, 14, 4, 0,
+    0, 0, 0, 4, 2,
+    0, 0, 14, 0, 0,
+    0, 0, 0, 0, 2,
+    8, 4, 4, 4, 2,
+    14, 25, 21, 19, 14,
+    4, 6, 4, 4, 14,
+    14, 8, 14, 2, 14,
+    14, 8, 12, 8, 14,
+    2, 2, 10, 14, 8,
+    14, 2, 14, 8, 14,
+    6, 2, 14, 10, 14,
+    14, 8, 12, 8, 8,
+    14, 10, 14, 10, 14,
+    14, 10, 14, 8, 14,
+    0, 4, 0, 4, 0,
+    0, 4, 0, 4, 2,
+    8, 4, 2, 4, 8,
+    0, 14, 0, 14, 0,
+    2, 4, 8, 4, 2,
+    14, 17, 12, 0, 4,
+    14, 9, 5, 1, 14,
+    6, 9, 17, 31, 17,
+    7, 9, 15, 17, 15,
+    14, 17, 1, 17, 14,
+    15, 25, 17, 17, 15,
+    31, 1, 15, 1, 31,
+    31, 1, 15, 1, 1,
+    14, 1, 25, 17, 14,
+    9, 17, 31, 17, 17,
+    14, 4, 4, 4, 14,
+    12, 8, 8, 10, 14,
+    9, 5, 3, 5, 9,
+    1, 1, 1, 1, 15,
+    17, 27, 21, 17, 17,
+    17, 19, 21, 25, 17,
+    14, 25, 17, 17, 14,
+    7, 9, 7, 1, 1,
+    14, 17, 17, 25, 30,
+    7, 9, 7, 5, 9,
+    30, 1, 14, 16, 15,
+    31, 4, 4, 4, 4,
+    9, 17, 17, 17, 14,
+    10, 10, 10, 10, 4,
+    9, 17, 21, 21, 10,
+    17, 10, 4, 10, 17,
+    17, 10, 4, 4, 4,
+    31, 8, 4, 2, 31,
+    12, 4, 4, 4, 12,
+    2, 4, 4, 4, 8,
+    6, 4, 4, 4, 6,
+    4, 10, 0, 0, 0,
+    0, 0, 0, 0, 14,
+    4, 8, 0, 0, 0,
+    6, 9, 17, 31, 17,
+    7, 9, 15, 17, 15,
+    14, 17, 1, 17, 14,
+    15, 25, 17, 17, 15,
+    31, 1, 15, 1, 31,
+    31, 1, 15, 1, 1,
+    14, 1, 25, 17, 14,
+    9, 17, 31, 17, 17,
+    14, 4, 4, 4, 14,
+    12, 8, 8, 10, 14,
+    18, 10, 6, 10, 18,
+    1, 1, 1, 1, 15,
+    17, 27, 21, 17, 17,
+    17, 19, 21, 25, 17,
+    14, 25, 17, 17, 14,
+    7, 9, 7, 1, 1,
+    14, 17, 17, 25, 30,
+    7, 9, 7, 5, 9,
+    30, 1, 14, 16, 15,
+    31, 4, 4, 4, 4,
+    9, 17, 17, 17, 14,
+    10, 10, 10, 10, 4,
+    9, 17, 21, 21, 10,
+    17, 10, 4, 10, 17,
+    17, 10, 4, 4, 4,
+    31, 8, 4, 2, 31,
+    12, 4, 2, 4, 12,
+    4, 4, 4, 4, 4,
+    6, 4, 8, 4, 6,
+    10, 5, 0, 0, 0,
+    0, 4, 10, 10, 14,
+    0, 0, 0, 0, 0,
+    10, 0, 10, 10, 14,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    10, 0, 14, 10, 30,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    31, 17, 17, 17, 31,
+    0, 14, 10, 14, 0,
+    0, 0, 4, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 4, 0, 0,
+    0, 14, 10, 14, 0,
+    0, 0, 0, 0, 0,
+    10, 0, 14, 10, 30,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    10, 0, 14, 10, 14,
+    0, 0, 0, 0, 0,
+    3, 25, 11, 9, 11,
+    28, 23, 21, 21, 29,
+    0, 3, 1, 1, 1,
+    10, 0, 14, 10, 14,
+    10, 0, 10, 10, 14,
+    0, 0, 0, 0, 31,
+    12, 18, 7, 2, 31,
+    0, 0, 0, 0, 31,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 31,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    4, 0, 6, 17, 14,
+    0, 0, 28, 4, 4,
+    0, 0, 7, 4, 4,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    4, 0, 4, 4, 4,
+    4, 18, 9, 18, 4,
+    4, 9, 18, 9, 4,
+    0, 10, 0, 10, 0,
+    10, 21, 10, 21, 10,
+    21, 10, 21, 10, 21,
+    4, 4, 4, 4, 4,
+    4, 4, 7, 4, 4,
+    4, 7, 4, 7, 4,
+    10, 10, 11, 10, 10,
+    0, 0, 15, 10, 10,
+    0, 7, 4, 7, 4,
+    10, 11, 8, 11, 10,
+    10, 10, 10, 10, 10,
+    0, 15, 8, 11, 10,
+    10, 11, 8, 15, 0,
+    10, 10, 15, 0, 0,
+    4, 7, 4, 7, 0,
+    0, 0, 7, 4, 4,
+    4, 4, 28, 0, 0,
+    4, 4, 31, 0, 0,
+    0, 0, 31, 4, 4,
+    4, 4, 28, 4, 4,
+    0, 0, 31, 0, 0,
+    4, 4, 31, 4, 4,
+    4, 28, 4, 28, 4,
+    10, 10, 26, 10, 10,
+    10, 26, 2, 30, 0,
+    0, 30, 2, 26, 10,
+    10, 27, 0, 31, 0,
+    0, 31, 0, 27, 10,
+    10, 26, 2, 26, 10,
+    0, 31, 0, 31, 0,
+    10, 27, 0, 27, 10,
+    4, 31, 0, 31, 0,
+    10, 10, 31, 0, 0,
+    0, 31, 0, 31, 4,
+    0, 0, 31, 10, 10,
+    10, 10, 30, 0, 0,
+    4, 28, 4, 28, 0,
+    0, 28, 4, 28, 4,
+    0, 0, 30, 10, 10,
+    10, 10, 31, 10, 10,
+    4, 31, 4, 31, 4,
+    4, 4, 7, 0, 0,
+    0, 0, 28, 4, 4,
+    31, 31, 31, 31, 31,
+    0, 0, 31, 31, 31,
+    3, 3, 3, 3, 3,
+    24, 24, 24, 24, 24,
+    31, 31, 31, 0, 0,
+    0, 0, 0, 0, 0,
+    6, 9, 13, 17, 13,
+    0, 0, 0, 0, 0,
+    14, 17, 17, 17, 14,
+    0, 4, 10, 4, 0,
+    0, 0, 4, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 4, 0, 0,
+    0, 4, 10, 4, 0,
+    0, 0, 0, 0, 0,
+    14, 17, 17, 10, 27,
+    7, 1, 6, 9, 6,
+    0, 14, 31, 14, 0,
+    16, 14, 10, 14, 1,
+    12, 2, 14, 2, 12,
+    6, 9, 9, 9, 9,
+    14, 0, 14, 0, 14,
+    4, 14, 4, 0, 14,
+    2, 4, 8, 4, 14,
+    8, 4, 2, 4, 14,
+    8, 20, 4, 4, 4,
+    4, 4, 4, 5, 2,
+    4, 0, 14, 0, 4,
+    10, 5, 0, 10, 5,
+    4, 14, 4, 0, 0,
+    0, 14, 14, 14, 0,
+    0, 0, 4, 0, 0,
+    24, 8, 11, 10, 4,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0
 ];
 
 const cp437 = {
