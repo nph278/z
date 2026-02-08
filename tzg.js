@@ -4,9 +4,9 @@ const cellwidth = fontwidth + 3;
 const grid = Array.from({ length: size }, () => new Array(size).fill("0"));
 const data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
-const nums = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "qr", "east", "meck", "beagle", "drye", "english", "hint", "parker", "pool", "tunnel"];
+const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "hint", "parker", "pool", "tunnel"];
 
 const pipev = "║";
 const pipeh = "═";
@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 score += 1;
                 const n = neighbors([cellx, celly])
                 if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
+                    msg+=" "+"*".repeat(n.length);
                     path = n;
                     score += 1;
                 }
@@ -153,6 +154,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     score += (+prev + 1);
                     shower(cellx, celly, 1);
                     if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
+                        msg+=" "+"*".repeat(n.length);
                         path = n;
                         score += (+prev + 1);
                     }
@@ -171,7 +173,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (spell) {
                     shower(cellx, celly, 30);
                     score += 100;
-                    msg = "*"+spell[1]+"*";
+                    msg = "¡"+spell[1]+"!";
                     clearmsg = 20;
                     for (let i = 0; i < spell[1].length; i++) {
                         if (spell[0]) {
@@ -341,7 +343,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
             if (yes) {
                 path = p;
-                msg = k.toUpperCase();
+                msg = k.toUpperCase() + "*".repeat(p.length - 1);
                 clearmsg = 20;
             }
         }
@@ -526,12 +528,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         for (let i = 0; i < size; i++) {
             for (let j = 0; j < size; j++) {
                 if (grid[i][j] === "~") {
-                    if (i+1 < size && grid[i + 1][j] === "0") {
+                    if (i+1 < size && "1234567890".includes(grid[i + 1][j])) {
                         grid[i][j] = "0";
                         grid[i+1][j] = "~";
                     } else {
-                        let l = (j - 1 >= 0) && grid[i][j-1] === "0";
-                        let r = (j + 1 < size) && grid[i][j+1] === "0";
+                        let l = (j - 1 >= 0) && "1234567890".includes(grid[i][j-1]);
+                        let r = (j + 1 < size) && "1234567890".includes(grid[i][j+1]);
                         if (l && r) {
                             l = Math.random() < 0.5;
                             r = !l;
