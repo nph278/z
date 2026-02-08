@@ -5,7 +5,6 @@ const fontwidth = 5;
 const cellwidth = fontwidth + 3;
 const grid = Array.from({ length: size }, () => new Array(size).fill("0"));
 const data = Array.from({ length: size }, () => new Array(size).fill(false));
-const sizemult = 4;
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 
@@ -43,8 +42,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const height = gridpixels + barheight;
     canvas.width = width;
     canvas.height = height;
+    let sizemult = 1;
     const ctx = canvas.getContext("2d");
-    canvas.style.width = sizemult * width + "px";
+    canvas.style.width = width + "px";
     let particles = [];
 
     const neighbors = (e) => [[e[0]+1, e[1]],
@@ -383,6 +383,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     let frame = 0;
     const draw = () => {
+        sizemult = Math.floor(Math.min(window.innerWidth, window.innerHeight) / width);
+        canvas.style.width = sizemult * width + "px";
         ctx.clearRect(0, 0, width, height)
 
         // Grid
