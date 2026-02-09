@@ -7,6 +7,7 @@ const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
 const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "hint", "parker", "pool", "tunnel"];
+const angle_steps = 12;
 
 const pipev = "║";
 const pipeh = "═";
@@ -18,6 +19,7 @@ const pipe = ["║", "╗", "╝", "╚", "╔", "═"];
 // summon bouncing drye image
 
 const unpat = (p) => p.split(" ").map((a) => a.split("").map(a => parseInt(a)));
+
 
 const qrpat = "00000000000000000000000 01111111001000011111110 01000001011000010000010 01011101001011010111010 01011101011011010111010 01011101000101010111010 01000001011101010000010 01111111010101011111110 00000000000110000000000 01111101111001101010100 01001100110110000011010 00110101110100011100110 01110010101100110101000 01011001000011110000000 00000000011100001011000 01111111011100110100100 01000001000100101100010 01011101011011000011010 01011101010011101111100 01011101010100110110000 01000001010111001111110 01111111010011101001100 00000000000000000000000";
 const qr = unpat(qrpat);
@@ -59,11 +61,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let notes = "welcome to the zeagle game  the zeagle game is a registered trademark of the east mecklenburg zeagle  the east mecklenburg zeagle has no official ties to east mecklenburg or the eagle or the beagle thereof  ".split(" ");
     let clearmsg = 0;
     let qrcount = 0;
-    let coolnum = "0";
     let score = 0;
     let path = false;
 
     const dryes = [];
+    let man = false; // False: not started, null: dead
+    let manlife = 0;
 
     cheat = () => {
         grid[0].fill("9");
@@ -186,7 +189,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         qrcount = 5;
                     } else if (nums.includes(spell[1])) {
                         grid[celly][cellx] = "+";
-                        coolnum = (nums.indexOf(spell[1])).toString();
+                        data[celly][cellx] = (nums.indexOf(spell[1])).toString();
                     } else if (spell[1] === "english") {
                         for (let i = 0; i < size; i++) {
                             for (let j = 0; j < size; j++) {
@@ -306,14 +309,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             } else if (prev === "+") {
                 score += 13;
-                grid[celly][cellx] = coolnum;
+                grid[celly][cellx] = data[celly][cellx];
                 neighbors([cellx, celly]).forEach((xy) => {
-                    if (grid[xy[1]][xy[0]] !== coolnum) {
+                    if (grid[xy[1]][xy[0]] !== data[celly][cellx]) {
                         grid[xy[1]][xy[0]] = "+";
+                        data[xy[1]][xy[0]] = data[celly][cellx];
                     }
                 });
-                msg = coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum + coolnum;
+                msg = data[celly][cellx].repeat(20);
                 clearmsg = 10;
+                data[celly][cellx] = "0";
             } else if (prev === "☻") {
                 grid[celly][cellx] = "0";
             } else if (pipe.includes(prev)) {
@@ -375,6 +380,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (a === "~") { return "white";}
         else if (pipe.includes(a)) {return "black"}
         else if (a === "ü") {return "black"}
+        else if (a === "ö") {return "black"}
     };
 
     const bgcolor = (a, x) => {
@@ -390,10 +396,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (a === "~") { return Math.random() < .05 ? "#0000ff" : "#4040ff";}
         else if (pipe.includes(a)) {return "red"}
         else if (a === "ü") {return "peachpuff"}
+        else if (a === "ö") {return "white"}
     };
 
     let frame = 0;
     const draw = () => {
+        const fans = Array.from({ length: size }, () => new Array(size).fill(false));
         sizemult = Math.floor(Math.min(window.innerWidth, window.innerHeight) / width);
         canvas.style.width = sizemult * width + "px";
         ctx.clearRect(0, 0, width, height)
@@ -406,6 +414,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 let value = grid[j][i];
                 if (dryes.some(xy => xy[0] === i && xy[1] === j)) {
                     value = "ü";
+                }
+                if (man && man[0] === i && man[1] === j) {
+                    value = "ö";
                 }
                 if (qrcount && qr[j][i]) {
                     value = ["", "·", "■", "█", "■", "·"][qrcount];
@@ -427,6 +438,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                 } catch {
                     console.log(value);
+                }
+            }
+        }
+
+        const angle = Math.PI * 2 * (frame % angle_steps) / angle_steps;
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                if (i+1 < size && j+1 < size && grid[j][i] === "4" && grid[j][i+1] === "4" && grid[j+1][i] === "4" && grid[j+1][i+1] === "4" && !fans[j][i] && !fans[j][i+1] && !fans[j+1][i] && !fans[j+1][i+1]) {
+                    fans[j+1][i] = true;
+                    fans[j][i+1] = true;
+                    fans[j+1][i+1] = true;
+                    ctx.beginPath();
+                    ctx.strokeStyle = "rgba(0,0,0,0.8)";
+                    ctx.arc((i+1)*cellwidth, (j+1)*cellwidth, cellwidth, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo((i+1+Math.cos(angle))*cellwidth,
+                               (j+1+Math.sin(angle))*cellwidth);
+                    ctx.lineTo((i+1+Math.cos(angle+Math.PI))*cellwidth,
+                               (j+1+Math.sin(angle+Math.PI))*cellwidth);
+                    ctx.stroke();
                 }
             }
         }
@@ -473,6 +505,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 
     const update = () => {
+        if (frame % angle_steps === 0) {
+            const fans = Array.from({ length: size }, () => new Array(size).fill(false));
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (i+1 < size && j+1 < size && grid[j][i] === "4" && grid[j][i+1] === "4" && grid[j+1][i] === "4" && grid[j+1][i+1] === "4" && !fans[j][i] && !fans[j][i+1] && !fans[j+1][i] && !fans[j+1][i+1]) {
+                        fans[j+1][i] = true;
+                        fans[j][i+1] = true;
+                        fans[j+1][i+1] = true;
+                        shower(i+.5, j+.5, 1);
+                        score++;
+                    }
+                }
+            }
+        }
+
+        if (man) {
+            const n = neighbors(man);
+            const options = n .filter(xy => grid[xy[1]][xy[0]] === "5");
+            if (grid[man[1]][man[0]] === "5") {
+                manlife = 70;
+                if (frame % 10 === 0) {
+                    if (options.length) {
+                        man = options[Math.floor(Math.random() * options.length)];
+                    }
+                }
+            } else {
+                if (options.length) {
+                    man = options[Math.floor(Math.random() * options.length)];
+                } else {
+                    man = n[Math.floor(Math.random() * n.length)];
+                }
+                manlife--;
+                if (!manlife) {
+                    grid[man[1]][man[0]] = "~";
+                    man = null;
+                }
+            }
+        } else if (man === false) {
+            outer: for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (grid[j][i] === "5" &&
+                        neighbors([i,j]).every(xy => grid[xy[1]][xy[0]] === "5")) {
+                        man = [i, j];
+                        shower(i, j, 10);
+                        break outer;
+                    }
+                }
+            }
+        }
+
         frame++;
         if (qrcount === 1) {
             for (let i = 0; i < size; i++) {
@@ -706,7 +788,7 @@ const font = [
     0, 0, 0, 0, 0,
     0, 0, 0, 0, 0,
     0, 0, 0, 0, 0,
-    10, 0, 14, 10, 14,
+    10, 0, 0, 0, 14,
     0, 0, 0, 0, 0,
     3, 25, 11, 9, 11,
     28, 23, 21, 21, 29,
@@ -924,4 +1006,5 @@ const cp437 = {
     "╔": 0xc9,
     "═": 0xcd,
     "ü": 0x81,
+    "ö": 0x94,
 };
