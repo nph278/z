@@ -6,7 +6,7 @@ const data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "hint", "parker", "pool", "tunnel"];
+const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "math", "hint", "parker", "pool", "tunnel"];
 const angle_steps = 12;
 
 const pipev = "║";
@@ -195,6 +195,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             for (let j = 0; j < size; j++) {
                                 if (Math.random() < 0.1) {
                                     grid[i][j] = abc[Math.floor(Math.random()*26)];
+                                }
+                            }
+                        }
+                    } else if (spell[1] === "math") {
+                        const possible = "56789";
+                        for (let i = 0; i < size; i++) {
+                            for (let j = 0; j < size; j++) {
+                                if (Math.random() < 0.1) {
+                                    grid[i][j] = possible[Math.floor(Math.random()*possible.length)];
                                 }
                             }
                         }
