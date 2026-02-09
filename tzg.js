@@ -27,6 +27,8 @@ const qr = unpat(qrpat);
 const tonum = (a) => {
     if ("0123456789".includes(a)) {
         return +a;
+    } else if (a === "?") {
+        return 9;
     } else {
         return 0;
     }
@@ -58,15 +60,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                                        l[1] >= 0 &&
                                                        l[1] < size));
     let msg = "";
+    let msgoffset = [0,0];
     let notes = "welcome to the zeagle game  the zeagle game is a registered trademark of the east mecklenburg zeagle  the east mecklenburg zeagle has no official ties to east mecklenburg or the eagle or the beagle thereof  ".split(" ");
     let clearmsg = 0;
     let qrcount = 0;
     let score = 0;
-    let path = false;
+    let paths = [];
 
     const dryes = [];
     let man = false; // False: not started, null: dead
     let manlife = 0;
+
+    const setmsg = (m) => {
+        msg = m;
+        const s = 50;
+        msgoffset = [Math.random() * s,
+                     Math.random() * s];
+    };
 
     cheat = () => {
         grid[0].fill("9");
@@ -126,6 +136,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+    const addpath = (p) => {
+        if (!paths.some(q => p.every(x => q.some(y => x[0]===y[0] && x[1]===y[1])))) {
+            paths.push(p);
+            if (paths.length > 5) {
+                paths.shift(1);
+            }
+        }
+    }
+
     canvas.onclick = (e) => {
         const rect = canvas.getBoundingClientRect();
         const x = (e.clientX - rect.left)/sizemult;
@@ -137,14 +156,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             const prev = grid[celly][cellx];
             if (prev === "0") {
-                msg = "1";
+                setmsg("1");
                 clearmsg = 5;
                 grid[celly][cellx] = "1";
                 score += 1;
                 const n = neighbors([cellx, celly])
                 if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
                     msg+=" "+"*".repeat(n.length);
-                    path = n;
+                    addpath(n);
                     score += 1;
                 }
             } else if ("12345678".includes(prev)) {
@@ -152,22 +171,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
                 if (sum > prev) {
                     grid[celly][cellx] = (+prev + 1).toString();
-                    msg = (+prev + 1).toString();
+                    setmsg((+prev + 1).toString());
                     clearmsg = 5;
                     score += (+prev + 1);
                     shower(cellx, celly, 1);
                     if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
                         msg+=" "+"*".repeat(n.length);
-                        path = n;
+                        addpath(n);
                         score += (+prev + 1);
                     }
                 } else {
-                    msg = "No";
+                    setmsg("No");
                     clearmsg = 10;
                 }
             } else if (prev === "9") {
                 shower(cellx, celly, 1);
-                msg = "keyboard";
+                setmsg("keyboard");
                 clearmsg = 0;
                 grid[celly][cellx] = "?";
                 score += 10;
@@ -176,7 +195,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (spell) {
                     shower(cellx, celly, 30);
                     score += 100;
-                    msg = "¡"+spell[1]+"!";
+                    setmsg("¡"+spell[1]+"!");
                     clearmsg = 20;
                     for (let i = 0; i < spell[1].length; i++) {
                         if (spell[0]) {
@@ -186,27 +205,47 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }
                     }
                     if (spell[1] === "qr") {
+                        if (qrcount) {
+                            for (let i = 0; i < size; i++) {
+                                for (let j = 0; j < size; j++) {
+                                    if (qr[i][j]) {
+                                        improve([j, i]);
+                                    }
+                                }
+                            }
+                        }
                         qrcount = 5;
+                        addpath([[1,1],[1,7],[7,1],[7,7]]);
+                        addpath([[15,1],[15,7],[21,1],[21,7]]);
+                        addpath([[1,15],[1,21],[7,15],[7,21]]);
                     } else if (nums.includes(spell[1])) {
                         grid[celly][cellx] = "+";
                         data[celly][cellx] = (nums.indexOf(spell[1])).toString();
+                        addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
+                        addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
                     } else if (spell[1] === "english") {
+                        const p = [];
                         for (let i = 0; i < size; i++) {
                             for (let j = 0; j < size; j++) {
                                 if (Math.random() < 0.1) {
                                     grid[i][j] = abc[Math.floor(Math.random()*26)];
+                                    p.push([j,i]);
                                 }
                             }
                         }
+                        addpath(p);
                     } else if (spell[1] === "math") {
                         const possible = "56789";
+                        const p = [];
                         for (let i = 0; i < size; i++) {
                             for (let j = 0; j < size; j++) {
                                 if (Math.random() < 0.1) {
                                     grid[i][j] = possible[Math.floor(Math.random()*possible.length)];
+                                    p.push([j,i]);
                                 }
                             }
                         }
+                        addpath(p);
                     } else if (spell[1] === "hint") {
                         const q = spells.filter(s => (s !== "hint"))
                         const s = q[Math.floor(Math.random() * q.length)];
@@ -215,12 +254,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 grid[i][j] = i === j ? s[i] : "0";
                             }
                         }
+                        const p1 = [];
+                        const p2 = [];
+                        for (let x = 1; x < s.length; x++) {
+                            for (let y = 0; y < x; y++) {
+                                p1.push([x,y]);
+                                p2.push([y,x]);
+                            }
+                        }
+                        addpath(p1);
+                        addpath(p2);
+                        addpath([[-1,-1],[-1,s.length], [s.length,s.length],[s.length,-1]]);
                     } else if (spell[1] === "beagle") {
                         for (let i = 0; i < size; i++) {
                             grid[i].fill("☻");
                             score = 666;
                         }
-                        console.log(grid);
                     } else if (spell[1] === "parker") {
                         for (let i = 0; i < size; i++) {
                             grid[i][0] = "4";
@@ -231,6 +280,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             grid[i][5] = "o";
                             grid[i][6] = "t";
                         }
+                        addpath([[7,0],[7,size-1]]);
                     } else if (spell[1] === "pool") {
                         for (let i = 0; i < size; i++) {
                             grid[0][i] = "~";
@@ -238,9 +288,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             grid[2][i] = "~";
                             grid[3][i] = "☻";
                         }
+                        addpath([[0,4],[size-1,4]]);
                     } else if (spell[1] === "drye") {
                         dryes.push([cellx, celly]);
+                        addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
+                        addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
                     } else if (spell[1] === "tunnel") {
+                        addpath([[0,0],[0,size-1]]);
+                        addpath([[size-1,0],[size-1,size-1]]);
                         const p = [];
                         let x = Math.floor(size / 2);
                         let y = 1;
@@ -313,7 +368,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         grid[size-1][px+3] = "s";
                     }
                 } else {
-                    msg = "No";
+                    setmsg("No");
                     clearmsg = 10;
                 }
             } else if (prev === "+") {
@@ -325,7 +380,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         data[xy[1]][xy[0]] = data[celly][cellx];
                     }
                 });
-                msg = data[celly][cellx].repeat(20);
+                setmsg(data[celly][cellx].repeat(20));
                 clearmsg = 10;
                 data[celly][cellx] = "0";
             } else if (prev === "☻") {
@@ -341,13 +396,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const handlekey = (k) => {
         let s = 0;
         if (abc.includes(k)) {
-            let yes = false;
             let p = [];
             for (let i = 0; i < size; i++) {
                 for (let j = 0; j < size; j++) {
                     if (grid[i][j] === "?") {
                         grid[i][j] = k;
-                        yes = true;
                         p.push([j, i]);
                         shower(j, i, 10);
                         s += 10;
@@ -355,10 +408,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                 }
             }
-            if (yes) {
-                path = p;
-                msg = k.toUpperCase() + "*".repeat(p.length - 1);
+            if (p.length) {
+                setmsg(k.toUpperCase() + "*".repeat(p.length - 1));
                 clearmsg = 20;
+                if (p.length > 1) {
+                    addpath(p);
+                }
             }
         }
         requestAnimationFrame(draw);
@@ -399,7 +454,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (a === "?") { return "green";}
         else if (abc.includes(a)) {return "green"}
         else if (["·", "■", "█"].includes(a)) {return "white"}
-        else if (a === "+") { return x%2 ? "red" : "blue";}
+        else if (a === "+") { return x%2 ? "orange" : "yellow";}
         else if (a === "☻") { return "red";}
         else if (a === "☺") { return "green";}
         else if (a === "~") { return Math.random() < .05 ? "#0000ff" : "#4040ff";}
@@ -476,9 +531,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
         ctx.fillRect(0, gridpixels-1, gridpixels, 1);
         ctx.fillRect(gridpixels-1, 0, 1, gridpixels);
 
+        const shake = 2;
+        paths.forEach(path => {
+            ctx.beginPath();
+            ctx.strokeStyle = "hsl(" + frame*100 + ", 100%, 50%, 0.8)";
+            ctx.moveTo((path[0][0]+.5)*cellwidth + Math.random()*shake,
+                       (path[0][1]+.5)*cellwidth + Math.random()*shake);
+            for (let i = 1; i < path.length; i++) {
+                ctx.lineTo((path[i][0]+.5)*cellwidth + Math.random()*shake,
+                           (path[i][1]+.5)*cellwidth + Math.random()*shake);
+            }
+            ctx.lineTo((path[0][0]+.5)*cellwidth + Math.random()*shake,
+                       (path[0][1]+.5)*cellwidth + Math.random()*shake);
+            ctx.stroke();
+        });
+
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            ctx.fillStyle = "hsl(" + p.age * 100 + ", 100%, 50%)";
+            ctx.fillRect(p.x, p.y, 4, 4);
+        }
+
         ctx.fillStyle = frame%2 ? "magenta" : "purple";
         ctx.font = "80px Monsieur La Doulaise";
-        ctx.fillText(msg, 0, 90 - clearmsg);
+        ctx.fillText(msg, 0+msgoffset[0], 90 - clearmsg + msgoffset[1]);
 
         ctx.fillStyle = frame%2 ? "yellow" : "orange";
         ctx.font = "40px Monsieur La Doulaise";
@@ -490,26 +566,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             ctx.fillText("ClickHere2Type", 0, gridpixels+ 16);
         } else {
             ctx.fillText("Score: " + score, 0, gridpixels+ 16);
-        }
-
-        if (path) {
-            ctx.beginPath();
-            ctx.strokeStyle = "black";
-            ctx.moveTo((path[0][0]+.5)*cellwidth,
-                       (path[0][1]+.5)*cellwidth);
-            for (let i = 1; i < path.length; i++) {
-                ctx.lineTo((path[i][0]+.5)*cellwidth,
-                           (path[i][1]+.5)*cellwidth);
-            }
-            ctx.lineTo((path[0][0]+.5)*cellwidth,
-                       (path[0][1]+.5)*cellwidth);
-            ctx.stroke();
-        }
-
-        for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            ctx.fillStyle = "hsl(" + p.age * 100 + ", 100%, 50%)";
-            ctx.fillRect(p.x, p.y, 4, 4);
         }
     };
 
@@ -590,11 +646,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                 }
                 if (yes) {
-                    msg = "keyboard";
-                } else {
-                    msg = "";
+                    setmsg("keyboard");
                 }
-                path = false;
             }
         }
 
