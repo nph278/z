@@ -187,9 +187,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
             } else if (prev === "9") {
                 shower(cellx, celly, 1);
                 setmsg("keyboard");
-                clearmsg = 0;
+                clearmsg = 5;
                 grid[celly][cellx] = "?";
-                score += 10;
+            } else if (prev === "?") {
+                setmsg("cancelled");
+                clearmsg = 5;
+                grid[celly][cellx] = "9";
             } else if (abc.includes(prev)) {
                 const spell = getspell([cellx, celly]);
                 if (spell) {
@@ -534,7 +537,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const shake = 2;
         paths.forEach(path => {
             ctx.beginPath();
-            ctx.strokeStyle = "hsl(" + frame*100 + ", 100%, 50%, 0.8)";
+            ctx.strokeStyle = "hsl(" + frame*20 + ", 100%, 50%, 0.8)";
             ctx.moveTo((path[0][0]+.5)*cellwidth + Math.random()*shake,
                        (path[0][1]+.5)*cellwidth + Math.random()*shake);
             for (let i = 1; i < path.length; i++) {
