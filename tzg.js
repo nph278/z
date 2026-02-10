@@ -92,36 +92,47 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-    const getspell = (xy) => {
-        let x = xy[0];
-        let y = xy[1];
-        let s = "";
-        while (x < size) {
-            const a = grid[y][x];
-            if (abc.includes(a)) {
-                s += a;
-                if (spells.includes(s)) {
-                    return [false, s];
-                }
-            } else {
-                break;
+    const checkspellx = (x, y, s) => {
+        for (let i = 0; i < s.length; i++) {
+            if (grid[y][x+i] !== s[i]) {
+                return false;
             }
-            x++;
         }
-        x = xy[0];
-        y = xy[1];
-        s = "";
-        while (y < size) {
-            const a = grid[y][x];
-            if (abc.includes(a)) {
-                s += a;
-                if (spells.includes(s)) {
-                    return [true, s];
-                }
-            } else {
-                break;
+        return true;
+    }
+
+    const checkspelly = (x, y, s) => {
+        for (let i = 0; i < s.length; i++) {
+            if (grid[y+i][x] !== s[i]) {
+                return false;
             }
-            y++;
+        }
+        return true;
+    }
+
+
+    const getspell = (xy) => {
+        for (let i = 0; i < spells.length; i++) {
+            const s = spells[i];
+            for (let x = Math.max(0, xy[0] - s.length + 1); x + s.length - 1 < Math.min(xy[0] + size, size); x++) {
+                if (checkspellx(x, xy[1], s)) {
+                    for (let j = 0; j < s.length; j++) {
+                        grid[xy[1]][x+j] = "0";
+                    }
+                    return s;
+                }
+            }
+        }
+        for (let i = 0; i < spells.length; i++) {
+            const s = spells[i];
+            for (let y = Math.max(0, xy[1] - s.length + 1); y + s.length - 1 < Math.min(xy[1] + size, size); y++) {
+                if (checkspelly(xy[0], y, s)) {
+                    for (let j = 0; j < s.length; j++) {
+                        grid[y+j][xy[0]] = "0";
+                    }
+                    return s;
+                }
+            }
         }
         return false;
     }
@@ -198,16 +209,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (spell) {
                     shower(cellx, celly, 30);
                     score += 100;
-                    setmsg("¡"+spell[1]+"!");
+                    setmsg("¡"+spell+"!");
                     clearmsg = 20;
-                    for (let i = 0; i < spell[1].length; i++) {
-                        if (spell[0]) {
-                            grid[celly + i][cellx] = "0";
-                        } else {
-                            grid[celly][cellx + i] = "0";
-                        }
+                    for (let i = 0; i < spell.length; i++) {
                     }
-                    if (spell[1] === "qr") {
+                    if (spell === "qr") {
                         if (qrcount) {
                             for (let i = 0; i < size; i++) {
                                 for (let j = 0; j < size; j++) {
@@ -221,12 +227,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath([[1,1],[1,7],[7,1],[7,7]]);
                         addpath([[15,1],[15,7],[21,1],[21,7]]);
                         addpath([[1,15],[1,21],[7,15],[7,21]]);
-                    } else if (nums.includes(spell[1])) {
+                    } else if (nums.includes(spell)) {
                         grid[celly][cellx] = "+";
-                        data[celly][cellx] = (nums.indexOf(spell[1])).toString();
+                        data[celly][cellx] = (nums.indexOf(spell)).toString();
                         addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
                         addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
-                    } else if (spell[1] === "english") {
+                    } else if (spell === "english") {
                         const p = [];
                         for (let i = 0; i < size; i++) {
                             for (let j = 0; j < size; j++) {
@@ -237,7 +243,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             }
                         }
                         addpath(p);
-                    } else if (spell[1] === "math") {
+                    } else if (spell === "math") {
                         const possible = "56789";
                         const p = [];
                         for (let i = 0; i < size; i++) {
@@ -249,7 +255,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             }
                         }
                         addpath(p);
-                    } else if (spell[1] === "hint") {
+                    } else if (spell === "hint") {
                         const q = spells.filter(s => (s !== "hint"))
                         const s = q[Math.floor(Math.random() * q.length)];
                         for (let i = 0; i < s.length; i++) {
@@ -268,12 +274,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath(p1);
                         addpath(p2);
                         addpath([[-1,-1],[-1,s.length], [s.length,s.length],[s.length,-1]]);
-                    } else if (spell[1] === "beagle") {
+                    } else if (spell === "beagle") {
                         for (let i = 0; i < size; i++) {
                             grid[i].fill("☻");
                             score = 666;
                         }
-                    } else if (spell[1] === "parker") {
+                    } else if (spell === "parker") {
                         for (let i = 0; i < size; i++) {
                             grid[i][0] = "4";
                             grid[i][1] = "9";
@@ -284,7 +290,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             grid[i][6] = "t";
                         }
                         addpath([[7,0],[7,size-1]]);
-                    } else if (spell[1] === "pool") {
+                    } else if (spell === "pool") {
                         for (let i = 0; i < size; i++) {
                             grid[0][i] = "~";
                             grid[1][i] = "~";
@@ -292,11 +298,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             grid[3][i] = "☻";
                         }
                         addpath([[0,4],[size-1,4]]);
-                    } else if (spell[1] === "drye") {
+                    } else if (spell === "drye") {
                         dryes.push([cellx, celly]);
                         addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
                         addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
-                    } else if (spell[1] === "tunnel") {
+                    } else if (spell === "tunnel") {
                         addpath([[0,0],[0,size-1]]);
                         addpath([[size-1,0],[size-1,size-1]]);
                         const p = [];
@@ -537,15 +543,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const shake = 2;
         paths.forEach(path => {
             ctx.beginPath();
+            const s1 = Math.random()*shake;
+            const s2 = Math.random()*shake;
             ctx.strokeStyle = "hsl(" + frame*20 + ", 100%, 50%, 0.8)";
-            ctx.moveTo((path[0][0]+.5)*cellwidth + Math.random()*shake,
-                       (path[0][1]+.5)*cellwidth + Math.random()*shake);
+            ctx.moveTo((path[0][0]+.5)*cellwidth + s1,
+                       (path[0][1]+.5)*cellwidth + s2);
             for (let i = 1; i < path.length; i++) {
                 ctx.lineTo((path[i][0]+.5)*cellwidth + Math.random()*shake,
                            (path[i][1]+.5)*cellwidth + Math.random()*shake);
             }
-            ctx.lineTo((path[0][0]+.5)*cellwidth + Math.random()*shake,
-                       (path[0][1]+.5)*cellwidth + Math.random()*shake);
+            ctx.lineTo((path[0][0]+.5)*cellwidth + s1,
+                       (path[0][1]+.5)*cellwidth + s2);
             ctx.stroke();
         });
 
