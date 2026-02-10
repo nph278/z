@@ -6,7 +6,7 @@ const data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "math", "hint", "parker", "pool", "tunnel"];
+const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "math", "hint", "parker", "pool", "tunnel", "aday", "bday"];
 const angle_steps = 12;
 
 const pipev = "║";
@@ -70,6 +70,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const dryes = [];
     let man = false; // False: not started, null: dead
     let manlife = 0;
+    let day = 0;
+
+    const addscore = (s) => {
+        if (day === 1) {
+            score += s * 2;
+        } else {
+            score += s;
+        }
+    }
 
     const setmsg = (m) => {
         msg = m;
@@ -167,29 +176,35 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             const prev = grid[celly][cellx];
             if (prev === "0") {
-                setmsg("1");
+                if (day === 2) {
+                    setmsg("2");
+                    grid[celly][cellx] = "2";
+                } else {
+                    setmsg("1");
+                    grid[celly][cellx] = "1";
+                }
                 clearmsg = 5;
-                grid[celly][cellx] = "1";
-                score += 1;
+                addscore(1);
                 const n = neighbors([cellx, celly])
                 if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
                     msg+=" "+"*".repeat(n.length);
                     addpath(n);
-                    score += 1;
+                    addscore(1);
                 }
             } else if ("12345678".includes(prev)) {
                 const n = neighbors([cellx, celly])
                 const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
                 if (sum > prev) {
-                    grid[celly][cellx] = (+prev + 1).toString();
-                    setmsg((+prev + 1).toString());
+                    const x = Math.min(9,+prev + ((day === 2)?2:1));
+                    grid[celly][cellx] = x.toString();
+                    setmsg(x.toString());
                     clearmsg = 5;
-                    score += (+prev + 1);
+                    addscore(x);
                     shower(cellx, celly, 1);
                     if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
                         msg+=" "+"*".repeat(n.length);
                         addpath(n);
-                        score += (+prev + 1);
+                        addscore(+prev + 1);
                     }
                 } else {
                     setmsg("No");
@@ -208,7 +223,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 const spell = getspell([cellx, celly]);
                 if (spell) {
                     shower(cellx, celly, 30);
-                    score += 100;
+                    addscore(100);
                     setmsg("¡"+spell+"!");
                     clearmsg = 20;
                     for (let i = 0; i < spell.length; i++) {
@@ -277,7 +292,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     } else if (spell === "beagle") {
                         for (let i = 0; i < size; i++) {
                             grid[i].fill("☻");
-                            score = 666;
+                            addscore(666);
                         }
                     } else if (spell === "parker") {
                         for (let i = 0; i < size; i++) {
@@ -302,6 +317,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         dryes.push([cellx, celly]);
                         addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
                         addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
+                    } else if (spell === "aday") {
+                        day = 1;
+                        canvas.style.background = "radial-gradient(circle, lightblue 0%, red 100%)";
+                    } else if (spell === "bday") {
+                        day = 2;
+                        canvas.style.background = "radial-gradient(circle, lightblue 0%, blue 100%)";
                     } else if (spell === "tunnel") {
                         addpath([[0,0],[0,size-1]]);
                         addpath([[size-1,0],[size-1,size-1]]);
@@ -381,7 +402,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     clearmsg = 10;
                 }
             } else if (prev === "+") {
-                score += 13;
+                addscore(13);
                 grid[celly][cellx] = data[celly][cellx];
                 neighbors([cellx, celly]).forEach((xy) => {
                     if (grid[xy[1]][xy[0]] !== data[celly][cellx]) {
@@ -413,7 +434,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         p.push([j, i]);
                         shower(j, i, 10);
                         s += 10;
-                        score += s;
+                        addscore(s);
                     }
                 }
             }
@@ -578,6 +599,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             ctx.fillText("Score: " + score, 0, gridpixels+ 16);
         }
+
+        if (day === 1) {
+            ctx.font = "15px Courier";
+            ctx.fillStyle = frame%2 ? "turquoise" : "cyan";
+            ctx.fillText("+ADay", 140, gridpixels+ 10);
+        } else if (day === 2) {
+            ctx.font = "15px Courier";
+            ctx.fillStyle = frame%2 ? "red" : "orangered";
+            ctx.fillText("+BDay", 140, gridpixels+ 10);
+        }
     };
 
     const update = () => {
@@ -590,7 +621,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         fans[j][i+1] = true;
                         fans[j+1][i+1] = true;
                         shower(i+.5, j+.5, 1);
-                        score++;
+                        addscore(1);
                     }
                 }
             }
