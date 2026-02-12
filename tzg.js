@@ -503,8 +503,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // Grid
         for (let i = 0; i < size; i++) {
             for (let j = 0; j < size; j++) {
-                const x = i * cellwidth;
-                const y = j * cellwidth;
+                let x = i * cellwidth;
+                let y = j * cellwidth;
                 let value = grid[j][i];
                 if (dryes.some(xy => xy[0] === i && xy[1] === j)) {
                     value = "ü";
@@ -514,6 +514,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
                 if (qrcount && qr[j][i]) {
                     value = ["", "·", "■", "█", "■", "·"][qrcount];
+                }
+                if (value === "0") {
+                    x+=Math.random()*.5;
+                    y+=Math.random()*.5;
                 }
                 ctx.fillStyle = bgcolor(value, frame);
                 ctx.fillRect(x, y, cellwidth, cellwidth);

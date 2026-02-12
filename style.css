@@ -187,6 +187,13 @@ section.article {
     margin-bottom: 0;
 }
 
+.article.lifestyle h2 {
+    font-family: "BBH Bartle", sans-serif;
+    transform: scale(100%, 50%);
+    filter: drop-shadow(5px 5px 0px green);
+    margin-bottom: 0;
+}
+
 img.p {
     display: block;
     width: 100%;
@@ -228,8 +235,8 @@ img.i {
     animation-iteration-count: infinite;
 }
 
-.opinion p, .opinion ul {
-    font-family: "Major Mono Display", monospace;
+.opinion p, .opinion ul, .lifestyle p, .lifestyle ul {
+    font-family: "major mono display", monospace;
     color: white;
 }
 
@@ -489,6 +496,7 @@ canvas {
     display: block;
     background: radial-gradient(circle, white 0%, black 100%);
     touch-action: manipulation;
+    /* cursor: url("tzg_cursor.png") 16 16, auto; */
 }
 
 #tzgrules {
