@@ -149,6 +149,7 @@ img {
         display: inline-block;
         margin-left: .5em;
         margin-right: .5em;
+        flex: 1 1 0px;
     }
 }
 
@@ -290,6 +291,7 @@ img.i {
     display: inline-block;
     background-image: url("./eye.png");
     background-size: contain;
+    image-rendering: auto;
 }
 
 @keyframes teeter {
@@ -507,3 +509,60 @@ canvas {
     padding: 1em;
 }
 
+#val .i {
+    animation-name: heartbeat;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+@keyframes heartbeat
+{
+  0% {
+    transform: scale(1, 1);
+  }
+  10% {
+    transform: scale(1.2, 1);
+  }
+  20% {
+    transform: scale(1.0, 1);
+  }
+  30% {
+    transform: scale(1.15, 1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+#val {
+    image-rendering: pixelated;
+    background-image: url("./val_bg.png");
+    background-size: 100%;
+    border-color: black;
+}
+
+#val * {
+    image-rendering: auto;
+    border-color: black;
+}
+
+#val-hwrap {
+    background: black;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 30px;
+}
+
+#val h2 {
+    margin: 0;
+    padding: 0;
+}
+
+#val p {
+    border-thickness: 15px;
+    border-style: solid;
+    border-color: red;
+}
