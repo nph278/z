@@ -6,7 +6,7 @@ const data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle"];
+const spells = ["hint", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -70,6 +70,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let warning = true;
 
     const dryes = [];
+    let targets = [];
+    const tlife = 30;
     let man = false; // False: not started, null: dead
     let manlife = 0;
     let day = 0;
@@ -125,7 +127,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const getspell = (xy) => {
         for (let i = 0; i < spells.length; i++) {
             const s = spells[i];
-            for (let x = Math.max(0, xy[0] - s.length + 1); x + s.length - 1 < Math.min(xy[0] + size, size); x++) {
+            for (let x = Math.max(0, xy[0] - s.length + 1); x + s.length - 1 < Math.min(xy[0] + s.length, size); x++) {
                 if (checkspellx(x, xy[1], s)) {
                     for (let j = 0; j < s.length; j++) {
                         grid[xy[1]][x+j] = "0";
@@ -136,7 +138,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
         for (let i = 0; i < spells.length; i++) {
             const s = spells[i];
-            for (let y = Math.max(0, xy[1] - s.length + 1); y + s.length - 1 < Math.min(xy[1] + size, size); y++) {
+            for (let y = Math.max(0, xy[1] - s.length + 1); y + s.length - 1 < Math.min(xy[1] + s.length, size); y++) {
                 if (checkspelly(xy[0], y, s)) {
                     for (let j = 0; j < s.length; j++) {
                         grid[y+j][xy[0]] = "0";
@@ -179,6 +181,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const celly = Math.floor(y/cellwidth);
             if (ismobile && (celly >= size) && msg === "keyboard") {
                 handlekey(prompt("Enter a letter")[0].toLowerCase());
+            } else if (targets.some(t=>t[0]===cellx && t[1]===celly)) {
+                targets = targets.filter(t=>!(t[0]===cellx && t[1]===celly));
+                shower(cellx, celly, 20);
+                addscore(1000);
             } else {
                 const prev = grid[celly][cellx];
                 if (prev === "0") {
@@ -278,6 +284,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 }
                             }
                             addpath(p);
+                        } else if (spell === "otot") {
+                            for (let j = 0; j < 2; j++) {
+                                targets.push([Math.floor(size*Math.random()),
+                                              Math.floor(size*Math.random()),
+                                              tlife]);
+                            }
                         } else if (spell === "hint") {
                             let s = "";
                             if (hint_words.length) {
@@ -623,6 +635,35 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.stroke();
             });
 
+            for (let i = 0; i < targets.length; i++) {
+                const t = targets[i];
+                const x = t[0];
+                const y = t[1];
+                const left = t[2];
+                const minr = .8*cellwidth;
+                const maxr = 3*cellwidth;
+                const r = minr+Math.exp(left*Math.log(maxr-minr)/tlife);
+                ctx.beginPath();
+                ctx.strokeStyle = "red";
+                ctx.arc((x+.5)*cellwidth,
+                        (y+.5)*cellwidth,
+                        r,
+                        0,
+                        2 * Math.PI);
+                ctx.stroke();
+                const lr1 = 0.5;
+                const lr2 = 1.4;
+                [0, Math.PI/2, Math.PI, 3*Math.PI/2].forEach(t => {
+                    const a = t + frame * .3;
+                    ctx.beginPath();
+                    ctx.moveTo((x+.5)*cellwidth + r * lr1 * Math.cos(a),
+                               (y+.5)*cellwidth + r * lr1 * Math.sin(a));
+                    ctx.lineTo((x+.5)*cellwidth + r * lr2 * Math.cos(a),
+                               (y+.5)*cellwidth + r * lr2 * Math.sin(a));
+                    ctx.stroke();
+                });
+            }
+
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
                 ctx.fillStyle = "hsl(" + p.age * 100 + ", 100%, 50%)";
@@ -642,6 +683,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (ismobile && msg === "keyboard") {
                 ctx.fillText("ClickHere2Type", 0, gridpixels+ 16);
             } else {
+                if (score < 0) {
+                    ctx.fillStyle = frame%2 ? "red" : "darkred";
+                }
                 ctx.fillText("Score: " + score, 0, gridpixels+ 16);
             }
 
@@ -672,6 +716,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
         }
+
+        for (let i = 0; i < targets.length; i++) {
+            const t = targets[i];
+            const x = t[0];
+            const y = t[1];
+            const left = t[2];
+            if (left) {
+                t[2]--;
+            } else {
+                targets[i] = false;
+                grid[y][x] = "x";
+                neighbors([x,y]).forEach(a => {
+                    grid[a[1]][a[0]] = "x";
+                });
+                addscore(-10000);
+            }
+        }
+
+        targets = targets.filter(a => a);
 
         if (man) {
             const n = neighbors(man);
