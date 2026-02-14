@@ -226,9 +226,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     clearmsg = 5;
                     grid[celly][cellx] = "9";
                 } else if (abc.includes(prev)) {
-                    const [spell, vert] = getspell([cellx, celly]);
-                    hint_words=hint_words.filter(q=>q!==spell);
-                    if (spell) {
+                    const sp = getspell([cellx, celly]);
+                    if (sp) {
+                        const [spell, vert] = sp;
+                        hint_words=hint_words.filter(q=>q!==spell);
                         shower(cellx, celly, 30);
                         addscore(100);
                         setmsg("¡"+spell+"!");
