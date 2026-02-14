@@ -6,7 +6,8 @@ const data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "math", "hint", "parker", "pool", "tunnel", "aday", "bday", "zeagle"];
+const spells = ["hint", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle"];
+let hint_words = spells;
 const angle_steps = 12;
 
 const pipev = "║";
@@ -226,6 +227,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     grid[celly][cellx] = "9";
                 } else if (abc.includes(prev)) {
                     const [spell, vert] = getspell([cellx, celly]);
+                    hint_words=hint_words.filter(q=>q!==spell);
                     if (spell) {
                         shower(cellx, celly, 30);
                         addscore(100);
@@ -276,8 +278,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             }
                             addpath(p);
                         } else if (spell === "hint") {
-                            const q = spells.filter(s => (s !== "hint"))
-                            const s = q[Math.floor(Math.random() * q.length)];
+                            let s = "";
+                            if (hint_words.length) {
+                                s = hint_words[Math.floor(Math.random() * hint_words.length)];
+                                hint_words=hint_words.filter(q=>q!==s);
+                            } else {
+                                s = "i0dont0have0any0more";
+                            }
                             for (let i = 0; i < s.length; i++) {
                                 for (let j = 0; j < s.length; j++) {
                                     grid[i][j] = i === j ? s[i] : "0";
@@ -332,10 +339,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             if (vert) {
                                 for (let i = 0; i < size; i++) {
                                     grid[i][cellx] = "9";
+                                    shower(cellx, i, 10);
                                 }
                             } else {
                                 for (let i = 0; i < size; i++) {
                                     grid[celly][i] = "9";
+                                    shower(i, celly, 10);
                                 }
                             }
                         } else if (spell === "tunnel") {
@@ -521,8 +530,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             ctx.fillText("Extreme flashing", 0, 50);
             ctx.fillText("lights warning", 0, 70);
             ctx.fillStyle = "white";
-            ctx.fillText("Mobile not", 0, 100);
-            ctx.fillText("recommended", 0, 120);
+            if (ismobile) {
+                ctx.fillText("Mobile not", 0, 100);
+                ctx.fillText("recommended", 0, 120);
+            }
             ctx.fillStyle = "white";
             ctx.fillText("Click2Begin", 0, 160);
         } else {
