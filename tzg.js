@@ -6,7 +6,7 @@ const data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot"];
+const spells = ["hint", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -75,6 +75,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let man = false; // False: not started, null: dead
     let manlife = 0;
     let day = 0;
+    let stockprice = 1000;
+    const shsize = 50;
+    let stockhistory = new Array(shsize).fill(stockprice);
+    let econ = false;
+    let stockowned = 0;
+    let fluctuation = 100;
+    const ewc = 8;
+    const ehc = 4;
 
     const addscore = (s) => {
         if (day === 1) {
@@ -185,6 +193,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 targets = targets.filter(t=>!(t[0]===cellx && t[1]===celly));
                 shower(cellx, celly, 20);
                 addscore(1000);
+            } else if (econ && (cellx < ewc) && (celly < ehc + 3)) {
+                if (celly === ehc + 1) {
+                    if (cellx < 3) {
+                        if (score >= stockprice) {
+                            score -= stockprice;
+                            stockowned++;
+                            shower(cellx, celly, 5);
+                        } else {
+                            setmsg("No");
+                            clearmsg = 10;
+                        }
+                    } else if (cellx > 3) {
+                        if (stockowned) {
+                            score += stockprice;
+                            stockowned--;
+                            shower(cellx, celly, 5);
+                        } else {
+                            setmsg("No");
+                            clearmsg = 10;
+                        }
+                    }
+                }
             } else {
                 const prev = grid[celly][cellx];
                 if (prev === "0") {
@@ -359,6 +389,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                     grid[celly][i] = "9";
                                     shower(i, celly, 10);
                                 }
+                            }
+                        } else if (spell === "econ") {
+                            if (econ) {
+                                fluctuation *= 2;
+                            } else {
+                                econ = true;
                             }
                         } else if (spell === "tunnel") {
                             addpath([[0,0],[0,size-1]]);
@@ -618,6 +654,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
             ctx.fillRect(0, gridpixels-1, gridpixels, 1);
             ctx.fillRect(gridpixels-1, 0, 1, gridpixels);
 
+            if (econ) {
+                const ew = ewc*cellwidth;
+                const eh = ehc*cellwidth;
+                const x = 100 + 80 * Math.sin(frame/10);
+                ctx.fillStyle = "rgb("+x+","+x+","+x+")";
+                ctx.fillRect(0,0,ew,eh);
+                const max = Math.max(...stockhistory);
+                const min = Math.min(...stockhistory);
+                for (let i = 1; i < shsize; i++) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = (stockhistory[i] >= stockhistory[i-1]) ?
+                        "green" : "red";
+                    ctx.moveTo(i * ew / shsize,
+                               eh - ((stockhistory[i-1]-min) * eh / (max-min)));
+                    ctx.lineTo(i * ew / shsize,
+                               eh - ((stockhistory[i]-min) * eh / (max-min)));
+                    ctx.stroke();
+                }
+
+                ctx.fillStyle = "blue";
+                ctx.font = "40px Monsieur La Doulaise";
+                ctx.fillText(fluctuation, 3, 24);
+            }
+
             const shake = 2;
             paths.forEach(path => {
                 ctx.beginPath();
@@ -702,6 +762,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 
     const update = () => {
+        stockprice += Math.floor((Math.random()-.5) * fluctuation);
+        stockprice = Math.max(stockprice, 10);
+        stockhistory.shift(1);
+        stockhistory.push(stockprice);
+        if (econ) {
+            for (let i = 0; i < ewc; i++) {
+                for (let j = 0; j < ehc+3; j++) {
+                    grid[j][i] = "0";
+                }
+            }
+            const s = stockprice.toString();
+            for (let i = 0; i < s.length; i++) {
+                grid[ehc][i + ewc - s.length] = s[i];
+            }
+            const m = "buy0sell";
+            for (let i = 0; i < m.length; i++) {
+                grid[ehc+1][i] = m[i];
+            }
+            const o = stockowned.toString();
+            for (let i = 0; i < o.length; i++) {
+                grid[ehc+2][i + ewc - o.length] = o[i];
+            }
+        }
+
         if (frame % angle_steps === 0) {
             const fans = Array.from({ length: size }, () => new Array(size).fill(false));
             for (let i = 0; i < size; i++) {
