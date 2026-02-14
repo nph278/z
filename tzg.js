@@ -347,7 +347,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         } else if (spell === "beagle") {
                             for (let i = 0; i < size; i++) {
                                 grid[i].fill("☻");
-                                addscore(666);
+                                score = 666;
+                                econ = false;
                             }
                         } else if (spell === "parker") {
                             for (let i = 0; i < size; i++) {
