@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             } else if (targets.some(t=>t[0]===cellx && t[1]===celly)) {
                 targets = targets.filter(t=>!(t[0]===cellx && t[1]===celly));
                 shower(cellx, celly, 20);
-                addscore(1000);
+                addscore(Math.max(1000, Math.floor(score*.1)));
             } else if (econ && (cellx < ewc) && (celly < ehc + 3)) {
                 if (celly === ehc + 1) {
                     if (cellx < 3) {
@@ -814,7 +814,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 neighbors([x,y]).forEach(a => {
                     grid[a[1]][a[0]] = "x";
                 });
-                addscore(-10000);
+                addscore(Math.min(-10000, -Math.floor(.5*score)));
             }
         }
 
