@@ -1,8 +1,8 @@
 const size = 23;
 const fontwidth = 5;
 const cellwidth = fontwidth + 3;
-const grid = Array.from({ length: size }, () => new Array(size).fill("0"));
-const data = Array.from({ length: size }, () => new Array(size).fill(false));
+let grid = Array.from({ length: size }, () => new Array(size).fill("0"));
+let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
@@ -20,6 +20,8 @@ const pipe = ["║", "╗", "╝", "╚", "╔", "═"];
 // summon bouncing drye image
 
 const unpat = (p) => p.split(" ").map((a) => a.split("").map(a => parseInt(a)));
+
+const framelength = 80;
 
 
 const qrpat = "00000000000000000000000 01111111001000011111110 01000001011000010000010 01011101001011010111010 01011101011011010111010 01011101000101010111010 01000001011101010000010 01111111010101011111110 00000000000110000000000 01111101111001101010100 01001100110110000011010 00110101110100011100110 01110010101100110101000 01011001000011110000000 00000000011100001011000 01111111011100110100100 01000001000100101100010 01011101011011000011010 01011101010011101111100 01011101010100110110000 01000001010111001111110 01111111010011101001100 00000000000000000000000";
@@ -67,9 +69,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let qrcount = 0;
     let score = 0;
     let paths = [];
-    let warning = true;
+    const scr_warn = 0;
+    const scr_choose = 1;
+    const scr_game = 2;
+    const scr_result = 3;
+    let screen = scr_warn;
+    let timed = false;
+    let framesleft = 0;
+    let mode = 0;
 
-    const dryes = [];
+    let dryes = [];
     let targets = [];
     const tlife = 30;
     let man = false; // False: not started, null: dead
@@ -178,10 +187,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     canvas.onclick = (e) => {
-        if (warning) {
-            warning = false;
+        if (screen === scr_warn || screen == scr_result) {
+            screen = scr_choose;
             requestAnimationFrame(draw);
-        } else {
+        } else if (screen === scr_choose) {
+            const rect = canvas.getBoundingClientRect();
+            const y = (e.clientY - rect.top)/sizemult;
+            const n = Math.floor((y - 70)/20);
+            if (n >= 0 && n < modes) {
+                begin_game(n+1);
+            }
+        } else if (screen == scr_game) {
             const rect = canvas.getBoundingClientRect();
             const x = (e.clientX - rect.left)/sizemult;
             const y = (e.clientY - rect.top)/sizemult;
@@ -498,26 +514,64 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+    const modes = 6;
+    const begin_game = (n) => {
+        console.log(n);
+        mode = n;
+        grid = Array.from({ length: size }, () => new Array(size).fill("0"));
+        data = Array.from({ length: size }, () => new Array(size).fill(false));
+        msg = "";
+        msgoffset = [0,0];
+        clearmsg = 0;
+        qrcount = 0;
+        score = 0;
+        paths = [];
+        particles = [];
+        dryes = [];
+        targets = [];
+        man = false;
+        manlife = 0;
+        day = 0;
+        stockprice = 1000;
+        stockhistory = new Array(shsize).fill(stockprice);
+        econ = false;
+        stockowned = 0;
+        fluctuation = 100;
+        screen = scr_game;
+        frame = 0;
+        timed = n > 1;
+        let mins = [0, 0, 1, 5, 10, 30, .5][n];
+        framesleft = Math.floor(mins * 60 * (1000/framelength));
+        requestAnimationFrame(draw);
+    }
+
     const handlekey = (k) => {
-        let s = 0;
-        if (abc.includes(k)) {
-            let p = [];
-            for (let i = 0; i < size; i++) {
-                for (let j = 0; j < size; j++) {
-                    if (grid[i][j] === "?") {
-                        grid[i][j] = k;
-                        p.push([j, i]);
-                        shower(j, i, 10);
-                        s += 10;
-                        addscore(s);
+        if (screen === scr_choose) {
+            const ns = "123456789".split("").slice(0, modes);
+            if (ns.includes(k)) {
+                begin_game(+k);
+            }
+        } else if (screen === scr_game) {
+            let s = 0;
+            if (abc.includes(k)) {
+                let p = [];
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if (grid[i][j] === "?") {
+                            grid[i][j] = k;
+                            p.push([j, i]);
+                            shower(j, i, 10);
+                            s += 10;
+                            addscore(s);
+                        }
                     }
                 }
-            }
-            if (p.length) {
-                setmsg(k.toUpperCase() + "*".repeat(p.length - 1));
-                clearmsg = 20;
-                if (p.length > 1) {
-                    addpath(p);
+                if (p.length) {
+                    setmsg(k.toUpperCase() + "*".repeat(p.length - 1));
+                    clearmsg = 20;
+                    if (p.length > 1) {
+                        addpath(p);
+                    }
                 }
             }
         }
@@ -572,7 +626,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const draw = () => {
         sizemult = Math.floor(Math.min(window.innerWidth, window.innerHeight) / width);
         canvas.style.width = sizemult * width + "px";
-        if (warning) {
+        if (screen === scr_warn) {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, width, height)
             ctx.fillStyle = "red";
@@ -586,7 +640,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
             ctx.fillStyle = "white";
             ctx.fillText("Click2Begin", 0, 160);
-        } else {
+        } else if (screen === scr_choose) {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, width, height)
+            ctx.font = "20px Times";
+            ctx.fillStyle = "green";
+            ctx.fillText("Choose mode:", 0, 30);
+            ctx.fillStyle = "grey";
+            ctx.fillRect(0, 70, width, 20)
+            ctx.fillStyle = "white";
+            ctx.fillText("1. Sandbox (beginner)", 0, 90);
+            ctx.fillText("2. 1 Min", 0, 110);
+            ctx.fillText("3. 5 Min", 0, 130);
+            ctx.fillText("4. 10 Min", 0, 150);
+            ctx.fillText("5. 30 Min HomeRoom", 0, 170);
+            ctx.fillText("6. 30 sec speedrun", 0, 190);
+        } else if (screen === scr_result) {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, width, height)
+            ctx.font = "20px Times";
+            ctx.fillStyle = "green";
+            ctx.fillText("Game Over", 0, 30);
+            ctx.fillText("Final Score:", 0, 50);
+            ctx.fillStyle = "yellow";
+            ctx.fillText(score, 0, 70);
+            ctx.fillStyle = "green";
+            ctx.fillText("Best Score:", 0, 90);
+            ctx.fillStyle = "blue";
+            ctx.fillText(localStorage.getItem("tzg"+mode)||score, 0, 110);
+            ctx.fillStyle = "white";
+            ctx.fillText("Click2Continue", 0, 150);
+        } else if (screen === scr_game) {
             const fans = Array.from({ length: size }, () => new Array(size).fill(false));
             ctx.clearRect(0, 0, width, height)
 
@@ -759,173 +843,193 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.fillStyle = frame%2 ? "red" : "orangered";
                 ctx.fillText("+BDay", 140, gridpixels+ 10);
             }
+
+            if (timed) {
+                ctx.fillStyle = "red";
+                ctx.font = "20px Courier";
+                ctx.fillText(framesleft,
+                             gridpixels - 10*(framesleft.toString().length) - 20,
+                             20);
+            }
         }
     };
 
     const update = () => {
-        stockprice += Math.floor((Math.random()-.5) * fluctuation);
-        stockprice = Math.max(stockprice, 10);
-        stockhistory.shift(1);
-        stockhistory.push(stockprice);
-        if (econ) {
-            for (let i = 0; i < ewc; i++) {
-                for (let j = 0; j < ehc+3; j++) {
-                    grid[j][i] = "0";
-                }
-            }
-            const s = stockprice.toString();
-            for (let i = 0; i < s.length; i++) {
-                grid[ehc][i + ewc - s.length] = s[i];
-            }
-            const m = "buy0sell";
-            for (let i = 0; i < m.length; i++) {
-                grid[ehc+1][i] = m[i];
-            }
-            const o = stockowned.toString();
-            for (let i = 0; i < o.length; i++) {
-                grid[ehc+2][i + ewc - o.length] = o[i];
-            }
-        }
-
-        if (frame % angle_steps === 0) {
-            const fans = Array.from({ length: size }, () => new Array(size).fill(false));
-            for (let i = 0; i < size; i++) {
-                for (let j = 0; j < size; j++) {
-                    if (i+1 < size && j+1 < size && grid[j][i] === "4" && grid[j][i+1] === "4" && grid[j+1][i] === "4" && grid[j+1][i+1] === "4" && !fans[j][i] && !fans[j][i+1] && !fans[j+1][i] && !fans[j+1][i+1]) {
-                        fans[j+1][i] = true;
-                        fans[j][i+1] = true;
-                        fans[j+1][i+1] = true;
-                        shower(i+.5, j+.5, 1);
-                        addscore(1);
+        if (screen === scr_game) {
+            stockprice += Math.floor((Math.random()-.5) * fluctuation);
+            stockprice = Math.max(stockprice, 10);
+            stockhistory.shift(1);
+            stockhistory.push(stockprice);
+            if (econ) {
+                for (let i = 0; i < ewc; i++) {
+                    for (let j = 0; j < ehc+3; j++) {
+                        grid[j][i] = "0";
                     }
                 }
-            }
-        }
-
-        for (let i = 0; i < targets.length; i++) {
-            const t = targets[i];
-            const x = t[0];
-            const y = t[1];
-            const left = t[2];
-            if (left) {
-                t[2]--;
-            } else {
-                targets[i] = false;
-                grid[y][x] = "x";
-                neighbors([x,y]).forEach(a => {
-                    grid[a[1]][a[0]] = "x";
-                });
-                addscore(Math.min(-10000, -Math.floor(.5*score)));
-            }
-        }
-
-        targets = targets.filter(a => a);
-
-        if (man) {
-            const n = neighbors(man);
-            const options = n .filter(xy => grid[xy[1]][xy[0]] === "5");
-            if (grid[man[1]][man[0]] === "5") {
-                manlife = 70;
-                if (frame % 10 === 0) {
-                    if (options.length) {
-                        man = options[Math.floor(Math.random() * options.length)];
-                    }
+                const s = stockprice.toString();
+                for (let i = 0; i < s.length; i++) {
+                    grid[ehc][i + ewc - s.length] = s[i];
                 }
-            } else {
-                if (options.length) {
-                    man = options[Math.floor(Math.random() * options.length)];
-                } else {
-                    man = n[Math.floor(Math.random() * n.length)];
+                const m = "buy0sell";
+                for (let i = 0; i < m.length; i++) {
+                    grid[ehc+1][i] = m[i];
                 }
-                manlife--;
-                if (!manlife) {
-                    grid[man[1]][man[0]] = "~";
-                    man = null;
+                const o = stockowned.toString();
+                for (let i = 0; i < o.length; i++) {
+                    grid[ehc+2][i + ewc - o.length] = o[i];
                 }
             }
-        } else if (man === false) {
-            outer: for (let i = 0; i < size; i++) {
-                for (let j = 0; j < size; j++) {
-                    if (grid[j][i] === "5" &&
-                        neighbors([i,j]).every(xy => grid[xy[1]][xy[0]] === "5")) {
-                        man = [i, j];
-                        shower(i, j, 10);
-                        break outer;
-                    }
-                }
-            }
-        }
 
-        frame++;
-        if (qrcount === 1) {
-            for (let i = 0; i < size; i++) {
-                for (let j = 0; j < size; j++) {
-                    if (qr[i][j]) {
-                        improve([j, i]);
-                    }
-                }
-            }
-        }
-        if (qrcount) {
-            qrcount--;
-        }
-
-        if (clearmsg) {
-            clearmsg--;
-            if (!clearmsg) {
-                let yes = false;
+            if (frame % angle_steps === 0) {
+                const fans = Array.from({ length: size }, () => new Array(size).fill(false));
                 for (let i = 0; i < size; i++) {
                     for (let j = 0; j < size; j++) {
-                        if (grid[i][j] === "?") {
-                            yes = true;
+                        if (i+1 < size && j+1 < size && grid[j][i] === "4" && grid[j][i+1] === "4" && grid[j+1][i] === "4" && grid[j+1][i+1] === "4" && !fans[j][i] && !fans[j][i+1] && !fans[j+1][i] && !fans[j+1][i+1]) {
+                            fans[j+1][i] = true;
+                            fans[j][i+1] = true;
+                            fans[j+1][i+1] = true;
+                            shower(i+.5, j+.5, 1);
+                            addscore(1);
                         }
                     }
                 }
-                if (yes) {
-                    setmsg("keyboard");
+            }
+
+            for (let i = 0; i < targets.length; i++) {
+                const t = targets[i];
+                const x = t[0];
+                const y = t[1];
+                const left = t[2];
+                if (left) {
+                    t[2]--;
+                } else {
+                    targets[i] = false;
+                    grid[y][x] = "x";
+                    neighbors([x,y]).forEach(a => {
+                        grid[a[1]][a[0]] = "x";
+                    });
+                    addscore(Math.min(-10000, -Math.floor(.5*score)));
                 }
             }
-        }
 
-        for (let i = 0; i < dryes.length; i++) {
-            const d = dryes[i];
-            const n = neighbors(d);
-            if (Math.random() < 0.1) {
-                improve(d);
-            }
-            dryes[i] = n[Math.floor(Math.random() * n.length)];
-        }
+            targets = targets.filter(a => a);
 
-        for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            p.age++;
-            p.x += p.xs;
-            p.y += p.ys;
-            p.ys += 4;
-        }
-        particles = particles.filter(p => p.age < 20);
-
-        for (let i = 0; i < size; i++) {
-            for (let j = 0; j < size; j++) {
-                if (grid[i][j] === "~") {
-                    if (i+1 < size && "1234567890".includes(grid[i + 1][j])) {
-                        grid[i][j] = "0";
-                        grid[i+1][j] = "~";
+            if (man) {
+                const n = neighbors(man);
+                const options = n .filter(xy => grid[xy[1]][xy[0]] === "5");
+                if (grid[man[1]][man[0]] === "5") {
+                    manlife = 70;
+                    if (frame % 10 === 0) {
+                        if (options.length) {
+                            man = options[Math.floor(Math.random() * options.length)];
+                        }
+                    }
+                } else {
+                    if (options.length) {
+                        man = options[Math.floor(Math.random() * options.length)];
                     } else {
-                        let l = (j - 1 >= 0) && "1234567890".includes(grid[i][j-1]);
-                        let r = (j + 1 < size) && "1234567890".includes(grid[i][j+1]);
-                        if (l && r) {
-                            l = Math.random() < 0.5;
-                            r = !l;
-                        }
-                        if (l) {
-                            grid[i][j] = "0";
-                            grid[i][j-1] = "~";
-                        } else if (r) {
-                            grid[i][j] = "0";
-                            grid[i][j+1] = "~";
+                        man = n[Math.floor(Math.random() * n.length)];
+                    }
+                    manlife--;
+                    if (!manlife) {
+                        grid[man[1]][man[0]] = "~";
+                        man = null;
+                    }
+                }
+            } else if (man === false) {
+                outer: for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if (grid[j][i] === "5" &&
+                            neighbors([i,j]).every(xy => grid[xy[1]][xy[0]] === "5")) {
+                            man = [i, j];
+                            shower(i, j, 10);
+                            break outer;
                         }
                     }
+                }
+            }
+
+            if (qrcount === 1) {
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if (qr[i][j]) {
+                            improve([j, i]);
+                        }
+                    }
+                }
+            }
+            if (qrcount) {
+                qrcount--;
+            }
+
+            if (clearmsg) {
+                clearmsg--;
+                if (!clearmsg) {
+                    let yes = false;
+                    for (let i = 0; i < size; i++) {
+                        for (let j = 0; j < size; j++) {
+                            if (grid[i][j] === "?") {
+                                yes = true;
+                            }
+                        }
+                    }
+                    if (yes) {
+                        setmsg("keyboard");
+                    }
+                }
+            }
+
+            for (let i = 0; i < dryes.length; i++) {
+                const d = dryes[i];
+                const n = neighbors(d);
+                if (Math.random() < 0.1) {
+                    improve(d);
+                }
+                dryes[i] = n[Math.floor(Math.random() * n.length)];
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.age++;
+                p.x += p.xs;
+                p.y += p.ys;
+                p.ys += 4;
+            }
+            particles = particles.filter(p => p.age < 20);
+
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (grid[i][j] === "~") {
+                        if (i+1 < size && "1234567890".includes(grid[i + 1][j])) {
+                            grid[i][j] = "0";
+                            grid[i+1][j] = "~";
+                        } else {
+                            let l = (j - 1 >= 0) && "1234567890".includes(grid[i][j-1]);
+                            let r = (j + 1 < size) && "1234567890".includes(grid[i][j+1]);
+                            if (l && r) {
+                                l = Math.random() < 0.5;
+                                r = !l;
+                            }
+                            if (l) {
+                                grid[i][j] = "0";
+                                grid[i][j-1] = "~";
+                            } else if (r) {
+                                grid[i][j] = "0";
+                                grid[i][j+1] = "~";
+                            }
+                        }
+                    }
+                }
+            }
+
+            frame++;
+            if (timed) {
+                if (framesleft) {
+                    framesleft--;
+                } else {
+                    screen = scr_result;
+                    const best = localStorage.getItem("tzg"+mode)||(-Infinity);
+                    localStorage.setItem("tzg"+mode, Math.max(best,score));
                 }
             }
         }
@@ -934,7 +1038,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     setInterval(() => {
         update();
         requestAnimationFrame(draw);
-    }, 80);
+    }, framelength);
 });
 
 const font = [
