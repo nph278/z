@@ -6,7 +6,7 @@ const data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "math", "hint", "parker", "pool", "tunnel", "aday", "bday"];
+const spells = ["fourk", "fivek", "qr", "beagle", "drye", "english", "math", "hint", "parker", "pool", "tunnel", "aday", "bday", "zeagle"];
 const angle_steps = 12;
 
 const pipev = "║";
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     for (let j = 0; j < s.length; j++) {
                         grid[xy[1]][x+j] = "0";
                     }
-                    return s;
+                    return [s,false];
                 }
             }
         }
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     for (let j = 0; j < s.length; j++) {
                         grid[y+j][xy[0]] = "0";
                     }
-                    return s;
+                    return [s,true];
                 }
             }
         }
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     clearmsg = 5;
                     grid[celly][cellx] = "9";
                 } else if (abc.includes(prev)) {
-                    const spell = getspell([cellx, celly]);
+                    const [spell, vert] = getspell([cellx, celly]);
                     if (spell) {
                         shower(cellx, celly, 30);
                         addscore(100);
@@ -328,6 +328,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         } else if (spell === "bday") {
                             day = 2;
                             canvas.style.background = "radial-gradient(circle, lightblue 0%, blue 100%)";
+                        } else if (spell === "zeagle") {
+                            if (vert) {
+                                for (let i = 0; i < size; i++) {
+                                    grid[i][cellx] = "9";
+                                }
+                            } else {
+                                for (let i = 0; i < size; i++) {
+                                    grid[celly][i] = "9";
+                                }
+                            }
                         } else if (spell === "tunnel") {
                             addpath([[0,0],[0,size-1]]);
                             addpath([[size-1,0],[size-1,size-1]]);
