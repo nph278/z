@@ -330,7 +330,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                           tlife]);
                         }
                     } else if (spell == "fourh") {
-                        severed = true;
+                        if (severed) {
+                            fw++;
+                        } else {
+                            severed = true;
+                        }
                     } else if (spell === "hint") {
                         let s = "";
                         if (hint_words.length) {
@@ -868,6 +872,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         ctx.stroke();
                     }
                 }
+            }
+
+            if (severed) {
+                ctx.fillStyle = corecolor;
+                ctx.strokeStyle = corecolor;
+                ctx.beginPath();
+                ctx.moveTo(11*cellwidth+fracture[size]-fw, gridpixels-1+yo1);
+                ctx.lineTo(11*cellwidth+fracture[size]+fw, gridpixels-1+yo2);
+                ctx.lineTo(11*cellwidth+fracture[size]+fw, gridpixels-1+yo2+cellwidth);
+                ctx.lineTo(11*cellwidth+fracture[size]-fw, gridpixels-1+yo1+cellwidth);
+
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
             }
 
             ctx.fillStyle = "black";
