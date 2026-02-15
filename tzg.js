@@ -624,6 +624,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 
     let frame = 0;
+    const modenames =
+          [0,
+           "Sandbox (beginner)",
+           "1 Min",
+           "5 Min",
+           "10 Min",
+           "30 Min HomeRoom",
+           "30 Sec SpeedRun"];
     const draw = () => {
         sizemult = Math.floor(Math.min(window.innerWidth, window.innerHeight) / width);
         canvas.style.width = sizemult * width + "px";
@@ -652,18 +660,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             ctx.fillStyle = "grey";
             ctx.fillRect(0, 70, width, 20)
             ctx.fillStyle = "white";
-            ctx.fillText("1. Sandbox (beginner)", 0, 90);
-            ctx.fillText("2. 1 Min", 0, 110);
-            ctx.fillText("3. 5 Min", 0, 130);
-            ctx.fillText("4. 10 Min", 0, 150);
-            ctx.fillText("5. 30 Min HomeRoom", 0, 170);
-            ctx.fillText("6. 30 sec speedrun", 0, 190);
+            for (let i = 1; i <= modes; i++) {
+                ctx.fillText(i + ". " + modenames[i], 0, 70 + 20*i);
+            }
         } else if (screen === scr_result) {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, width, height)
             ctx.font = "20px Times";
             ctx.fillStyle = "green";
-            ctx.fillText("Game Over", 0, 30);
+            ctx.fillText(modenames[mode], 0, 30);
             ctx.fillText("Final Score:", 0, 50);
             ctx.fillStyle = "yellow";
             ctx.fillText(score, 0, 70);
