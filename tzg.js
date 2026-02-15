@@ -509,6 +509,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     canvas.onclick = (e) => {
+        let yo1 = Math.floor(Math.sin(frame/20)*2);
+        let yo2 = Math.floor(Math.cos(frame/20)*2);
+        if (!fw) {
+            yo2 = yo1;
+        }
         if (resultsover && (screen === scr_warn || screen == scr_result)) {
             screen = scr_choose;
             requestAnimationFrame(draw);
@@ -523,11 +528,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const rect = canvas.getBoundingClientRect();
             let x = (e.clientX - rect.left)/sizemult;
             let y = (e.clientY - rect.top)/sizemult;
-            if (severed && x < gridpixels/2) {
+            if (x <= gridpixels/2) {
                 x += fw;
+                y -= yo1;
             }
-            if (severed && x > gridpixels/2) {
+            if (x > gridpixels/2) {
                 x -= fw;
+                y -= yo2;
             }
             const cellx = Math.floor(x/cellwidth);
             const celly = Math.floor(y/cellwidth);
@@ -656,18 +663,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (a === "#") { return "red";}
     };
 
-    const getcellpos = (a) => {
-        let x = a[0] * cellwidth;
-        let y = a[1] * cellwidth;
-        if (severed && a[0] < 11) {
-            x -= fw;
-        }
-        if (severed && a[0] > 11) {
-            x += fw;
-        }
-        return [x, y];
-    }
-
     let frame = 0;
     const modenames =
           [0,
@@ -680,11 +675,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const draw = () => {
         sizemult = Math.floor(Math.min(window.innerWidth, window.innerHeight) / width);
         canvas.style.width = sizemult * width + "px";
+        let yo1 = Math.floor(Math.sin(frame/20)*2);
+        let yo2 = Math.floor(Math.cos(frame/20)*2);
+        if (!fw) {
+            yo2 = yo1;
+        }
+
+        const getcellpos = (a) => {
+            let x = a[0] * cellwidth;
+            let y = a[1] * cellwidth;
+            if (a[0] <= 11) {
+                x -= fw;
+                y += yo1;
+            }
+            if (a[0] > 11) {
+                x += fw;
+                y += yo2;
+            }
+            return [x, y];
+        }
+
         if (screen === scr_warn) {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, width, height)
             ctx.fillStyle = "red";
-            ctx.font = "20px Courier Prime, courier, monospace";
+            ctx.font = "19px Courier Prime, courier, monospace";
             ctx.fillText("Extreme flashing", 0, 50);
             ctx.fillText("lights warning", 0, 70);
             ctx.fillStyle = "white";
@@ -730,7 +745,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const fans = Array.from({ length: size }, () => new Array(size).fill(false));
             ctx.clearRect(0, 0, width, height);
             ctx.fillStyle = corecolor;
-            ctx.fillRect(0, gridpixels-1, width, height);
+            ctx.fillRect(0, gridpixels-1+yo1, 11*cellwidth+fracture[size], height);
+            ctx.fillRect(11*cellwidth+fracture[size], gridpixels-1+yo2, gridpixels, height);
+            ctx.fillRect(0, 0, 11*cellwidth+fracture[size], yo1);
+            ctx.fillRect(11*cellwidth+fracture[size], 0, gridpixels, yo2);
 
             // Grid
             for (let i = 0; i < size; i++) {
@@ -751,8 +769,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         y+=Math.random()*.5;
                     }
                     if (value === "#") {
+                        x+=fw;
+
                         ctx.fillStyle = bgcolor(prefrac[j], 0);
-                        ctx.fillRect(x-fw, y, cellwidth+2*fw, cellwidth);
+                        ctx.beginPath();
+                        ctx.moveTo(x-fw,y)
+                        ctx.lineTo(x+fracture[j]-fw, y);
+                        ctx.lineTo(x+fracture[j+1]-fw, y+cellwidth);
+                        ctx.lineTo(x-fw,y+cellwidth);
+                        ctx.closePath();
+                        ctx.fill();
+
+                        ctx.beginPath();
+                        ctx.moveTo(x+fracture[j]+fw, y-yo1+yo2);
+                        ctx.lineTo(x+cellwidth+fw,y-yo1+yo2);
+                        ctx.lineTo(x+cellwidth+fw,y-yo1+yo2+cellwidth);
+                        ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth-yo1+yo2);
+                        ctx.closePath();
+                        ctx.fill();
+
+
                         ctx.fillStyle = fgcolor(prefrac[j], 0);
                         const pat = font.slice(cp437[prefrac[j]]*5,cp437[prefrac[j]]*5+5).map(a=>[a%2, Math.floor(a/2)%2, Math.floor(a/4)%2, Math.floor(a/8)%2, Math.floor(a/16)%2]);
                         for (let i = 0; i < fontwidth; i++) {
@@ -765,19 +801,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         for (let i = 0; i < fontwidth; i++) {
                             for (let j = 0; j < fontwidth; j++) {
                                 if (pat[j][i]) {
-                                    ctx.fillRect(x + 2 + i+fw, y + 2 + j, 1, 1);
+                                    ctx.fillRect(x + 2 + i+fw, y-yo1+yo2 + 2 + j, 1, 1);
                                 }
                             }
                         }
 
                         ctx.fillStyle = corecolor;
+                        ctx.strokeStyle = corecolor;
                         ctx.beginPath();
                         ctx.moveTo(x+fracture[j]-fw, y);
                         ctx.lineTo(x+fracture[j+1]-fw, y+cellwidth);
-                        ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth);
-                        ctx.lineTo(x+fracture[j]+fw, y);
+                        ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth-yo1+yo2);
+                        ctx.lineTo(x+fracture[j]+fw, y-yo1+yo2);
                         ctx.closePath();
                         ctx.fill();
+                        ctx.stroke();
                         ctx.fillStyle = "black";
                         ctx.strokeStyle = "black";
                         ctx.beginPath();
@@ -785,11 +823,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         ctx.lineTo(x+fracture[j+1]-fw, y+cellwidth);
                         ctx.stroke();
                         ctx.beginPath();
-                        ctx.moveTo(x+fracture[j]+fw, y);
-                        ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth);
+                        ctx.moveTo(x+fracture[j]+fw, y-yo1+yo2);
+                        ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth-yo1+yo2);
                         ctx.stroke();
                         ctx.fillRect(x-cellwidth, y, fracture[j]-fw+cellwidth, 1);
-                        ctx.fillRect(x+fracture[j]+fw, y, cellwidth, 1);
+                        ctx.fillRect(x+fracture[j]+fw, y-yo1+yo2, cellwidth*2, 1);
                         ctx.fillRect(x-fw, y, 1, cellwidth);
                     } else {
                         ctx.fillStyle = bgcolor(value, frame);
@@ -833,16 +871,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
 
             ctx.fillStyle = "black";
-            ctx.fillRect(0, gridpixels-1, 11*cellwidth+fracture[size]-fw, 1);
-            ctx.fillRect(11*cellwidth+fracture[size]+fw, gridpixels-1, gridpixels-(11*cellwidth+fracture[size]+fw), 1);
-            ctx.fillRect(gridpixels-1, 0, 1, gridpixels);
+            ctx.fillRect(0, gridpixels-1+yo1, 11*cellwidth+fracture[size]-fw, 1);
+            ctx.fillRect(11*cellwidth+fracture[size]+fw, gridpixels-1+yo2, gridpixels-(11*cellwidth+fracture[size]+fw), 1);
+            ctx.fillRect(gridpixels-1+fw, 0, 1, gridpixels+yo2);
 
             if (econ) {
                 const ew = ewc*cellwidth;
                 const eh = ehc*cellwidth;
                 const x = 100 + 80 * Math.sin(frame/10);
                 ctx.fillStyle = "rgb("+x+","+x+","+x+")";
-                ctx.fillRect(-fw,0,ew,eh);
+                ctx.fillRect(-fw,yo1,ew,eh);
                 const max = Math.max(...stockhistory);
                 const min = Math.min(...stockhistory);
                 for (let i = 1; i < shsize; i++) {
@@ -850,9 +888,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     ctx.strokeStyle = (stockhistory[i] >= stockhistory[i-1]) ?
                         "green" : "red";
                     ctx.moveTo(i * ew / shsize-fw,
-                               eh - ((stockhistory[i-1]-min) * eh / (max-min)));
+                               eh - ((stockhistory[i-1]-min) * eh / (max-min))+yo1);
                     ctx.lineTo(i * ew / shsize-fw,
-                               eh - ((stockhistory[i]-min) * eh / (max-min)));
+                               eh - ((stockhistory[i]-min) * eh / (max-min))+yo1);
                     ctx.stroke();
                 }
 
