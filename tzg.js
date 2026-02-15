@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let timed = false;
     let framesleft = 0;
     let mode = 0;
+    let resultsover = false;
 
     let dryes = [];
     let targets = [];
@@ -187,7 +188,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     canvas.onclick = (e) => {
-        if (screen === scr_warn || screen == scr_result) {
+        if (resultsover && (screen === scr_warn || screen == scr_result)) {
             screen = scr_choose;
             requestAnimationFrame(draw);
         } else if (screen === scr_choose) {
@@ -639,7 +640,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.fillText("recommended", 0, 120);
             }
             ctx.fillStyle = "white";
-            ctx.fillText("Click2Begin", 0, 160);
+            if (resultsover) {
+                ctx.fillText("Click2Begin", 0, 160);
+            }
         } else if (screen === scr_choose) {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, width, height)
@@ -669,7 +672,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             ctx.fillStyle = "blue";
             ctx.fillText(localStorage.getItem("tzg"+mode)||score, 0, 110);
             ctx.fillStyle = "white";
-            ctx.fillText("Click2Continue", 0, 150);
+            if (resultsover) {
+                ctx.fillText("Click2Continue", 0, 150);
+            }
         } else if (screen === scr_game) {
             const fans = Array.from({ length: size }, () => new Array(size).fill(false));
             ctx.clearRect(0, 0, width, height)
@@ -1030,6 +1035,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     screen = scr_result;
                     const best = localStorage.getItem("tzg"+mode)||(-Infinity);
                     localStorage.setItem("tzg"+mode, Math.max(best,score));
+                    resultsover = false;
+                    setTimeout(() => {
+                        resultsover = true;
+                    }, 2000);
                 }
             }
         }
@@ -1039,6 +1048,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         update();
         requestAnimationFrame(draw);
     }, framelength);
+
+    setTimeout(() => {
+        resultsover = true;
+    }, 2000);
 });
 
 const font = [
