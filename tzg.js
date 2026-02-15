@@ -1132,7 +1132,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             for (let i = 0; i < dryes.length; i++) {
                 const d = dryes[i];
-                const n = neighbors(d);
+                let n = neighbors(d);
+                if (severed) {
+                    n = n.filter(xy => xy[0] !== 11);
+                }
                 if (Math.random() < 0.1) {
                     improve(d);
                 }
