@@ -6,7 +6,7 @@ let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ"];
+const spells = ["hint", "fourh", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -22,6 +22,11 @@ const pipe = ["║", "╗", "╝", "╚", "╔", "═"];
 const unpat = (p) => p.split(" ").map((a) => a.split("").map(a => parseInt(a)));
 
 const framelength = 80;
+
+const fracture = [];
+for (let i = 0; i <= size; i++) {
+    fracture.push(Math.floor(Math.random()*cellwidth));
+}
 
 
 const qrpat = "00000000000000000000000 01111111001000011111110 01000001011000010000010 01011101001011010111010 01011101011011010111010 01011101000101010111010 01000001011101010000010 01111111010101011111110 00000000000110000000000 01111101111001101010100 01001100110110000011010 00110101110100011100110 01110010101100110101000 01011001000011110000000 00000000011100001011000 01111111011100110100100 01000001000100101100010 01011101011011000011010 01011101010011101111100 01011101010100110110000 01000001010111001111110 01111111010011101001100 00000000000000000000000";
@@ -54,6 +59,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const ctx = canvas.getContext("2d");
     canvas.style.width = width + "px";
     let particles = [];
+    let fracsize = 0;
+    let fw = 0;
 
     const neighbors = (e) => [[e[0]+1, e[1]],
                               [e[0], e[1]+1],
@@ -78,6 +85,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let framesleft = 0;
     let mode = 0;
     let resultsover = false;
+    let severed = false;
 
     let dryes = [];
     let targets = [];
@@ -93,6 +101,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let fluctuation = 100;
     const ewc = 8;
     const ehc = 4;
+    let prefrac = [];
 
     const addscore = (s) => {
         if (day === 1) {
@@ -187,6 +196,318 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+
+    const handleclick = (cellx, celly) => {
+        if (targets.some(t=>t[0]===cellx && t[1]===celly)) {
+            targets = targets.filter(t=>!(t[0]===cellx && t[1]===celly));
+            shower(cellx, celly, 20);
+            addscore(Math.max(1000, Math.floor(score*.1)));
+        } else if (econ && (cellx < ewc) && (celly < ehc + 3)) {
+            if (celly === ehc + 1) {
+                if (cellx < 3) {
+                    if (score >= stockprice) {
+                        score -= stockprice;
+                        stockowned++;
+                        shower(cellx, celly, 5);
+                    } else {
+                        setmsg("No");
+                        clearmsg = 10;
+                    }
+                } else if (cellx > 3) {
+                    if (stockowned) {
+                        score += stockprice;
+                        stockowned--;
+                        shower(cellx, celly, 5);
+                    } else {
+                        setmsg("No");
+                        clearmsg = 10;
+                    }
+                }
+            }
+        } else {
+            const prev = grid[celly][cellx];
+            if (prev === "0") {
+                if (day === 2) {
+                    setmsg("2");
+                    grid[celly][cellx] = "2";
+                } else {
+                    setmsg("1");
+                    grid[celly][cellx] = "1";
+                }
+                clearmsg = 5;
+                addscore(1);
+                const n = neighbors([cellx, celly])
+                if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
+                    msg+=" "+"*".repeat(n.length);
+                    addpath(n);
+                    addscore(1);
+                }
+            } else if ("12345678".includes(prev)) {
+                const n = neighbors([cellx, celly])
+                const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
+                if (sum > prev) {
+                    const x = Math.min(9,+prev + ((day === 2)?2:1));
+                    grid[celly][cellx] = x.toString();
+                    setmsg(x.toString());
+                    clearmsg = 5;
+                    addscore(x);
+                    shower(cellx, celly, 1);
+                    if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
+                        msg+=" "+"*".repeat(n.length);
+                        addpath(n);
+                        addscore(+prev + 1);
+                    }
+                } else {
+                    setmsg("No");
+                    clearmsg = 10;
+                }
+            } else if (prev === "9") {
+                shower(cellx, celly, 1);
+                setmsg("keyboard");
+                clearmsg = 5;
+                grid[celly][cellx] = "?";
+            } else if (prev === "?") {
+                setmsg("cancelled");
+                clearmsg = 5;
+                grid[celly][cellx] = "9";
+            } else if (abc.includes(prev)) {
+                const sp = getspell([cellx, celly]);
+                if (sp) {
+                    const [spell, vert] = sp;
+                    hint_words=hint_words.filter(q=>q!==spell);
+                    shower(cellx, celly, 30);
+                    addscore(100);
+                    setmsg("¡"+spell+"!");
+                    clearmsg = 20;
+                    for (let i = 0; i < spell.length; i++) {
+                    }
+                    if (spell === "qr") {
+                        if (qrcount) {
+                            for (let i = 0; i < size; i++) {
+                                for (let j = 0; j < size; j++) {
+                                    if (qr[i][j]) {
+                                        improve([j, i]);
+                                    }
+                                }
+                            }
+                        }
+                        qrcount = 5;
+                        addpath([[1,1],[1,7],[7,1],[7,7]]);
+                        addpath([[15,1],[15,7],[21,1],[21,7]]);
+                        addpath([[1,15],[1,21],[7,15],[7,21]]);
+                    } else if (nums.includes(spell)) {
+                        grid[celly][cellx] = "+";
+                        data[celly][cellx] = (nums.indexOf(spell)).toString();
+                        addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
+                        addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
+                    } else if (spell === "english") {
+                        const p = [];
+                        for (let i = 0; i < size; i++) {
+                            for (let j = 0; j < size; j++) {
+                                if (Math.random() < 0.1) {
+                                    grid[i][j] = abc[Math.floor(Math.random()*26)];
+                                    p.push([j,i]);
+                                }
+                            }
+                        }
+                        addpath(p);
+                    } else if (spell === "math") {
+                        const possible = "56789";
+                        const p = [];
+                        for (let i = 0; i < size; i++) {
+                            for (let j = 0; j < size; j++) {
+                                if (Math.random() < 0.1) {
+                                    grid[i][j] = possible[Math.floor(Math.random()*possible.length)];
+                                    p.push([j,i]);
+                                }
+                            }
+                        }
+                        addpath(p);
+                    } else if (spell === "otot") {
+                        for (let j = 0; j < 2; j++) {
+                            targets.push([Math.floor(size*Math.random()),
+                                          Math.floor(size*Math.random()),
+                                          tlife]);
+                        }
+                    } else if (spell == "fourh") {
+                        severed = true;
+                    } else if (spell === "hint") {
+                        let s = "";
+                        if (hint_words.length) {
+                            s = hint_words[Math.floor(Math.random() * hint_words.length)];
+                            hint_words=hint_words.filter(q=>q!==s);
+                        } else {
+                            s = "i0dont0have0any0more";
+                        }
+                        for (let i = 0; i < s.length; i++) {
+                            for (let j = 0; j < s.length; j++) {
+                                grid[i][j] = i === j ? s[i] : "0";
+                            }
+                        }
+                        const p1 = [];
+                        const p2 = [];
+                        for (let x = 1; x < s.length; x++) {
+                            for (let y = 0; y < x; y++) {
+                                p1.push([x,y]);
+                                p2.push([y,x]);
+                            }
+                        }
+                        addpath(p1);
+                        addpath(p2);
+                        addpath([[-1,-1],[-1,s.length], [s.length,s.length],[s.length,-1]]);
+                    } else if (spell === "beagle") {
+                        for (let i = 0; i < size; i++) {
+                            grid[i].fill("☻");
+                            score = 666;
+                            econ = false;
+                        }
+                    } else if (spell === "parker") {
+                        for (let i = 0; i < size; i++) {
+                            grid[i][0] = "4";
+                            grid[i][1] = "9";
+                            grid[i][2] = "5";
+                            grid[i][3] = "o";
+                            grid[i][4] = "t";
+                            grid[i][5] = "o";
+                            grid[i][6] = "t";
+                        }
+                        addpath([[7,0],[7,size-1]]);
+                    } else if (spell === "pool") {
+                        for (let i = 0; i < size; i++) {
+                            grid[0][i] = "~";
+                            grid[1][i] = "~";
+                            grid[2][i] = "~";
+                            grid[3][i] = "☻";
+                        }
+                        addpath([[0,4],[size-1,4]]);
+                    } else if (spell === "drye") {
+                        dryes.push([cellx, celly]);
+                        addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
+                        addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
+                    } else if (spell === "aday") {
+                        day = 1;
+                        canvas.style.background = "radial-gradient(circle, lightblue 0%, red 100%)";
+                    } else if (spell === "bday") {
+                        day = 2;
+                        canvas.style.background = "radial-gradient(circle, lightblue 0%, blue 100%)";
+                    } else if (spell === "zeagle") {
+                        if (vert) {
+                            for (let i = 0; i < size; i++) {
+                                grid[i][cellx] = "9";
+                                shower(cellx, i, 10);
+                            }
+                        } else {
+                            for (let i = 0; i < size; i++) {
+                                grid[celly][i] = "9";
+                                shower(i, celly, 10);
+                            }
+                        }
+                    } else if (spell === "econ") {
+                        if (econ) {
+                            fluctuation *= 2;
+                        } else {
+                            econ = true;
+                        }
+                    } else if (spell === "tunnel") {
+                        addpath([[0,0],[0,size-1]]);
+                        addpath([[size-1,0],[size-1,size-1]]);
+                        const p = [];
+                        let x = Math.floor(size / 2);
+                        let y = 1;
+                        while (y < size-1) {
+                            const options = [0];
+                            if (x - 1 >= 0 && (p.length === 0 || p[p.length-1] !== 2)) {
+                                options.push(1);
+                            }
+                            if (x + 1 < size && (p.length === 0 || p[p.length-1] !== 1)) {
+                                options.push(2);
+                            }
+                            const o = options[Math.floor(Math.random() * options.length)];
+                            p.push(o);
+                            if (o === 1) {
+                                x--;
+                            } else if (o === 2) {
+                                x++;
+                            } else {
+                                y++;
+                            }
+                        }
+                        x = Math.floor(size / 2);
+                        y = 1;
+                        grid[0][x-1] = "e";
+                        grid[0][x] = "m";
+                        grid[0][x+1] = "h";
+                        grid[0][x+2] = "s";
+                        const n = p[0];
+                        if (n === 1) {
+                            grid[y][x] = pipeul;
+                        } else if (n === 2) {
+                            grid[y][x] = pipeur;
+                        } else {
+                            grid[y][x] = pipev;
+                        }
+                        for (let i = 0; (i + 1) < p.length; i++) {
+                            const o = p[i];
+                            const n = p[i+1];
+                            shower(x, y, 5);
+                            data[y][x] = (1+(i%9)).toString();
+                            if (o === 1) {
+                                x--;
+                                if (n === 1) {
+                                    grid[y][x] = pipeh;
+                                } else {
+                                    grid[y][x] = pipedr;
+                                }
+                            } else if (o === 2) {
+                                x++;
+                                if (n === 2) {
+                                    grid[y][x] = pipeh;
+                                } else {
+                                    grid[y][x] = pipedl;
+                                }
+                            } else {
+                                y++;
+                                if (n === 1) {
+                                    grid[y][x] = pipeul;
+                                } else if (n === 2) {
+                                    grid[y][x] = pipeur;
+                                } else {
+                                    grid[y][x] = pipev;
+                                }
+                            }
+                        }
+                        const px = Math.min(Math.max(0, x-2), size-4);
+                        grid[size-1][px] = "i";
+                        grid[size-1][px+1] = "l";
+                        grid[size-1][px+2] = "h";
+                        grid[size-1][px+3] = "s";
+                    }
+                } else {
+                    setmsg("No");
+                    clearmsg = 10;
+                }
+            } else if (prev === "+") {
+                addscore(13);
+                grid[celly][cellx] = data[celly][cellx];
+                neighbors([cellx, celly]).forEach((xy) => {
+                    if (grid[xy[1]][xy[0]] !== data[celly][cellx]) {
+                        grid[xy[1]][xy[0]] = "+";
+                        data[xy[1]][xy[0]] = data[celly][cellx];
+                    }
+                });
+                setmsg(data[celly][cellx].repeat(20));
+                clearmsg = 10;
+                data[celly][cellx] = "0";
+            } else if (prev === "☻") {
+                grid[celly][cellx] = "0";
+            } else if (pipe.includes(prev)) {
+                grid[celly][cellx] = data[celly][cellx] || "9";
+                data[celly][cellx] = false;
+            }
+            requestAnimationFrame(draw);
+        }
+    }
+
     canvas.onclick = (e) => {
         if (resultsover && (screen === scr_warn || screen == scr_result)) {
             screen = scr_choose;
@@ -200,317 +521,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         } else if (screen == scr_game) {
             const rect = canvas.getBoundingClientRect();
-            const x = (e.clientX - rect.left)/sizemult;
-            const y = (e.clientY - rect.top)/sizemult;
+            let x = (e.clientX - rect.left)/sizemult;
+            let y = (e.clientY - rect.top)/sizemult;
+            if (severed && x < gridpixels/2) {
+                x += fw;
+            }
+            if (severed && x > gridpixels/2) {
+                x -= fw;
+            }
             const cellx = Math.floor(x/cellwidth);
             const celly = Math.floor(y/cellwidth);
             if (ismobile && (celly >= size) && msg === "keyboard") {
                 handlekey(prompt("Enter a letter")[0].toLowerCase());
-            } else if (targets.some(t=>t[0]===cellx && t[1]===celly)) {
-                targets = targets.filter(t=>!(t[0]===cellx && t[1]===celly));
-                shower(cellx, celly, 20);
-                addscore(Math.max(1000, Math.floor(score*.1)));
-            } else if (econ && (cellx < ewc) && (celly < ehc + 3)) {
-                if (celly === ehc + 1) {
-                    if (cellx < 3) {
-                        if (score >= stockprice) {
-                            score -= stockprice;
-                            stockowned++;
-                            shower(cellx, celly, 5);
-                        } else {
-                            setmsg("No");
-                            clearmsg = 10;
-                        }
-                    } else if (cellx > 3) {
-                        if (stockowned) {
-                            score += stockprice;
-                            stockowned--;
-                            shower(cellx, celly, 5);
-                        } else {
-                            setmsg("No");
-                            clearmsg = 10;
-                        }
-                    }
-                }
             } else {
-                const prev = grid[celly][cellx];
-                if (prev === "0") {
-                    if (day === 2) {
-                        setmsg("2");
-                        grid[celly][cellx] = "2";
-                    } else {
-                        setmsg("1");
-                        grid[celly][cellx] = "1";
-                    }
-                    clearmsg = 5;
-                    addscore(1);
-                    const n = neighbors([cellx, celly])
-                    if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
-                        msg+=" "+"*".repeat(n.length);
-                        addpath(n);
-                        addscore(1);
-                    }
-                } else if ("12345678".includes(prev)) {
-                    const n = neighbors([cellx, celly])
-                    const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
-                    if (sum > prev) {
-                        const x = Math.min(9,+prev + ((day === 2)?2:1));
-                        grid[celly][cellx] = x.toString();
-                        setmsg(x.toString());
-                        clearmsg = 5;
-                        addscore(x);
-                        shower(cellx, celly, 1);
-                        if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
-                            msg+=" "+"*".repeat(n.length);
-                            addpath(n);
-                            addscore(+prev + 1);
-                        }
-                    } else {
-                        setmsg("No");
-                        clearmsg = 10;
-                    }
-                } else if (prev === "9") {
-                    shower(cellx, celly, 1);
-                    setmsg("keyboard");
-                    clearmsg = 5;
-                    grid[celly][cellx] = "?";
-                } else if (prev === "?") {
-                    setmsg("cancelled");
-                    clearmsg = 5;
-                    grid[celly][cellx] = "9";
-                } else if (abc.includes(prev)) {
-                    const sp = getspell([cellx, celly]);
-                    if (sp) {
-                        const [spell, vert] = sp;
-                        hint_words=hint_words.filter(q=>q!==spell);
-                        shower(cellx, celly, 30);
-                        addscore(100);
-                        setmsg("¡"+spell+"!");
-                        clearmsg = 20;
-                        for (let i = 0; i < spell.length; i++) {
-                        }
-                        if (spell === "qr") {
-                            if (qrcount) {
-                                for (let i = 0; i < size; i++) {
-                                    for (let j = 0; j < size; j++) {
-                                        if (qr[i][j]) {
-                                            improve([j, i]);
-                                        }
-                                    }
-                                }
-                            }
-                            qrcount = 5;
-                            addpath([[1,1],[1,7],[7,1],[7,7]]);
-                            addpath([[15,1],[15,7],[21,1],[21,7]]);
-                            addpath([[1,15],[1,21],[7,15],[7,21]]);
-                        } else if (nums.includes(spell)) {
-                            grid[celly][cellx] = "+";
-                            data[celly][cellx] = (nums.indexOf(spell)).toString();
-                            addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
-                            addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
-                        } else if (spell === "english") {
-                            const p = [];
-                            for (let i = 0; i < size; i++) {
-                                for (let j = 0; j < size; j++) {
-                                    if (Math.random() < 0.1) {
-                                        grid[i][j] = abc[Math.floor(Math.random()*26)];
-                                        p.push([j,i]);
-                                    }
-                                }
-                            }
-                            addpath(p);
-                        } else if (spell === "math") {
-                            const possible = "56789";
-                            const p = [];
-                            for (let i = 0; i < size; i++) {
-                                for (let j = 0; j < size; j++) {
-                                    if (Math.random() < 0.1) {
-                                        grid[i][j] = possible[Math.floor(Math.random()*possible.length)];
-                                        p.push([j,i]);
-                                    }
-                                }
-                            }
-                            addpath(p);
-                        } else if (spell === "otot") {
-                            for (let j = 0; j < 2; j++) {
-                                targets.push([Math.floor(size*Math.random()),
-                                              Math.floor(size*Math.random()),
-                                              tlife]);
-                            }
-                        } else if (spell === "hint") {
-                            let s = "";
-                            if (hint_words.length) {
-                                s = hint_words[Math.floor(Math.random() * hint_words.length)];
-                                hint_words=hint_words.filter(q=>q!==s);
-                            } else {
-                                s = "i0dont0have0any0more";
-                            }
-                            for (let i = 0; i < s.length; i++) {
-                                for (let j = 0; j < s.length; j++) {
-                                    grid[i][j] = i === j ? s[i] : "0";
-                                }
-                            }
-                            const p1 = [];
-                            const p2 = [];
-                            for (let x = 1; x < s.length; x++) {
-                                for (let y = 0; y < x; y++) {
-                                    p1.push([x,y]);
-                                    p2.push([y,x]);
-                                }
-                            }
-                            addpath(p1);
-                            addpath(p2);
-                            addpath([[-1,-1],[-1,s.length], [s.length,s.length],[s.length,-1]]);
-                        } else if (spell === "beagle") {
-                            for (let i = 0; i < size; i++) {
-                                grid[i].fill("☻");
-                                score = 666;
-                                econ = false;
-                            }
-                        } else if (spell === "parker") {
-                            for (let i = 0; i < size; i++) {
-                                grid[i][0] = "4";
-                                grid[i][1] = "9";
-                                grid[i][2] = "5";
-                                grid[i][3] = "o";
-                                grid[i][4] = "t";
-                                grid[i][5] = "o";
-                                grid[i][6] = "t";
-                            }
-                            addpath([[7,0],[7,size-1]]);
-                        } else if (spell === "pool") {
-                            for (let i = 0; i < size; i++) {
-                                grid[0][i] = "~";
-                                grid[1][i] = "~";
-                                grid[2][i] = "~";
-                                grid[3][i] = "☻";
-                            }
-                            addpath([[0,4],[size-1,4]]);
-                        } else if (spell === "drye") {
-                            dryes.push([cellx, celly]);
-                            addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
-                            addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
-                        } else if (spell === "aday") {
-                            day = 1;
-                            canvas.style.background = "radial-gradient(circle, lightblue 0%, red 100%)";
-                        } else if (spell === "bday") {
-                            day = 2;
-                            canvas.style.background = "radial-gradient(circle, lightblue 0%, blue 100%)";
-                        } else if (spell === "zeagle") {
-                            if (vert) {
-                                for (let i = 0; i < size; i++) {
-                                    grid[i][cellx] = "9";
-                                    shower(cellx, i, 10);
-                                }
-                            } else {
-                                for (let i = 0; i < size; i++) {
-                                    grid[celly][i] = "9";
-                                    shower(i, celly, 10);
-                                }
-                            }
-                        } else if (spell === "econ") {
-                            if (econ) {
-                                fluctuation *= 2;
-                            } else {
-                                econ = true;
-                            }
-                        } else if (spell === "tunnel") {
-                            addpath([[0,0],[0,size-1]]);
-                            addpath([[size-1,0],[size-1,size-1]]);
-                            const p = [];
-                            let x = Math.floor(size / 2);
-                            let y = 1;
-                            while (y < size-1) {
-                                const options = [0];
-                                if (x - 1 >= 0 && (p.length === 0 || p[p.length-1] !== 2)) {
-                                    options.push(1);
-                                }
-                                if (x + 1 < size && (p.length === 0 || p[p.length-1] !== 1)) {
-                                    options.push(2);
-                                }
-                                const o = options[Math.floor(Math.random() * options.length)];
-                                p.push(o);
-                                if (o === 1) {
-                                    x--;
-                                } else if (o === 2) {
-                                    x++;
-                                } else {
-                                    y++;
-                                }
-                            }
-                            x = Math.floor(size / 2);
-                            y = 1;
-                            grid[0][x-1] = "e";
-                            grid[0][x] = "m";
-                            grid[0][x+1] = "h";
-                            grid[0][x+2] = "s";
-                            const n = p[0];
-                            if (n === 1) {
-                                grid[y][x] = pipeul;
-                            } else if (n === 2) {
-                                grid[y][x] = pipeur;
-                            } else {
-                                grid[y][x] = pipev;
-                            }
-                            for (let i = 0; (i + 1) < p.length; i++) {
-                                const o = p[i];
-                                const n = p[i+1];
-                                shower(x, y, 5);
-                                data[y][x] = (1+(i%9)).toString();
-                                if (o === 1) {
-                                    x--;
-                                    if (n === 1) {
-                                        grid[y][x] = pipeh;
-                                    } else {
-                                        grid[y][x] = pipedr;
-                                    }
-                                } else if (o === 2) {
-                                    x++;
-                                    if (n === 2) {
-                                        grid[y][x] = pipeh;
-                                    } else {
-                                        grid[y][x] = pipedl;
-                                    }
-                                } else {
-                                    y++;
-                                    if (n === 1) {
-                                        grid[y][x] = pipeul;
-                                    } else if (n === 2) {
-                                        grid[y][x] = pipeur;
-                                    } else {
-                                        grid[y][x] = pipev;
-                                    }
-                                }
-                            }
-                            const px = Math.min(Math.max(0, x-2), size-4);
-                            grid[size-1][px] = "i";
-                            grid[size-1][px+1] = "l";
-                            grid[size-1][px+2] = "h";
-                            grid[size-1][px+3] = "s";
-                        }
-                    } else {
-                        setmsg("No");
-                        clearmsg = 10;
-                    }
-                } else if (prev === "+") {
-                    addscore(13);
-                    grid[celly][cellx] = data[celly][cellx];
-                    neighbors([cellx, celly]).forEach((xy) => {
-                        if (grid[xy[1]][xy[0]] !== data[celly][cellx]) {
-                            grid[xy[1]][xy[0]] = "+";
-                            data[xy[1]][xy[0]] = data[celly][cellx];
-                        }
-                    });
-                    setmsg(data[celly][cellx].repeat(20));
-                    clearmsg = 10;
-                    data[celly][cellx] = "0";
-                } else if (prev === "☻") {
-                    grid[celly][cellx] = "0";
-                } else if (pipe.includes(prev)) {
-                    grid[celly][cellx] = data[celly][cellx] || "9";
-                    data[celly][cellx] = false;
+                handleclick(cellx, celly);
+                if (severed) {
+                    handleclick(size - 1 - cellx, celly);
                 }
-                requestAnimationFrame(draw);
             }
         }
     }
@@ -541,6 +568,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         screen = scr_game;
         frame = 0;
         timed = n > 1;
+        severed = false;
+        fracsize = 0;
+        fw = 0;
+        prefrac = [];
         let mins = [0, 0, 1, 5, 10, 30, .5][n];
         framesleft = Math.floor(mins * 60 * (1000/framelength));
         requestAnimationFrame(draw);
@@ -605,6 +636,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (pipe.includes(a)) {return "black"}
         else if (a === "ü") {return "black"}
         else if (a === "ö") {return "black"}
+        else if (a === "#") { return "black";}
     };
 
     const bgcolor = (a, x) => {
@@ -621,7 +653,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (pipe.includes(a)) {return "red"}
         else if (a === "ü") {return "peachpuff"}
         else if (a === "ö") {return "white"}
+        else if (a === "#") { return "red";}
     };
+
+    const getcellpos = (a) => {
+        let x = a[0] * cellwidth;
+        let y = a[1] * cellwidth;
+        if (severed && a[0] < 11) {
+            x -= fw;
+        }
+        if (severed && a[0] > 11) {
+            x += fw;
+        }
+        return [x, y];
+    }
 
     let frame = 0;
     const modenames =
@@ -639,7 +684,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, width, height)
             ctx.fillStyle = "red";
-            ctx.font = "20px Courier";
+            ctx.font = "20px Courier Prime, courier, monospace";
             ctx.fillText("Extreme flashing", 0, 50);
             ctx.fillText("lights warning", 0, 70);
             ctx.fillStyle = "white";
@@ -654,7 +699,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else if (screen === scr_choose) {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, width, height)
-            ctx.font = "20px Times";
+            ctx.font = "20px Libertinus Serif, times, serif";
             ctx.fillStyle = "green";
             ctx.fillText("Choose mode:", 0, 30);
             ctx.fillStyle = "grey";
@@ -666,7 +711,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else if (screen === scr_result) {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, width, height)
-            ctx.font = "20px Times";
+            ctx.font = "20px Libertinus Serif, times, serif";
             ctx.fillStyle = "green";
             ctx.fillText(modenames[mode], 0, 30);
             ctx.fillText("Final Score:", 0, 50);
@@ -681,14 +726,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.fillText("Click2Continue", 0, 150);
             }
         } else if (screen === scr_game) {
+            const corecolor = "rgb("+(150 + 90 * Math.sin(frame/7))+", 0, 0)";
             const fans = Array.from({ length: size }, () => new Array(size).fill(false));
-            ctx.clearRect(0, 0, width, height)
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = corecolor;
+            ctx.fillRect(0, gridpixels-1, width, height);
 
             // Grid
             for (let i = 0; i < size; i++) {
                 for (let j = 0; j < size; j++) {
-                    let x = i * cellwidth;
-                    let y = j * cellwidth;
+                    let [x,y] = getcellpos([i,j]);
                     let value = grid[j][i];
                     if (dryes.some(xy => xy[0] === i && xy[1] === j)) {
                         value = "ü";
@@ -703,14 +750,55 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         x+=Math.random()*.5;
                         y+=Math.random()*.5;
                     }
-                    ctx.fillStyle = bgcolor(value, frame);
-                    ctx.fillRect(x, y, cellwidth, cellwidth);
-                    ctx.fillStyle = "black";
-                    ctx.fillRect(x, y, cellwidth, 1);
-                    ctx.fillRect(x, y, 1, cellwidth);
-                    ctx.fillStyle = fgcolor(value, frame);
-                    const pat = font.slice(cp437[value]*5,cp437[value]*5+5).map(a=>[a%2, Math.floor(a/2)%2, Math.floor(a/4)%2, Math.floor(a/8)%2, Math.floor(a/16)%2]);
-                    try {
+                    if (value === "#") {
+                        ctx.fillStyle = bgcolor(prefrac[j], 0);
+                        ctx.fillRect(x-fw, y, cellwidth+2*fw, cellwidth);
+                        ctx.fillStyle = fgcolor(prefrac[j], 0);
+                        const pat = font.slice(cp437[prefrac[j]]*5,cp437[prefrac[j]]*5+5).map(a=>[a%2, Math.floor(a/2)%2, Math.floor(a/4)%2, Math.floor(a/8)%2, Math.floor(a/16)%2]);
+                        for (let i = 0; i < fontwidth; i++) {
+                            for (let j = 0; j < fontwidth; j++) {
+                                if (pat[j][i]) {
+                                    ctx.fillRect(x + 2 + i-fw, y + 2 + j, 1, 1);
+                                }
+                            }
+                        }
+                        for (let i = 0; i < fontwidth; i++) {
+                            for (let j = 0; j < fontwidth; j++) {
+                                if (pat[j][i]) {
+                                    ctx.fillRect(x + 2 + i+fw, y + 2 + j, 1, 1);
+                                }
+                            }
+                        }
+
+                        ctx.fillStyle = corecolor;
+                        ctx.beginPath();
+                        ctx.moveTo(x+fracture[j]-fw, y);
+                        ctx.lineTo(x+fracture[j+1]-fw, y+cellwidth);
+                        ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth);
+                        ctx.lineTo(x+fracture[j]+fw, y);
+                        ctx.closePath();
+                        ctx.fill();
+                        ctx.fillStyle = "black";
+                        ctx.strokeStyle = "black";
+                        ctx.beginPath();
+                        ctx.moveTo(x+fracture[j]-fw, y);
+                        ctx.lineTo(x+fracture[j+1]-fw, y+cellwidth);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(x+fracture[j]+fw, y);
+                        ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth);
+                        ctx.stroke();
+                        ctx.fillRect(x-cellwidth, y, fracture[j]-fw+cellwidth, 1);
+                        ctx.fillRect(x+fracture[j]+fw, y, cellwidth, 1);
+                        ctx.fillRect(x-fw, y, 1, cellwidth);
+                    } else {
+                        ctx.fillStyle = bgcolor(value, frame);
+                        ctx.fillRect(x, y, cellwidth, cellwidth);
+                        ctx.fillStyle = "black";
+                        ctx.fillRect(x, y, cellwidth, 1);
+                        ctx.fillRect(x, y, 1, cellwidth);
+                        ctx.fillStyle = fgcolor(value, frame);
+                        const pat = font.slice(cp437[value]*5,cp437[value]*5+5).map(a=>[a%2, Math.floor(a/2)%2, Math.floor(a/4)%2, Math.floor(a/8)%2, Math.floor(a/16)%2]);
                         for (let i = 0; i < fontwidth; i++) {
                             for (let j = 0; j < fontwidth; j++) {
                                 if (pat[j][i]) {
@@ -718,8 +806,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 }
                             }
                         }
-                    } catch {
-                        console.log(value);
                     }
                 }
             }
@@ -731,22 +817,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         fans[j+1][i] = true;
                         fans[j][i+1] = true;
                         fans[j+1][i+1] = true;
+                        let [x,y] = getcellpos([i,j]);
                         ctx.beginPath();
                         ctx.strokeStyle = "rgba(0,0,0,0.8)";
-                        ctx.arc((i+1)*cellwidth, (j+1)*cellwidth, cellwidth, 0, 2 * Math.PI);
+                        ctx.arc(x+cellwidth, y+cellwidth, cellwidth, 0, 2 * Math.PI);
                         ctx.stroke();
                         ctx.beginPath();
-                        ctx.moveTo((i+1+Math.cos(angle))*cellwidth,
-                                   (j+1+Math.sin(angle))*cellwidth);
-                        ctx.lineTo((i+1+Math.cos(angle+Math.PI))*cellwidth,
-                                   (j+1+Math.sin(angle+Math.PI))*cellwidth);
+                        ctx.moveTo(x+(1+Math.cos(angle))*cellwidth,
+                                   y+(1+Math.sin(angle))*cellwidth);
+                        ctx.lineTo(x+(1+Math.cos(angle+Math.PI))*cellwidth,
+                                   y+(1+Math.sin(angle+Math.PI))*cellwidth);
                         ctx.stroke();
                     }
                 }
             }
 
             ctx.fillStyle = "black";
-            ctx.fillRect(0, gridpixels-1, gridpixels, 1);
+            ctx.fillRect(0, gridpixels-1, 11*cellwidth+fracture[size]-fw, 1);
+            ctx.fillRect(11*cellwidth+fracture[size]+fw, gridpixels-1, gridpixels-(11*cellwidth+fracture[size]+fw), 1);
             ctx.fillRect(gridpixels-1, 0, 1, gridpixels);
 
             if (econ) {
@@ -754,22 +842,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 const eh = ehc*cellwidth;
                 const x = 100 + 80 * Math.sin(frame/10);
                 ctx.fillStyle = "rgb("+x+","+x+","+x+")";
-                ctx.fillRect(0,0,ew,eh);
+                ctx.fillRect(-fw,0,ew,eh);
                 const max = Math.max(...stockhistory);
                 const min = Math.min(...stockhistory);
                 for (let i = 1; i < shsize; i++) {
                     ctx.beginPath();
                     ctx.strokeStyle = (stockhistory[i] >= stockhistory[i-1]) ?
                         "green" : "red";
-                    ctx.moveTo(i * ew / shsize,
+                    ctx.moveTo(i * ew / shsize-fw,
                                eh - ((stockhistory[i-1]-min) * eh / (max-min)));
-                    ctx.lineTo(i * ew / shsize,
+                    ctx.lineTo(i * ew / shsize-fw,
                                eh - ((stockhistory[i]-min) * eh / (max-min)));
                     ctx.stroke();
                 }
 
                 ctx.fillStyle = "blue";
-                ctx.font = "40px Monsieur La Doulaise";
+                ctx.font = "40px Monsieur La Doulaise, cursive";
                 ctx.fillText(fluctuation, 3, 24);
             }
 
@@ -779,29 +867,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 const s1 = Math.random()*shake;
                 const s2 = Math.random()*shake;
                 ctx.strokeStyle = "hsl(" + frame*20 + ", 100%, 50%, 0.8)";
-                ctx.moveTo((path[0][0]+.5)*cellwidth + s1,
-                           (path[0][1]+.5)*cellwidth + s2);
+                const [x1,y1] = getcellpos(path[0]);
+                ctx.moveTo(x1+.5*cellwidth + s1,
+                           y1+.5*cellwidth + s2);
                 for (let i = 1; i < path.length; i++) {
-                    ctx.lineTo((path[i][0]+.5)*cellwidth + Math.random()*shake,
-                               (path[i][1]+.5)*cellwidth + Math.random()*shake);
+                    const h1 = Math.random()*shake;
+                    const h2 = Math.random()*shake;
+                    const [x,y] = getcellpos(path[i]);
+                    ctx.lineTo(x+.5*cellwidth + h1,
+                               y+.5*cellwidth + h2);
                 }
-                ctx.lineTo((path[0][0]+.5)*cellwidth + s1,
-                           (path[0][1]+.5)*cellwidth + s2);
+                ctx.closePath();
                 ctx.stroke();
             });
 
             for (let i = 0; i < targets.length; i++) {
                 const t = targets[i];
-                const x = t[0];
-                const y = t[1];
+                const cx = t[0];
+                const cy = t[1];
+                const [x, y] = getcellpos([t[0],t[1]]);
                 const left = t[2];
                 const minr = .8*cellwidth;
                 const maxr = 3*cellwidth;
                 const r = minr+Math.exp(left*Math.log(maxr-minr)/tlife);
                 ctx.beginPath();
                 ctx.strokeStyle = "red";
-                ctx.arc((x+.5)*cellwidth,
-                        (y+.5)*cellwidth,
+                ctx.arc(x+.5*cellwidth,
+                        y+.5*cellwidth,
                         r,
                         0,
                         2 * Math.PI);
@@ -811,10 +903,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 [0, Math.PI/2, Math.PI, 3*Math.PI/2].forEach(t => {
                     const a = t + frame * .3;
                     ctx.beginPath();
-                    ctx.moveTo((x+.5)*cellwidth + r * lr1 * Math.cos(a),
-                               (y+.5)*cellwidth + r * lr1 * Math.sin(a));
-                    ctx.lineTo((x+.5)*cellwidth + r * lr2 * Math.cos(a),
-                               (y+.5)*cellwidth + r * lr2 * Math.sin(a));
+                    ctx.moveTo(x+.5*cellwidth + r * lr1 * Math.cos(a),
+                               y+.5*cellwidth + r * lr1 * Math.sin(a));
+                    ctx.lineTo(x+.5*cellwidth + r * lr2 * Math.cos(a),
+                               y+.5*cellwidth + r * lr2 * Math.sin(a));
                     ctx.stroke();
                 });
             }
@@ -826,15 +918,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
 
             ctx.fillStyle = frame%2 ? "magenta" : "purple";
-            ctx.font = "80px Monsieur La Doulaise";
+            ctx.font = "80px Monsieur La Doulaise, cursive";
             ctx.fillText(msg, 0+msgoffset[0], 90 - clearmsg + msgoffset[1]);
 
             ctx.fillStyle = frame%2 ? "yellow" : "orange";
-            ctx.font = "40px Monsieur La Doulaise";
+            ctx.font = "40px Monsieur La Doulaise, cursive";
             ctx.fillText(notes[Math.floor(frame/30) % notes.length], 10, 180);
 
             ctx.fillStyle = frame%2 ? "lightblue" : "white";
-            ctx.font = "20px Courier";
+            ctx.font = "20px Courier Prime, courier, monospace";
             if (ismobile && msg === "keyboard") {
                 ctx.fillText("ClickHere2Type", 0, gridpixels+ 16);
             } else {
@@ -845,18 +937,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
 
             if (day === 1) {
-                ctx.font = "15px Courier";
+                ctx.font = "15px Courier Prime, courier, monospace";
                 ctx.fillStyle = frame%2 ? "turquoise" : "cyan";
                 ctx.fillText("+ADay", 140, gridpixels+ 10);
             } else if (day === 2) {
-                ctx.font = "15px Courier";
+                ctx.font = "15px Courier Prime, courier, monospace";
                 ctx.fillStyle = frame%2 ? "red" : "orangered";
                 ctx.fillText("+BDay", 140, gridpixels+ 10);
             }
 
             if (timed) {
                 ctx.fillStyle = "red";
-                ctx.font = "20px Courier";
+                ctx.font = "20px Courier Prime, courier, monospace";
                 ctx.fillText(framesleft,
                              gridpixels - 10*(framesleft.toString().length) - 20,
                              20);
@@ -887,6 +979,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 const o = stockowned.toString();
                 for (let i = 0; i < o.length; i++) {
                     grid[ehc+2][i + ewc - o.length] = o[i];
+                }
+            }
+            if (severed) {
+                for (let i = 0; i < fracsize; i++) {
+                    prefrac[i] = prefrac[i] || (grid[i][11]);
+                    grid[i][11] = "#";
+                }
+                if (fracsize < size) {
+                    fracsize++;
+                } else if (fw < 3 && frame % 7 === 0) {
+                    fw++;
                 }
             }
 
@@ -1427,4 +1530,5 @@ const cp437 = {
     "═": 0xcd,
     "ü": 0x81,
     "ö": 0x94,
+    "#︎": 0x23,
 };
