@@ -28,6 +28,16 @@ for (let i = 0; i <= size; i++) {
     fracture.push(Math.floor(Math.random()*cellwidth));
 }
 
+const sounds = {};
+
+const playsound = (s) => {
+    if (!(s in sounds)) {
+        sounds[s] = new Audio("./sfx/"+s+".wav");
+    }
+    const sfx = sounds[s];
+    sfx.load();
+    sfx.play();
+}
 
 const qrpat = "00000000000000000000000 01111111001000011111110 01000001011000010000010 01011101001011010111010 01011101011011010111010 01011101000101010111010 01000001011101010000010 01111111010101011111110 00000000000110000000000 01111101111001101010100 01001100110110000011010 00110101110100011100110 01110010101100110101000 01011001000011110000000 00000000011100001011000 01111111011100110100100 01000001000100101100010 01011101011011000011010 01011101010011101111100 01011101010100110110000 01000001010111001111110 01111111010011101001100 00000000000000000000000";
 const qr = unpat(qrpat);
@@ -102,6 +112,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const ewc = 8;
     const ehc = 4;
     let prefrac = [];
+
+    let bgm = new Audio("./sfx/bgm.wav");
+    bgm.loop = true;
 
     const addscore = (s) => {
         if (day === 1) {
@@ -201,6 +214,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (targets.some(t=>t[0]===cellx && t[1]===celly)) {
             targets = targets.filter(t=>!(t[0]===cellx && t[1]===celly));
             shower(cellx, celly, 20);
+            playsound("squish");
             addscore(Math.max(1000, Math.floor(score*.1)));
         } else if (econ && (cellx < ewc) && (celly < ehc + 3)) {
             if (celly === ehc + 1) {
@@ -209,8 +223,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         score -= stockprice;
                         stockowned++;
                         shower(cellx, celly, 5);
+                        playsound("giantsteps");
                     } else {
                         setmsg("No");
+                        playsound("blues");
                         clearmsg = 10;
                     }
                 } else if (cellx > 3) {
@@ -218,8 +234,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         score += stockprice;
                         stockowned--;
                         shower(cellx, celly, 5);
+                        playsound("satie");
                     } else {
                         setmsg("No");
+                        playsound("blues");
                         clearmsg = 10;
                     }
                 }
@@ -227,6 +245,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             const prev = grid[celly][cellx];
             if (prev === "0") {
+                playsound("slam");
                 if (day === 2) {
                     setmsg("2");
                     grid[celly][cellx] = "2";
@@ -246,6 +265,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 const n = neighbors([cellx, celly])
                 const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
                 if (sum > prev) {
+                    playsound("afxbleep");
                     const x = Math.min(9,+prev + ((day === 2)?2:1));
                     grid[celly][cellx] = x.toString();
                     setmsg(x.toString());
@@ -259,28 +279,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                 } else {
                     setmsg("No");
+                    playsound("blues");
                     clearmsg = 10;
                 }
             } else if (prev === "9") {
+                playsound("slam");
                 shower(cellx, celly, 1);
                 setmsg("keyboard");
                 clearmsg = 5;
                 grid[celly][cellx] = "?";
             } else if (prev === "?") {
+                playsound("slam");
                 setmsg("cancelled");
                 clearmsg = 5;
                 grid[celly][cellx] = "9";
             } else if (abc.includes(prev)) {
                 const sp = getspell([cellx, celly]);
                 if (sp) {
+                    playsound("maj69");
                     const [spell, vert] = sp;
                     hint_words=hint_words.filter(q=>q!==spell);
                     shower(cellx, celly, 30);
                     addscore(100);
                     setmsg("¡"+spell+"!");
                     clearmsg = 20;
-                    for (let i = 0; i < spell.length; i++) {
-                    }
                     if (spell === "qr") {
                         if (qrcount) {
                             for (let i = 0; i < size; i++) {
@@ -488,9 +510,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                 } else {
                     setmsg("No");
+                    playsound("blues");
                     clearmsg = 10;
                 }
             } else if (prev === "+") {
+                playsound("slam");
                 addscore(13);
                 grid[celly][cellx] = data[celly][cellx];
                 neighbors([cellx, celly]).forEach((xy) => {
@@ -503,8 +527,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 clearmsg = 10;
                 data[celly][cellx] = "0";
             } else if (prev === "☻") {
+                playsound("omori");
                 grid[celly][cellx] = "0";
             } else if (pipe.includes(prev)) {
+                playsound("slam");
                 grid[celly][cellx] = data[celly][cellx] || "9";
                 data[celly][cellx] = false;
             }
@@ -555,6 +581,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const modes = 6;
     const begin_game = (n) => {
+        bgm.play();
+        playsound("maj");
         console.log(n);
         mode = n;
         grid = Array.from({ length: size }, () => new Array(size).fill("0"));
@@ -612,6 +640,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (p.length) {
                     setmsg(k.toUpperCase() + "*".repeat(p.length - 1));
                     clearmsg = 20;
+                    playsound("maj7");
                     if (p.length > 1) {
                         addpath(p);
                     }
@@ -711,8 +740,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.fillText("Mobile not", 0, 100);
                 ctx.fillText("recommended", 0, 120);
             }
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "green";
+            ctx.fillText("turn on Sound", 0, 180);
             if (resultsover) {
+                ctx.fillStyle = "white";
                 ctx.fillText("Click2Begin", 0, 160);
             }
         } else if (screen === scr_choose) {
@@ -1046,11 +1077,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     fracsize++;
                 } else if (fw < 3 && frame % 7 === 0) {
                     fw++;
+                    if (fw === 1) {
+                        playsound("friend");
+                    }
                 }
             }
 
             if (frame % angle_steps === 0) {
                 const fans = Array.from({ length: size }, () => new Array(size).fill(false));
+                let isfans = false;
                 for (let i = 0; i < size; i++) {
                     for (let j = 0; j < size; j++) {
                         if (i+1 < size && j+1 < size && grid[j][i] === "4" && grid[j][i+1] === "4" && grid[j+1][i] === "4" && grid[j+1][i+1] === "4" && !fans[j][i] && !fans[j][i+1] && !fans[j+1][i] && !fans[j+1][i+1]) {
@@ -1059,8 +1094,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             fans[j+1][i+1] = true;
                             shower(i+.5, j+.5, 1);
                             addscore(1);
+                            isfans = true;
                         }
                     }
+                }
+                if (isfans) {
+                    playsound("squish");
                 }
             }
 
@@ -1072,6 +1111,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (left) {
                     t[2]--;
                 } else {
+                    playsound("blues");
                     targets[i] = false;
                     grid[y][x] = "x";
                     neighbors([x,y]).forEach(a => {
@@ -1102,6 +1142,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     manlife--;
                     if (!manlife) {
                         grid[man[1]][man[0]] = "~";
+                        playsound("squish");
                         man = null;
                     }
                 }
@@ -1111,6 +1152,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         if (grid[j][i] === "5" &&
                             neighbors([i,j]).every(xy => grid[xy[1]][xy[0]] === "5")) {
                             man = [i, j];
+                            playsound("audrey");
                             shower(i, j, 10);
                             break outer;
                         }
@@ -1199,6 +1241,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (framesleft) {
                     framesleft--;
                 } else {
+                    bgm.pause();
+                    playsound("backdoor");
                     screen = scr_result;
                     const best = localStorage.getItem("tzg"+mode)||(-Infinity);
                     localStorage.setItem("tzg"+mode, Math.max(best,score));
