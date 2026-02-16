@@ -6,7 +6,7 @@ let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourh", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ"];
+const spells = ["hint", "fourh", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -200,6 +200,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+    const worsen = (xy) => {
+        const prev = grid[xy[1]][xy[0]];
+        if ("123456789".includes(prev)) {
+            grid[xy[1]][xy[0]] = (+prev - 1).toString();
+            shower(xy[0], xy[1], 1);
+        } else if (prev === "0" || prev === "%") {
+            grid[xy[1]][xy[0]] = "☻";
+        } else if (abc.includes(prev)) {
+            grid[xy[1]][xy[0]] = "0";
+        }
+    }
+
     const addpath = (p) => {
         if (!paths.some(q => p.every(x => q.some(y => x[0]===y[0] && x[1]===y[1])))) {
             paths.push(p);
@@ -296,7 +308,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             } else if (abc.includes(prev)) {
                 const sp = getspell([cellx, celly]);
                 if (sp) {
-                    playsound("maj69");
                     const [spell, vert] = sp;
                     hint_words=hint_words.filter(q=>q!==spell);
                     shower(cellx, celly, 30);
@@ -304,6 +315,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     setmsg("¡"+spell+"!");
                     clearmsg = 20;
                     if (spell === "qr") {
+                        playsound("maj69");
                         if (qrcount) {
                             for (let i = 0; i < size; i++) {
                                 for (let j = 0; j < size; j++) {
@@ -318,6 +330,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath([[15,1],[15,7],[21,1],[21,7]]);
                         addpath([[1,15],[1,21],[7,15],[7,21]]);
                     } else if (nums.includes(spell)) {
+                        playsound("maj69");
                         grid[celly][cellx] = "+";
                         data[celly][cellx] = (nums.indexOf(spell)).toString();
                         addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
@@ -334,6 +347,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }
                         addpath(p);
                     } else if (spell === "math") {
+                        playsound("maj69");
                         const possible = "56789";
                         const p = [];
                         for (let i = 0; i < size; i++) {
@@ -346,18 +360,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }
                         addpath(p);
                     } else if (spell === "otot") {
+                        playsound("maj69");
                         for (let j = 0; j < 2; j++) {
                             targets.push([Math.floor(size*Math.random()),
                                           Math.floor(size*Math.random()),
                                           tlife]);
                         }
                     } else if (spell == "fourh") {
+                        playsound("maj69");
                         if (severed) {
                             fw++;
                         } else {
                             severed = true;
                         }
                     } else if (spell === "hint") {
+                        playsound("maj69");
                         let s = "";
                         if (hint_words.length) {
                             s = hint_words[Math.floor(Math.random() * hint_words.length)];
@@ -382,12 +399,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath(p2);
                         addpath([[-1,-1],[-1,s.length], [s.length,s.length],[s.length,-1]]);
                     } else if (spell === "beagle") {
+                        playsound("maj69");
                         for (let i = 0; i < size; i++) {
                             grid[i].fill("☻");
                             score = 666;
                             econ = false;
                         }
                     } else if (spell === "parker") {
+                        playsound("maj69");
                         for (let i = 0; i < size; i++) {
                             grid[i][0] = "4";
                             grid[i][1] = "9";
@@ -399,6 +418,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }
                         addpath([[7,0],[7,size-1]]);
                     } else if (spell === "pool") {
+                        playsound("maj69");
                         for (let i = 0; i < size; i++) {
                             grid[0][i] = "~";
                             grid[1][i] = "~";
@@ -407,16 +427,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }
                         addpath([[0,4],[size-1,4]]);
                     } else if (spell === "drye") {
+                        playsound("maj69");
                         dryes.push([cellx, celly]);
                         addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
                         addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
                     } else if (spell === "aday") {
+                        playsound("maj69");
                         day = 1;
                         canvas.style.background = "radial-gradient(circle, lightblue 0%, red 100%)";
                     } else if (spell === "bday") {
+                        playsound("maj69");
                         day = 2;
                         canvas.style.background = "radial-gradient(circle, lightblue 0%, blue 100%)";
+                    } else if (spell === "phone") {
+                        playsound("phone");
+                        grid[celly][cellx] = "%";
+                        addpath([[cellx-2,celly-2],
+                                 [cellx+2,celly+2]]);
+                        addpath([[cellx+2,celly-2],
+                                 [cellx-2,celly+2]]);
                     } else if (spell === "zeagle") {
+                        playsound("maj69");
                         if (vert) {
                             for (let i = 0; i < size; i++) {
                                 grid[i][cellx] = "9";
@@ -429,12 +460,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             }
                         }
                     } else if (spell === "econ") {
+                        playsound("maj69");
                         if (econ) {
                             fluctuation *= 2;
                         } else {
                             econ = true;
                         }
                     } else if (spell === "tunnel") {
+                        playsound("maj69");
                         addpath([[0,0],[0,size-1]]);
                         addpath([[size-1,0],[size-1,size-1]]);
                         const p = [];
@@ -677,6 +710,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (a === "ü") {return "black"}
         else if (a === "ö") {return "black"}
         else if (a === "#") { return "black";}
+        else if (a === "%") {return "black";}
     };
 
     const bgcolor = (a, x) => {
@@ -693,7 +727,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (pipe.includes(a)) {return "red"}
         else if (a === "ü") {return "peachpuff"}
         else if (a === "ö") {return "white"}
-        else if (a === "#") { return "red";}
+        else if (a === "#") {return "red";}
+        else if (a === "%") {return "hsl("+frame*20+", 100%, 50%, 0.8)";}
     };
 
     let frame = 0;
@@ -1190,16 +1225,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
 
+            const phones = [];
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (grid[i][j] === "%") {
+                        phones.push([j, i]);
+                    }
+                }
+            }
             for (let i = 0; i < dryes.length; i++) {
                 const d = dryes[i];
                 let n = neighbors(d);
                 if (severed) {
                     n = n.filter(xy => xy[0] !== 11);
                 }
-                if (Math.random() < 0.1) {
+                if (phones.length) {
+                    worsen(d);
+                } else if (Math.random() < 0.2) {
                     improve(d);
                 }
-                dryes[i] = n[Math.floor(Math.random() * n.length)];
+                let option = 0;
+                if (phones.length) {
+                    option = n.reduce((xy1, xy2) => {
+                        const d1 = Math.min(...phones.map((p) => {
+                            const dx1 = xy1[0]-p[0];
+                            const dy1 = xy1[1]-p[1];
+                            return dx1*dx1 + dy1*dy1;
+                        }));
+                        const d2 = Math.min(...phones.map((p) => {
+                            const dx2 = xy2[0]-p[0];
+                            const dy2 = xy2[1]-p[1];
+                            return dx2*dx2 + dy2*dy2;
+                        }));
+                        return (d1 < d2) ? xy1 : xy2;
+                    });
+                } else if (frame % 2 === 0) {
+                    option = n[Math.floor(Math.random() * n.length)]
+                } else {
+                    option = d;
+                }
+                dryes[i] = option;
             }
 
             for (let i = 0; i < particles.length; i++) {
@@ -1634,4 +1699,5 @@ const cp437 = {
     "ü": 0x81,
     "ö": 0x94,
     "#︎": 0x23,
+    "%": 0x87,
 };
