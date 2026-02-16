@@ -4,9 +4,9 @@ const cellwidth = fontwidth + 3;
 let grid = Array.from({ length: size }, () => new Array(size).fill("0"));
 let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
-const nums = ["zero", "one", "two", "three", "fourk", "fivek", "six", "seven", "eight", "nine"];
+const nums = ["zero", "one", "two", "three", "fourk", "fivek", "sixh", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourh", "fourk", "fivek", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone"];
+const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone"];
 let hint_words = spells;
 const angle_steps = 12;
 
