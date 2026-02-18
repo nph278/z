@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }
                         addpath([[0,4],[size-1,4]]);
                     } else if (spell === "drye") {
-                        playsound("maj69");
+                        playsound("eagle");
                         dryes.push([cellx, celly]);
                         addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
                         addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
