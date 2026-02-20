@@ -6,7 +6,7 @@ let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "sixh", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone"];
+const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -426,6 +426,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             grid[3][i] = "☻";
                         }
                         addpath([[0,4],[size-1,4]]);
+                    } else if (spell === "bunker") {
+                        playsound("maj69");
+                        for (let i = 0; i < size; i++) {
+                            grid[size-4][i] = "6";
+                            grid[size-3][i] = "0";
+                            if (i%2) {
+                                grid[size-2][i] = "$";
+                            } else {
+                                grid[size-2][i] = "0";
+                            }
+                            grid[size-1][i] = "0";
+                        }
+                        addpath([[0,size-5],[size-1,size-5]]);
                     } else if (spell === "drye") {
                         playsound("eagle");
                         dryes.push([cellx, celly]);
@@ -559,6 +572,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 setmsg(data[celly][cellx].repeat(20));
                 clearmsg = 10;
                 data[celly][cellx] = "0";
+            } else if (prev === "$") {
+                playsound("squish");
+                if (Math.random() > 0.5) {
+                    score = Math.ceil(score*1.5);
+                    setmsg(":) :) :)");
+                } else {
+                    score = Math.ceil(score*0.5);
+                    setmsg(":( :( :(");
+                }
+                clearmsg = 10;
+                grid[celly][cellx] = "0";
             } else if (prev === "☻") {
                 playsound("omori");
                 grid[celly][cellx] = "0";
@@ -711,6 +735,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (a === "ö") {return "black"}
         else if (a === "#") { return "black";}
         else if (a === "%") {return "black";}
+        else if (a === "$") {return "green";}
     };
 
     const bgcolor = (a, x) => {
@@ -729,6 +754,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (a === "ö") {return "white"}
         else if (a === "#") {return "red";}
         else if (a === "%") {return "hsl("+frame*20+", 100%, 50%, 0.8)";}
+        else if (a === "$") {return "white";}
     };
 
     let frame = 0;
