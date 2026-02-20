@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     } else if (spell === "econ") {
                         playsound("maj69");
                         if (econ) {
-                            fluctuation *= 2;
+                            fluctuation = Math.ceil(fluctuation*1.25);
                         } else {
                             econ = true;
                         }
