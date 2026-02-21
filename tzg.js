@@ -663,6 +663,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const modes = 6;
     const begin_game = (n) => {
+        canvas.style.background = "radial-gradient(circle, white 0%, black 100%)";
         bgm.play();
         playsound("maj");
         console.log(n);
