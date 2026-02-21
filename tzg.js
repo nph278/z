@@ -281,7 +281,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         } else {
             const prev = grid[celly][cellx];
-            if (prev === "0") {
+            const n = neighbors([cellx, celly]);
+            if (prev === "0" && !n.some(xy => grid[xy[1]][xy[0]] === "☻")) {
                 playsound("slam");
                 if (day === 2) {
                     setmsg("2");
@@ -292,14 +293,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
                 clearmsg = 5;
                 addscore(1);
-                const n = neighbors([cellx, celly])
                 if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
                     msg+=" "+"*".repeat(n.length);
                     addpath(n);
                     addscore(1);
                 }
-            } else if ("12345678".includes(prev)) {
-                const n = neighbors([cellx, celly])
+            } else if ("12345678".includes(prev) && !n.some(xy => grid[xy[1]][xy[0]] === "☻")) {
                 const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
                 if (sum > prev) {
                     playsound("afxbleep");
