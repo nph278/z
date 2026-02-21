@@ -48,6 +48,7 @@ const loadsound = (s) => {
 }
 
 loadsound("afxbleep");
+loadsound("beagle");
 loadsound("blues");
 loadsound("maj69");
 loadsound("phone");
@@ -423,7 +424,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath(p2);
                         addpath([[-1,-1],[-1,s.length], [s.length,s.length],[s.length,-1]]);
                     } else if (spell === "beagle") {
-                        playsound("maj69");
+                        playsound("beagle");
                         for (let i = 0; i < size; i++) {
                             grid[i].fill("☻");
                             score = 666;
