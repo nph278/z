@@ -373,12 +373,20 @@ img.i {
     color: red;
 }
 
-#insta {
+.red {
     color: red;
 }
 
-#playlist {
+.green {
     color: green;
+}
+
+.blue {
+    color: blue;
+}
+
+.magenta {
+    color: magenta;
 }
 
 .special p {
@@ -565,4 +573,12 @@ canvas {
     border-thickness: 15px;
     border-style: solid;
     border-color: red;
+}
+
+#comingsoon {
+    text-align: center;
+    padding: 1em;
+    font-size: 30px;
+    eont-style: italic;
+    font-family: "Libertinus Serif", times, serif;
 }
