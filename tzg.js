@@ -793,7 +793,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
            "30 Min HomeRoom",
            "30 Sec SpeedRun"];
     const draw = () => {
-        sizemult = Math.floor(Math.min(window.innerWidth, window.innerHeight) / width);
+        sizemult = Math.floor(Math.min(window.innerWidth/width, window.innerHeight/height));
         canvas.style.width = sizemult * width + "px";
         let yo1 = Math.floor(Math.sin(frame/20)*2);
         let yo2 = Math.floor(Math.cos(frame/20)*2);
