@@ -223,6 +223,7 @@ img.i {
     border-color: white;
     border-style: solid;
     border-width: 10px;
+    color: white;
 }
 
 .news p, .news ul {
