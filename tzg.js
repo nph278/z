@@ -6,7 +6,7 @@ let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "sixh", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych"];
+const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych", "maze"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -67,6 +67,8 @@ loadsound("squish");
 
 const qrpat = "00000000000000000000000 01111111001000011111110 01000001011000010000010 01011101001011010111010 01011101011011010111010 01011101000101010111010 01000001011101010000010 01111111010101011111110 00000000000110000000000 01111101111001101010100 01001100110110000011010 00110101110100011100110 01110010101100110101000 01011001000011110000000 00000000011100001011000 01111111011100110100100 01000001000100101100010 01011101011011000011010 01011101010011101111100 01011101010100110110000 01000001010111001111110 01111111010011101001100 00000000000000000000000";
 const qr = unpat(qrpat);
+const mazepat = "11111111111111111111111 10000000000000010000001 10110111110111111111101 10010000010010010000001 11011011111110111011111 10010010000000000010001 10111011111111011110111 10010000000000010010101 11111110111110110110101 10000010010000000010001 11011011011110111111101 10010000010000000010001 11111111110111011111011 10010100010010000010001 11010101011110110111101 10010001000000010000001 10110111110111111011111 10100010000010000000001 10101011111111110110111 10001010100001010010001 11111010111011011111011 10000000000000000000001 11111111111111111111111";
+const maze = unpat(mazepat);
 
 const tonum = (a) => {
     if ("0123456789".includes(a)) {
@@ -122,6 +124,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let mode = 0;
     let resultsover = false;
     let severed = false;
+    let mazeon = false;
 
     let dryes = [];
     let psych = false;
@@ -355,6 +358,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath([[1,1],[1,7],[7,1],[7,7]]);
                         addpath([[15,1],[15,7],[21,1],[21,7]]);
                         addpath([[1,15],[1,21],[7,15],[7,21]]);
+                    } else if (spell === "maze") {
+                        playsound("maj69");
+                        mazeon = true;
                     } else if (nums.includes(spell)) {
                         playsound("maj69");
                         grid[celly][cellx] = "+";
@@ -703,6 +709,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         frame = 0;
         timed = n > 1;
         severed = false;
+        mazeon = false;
         fracsize = 0;
         fw = 0;
         prefrac = [];
@@ -925,8 +932,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                     if (value === "#") {
                         x+=fw;
-
-                        ctx.fillStyle = bgcolor(prefrac[j], 0);
+                        if (prefrac[j] === "!") {
+                            ctx.fillStyle = corecolor;
+                        } else {
+                            ctx.fillStyle = bgcolor(prefrac[j], 0);
+                        }
                         ctx.beginPath();
                         ctx.moveTo(x-fw,y)
                         ctx.lineTo(x+fracture[j]-fw, y);
@@ -973,17 +983,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         ctx.stroke();
                         ctx.fillStyle = "black";
                         ctx.strokeStyle = "black";
-                        ctx.beginPath();
-                        ctx.moveTo(x+fracture[j]-fw, y);
-                        ctx.lineTo(x+fracture[j+1]-fw, y+cellwidth);
-                        ctx.stroke();
-                        ctx.beginPath();
-                        ctx.moveTo(x+fracture[j]+fw, y-yo1+yo2);
-                        ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth-yo1+yo2);
-                        ctx.stroke();
-                        ctx.fillRect(x-cellwidth, y, fracture[j]-fw+cellwidth, 1);
-                        ctx.fillRect(x+fracture[j]+fw, y-yo1+yo2, cellwidth*2, 1);
-                        ctx.fillRect(x-fw, y, 1, cellwidth);
+                        if (prefrac[j] !== "!") {
+                            ctx.beginPath();
+                            ctx.moveTo(x+fracture[j]-fw, y);
+                            ctx.lineTo(x+fracture[j+1]-fw, y+cellwidth);
+                            ctx.stroke();
+                            ctx.beginPath();
+                            ctx.moveTo(x+fracture[j]+fw, y-yo1+yo2);
+                            ctx.lineTo(x+fracture[j+1]+fw, y+cellwidth-yo1+yo2);
+                            ctx.stroke();
+                            ctx.fillRect(x-cellwidth, y, fracture[j]-fw+cellwidth, 1);
+                            ctx.fillRect(x+fracture[j]+fw, y-yo1+yo2, cellwidth*2, 1);
+                            ctx.fillRect(x-fw, y, 1, cellwidth);
+                        }
+                    } else if (value === "!") {
+                        ctx.fillStyle = corecolor;
+                        ctx.fillRect(x, y, cellwidth, cellwidth);
                     } else {
                         ctx.fillStyle = bgcolor(value, frame);
                         ctx.fillRect(x, y, cellwidth, cellwidth);
@@ -1040,9 +1055,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
 
             ctx.fillStyle = "black";
-            ctx.fillRect(0, gridpixels-1+yo1, 11*cellwidth+fracture[size]-fw, 1);
-            ctx.fillRect(11*cellwidth+fracture[size]+fw, gridpixels-1+yo2, gridpixels-(11*cellwidth+fracture[size]+fw), 1);
-            ctx.fillRect(gridpixels-1+fw, 0, 1, gridpixels+yo2);
+            if (!mazeon) {
+                ctx.fillRect(0, gridpixels-1+yo1, 11*cellwidth+fracture[size]-fw, 1);
+                ctx.fillRect(11*cellwidth+fracture[size]+fw, gridpixels-1+yo2, gridpixels-(11*cellwidth+fracture[size]+fw), 1);
+                ctx.fillRect(gridpixels-1+fw, 0, 1, gridpixels+yo2);
+            }
 
             if (econ) {
                 const ew = ewc*cellwidth;
@@ -1169,6 +1186,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             stockprice = Math.max(stockprice, 10);
             stockhistory.shift(1);
             stockhistory.push(stockprice);
+            if (mazeon) {
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if (maze[i][j]) {
+                            grid[i][j] = "!";
+                        }
+                    }
+                }
+            }
             if (econ) {
                 for (let i = 0; i < ewc; i++) {
                     for (let j = 0; j < ehc+3; j++) {
@@ -1678,7 +1704,6 @@ const font = [
 
 const cp437 = {
     " ": 32,
-    "!": 33,
     '"': 34,
     "#": 35,
     "$": 36,
@@ -1787,4 +1812,5 @@ const cp437 = {
     "ö": 0x94,
     "#︎": 0x23,
     "%": 0x87,
+    "!": 0,
 };
