@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const ctx = canvas.getContext("2d");
     canvas.style.width = width + "px";
     let particles = [];
+    let boulders = [];
     let fracsize = 0;
     let fw = 0;
 
@@ -162,7 +163,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 
     cheat = () => {
-        grid[0].fill("9");
+        grid[11].fill("9");
     };
 
     const shower = (x, y, n) => {
@@ -361,6 +362,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     } else if (spell === "maze") {
                         playsound("maj69");
                         mazeon = true;
+                        boulders = dryes.map(xy => [xy[0]*cellwidth, xy[1]*cellwidth, 50]);
                     } else if (nums.includes(spell)) {
                         playsound("maj69");
                         grid[celly][cellx] = "+";
@@ -665,7 +667,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 handlekey(prompt("Enter a letter")[0].toLowerCase());
             } else {
                 let xys = [[cellx, celly]];
-                if (psych) {
+                if (psych && !boulders.length) {
                     xys = xys.concat(dryes);
                 }
                 xys.forEach(xy => {
@@ -694,6 +696,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         score = 0;
         paths = [];
         particles = [];
+        boulders = [];
         dryes = [];
         psych = false;
         targets = [];
@@ -1135,6 +1138,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 });
             }
 
+            for (let i = 0; i < boulders.length; i++) {
+                const t = boulders[i];
+                const left = t[2];
+                const x = t[0];
+                const y = t[1] - left;
+                const r = 10;
+                ctx.beginPath();
+                ctx.strokeStyle = "black";
+                ctx.fillStyle = "grey";
+                ctx.arc(x, y, r, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.fill();
+            }
+
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
                 ctx.fillStyle = "hsl(" + p.age * 100 + ", 100%, 50%)";
@@ -1160,14 +1177,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.fillText("Score: " + score, 0, gridpixels+ 16);
             }
 
-            if (day === 1) {
-                ctx.font = "15px Courier Prime, courier, monospace";
-                ctx.fillStyle = frame%2 ? "turquoise" : "cyan";
-                ctx.fillText("+ADay", 140, gridpixels+ 10);
-            } else if (day === 2) {
-                ctx.font = "15px Courier Prime, courier, monospace";
-                ctx.fillStyle = frame%2 ? "red" : "orangered";
-                ctx.fillText("+BDay", 140, gridpixels+ 10);
+            ctx.font = "15px Courier Prime, courier, monospace";
+            if (!psych || (Math.floor(frame / 30) % 2)) {
+                if (day === 1) {
+                    ctx.fillStyle = frame%2 ? "turquoise" : "cyan";
+                    ctx.fillText("+ADay", 140, gridpixels+ 10);
+                } else if (day === 2) {
+                    ctx.fillStyle = frame%2 ? "red" : "orangered";
+                    ctx.fillText("+BDay", 140, gridpixels+ 10);
+                }
+            }
+            if (psych && (!day || !(Math.floor(frame / 30) % 2))) {
+                ctx.fillStyle = frame%2 ? "pink" : "magenta";
+                ctx.fillText("+Psych", 130, gridpixels+10);
             }
 
             if (timed) {
@@ -1267,6 +1289,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
 
+            for (let i = 0; i < boulders.length; i++) {
+                const t = boulders[i];
+                const x = t[0];
+                const y = t[1];
+                const left = t[2];
+                if (left > 0) {
+                    t[2] -= 4;
+                } else {
+                    playsound("squish");
+                    shower(x/cellwidth, y/cellwidth, 10);
+                    dryes = [];
+                    boulders = [];
+                }
+            }
+
             targets = targets.filter(a => a);
 
             if (man) {
@@ -1344,13 +1381,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                 }
             }
-            if (!psych) {
+            if (!psych && !boulders.length) {
                 for (let i = 0; i < dryes.length; i++) {
                     const d = dryes[i];
                     let n = neighbors(d);
-                    if (severed) {
-                        n = n.filter(xy => xy[0] !== 11);
-                    }
+                    n = n.filter(xy => grid[xy[1]][xy[0]] !== "#" && grid[xy[1]][xy[0]] !== "!");
                     if (phones.length) {
                         worsen(d);
                     } else if (Math.random() < 0.2) {
