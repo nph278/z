@@ -6,7 +6,7 @@ let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "sixh", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "english", "math",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker"];
+const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let severed = false;
 
     let dryes = [];
+    let psych = false;
     let targets = [];
     const tlife = 30;
     let man = false; // False: not started, null: dead
@@ -360,7 +361,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         data[celly][cellx] = (nums.indexOf(spell)).toString();
                         addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
                         addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
-                    } else if (spell === "english") {
+                    } else if (spell === "aplit" || spell === "iblit") {
+                        playsound("maj69");
                         const p = [];
                         for (let i = 0; i < size; i++) {
                             for (let j = 0; j < size; j++) {
@@ -371,7 +373,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             }
                         }
                         addpath(p);
-                    } else if (spell === "math") {
+                    } else if (spell === "psych") {
+                        playsound("maj69");
+                        psych = true;
+                    } else if (spell === "apcalc" || spell === "analysis") {
                         playsound("maj69");
                         const possible = "56789";
                         const p = [];
@@ -653,10 +658,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (ismobile && (celly >= size) && msg === "keyboard") {
                 handlekey(prompt("Enter a letter")[0].toLowerCase());
             } else {
-                handleclick(cellx, celly);
-                if (severed) {
-                    handleclick(size - 1 - cellx, celly);
+                let xys = [[cellx, celly]];
+                if (psych) {
+                    xys = xys.concat(dryes);
                 }
+                xys.forEach(xy => {
+                    handleclick(xy[0], xy[1]);
+                    if (severed) {
+                        handleclick(size - 1 - xy[0], xy[1]);
+                    }
+                });
             }
         }
     }
@@ -678,6 +689,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         paths = [];
         particles = [];
         dryes = [];
+        psych = false;
         targets = [];
         man = false;
         manlife = 0;
@@ -706,8 +718,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 begin_game(+k);
             }
         } else if (screen === scr_game) {
+            if (psych) {
+                for (let i = 0; i < dryes.length; i++) {
+                    let xy = dryes[i];
+                    if (k === "arrowup") {
+                        xy[1] = Math.max(0, xy[1]-1);
+                    } else if (k === "arrowleft") {
+                        if (!severed || xy[0] !== 12) {
+                            xy[0] = Math.max(0, xy[0]-1);
+                        }
+                    } else if (k === "arrowdown") {
+                        xy[1] = Math.min(size-1, xy[1]+1);
+                    } else if (k === "arrowright") {
+                        if (!severed || xy[0] !== 10) {
+                            xy[0] = Math.min(size-1, xy[0]+1);
+                        }
+                    }
+                }
+            }
             let s = 0;
-            if (abc.includes(k)) {
+            if (abc.split("").includes(k)) {
                 let p = [];
                 for (let i = 0; i < size; i++) {
                     for (let j = 0; j < size; j++) {
@@ -735,6 +765,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.addEventListener('keydown', (e) => {
         const k = e.key.toLowerCase();
+        if (["arrowup","arrowleft","arrowdown","arrowright"].includes(k)) {
+            e.preventDefault();
+        }
         handlekey(k);
     });
 
@@ -1285,38 +1318,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                 }
             }
-            for (let i = 0; i < dryes.length; i++) {
-                const d = dryes[i];
-                let n = neighbors(d);
-                if (severed) {
-                    n = n.filter(xy => xy[0] !== 11);
+            if (!psych) {
+                for (let i = 0; i < dryes.length; i++) {
+                    const d = dryes[i];
+                    let n = neighbors(d);
+                    if (severed) {
+                        n = n.filter(xy => xy[0] !== 11);
+                    }
+                    if (phones.length) {
+                        worsen(d);
+                    } else if (Math.random() < 0.2) {
+                        improve(d);
+                    }
+                    let option = 0;
+                    if (phones.length) {
+                        option = n.reduce((xy1, xy2) => {
+                            const d1 = Math.min(...phones.map((p) => {
+                                const dx1 = xy1[0]-p[0];
+                                const dy1 = xy1[1]-p[1];
+                                return dx1*dx1 + dy1*dy1;
+                            }));
+                            const d2 = Math.min(...phones.map((p) => {
+                                const dx2 = xy2[0]-p[0];
+                                const dy2 = xy2[1]-p[1];
+                                return dx2*dx2 + dy2*dy2;
+                            }));
+                            return (d1 < d2) ? xy1 : xy2;
+                        });
+                    } else if (frame % 2 === 0) {
+                        option = n[Math.floor(Math.random() * n.length)]
+                    } else {
+                        option = d;
+                    }
+                    dryes[i] = option;
                 }
-                if (phones.length) {
-                    worsen(d);
-                } else if (Math.random() < 0.2) {
-                    improve(d);
-                }
-                let option = 0;
-                if (phones.length) {
-                    option = n.reduce((xy1, xy2) => {
-                        const d1 = Math.min(...phones.map((p) => {
-                            const dx1 = xy1[0]-p[0];
-                            const dy1 = xy1[1]-p[1];
-                            return dx1*dx1 + dy1*dy1;
-                        }));
-                        const d2 = Math.min(...phones.map((p) => {
-                            const dx2 = xy2[0]-p[0];
-                            const dy2 = xy2[1]-p[1];
-                            return dx2*dx2 + dy2*dy2;
-                        }));
-                        return (d1 < d2) ? xy1 : xy2;
-                    });
-                } else if (frame % 2 === 0) {
-                    option = n[Math.floor(Math.random() * n.length)]
-                } else {
-                    option = d;
-                }
-                dryes[i] = option;
             }
 
             for (let i = 0; i < particles.length; i++) {
