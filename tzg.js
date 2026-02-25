@@ -611,11 +611,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 clearmsg = 10;
                 data[celly][cellx] = "0";
             } else if (prev === "$") {
-                playsound("squish");
                 if (Math.random() > 0.5) {
+                    playsound("maj7");
                     score = Math.ceil(score*1.5);
                     setmsg(":) :) :)");
                 } else {
+                    playsound("blues");
                     score = Math.ceil(score*0.5);
                     setmsg(":( :( :(");
                 }
