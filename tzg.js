@@ -6,7 +6,7 @@ let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "sixh", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych", "maze"];
+const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych", "maze", "lunch"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let boulders = [];
     let fracsize = 0;
     let fw = 0;
+    let frenzy = 0;
 
     const neighbors = (e) => [[e[0]+1, e[1]],
                               [e[0], e[1]+1],
@@ -290,25 +291,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const n = neighbors([cellx, celly]);
             if (prev === "0" && !n.some(xy => grid[xy[1]][xy[0]] === "☻")) {
                 playsound("slam");
+                let newnum = 1;
                 if (day === 2) {
-                    setmsg("2");
-                    grid[celly][cellx] = "2";
-                } else {
-                    setmsg("1");
-                    grid[celly][cellx] = "1";
+                    newnum = 2;
                 }
+                if (frenzy) {
+                    newnum = 9;
+                }
+                setmsg(newnum.toString());
+                grid[celly][cellx] = newnum.toString();
                 clearmsg = 5;
-                addscore(1);
+                addscore(newnum);
                 if (n.every(x => grid[x[1]][x[0]] === grid[n[0][1]][n[0][0]])) {
                     msg+=" "+"*".repeat(n.length);
                     addpath(n);
-                    addscore(1);
+                    addscore(newnum);
                 }
             } else if ("12345678".includes(prev) && !n.some(xy => grid[xy[1]][xy[0]] === "☻")) {
                 const sum = n.map((e) => tonum(grid[e[1]][e[0]])).reduce((a,b)=>(a+b));
-                if (sum > prev) {
+                const x = frenzy ? 9 : Math.min(9,+prev + ((day === 2)?2:1));
+                if (sum >= x) {
                     playsound("afxbleep");
-                    const x = Math.min(9,+prev + ((day === 2)?2:1));
                     grid[celly][cellx] = x.toString();
                     setmsg(x.toString());
                     clearmsg = 5;
@@ -464,6 +467,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             grid[3][i] = "☻";
                         }
                         addpath([[0,4],[size-1,4]]);
+                    } else if (spell === "lunch") {
+                        playsound("maj69");
+                        frenzy = 125;
                     } else if (spell === "bunker") {
                         playsound("maj69");
                         for (let i = 0; i < size; i++) {
@@ -703,6 +709,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         targets = [];
         man = false;
         manlife = 0;
+        frenzy = 0;
         day = 0;
         stockprice = 1000;
         stockhistory = new Array(shsize).fill(stockprice);
@@ -907,7 +914,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.fillText("Click2Continue", 0, 150);
             }
         } else if (screen === scr_game) {
-            const corecolor = "rgb("+(150 + 90 * Math.sin(frame/7))+", 0, 0)";
+            const corecolor = frenzy ?
+                  (ctx.strokeStyle = "hsl(" + frame*20 + ", 100%, 50%, 0.8)") :
+                  ("rgb("+(150 + 90 * Math.sin(frame/7))+", 0, 0)");
             const fans = Array.from({ length: size }, () => new Array(size).fill(false));
             ctx.clearRect(0, 0, width, height);
             ctx.fillStyle = corecolor;
@@ -1168,14 +1177,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
             ctx.fillText(notes[Math.floor(frame/30) % notes.length], 10, 180);
 
             ctx.fillStyle = frame%2 ? "lightblue" : "white";
-            ctx.font = "20px Courier Prime, courier, monospace";
-            if (ismobile && msg === "keyboard") {
-                ctx.fillText("ClickHere2Type", 0, gridpixels+ 16);
+            if (frenzy) {
+                ctx.font = "15px Courier Prime, courier, monospace";
+                ctx.fillText("Nutritious Frenzy!" + frenzy, 0, gridpixels+ 16);
             } else {
-                if (score < 0) {
-                    ctx.fillStyle = frame%2 ? "red" : "darkred";
+                ctx.font = "20px Courier Prime, courier, monospace";
+                if (ismobile && msg === "keyboard") {
+                    ctx.fillText("ClickHere2Type", 0, gridpixels+ 16);
+                } else {
+                    if (score < 0) {
+                        ctx.fillStyle = frame%2 ? "red" : "darkred";
+                    }
+                    ctx.fillText("Score: " + score, 0, gridpixels+ 16);
                 }
-                ctx.fillText("Score: " + score, 0, gridpixels+ 16);
             }
 
             ctx.font = "15px Courier Prime, courier, monospace";
@@ -1407,7 +1421,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             }));
                             return (d1 < d2) ? xy1 : xy2;
                         });
-                    } else if (frame % 2 === 0) {
+                    } else if ((frame % 2 === 0) || frenzy) {
                         option = n[Math.floor(Math.random() * n.length)]
                     } else {
                         option = d;
@@ -1451,6 +1465,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
 
             frame++;
+            if (frenzy) {
+                frenzy--;
+            }
             if (timed) {
                 if (framesleft) {
                     framesleft--;
