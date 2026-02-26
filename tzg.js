@@ -2,11 +2,12 @@ const size = 23;
 const fontwidth = 5;
 const cellwidth = fontwidth + 3;
 let grid = Array.from({ length: size }, () => new Array(size).fill("0"));
+let initgrid = Array.from({ length: size }, () => new Array(size).fill("0"));
 let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "sixh", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis",  "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych", "maze", "lunch"];
+const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis", "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych", "maze", "lunch", "apwh", "apush"];
 let hint_words = spells;
 const angle_steps = 12;
 
@@ -144,6 +145,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const ewc = 8;
     const ehc = 4;
     let prefrac = [];
+    const whist = 50;
+    const ushist = 25;
+    let history = new Array(whist).fill(initgrid);
 
     let bgm = new Audio("./sfx/bgm.wav");
     bgm.loop = true;
@@ -255,6 +259,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
     const handleclick = (cellx, celly) => {
+        history.push(structuredClone(grid));
+        history.shift(1);
+
         if (targets.some(t=>t[0]===cellx && t[1]===celly)) {
             targets = targets.filter(t=>!(t[0]===cellx && t[1]===celly));
             shower(cellx, celly, 20);
@@ -362,6 +369,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath([[1,1],[1,7],[7,1],[7,7]]);
                         addpath([[15,1],[15,7],[21,1],[21,7]]);
                         addpath([[1,15],[1,21],[7,15],[7,21]]);
+                    } else if (spell === "apwh") {
+                        playsound("maj69");
+                        grid = structuredClone(history[0]);
+                        history = new Array(whist).fill(initgrid);
+                    } else if (spell === "apush") {
+                        playsound("maj69");
+                        grid = structuredClone(history[whist-ushist]);
+                        history = new Array(whist).fill(initgrid);
                     } else if (spell === "maze") {
                         playsound("maj69");
                         mazeon = true;
@@ -696,6 +711,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         mode = n;
         grid = Array.from({ length: size }, () => new Array(size).fill("0"));
         data = Array.from({ length: size }, () => new Array(size).fill(false));
+        history = new Array(whist).fill(initgrid);
         msg = "";
         msgoffset = [0,0];
         clearmsg = 0;
