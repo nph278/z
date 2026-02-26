@@ -1292,7 +1292,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             fans[j][i+1] = true;
                             fans[j+1][i+1] = true;
                             shower(i+.5, j+.5, 1);
-                            addscore(1);
+                            addscore(10);
                             isfans = true;
                         }
                     }
