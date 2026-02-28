@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath(p);
                     } else if (spell === "psych") {
                         playsound("maj69");
-                        psych = true;
+                        psych = !psych;
                     } else if (spell === "apcalc" || spell === "analysis") {
                         playsound("maj69");
                         const possible = "56789";
