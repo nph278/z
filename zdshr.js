@@ -5,6 +5,9 @@
 // Music
 // Shoes, tail sock
 // Fix image textures
+// Ensure phone support
+// Link from game page
+// Announcement
 
 async function start() {
     const images = [];
@@ -115,8 +118,8 @@ async function start() {
     const canvas = document.querySelector("canvas");
     const width = 1500;
     const height = 1000;
-    const hmargin = 10;
-    const vmargin = 40;
+    const hmargin = 5;
+    const vmargin = 5;
     canvas.width = width;
     canvas.height = height;
     let sizemult = 1;
