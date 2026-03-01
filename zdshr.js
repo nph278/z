@@ -3,6 +3,8 @@
 // Lose points for incompatibles
 // Sound effects
 // Music
+// Shoes, tail sock
+// Fix image textures
 
 async function start() {
     const images = [];
@@ -19,7 +21,7 @@ async function start() {
         clothes.push({
             name,
             original_image: image,
-            color_image: image,
+            colored_images: [],
             enabled: false,
             texture: 0,
             texturable,
@@ -35,24 +37,29 @@ async function start() {
         ctx.drawImage(image, 0, 0);
 
         const imageData = ctx.getImageData(0, 0, imageSize, imageSize);
-        let getcolor = null;
         if (typeof texture === "function") {
-            getcolor = texture;
+            const getcolor = texture;
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const y = (Math.floor(i/(imageSize*4)))/image.height;
+                const x = (Math.floor(i/4) % imageSize)/imageSize;
+                const c = getcolor(x, y);
+                imageData.data[i + 0] *= c[0];
+                imageData.data[i + 1] *= c[1];
+                imageData.data[i + 2] *= c[2];
+            }
         } else {
             const aux_image = texture;
             const aux_offscreen = new OffscreenCanvas(aux_image.width, aux_image.width);
             const aux_ctx = aux_offscreen.getContext("2d");
             aux_ctx.drawImage(aux_image, 0, 0);
-            getcolor = (x, y) => Array.from(aux_ctx.getImageData(x * aux_image.width, y * aux_image.height, 1, 1).data).map(n => n/255);
-        }
-
-        for (let i = 0; i < imageData.data.length; i += 4) {
-            const y = (Math.floor(i/(imageSize*4)))/image.height;
-            const x = (Math.floor(i/4) % imageSize)/imageSize;
-            const c = getcolor(x, y);
-            imageData.data[i + 0] *= c[0];
-            imageData.data[i + 1] *= c[1];
-            imageData.data[i + 2] *= c[2];
+            const aux_data = aux_ctx.getImageData(0, 0, aux_image.width, aux_image.width).data;
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const y = ((Math.floor(i/(imageSize*4)))/image.height) * aux_image.height;
+                const x = ((Math.floor(i/4) % imageSize)/imageSize) * aux_image.width;
+                imageData.data[i + 0] *= aux_data[4 * Math.floor(y * aux_image.width + x) + 0]/255;
+                imageData.data[i + 1] *= aux_data[4 * Math.floor(y * aux_image.width + x) + 1]/255;
+                imageData.data[i + 2] *= aux_data[4 * Math.floor(y * aux_image.width + x) + 2]/255;
+            }
         }
 
         ctx.putImageData(imageData, 0, 0);
@@ -64,11 +71,19 @@ async function start() {
     let image_glow = make_image("glow.png");
     let image_bg = make_image("bg1.jpg");
     let image_rainbow = make_image("rainbow.png");
+    let image_diffract = make_image("diffract.jpg");
 
     const textures = [
         (x, y) => [0, y, x],
-        (x, y) => [1, 0, 0],
         image_rainbow,
+        (x, y) => [1, 0, 0],
+        (x, y) => [Math.random(), Math.random(), Math.random()],
+        (x, y) => [0.5 * (1 + Math.sin(70*Math.sin(7*y)*x)),
+                   0.5 * (1 + Math.sin(70*Math.sin(7*y)*x)),
+                   0.5 * (1 + Math.sin(70*Math.sin(7*y)*x)),],
+        image_diffract,
+        (x, y) => [0, Math.random() * y, 0],
+        (x, y) => [1, 1, 1],
     ];
 
     add_clothing("Zrop top", "Zrop_top.png", true);
@@ -86,6 +101,7 @@ async function start() {
     add_clothing("Zlasses", "Zlasses.png", true);
     add_clothing("QR code chain", "ZR_code_chain.png", true);
     add_clothing("Zpike bracelet", "Zpike_bracelet.png", true);
+    add_clothing("Face Zensor", "censor.png", true);
 
     const side_size = 500;
     let current_side_size = side_size;
@@ -100,7 +116,7 @@ async function start() {
     const width = 1500;
     const height = 1000;
     const hmargin = 10;
-    const vmargin = 200;
+    const vmargin = 40;
     canvas.width = width;
     canvas.height = height;
     let sizemult = 1;
@@ -130,7 +146,7 @@ async function start() {
             draw_image_center(image_base);
             clothes.forEach((c) => {
                 if (c.enabled) {
-                    draw_image_center(c.color_image);
+                    draw_image_center(c.colored_images[c.texture]);
                 }
             });
 
@@ -184,7 +200,7 @@ async function start() {
     );
 
     const update_color_image = (c) => {
-        c.color_image = colorize(c.original_image, textures[c.texture]);
+        c.colored_images[c.texture] = c.colored_images[c.texture] || colorize(c.original_image, textures[c.texture]);
     }
     clothes.forEach(update_color_image);
 
