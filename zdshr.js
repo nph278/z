@@ -3,12 +3,14 @@
 // Lose points for incompatibles
 // Sound effects
 // Music
-// Shoes, tail sock
+// Zhoes, Zocks, Tail zock
 // Fix image textures
 // Ensure phone support
 // Link from game page
 // Announcement
 // Intro dialogue explaining the big contest
+// Dialogue names and portraits
+// "you are trapped in fashion purgatory and may only escape with the perfect outfit"
 
 async function start() {
     const images = [];
@@ -107,9 +109,24 @@ async function start() {
     add_clothing("Zpike bracelet", "Zpike_bracelet.png", true);
     add_clothing("Face Zensor", "censor.png", true);
 
+    const characters = {};
+    const add_character = (id, name, filename) => {
+        const image = filename ? make_image(filename) : null;
+        characters[id] = {name, image};
+    }
+
+    add_character("self", null, null);
+    add_character("judge1", "Judge 1", "judge1.png");
+    add_character("judge2", "Judge 2", "judge2.png");
+    add_character("judge3", "Judge 3", "judge3.png");
+    add_character("judge4", "Judge 4", "judge4.png");
+    add_character("judge5", "Judge 5", "judge5.png");
+    add_character("judge6", "Judge 6", "judge6.png");
+    add_character("judge7", "Judge 7", "judge7.png");
+
     const side_size = 500;
-    let current_side_size = side_size;
-    let side_on = true;
+    let side_on = false;
+    let current_side_size = side_on ? side_size : 0;
     const button_height = 50;
 
     const scr_loading = 0;
@@ -126,6 +143,28 @@ async function start() {
     canvas.height = height;
     let sizemult = 1;
     const ctx = canvas.getContext("2d");
+
+    const fps = 30;
+    let cooldown = fps * 2;
+    let fade = 0;
+    let fadetype = null;
+    const fadespeed = 1/fps;
+
+    const dialogue_intro = [
+        ["self", "You don't know where you are."],
+        ["judge1", "Welcome in."],
+        ["judge2", "Ohohoho! Money!"],
+        ["judge3", "1234565"],
+        ["judge4", "one two three"],
+        ["judge5", "i am ook"],
+        ["judge6", "life is da world"],
+        ["judge7", "wo jiao michael jackson"],
+        ["self", "What was that about?"],
+    ];
+
+    let dialogue = null;
+    let dialogue_line = 0;
+    let dialogue_progress = 0;
 
     const draw = () => {
         ctx.clearRect(0, 0, width, height);
@@ -169,24 +208,26 @@ async function start() {
                 }
             });
 
-            ctx.fillStyle = "gray";
-            ctx.fillRect(0, 0, current_side_size, height);
-            ctx.fillRect(current_side_size, 0, button_height, button_height);
+            if (!dialogue) {
+                ctx.fillStyle = "gray";
+                ctx.fillRect(0, 0, current_side_size, height);
+                ctx.fillRect(current_side_size, 0, button_height, button_height);
 
-            ctx.fillStyle = "black";
-            ctx.beginPath();
-            if (side_on) {
-                ctx.moveTo(current_side_size + .8 * button_height, .2 * button_height);
-                ctx.lineTo(current_side_size + .8 * button_height, .8 * button_height);
-                ctx.lineTo(current_side_size + .2 * button_height, .5 * button_height);
-                ctx.lineTo(current_side_size + .8 * button_height, .2 * button_height);
-            } else {
-                ctx.moveTo(current_side_size + .2 * button_height, .2 * button_height);
-                ctx.lineTo(current_side_size + .2 * button_height, .8 * button_height);
-                ctx.lineTo(current_side_size + .8 * button_height, .5 * button_height);
-                ctx.lineTo(current_side_size + .2 * button_height, .2 * button_height);
+                ctx.fillStyle = "black";
+                ctx.beginPath();
+                if (side_on) {
+                    ctx.moveTo(current_side_size + .8 * button_height, .2 * button_height);
+                    ctx.lineTo(current_side_size + .8 * button_height, .8 * button_height);
+                    ctx.lineTo(current_side_size + .2 * button_height, .5 * button_height);
+                    ctx.lineTo(current_side_size + .8 * button_height, .2 * button_height);
+                } else {
+                    ctx.moveTo(current_side_size + .2 * button_height, .2 * button_height);
+                    ctx.lineTo(current_side_size + .2 * button_height, .8 * button_height);
+                    ctx.lineTo(current_side_size + .8 * button_height, .5 * button_height);
+                    ctx.lineTo(current_side_size + .2 * button_height, .2 * button_height);
+                }
+                ctx.fill();
             }
-            ctx.fill();
 
             for (let i = 0; i < clothes.length; i++) {
                 const c = clothes[i];
@@ -210,6 +251,40 @@ async function start() {
                 ctx.fillText(c.name, current_side_size - side_size, (i+1) * button_height - 10);
             }
         }
+
+        ctx.fillStyle = "rgba(0,0,0,"+fade+")";
+        ctx.fillRect(0, 0, width, height);
+
+        if (dialogue) {
+            const h = 45;
+            const y = height - 100;
+
+            const current_line = dialogue[dialogue_line];
+            const full_line = current_line[1];
+            const to_write = full_line.slice(0, dialogue_progress);
+            const character = characters[current_line[0]];
+
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, y - h, width, h * 1.5);
+
+            ctx.fillStyle = "white";
+            ctx.font = h + "px Courier Prime, courier, monospace";
+
+            if (character.name === null) {
+                ctx.font = "italic " + ctx.font;
+            }
+
+            const w = ctx.measureText(full_line).width;
+            ctx.fillText(to_write, width/2 - w/2, y);
+
+            if (character.image) {
+                const portraitsize = 300;
+                ctx.drawImage(character.image, 0, y - h - portraitsize, portraitsize, portraitsize);
+            }
+
+            ctx.font = h + "px Libertinus Serif, times, serif";
+            ctx.fillText(character.name ? character.name.toUpperCase() : "", 20, y);
+        }
     }
 
     requestAnimationFrame(draw);
@@ -226,13 +301,12 @@ async function start() {
     const base_texture = (x, y) => [.5, (x+y)/2, 0];
     image_base = colorize(image_base, base_texture);
 
-    const fps = 30;
 
     screen = scr_title;
-    let cooldown = fps * 2;
 
     setInterval(() => {
-        const menuspeed = 70;
+        const menuspeed = 2100/fps;
+        const dialoguespeed = 1;
         if (side_on && current_side_size < side_size) {
             current_side_size = Math.min(current_side_size + menuspeed, side_size);
         } else if (!side_on && current_side_size > 0) {
@@ -241,12 +315,43 @@ async function start() {
         if (cooldown) {
             cooldown--;
         }
+        if (fadetype === "out") {
+            if (fade < 1) {
+                fade = Math.min(1, fade + fadespeed);
+            } else {
+                screen = scr_ingame;
+                fadetype = null;
+                dialogue = dialogue_intro;
+            }
+        }
+        if (fadetype === "in") {
+            if (fade > 0) {
+                fade = Math.max(0, fade - fadespeed);
+            } else {
+                fadetype = null;
+                dialogue_progress = 0;
+                dialogue_line = dialogue_line + 1;
+                if (dialogue_line === dialogue.length) {
+                    dialogue_line = 0;
+                    dialogue = null;
+                }
+            }
+        }
+        if (dialogue && dialogue_progress < dialogue[dialogue_line][1].length) {
+            dialogue_progress = Math.min(dialogue[dialogue_line][1].length, dialogue_progress + dialoguespeed);
+        }
         requestAnimationFrame(draw);
     }, 1000/fps);
 
     canvas.onclick = (e) => {
-        if (screen === scr_title && !cooldown) {
-            screen = scr_ingame;
+        if (dialogue) {
+            if (dialogue_progress === dialogue[dialogue_line][1].length) {
+                fadetype = "in";
+            } else {
+                dialogue_progress = dialogue[dialogue_line][1].length;
+            }
+        } else if (screen === scr_title && !cooldown) {
+            fadetype = "out";
         } else if (screen === scr_ingame) {
             const rect = canvas.getBoundingClientRect();
             const x = (e.clientX - rect.left)/sizemult;
