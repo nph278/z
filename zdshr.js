@@ -8,6 +8,7 @@
 // Ensure phone support
 // Link from game page
 // Announcement
+// Intro dialogue explaining the big contest
 
 async function start() {
     const images = [];
@@ -112,7 +113,8 @@ async function start() {
     const button_height = 50;
 
     const scr_loading = 0;
-    const scr_ingame = 1;
+    const scr_title = 1;
+    const scr_ingame = 2;
     let screen = scr_loading;
 
     const canvas = document.querySelector("canvas");
@@ -143,6 +145,20 @@ async function start() {
             ctx.fillStyle = "black";
             ctx.font = "100px Courier Prime, courier, monospace";
             ctx.fillText("loading...", 100, 100);
+        } else if (screen === scr_title) {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = "hsl(" + Math.floor(time/10)%360 + ", 100%, 50%)";
+            ctx.font = "300px Monsieur La Doulaise, cursive";
+            ctx.fillText("Zaberdasher", 200, 300 + 10 * Math.sin(time/1000));
+            ctx.fillStyle = "white";
+            ctx.font = "50px Courier Prime, courier, monospace";
+            ctx.fillText("East Meck's Premiere Character Creation Software", 20, 600);
+            if (!cooldown) {
+                ctx.font = "100px Courier Prime, courier, monospace";
+                ctx.fillStyle = "red";
+                ctx.fillText("Click2Begin", 450, 800);
+            }
         } else if (screen === scr_ingame) {
             ctx.drawImage(image_bg, current_side_size, 0, width - current_side_size, height);
             draw_image_center(image_glow);
@@ -210,7 +226,10 @@ async function start() {
     const base_texture = (x, y) => [.5, (x+y)/2, 0];
     image_base = colorize(image_base, base_texture);
 
-    screen = scr_ingame;
+    const fps = 30;
+
+    screen = scr_title;
+    let cooldown = fps * 2;
 
     setInterval(() => {
         const menuspeed = 70;
@@ -219,29 +238,36 @@ async function start() {
         } else if (!side_on && current_side_size > 0) {
             current_side_size = Math.max(current_side_size - menuspeed, 0);
         }
+        if (cooldown) {
+            cooldown--;
+        }
         requestAnimationFrame(draw);
-    }, 1000/30);
+    }, 1000/fps);
 
     canvas.onclick = (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left)/sizemult;
-        const y = (e.clientY - rect.top)/sizemult;
+        if (screen === scr_title && !cooldown) {
+            screen = scr_ingame;
+        } else if (screen === scr_ingame) {
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left)/sizemult;
+            const y = (e.clientY - rect.top)/sizemult;
 
-        if (x > current_side_size &&
-            x < current_side_size + button_height &&
-            y < button_height) {
-            side_on = !side_on;
-        }
+            if (x > current_side_size &&
+                x < current_side_size + button_height &&
+                y < button_height) {
+                side_on = !side_on;
+            }
 
-        if (x < current_side_size) {
-            const i = Math.floor(y / button_height);
-            if (i < clothes.length) {
-                const c = clothes[i];
-                if (c.enabled && c.texturable && x > current_side_size - button_height) {
-                    c.texture = (c.texture + 1) % textures.length;
-                    update_color_image(c);
-                } else {
-                    c.enabled = !(c.enabled);
+            if (x < current_side_size) {
+                const i = Math.floor(y / button_height);
+                if (i < clothes.length) {
+                    const c = clothes[i];
+                    if (c.enabled && c.texturable && x > current_side_size - button_height) {
+                        c.texture = (c.texture + 1) % textures.length;
+                        update_color_image(c);
+                    } else {
+                        c.enabled = !(c.enabled);
+                    }
                 }
             }
         }
