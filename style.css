@@ -237,7 +237,7 @@ img.i {
     animation-iteration-count: infinite;
 }
 
-.opinion p, .opinion ul, .lifestyle p, .lifestyle ul {
+.opinion p, .opinion ul, .lifestyle p, .lifestyle ul, .lifestyle ol {
     font-family: "major mono display", monospace;
     color: white;
 }
