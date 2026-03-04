@@ -125,7 +125,7 @@ async function start() {
     add_character("judge7", "Judge 7", "judge7.png");
 
     const side_size = 500;
-    let side_on = false;
+    let side_on = null;
     let current_side_size = side_on ? side_size : 0;
     const button_height = 50;
 
@@ -160,6 +160,13 @@ async function start() {
         ["judge6", "life is da world"],
         ["judge7", "wo jiao michael jackson"],
         ["self", "What was that about?"],
+    ];
+
+    dialogues = [
+        [
+            ["judge2", "You look horrible!"],
+            ["judge6", "bro......"],
+        ],
     ];
 
     let dialogue = null;
@@ -307,10 +314,17 @@ async function start() {
     setInterval(() => {
         const menuspeed = 2100/fps;
         const dialoguespeed = 1;
-        if (side_on && current_side_size < side_size) {
-            current_side_size = Math.min(current_side_size + menuspeed, side_size);
-        } else if (!side_on && current_side_size > 0) {
-            current_side_size = Math.max(current_side_size - menuspeed, 0);
+        if (side_on) {
+            if (current_side_size < side_size) {
+                current_side_size = Math.min(current_side_size + menuspeed, side_size);
+            }
+        } else if (side_on === false) {
+            if (current_side_size > 0) {
+                current_side_size = Math.max(current_side_size - menuspeed, 0);
+            } else {
+                dialogue = dialogues[Math.floor(Math.random() * dialogues.length)];
+                side_on = null;
+            }
         }
         if (cooldown) {
             cooldown--;
