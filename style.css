@@ -512,9 +512,6 @@ input { /* 1 */
 
 #tzgrules {
     font-family: "Courier Prime", courier, monospace;
-}
-
-#tzgrules {
     padding: 1em;
 }
 
@@ -591,4 +588,44 @@ input { /* 1 */
     background: white;
     touch-action: manipulation;
     /* cursor: url("tzg_cursor.png") 16 16, auto; */
+}
+
+#merches {
+    padding: 1em;
+    min-width: 90%;
+}
+
+.merch-item {
+    width: 10em;
+    display: inline-block;
+    border-color: white;
+    border-width: 3px;
+    border-style: solid;
+    padding: .5em;
+    background: #080808;
+    background: linear-gradient(90deg,rgba(8, 8, 8, 1) 0%, rgba(230, 230, 230, 1) 50%, rgba(8, 8, 8, 1) 100%);
+}
+
+.merch-item img {
+    width: 100%;
+    display: block;
+    border-color: white;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.merch-item p {
+    color: red;
+    background: rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#merchinstr {
+    font-family: "Courier Prime", courier, monospace;
+    padding: 1em;
+}
+
+#merchinstr a {
+    color: cyan;
 }
