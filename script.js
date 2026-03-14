@@ -67,6 +67,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     make_notification("Not Associated With East Mecklenburg Or The Eagle Or Beagle Thereof");
     document.querySelectorAll(".eye").forEach(e => {
         e.onclick = () => {
+            e.parentElement.querySelectorAll("p").forEach(f => {
+                f.setAttribute("data-disabled", "true");
+            });
             e.parentElement.querySelectorAll(".p").forEach(f => {
                 f.outerHTML = "<p>" + f.alt + "</p>";
             });
@@ -201,12 +204,16 @@ window.addEventListener("load", async (event) => {
 
     for (let i = 0; i < ps.length; i++) {
         const e = ps[i];
-        const img = new Image();
-        img.src = e.getAttribute("data-src");
-        img.className = "p";
-        img.alt = e.innerHTML;
-        await (new Promise((resolve) => img.addEventListener("load", resolve)));
-        e.replaceWith(img);
+        if (!e.getAttribute("data-disabled")) {
+            const img = new Image();
+            img.src = e.getAttribute("data-src");
+            img.className = "p";
+            img.alt = e.innerHTML;
+            await (new Promise((resolve) => img.addEventListener("load", resolve)));
+            if (!e.getAttribute("data-disabled")) {
+                e.replaceWith(img);
+            }
+        }
     }
 });
 
