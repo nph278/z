@@ -196,6 +196,20 @@ window.addEventListener("blur", (event) => {
     document.querySelector("#focus").style.display = "inline";
 });
 
+window.addEventListener("load", async (event) => {
+    const ps = document.querySelectorAll(".news p");
+
+    for (let i = 0; i < ps.length; i++) {
+        const e = ps[i];
+        const img = new Image();
+        img.src = e.getAttribute("data-src");
+        img.className = "p";
+        img.alt = e.innerHTML;
+        await (new Promise((resolve) => img.addEventListener("load", resolve)));
+        e.replaceWith(img);
+    }
+});
+
 const cyrb53 = (str, seed = 0) => {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
     for(let i = 0, ch; i < str.length; i++) {

@@ -8,9 +8,7 @@
 // Ensure phone support
 // Link from game page
 // Announcement
-// Intro dialogue explaining the big contest
-// Dialogue names and portraits
-// "you are trapped in fashion purgatory and may only escape with the perfect outfit"
+// "you are trapped in fashion purgatory and can only escape with the perfect outfit"
 
 async function start() {
     const images = [];
@@ -74,10 +72,12 @@ async function start() {
     }
 
     let image_base = make_image("Zeagle_Base.png");
-    let image_glow = make_image("glow.png");
     let image_bg = make_image("bg1.jpg");
+    let image_dump = make_image("dump.jpg");
     let image_rainbow = make_image("rainbow.png");
     let image_diffract = make_image("diffract.jpg");
+
+    let bg = image_bg;
 
     const textures = [
         (x, y) => [0, y, x],
@@ -132,6 +132,7 @@ async function start() {
     const scr_loading = 0;
     const scr_title = 1;
     const scr_ingame = 2;
+    const scr_dump = 3;
     let screen = scr_loading;
 
     const canvas = document.querySelector("canvas");
@@ -145,33 +146,71 @@ async function start() {
     const ctx = canvas.getContext("2d");
 
     const fps = 30;
-    let cooldown = fps * 2;
+    let cooldown = fps * 1;
     let fade = 0;
     let fadetype = null;
     const fadespeed = 1/fps;
 
     const dialogue_intro = [
-        ["self", "You don't know where you are."],
-        ["judge1", "Welcome in."],
-        ["judge2", "Ohohoho! Money!"],
-        ["judge3", "1234565"],
-        ["judge4", "one two three"],
-        ["judge5", "i am ook"],
-        ["judge6", "life is da world"],
-        ["judge7", "wo jiao michael jackson"],
-        ["self", "What was that about?"],
+        ["self", "It's the big day."],
+        ["judge1", "On to our next contestant..."],
+        ["judge1", "The Zeagle!"],
+        ["judge2", "Choose a style..."],
+        ["judge2", "and come back when you are ready."],
+        ["self", "You notice something appear on the top left."],
     ];
 
-    dialogues = [
+    const dialogues = [
         [
-            ["judge2", "You look horrible!"],
-            ["judge6", "bro......"],
+            ["judge2", "What am I even looking at?"],
+            ["judge6", "This sucks."],
+            ["self", "You think you can do better."],
+        ],
+        [
+            ["judge3", "Uhhhhh...."],
+            ["judge4", "Maybe you should try again."],
+            ["self", "You think you can do better."],
+        ],
+        [
+            ["judge7", "This doesn't seem right."],
+            ["judge1", "A distinct lack of style."],
+            ["self", "You think you can do better."],
         ],
     ];
+
+    let next_bg = image_bg;
+    let next_dialogue = dialogue_intro;
+
+    const dialogue_fail = [
+        ["judge1", "Ok. I'm gonna cut to the chase."],
+        ["judge1", "You don't have a chance here."],
+        ["judge2", "Get outta here.", () => { next_bg = image_dump; next_dialogue = dialogue_dump; fadetype = "out"}],
+    ];
+
+    const dialogue_dump = [
+        ["self", "You leave through the back."],
+    ];
+
+    function shuffle(array) {
+        let currentIndex = array.length;
+        while (currentIndex != 0) {
+            let randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+    }
+
+    shuffle(dialogues);
 
     let dialogue = null;
     let dialogue_line = 0;
     let dialogue_progress = 0;
+
+    let popup = "";
+    let popup_left = 0;
+    let popup_pos = [0,0];
+    const popup_fontsize = 500;
 
     const draw = () => {
         ctx.clearRect(0, 0, width, height);
@@ -206,8 +245,7 @@ async function start() {
                 ctx.fillText("Click2Begin", 450, 800);
             }
         } else if (screen === scr_ingame) {
-            ctx.drawImage(image_bg, current_side_size, 0, width - current_side_size, height);
-            draw_image_center(image_glow);
+            ctx.drawImage(bg, current_side_size, 0, width - current_side_size, height);
             draw_image_center(image_base);
             clothes.forEach((c) => {
                 if (c.enabled) {
@@ -262,6 +300,12 @@ async function start() {
         ctx.fillStyle = "rgba(0,0,0,"+fade+")";
         ctx.fillRect(0, 0, width, height);
 
+        if (popup_left) {
+            ctx.fillStyle = "hsl(" + (Date.now() / 10) % 360 + ", 100%, 50%)";
+            ctx.font = popup_fontsize + "px Monsieur La Doulaise, cursive";
+            ctx.fillText(popup, popup_pos[0], popup_pos[1]);
+        }
+
         if (dialogue) {
             const h = 45;
             const y = height - 100;
@@ -314,6 +358,9 @@ async function start() {
     setInterval(() => {
         const menuspeed = 2100/fps;
         const dialoguespeed = 1;
+        if (popup_left) {
+            popup_left--;
+        }
         if (side_on) {
             if (current_side_size < side_size) {
                 current_side_size = Math.min(current_side_size + menuspeed, side_size);
@@ -322,7 +369,13 @@ async function start() {
             if (current_side_size > 0) {
                 current_side_size = Math.max(current_side_size - menuspeed, 0);
             } else {
-                dialogue = dialogues[Math.floor(Math.random() * dialogues.length)];
+                if (clothes.some(c => c.enabled)) {
+                    if (dialogues.length) {
+                        dialogue = dialogues.pop();
+                    } else {
+                        dialogue = dialogue_fail;
+                    }
+                }
                 side_on = null;
             }
         }
@@ -333,21 +386,26 @@ async function start() {
             if (fade < 1) {
                 fade = Math.min(1, fade + fadespeed);
             } else {
-                screen = scr_ingame;
                 fadetype = null;
-                dialogue = dialogue_intro;
+                dialogue = next_dialogue;
+                screen = scr_ingame;
+                bg = next_bg;
             }
         }
         if (fadetype === "in") {
             if (fade > 0) {
                 fade = Math.max(0, fade - fadespeed);
             } else {
+                const f = dialogue[dialogue_line][2];
                 fadetype = null;
                 dialogue_progress = 0;
                 dialogue_line = dialogue_line + 1;
                 if (dialogue_line === dialogue.length) {
                     dialogue_line = 0;
                     dialogue = null;
+                }
+                if (f) {
+                    f();
                 }
             }
         }
@@ -386,6 +444,18 @@ async function start() {
                         update_color_image(c);
                     } else {
                         c.enabled = !(c.enabled);
+                        if (c.enabled) {
+                            const p = ["+495", "ztylish", "zany", "oto"];
+                            popup = p[Math.floor(Math.random() * p.length)];
+                            popup_left = fps * 1;
+                            const min_x = side_size;
+                            ctx.font = popup_fontsize + "px Monsieur La Doulaise, cursive";
+                            const max_x = width - ctx.measureText(popup).width;
+                            const min_y = popup_fontsize / 2;
+                            const max_y = height;
+                            popup_pos = [min_x + Math.random() * Math.max(max_x - min_x, 0),
+                                         min_y + Math.random() * Math.max(max_y - min_y, 0)];
+                        }
                     }
                 }
             }
