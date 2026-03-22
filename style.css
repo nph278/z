@@ -128,7 +128,7 @@ img {
     content: "🚨";
 }
 
-.bigslogan {
+#slogans section, .bigslogan {
     text-align: center;
     font-family: "Monsieur La Doulaise", cursive;
     font-size: 80px;
@@ -390,6 +390,12 @@ img.i {
     color: magenta;
 }
 
+.goldlink {
+    color: black;
+    background: gold;
+    border-color: black;
+}
+
 .special p {
     font-family: "Libertinus Serif", times, serif;
 }
@@ -606,6 +612,10 @@ input { /* 1 */
     background: linear-gradient(90deg,rgba(8, 8, 8, 1) 0%, rgba(230, 230, 230, 1) 50%, rgba(8, 8, 8, 1) 100%);
 }
 
+.gold-merch-item {
+    background: linear-gradient(90deg,rgba(8, 8, 8, 1) 0%, gold 50%, rgba(8, 8, 8, 1) 100%);
+}
+
 .merch-item img {
     width: 100%;
     display: block;
@@ -628,4 +638,13 @@ input { /* 1 */
 
 #merchinstr a {
     color: cyan;
+}
+
+#goldform {
+    padding: 1em;
+    color: black;
+    background-image: url("./gold_bg.jpg");
+    background-size: 100% 100%;
+    border: none;
+    text-align: center;
 }

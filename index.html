@@ -7,7 +7,7 @@
     <meta name="description" content="East Mecklenburg Zeagle: Get your East Meck High School Band, Sports, Orchestra, Athletics, Football, Basketball, etc.">
     <meta property="og:image" content="./logo.jpg">
     <link rel="icon" href="./logo.jpg">
-    <link rel="stylesheet" href="./style.css?a=23">
+    <link rel="stylesheet" href="./style.css?a=24">
   </head>
   <body>
     <h1 class=index>
@@ -16,29 +16,31 @@
     <div id="rotate">
       ROTATE SCREEN
     </div>
-    <a class="extlink red"
-       href="https://www.instagram.com/east.meck.zeagle/"
-       target="_blank">
-      click 4 instagram
-    </a>
-    <a class="extlink green"
-       href="https://open.spotify.com/playlist/7GO13Qk0YDVDy1J17K3yFb"
-       target="_blank">
-      click 4 playlist
-    </a>
-    <a class="extlink blue"
-       href="./games.html">
-      click 4 videogames
-    </a>
-    <a class="extlink magenta"
-       href="./merch.html">
-      click 4 merchandise
-    </a>
+    <div id="extlinks">
+      <a class="extlink red"
+         href="https://www.instagram.com/east.meck.zeagle/"
+         target="_blank">
+        click 4 instagram
+      </a>
+      <a class="extlink green"
+         href="https://open.spotify.com/playlist/7GO13Qk0YDVDy1J17K3yFb"
+         target="_blank">
+        click 4 playlist
+      </a>
+      <a class="extlink blue"
+         href="./games.html">
+        click 4 videogames
+      </a>
+      <a class="extlink magenta"
+         href="./merch.html">
+        click 4 merchandise
+      </a>
+    </div>
     <section id=horo>
       <p id=ht>
         Get your Daily Horoscope:
       </p>
-      <form>
+      <form onsubmit="return false">
         <ul>
           <li>Date and Year of Birth: <input type=date class=hi name=a></li>
           <li>Exact Time of Birth: <input type=time class=hi name=b> and <input type=number max=59 class=hi name=c> seconds</li>
@@ -62,21 +64,23 @@
       <hr>
       <hr>
     </a>
-    <section class="bigslogan">
-      $trange Problem$ Require $trange $olution$
-    </section>
-    <section class="bigslogan">
-      Ambiguity i$ the Root of All Evil
-    </section>
-    <section class="bigslogan">
-      LIFE I$ THE WORLD
-    </section>
-    <section class="bigslogan">
-      Truth bec<span class=oa>o</span>me$ Be<span class=oa>a</span>gle
-    </section>
-    <section class="bigslogan">
-      Be<span class=oa>a</span>gle bec<span class=oa>o</span>me$ Ze<span class=oa>a</span>gle
-    </section>
+    <div id=slogans>
+      <section>
+        $trange Problem$ Require $trange $olution$
+      </section>
+      <section>
+        Ambiguity i$ the Root of All Evil
+      </section>
+      <section>
+        LIFE I$ THE WORLD
+      </section>
+      <section>
+        Truth bec<span class=oa>o</span>me$ Be<span class=oa>a</span>gle
+      </section>
+      <section>
+        Be<span class=oa>a</span>gle bec<span class=oa>o</span>me$ Ze<span class=oa>a</span>gle
+      </section>
+    </div>
     <div class="article-pair">
       <section class="article lifestyle">
         <h2>Lifestyle &mdash; I remembered I used to have recess &mdash; nobody believed me</h2>
@@ -923,9 +927,19 @@
         </p>
       </section>
     </div>
+    <section id=goldform>
+      <form onsubmit="return false">
+        <p>ENTER ZEAGLE GOLD CODE</p>
+        <p>
+          <input type=text id=goldcode name=zgc>
+          <button onclick="gold()">Enter</button>
+        </p>
+      </form>
+    </section>
     <img id="drye" src="./drye.webp">
     <img id="focus" src="./focus.webp">
     <div id="notifications"></div>
   </body>
-  <script src="./script.js?a=21"></script>
-</html>
+  <script src="./sha256.js"></script>
+  <script src="./script.js?a=22"></script>
+</html

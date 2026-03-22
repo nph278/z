@@ -445,7 +445,7 @@ async function start() {
                     } else {
                         c.enabled = !(c.enabled);
                         if (c.enabled) {
-                            const p = ["+495", "ztylish", "zany", "oto"];
+                            const p = ["+495", "ztylish", "zany", "otot"];
                             popup = p[Math.floor(Math.random() * p.length)];
                             popup_left = fps * 1;
                             const min_x = side_size;
