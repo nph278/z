@@ -8,7 +8,6 @@
 // Ensure phone support
 // Link from game page
 // Announcement
-// "you are trapped in fashion purgatory and can only escape with the perfect outfit"
 
 async function start() {
     const images = [];
@@ -18,6 +17,18 @@ async function start() {
         images.push(image);
         return image;
     };
+
+    const sounds = [];
+    const make_sound = (filename) => {
+        const sound = new Audio("./sfx/" + filename);
+        sound.load();
+        return sound;
+    };
+
+    const bgm1 = make_sound("zdshr_bg1.mp3");
+    bgm1.loop = true;
+    const bgm2 = make_sound("bgm.wav");
+    bgm2.loop = true;
 
     const clothes = [];
     const add_clothing = (name, filename, texturable) => {
@@ -76,6 +87,8 @@ async function start() {
     let image_dump = make_image("dump.jpg");
     let image_rainbow = make_image("rainbow.png");
     let image_diffract = make_image("diffract.jpg");
+    let image_closet = make_image("closet.jpg");
+    let image_tapebg = make_image("tape.jpg");
 
     let bg = image_bg;
 
@@ -123,6 +136,8 @@ async function start() {
     add_character("judge5", "Judge 5", "judge5.png");
     add_character("judge6", "Judge 6", "judge6.png");
     add_character("judge7", "Judge 7", "judge7.png");
+    add_character("beagle", "Beagler", "beagle.jpg");
+    add_character("reporter", "??????", null);
 
     const side_size = 500;
     let side_on = null;
@@ -132,8 +147,11 @@ async function start() {
     const scr_loading = 0;
     const scr_title = 1;
     const scr_ingame = 2;
-    const scr_dump = 3;
     let screen = scr_loading;
+
+    const scn_contest = 0;
+    const scn_dump = 1;
+    let scene = scn_contest;
 
     const canvas = document.querySelector("canvas");
     const width = 1500;
@@ -150,14 +168,70 @@ async function start() {
     let fade = 0;
     let fadetype = null;
     const fadespeed = 1/fps;
+    let zeagle_on = true;
 
     const dialogue_intro = [
-        ["self", "It's the big day."],
+        ["self", "It's the big day.", () => {bgm1.play()}],
         ["judge1", "On to our next contestant..."],
         ["judge1", "The Zeagle!"],
         ["judge2", "Choose a style..."],
         ["judge2", "and come back when you are ready."],
         ["self", "You notice something appear on the top left."],
+    ];
+
+    const dialogue_tape = [
+        [
+            ["self", "You rummage through the garbage..."],
+            ["self", "and find a Lost Tape!"],
+            ["self", "... although it seems half the tape is missing ..."],
+        ],
+        [
+            ["self", "You sneak back into the media center.", () => {
+                next_bg = image_closet;
+                next_dialogue = dialogue_closet;
+                fadetype = "out";
+                bgm2.pause();
+            }],
+        ],
+        [
+            ["self", "You uncover a dusty tape player..."],
+            ["self", "and insert the tape.", () => {
+                next_bg = image_tapebg;
+                next_dialogue = dialogue_interview;
+                fadetype = "out";
+                zeagle_on = false;
+            }],
+        ],
+    ];
+
+    const dialogue_closet = [
+        ["self", "(The A/V closet seems an obvious choice)"],
+    ];
+
+    const dialogue_interview = [
+        ["self", "..."],
+        ["reporter", "We have here the Head Beagler..."],
+        ["reporter", "who was just fired."],
+        ["beagle", "They won't tell you this..."],
+        ["beagle", "but I wasn't really the one in charge."],
+        ["beagle", "The people who were really in charge..."],
+        ["beagle", "they have done some horrible things."],
+        ["reporter", "What kinds of things?"],
+        ["beagle", "Machines... machines..."],
+        ["beagle", "They... oh..."],
+        ["beagle", "They'll kill me."],
+        ["beagle", "I know they'll kill me."],
+        ["reporter", "Stay focused. What machines?"],
+        ["beagle", "They split the timeline..."],
+        ["beagle", "It wasn't right..."],
+        ["reporter", "What do you mean timeline?"],
+        ["beagle", "There are two East Mecks now."],
+        ["beagle", "I saw it all."],
+        ["beagle", "And the other one..."],
+        ["beagle", "the other one..."],
+        ["beagle", "Oh....", () => {
+            document.querySelector("#blackout").style.display = "inline";
+        }],
     ];
 
     const dialogues = [
@@ -181,14 +255,24 @@ async function start() {
     let next_bg = image_bg;
     let next_dialogue = dialogue_intro;
 
+    let tape = 0;
+
     const dialogue_fail = [
         ["judge1", "Ok. I'm gonna cut to the chase."],
         ["judge1", "You don't have a chance here."],
-        ["judge2", "Get outta here.", () => { next_bg = image_dump; next_dialogue = dialogue_dump; fadetype = "out"}],
+        ["judge2", "You should leave.", () => {
+            next_bg = image_dump;
+            next_dialogue = dialogue_dump;
+            fadetype = "out";
+            bgm1.pause();
+            scene = scn_dump;
+        }],
     ];
 
     const dialogue_dump = [
-        ["self", "You leave through the back."],
+        ["self", "You leave through the back.", () => {
+            bgm2.play();
+        }],
     ];
 
     function shuffle(array) {
@@ -210,7 +294,7 @@ async function start() {
     let popup = "";
     let popup_left = 0;
     let popup_pos = [0,0];
-    const popup_fontsize = 500;
+    const popup_fontsize = 350;
 
     const draw = () => {
         ctx.clearRect(0, 0, width, height);
@@ -245,13 +329,20 @@ async function start() {
                 ctx.fillText("Click2Begin", 450, 800);
             }
         } else if (screen === scr_ingame) {
-            ctx.drawImage(bg, current_side_size, 0, width - current_side_size, height);
-            draw_image_center(image_base);
-            clothes.forEach((c) => {
-                if (c.enabled) {
-                    draw_image_center(c.colored_images[c.texture]);
-                }
-            });
+            if (zeagle_on || fadetype === "out") {
+                ctx.drawImage(bg, current_side_size, 0, width - current_side_size, height);
+                draw_image_center(image_base);
+                clothes.forEach((c) => {
+                    if (c.enabled) {
+                        draw_image_center(c.colored_images[c.texture]);
+                    }
+                });
+            } else {
+                ctx.fillStyle = "black";
+                ctx.fillRect(0, 0, width, height);
+                const shake = 5;
+                ctx.drawImage(bg, current_side_size, 0, width - current_side_size + Math.random() * shake, height + Math.random() * shake);
+            }
 
             if (!dialogue) {
                 ctx.fillStyle = "gray";
@@ -294,6 +385,14 @@ async function start() {
                 ctx.fillStyle = "black";
                 ctx.font = "45px Courier Prime, courier, monospace";
                 ctx.fillText(c.name, current_side_size - side_size, (i+1) * button_height - 10);
+            }
+
+            if (scene === scn_dump) {
+                const s = ["Dig through trash", "Sneak back in", "Play tape"][tape];
+
+                ctx.fillStyle = "black";
+                ctx.font = "45px Courier Prime, courier, monospace";
+                ctx.fillText(s, current_side_size - side_size, height - 20);
             }
         }
 
@@ -341,7 +440,7 @@ async function start() {
     requestAnimationFrame(draw);
 
     await Promise.all(
-        images.map((image) => new Promise((resolve) => image.addEventListener("load", resolve)))
+        images.concat(sounds).map((a) => new Promise((resolve) => a.addEventListener("load", resolve)))
     );
 
     const update_color_image = (c) => {
@@ -369,12 +468,14 @@ async function start() {
             if (current_side_size > 0) {
                 current_side_size = Math.max(current_side_size - menuspeed, 0);
             } else {
-                if (clothes.some(c => c.enabled)) {
+                if (scene === scn_contest && clothes.some(c => c.enabled)) {
                     if (dialogues.length) {
                         dialogue = dialogues.pop();
                     } else {
                         dialogue = dialogue_fail;
                     }
+                } else if (tape) {
+                    dialogue = dialogue_tape[tape - 1];
                 }
                 side_on = null;
             }
@@ -445,7 +546,7 @@ async function start() {
                     } else {
                         c.enabled = !(c.enabled);
                         if (c.enabled) {
-                            const p = ["+495", "ztylish", "zany", "otot"];
+                            const p = ["+495", "ztylish", "zany", "OtOt", "zealous", "zesty"];
                             popup = p[Math.floor(Math.random() * p.length)];
                             popup_left = fps * 1;
                             const min_x = side_size;
@@ -457,6 +558,9 @@ async function start() {
                                          min_y + Math.random() * Math.max(max_y - min_y, 0)];
                         }
                     }
+                } else if (scene === scn_dump && (height - y) < button_height) {
+                    tape++;
+                    side_on = false;
                 }
             }
         }

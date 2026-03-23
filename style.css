@@ -648,3 +648,15 @@ input { /* 1 */
     border: none;
     text-align: center;
 }
+
+#blackout {
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: black;
+    background-size: contain;
+    display: none;
+    width: 100vw;
+    height: 100vh;
+}
