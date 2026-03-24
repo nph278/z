@@ -29,6 +29,11 @@ async function start() {
     bgm1.loop = true;
     const bgm2 = make_sound("bgm.wav");
     bgm2.loop = true;
+    const bgm3 = make_sound("zdshr_closet.mp3");
+    bgm3.loop = true;
+    const bgm4 = make_sound("tape.mp3");
+    bgm4.loop = true;
+    const bgm5 = make_sound("tapephone.mp3");
 
     const clothes = [];
     const add_clothing = (name, filename, texturable) => {
@@ -200,16 +205,17 @@ async function start() {
                 next_dialogue = dialogue_interview;
                 fadetype = "out";
                 zeagle_on = false;
+                bgm3.pause();
             }],
         ],
     ];
 
     const dialogue_closet = [
-        ["self", "(The A/V closet seems an obvious choice)"],
+        ["self", "(The A/V closet seems an obvious choice)", () => {bgm3.play()}],
     ];
 
     const dialogue_interview = [
-        ["self", "..."],
+        ["self", "...", () => {bgm4.play()}],
         ["reporter", "We have here the Head Beagler..."],
         ["reporter", "who was just fired."],
         ["beagle", "They won't tell you this..."],
@@ -231,6 +237,9 @@ async function start() {
         ["beagle", "the other one..."],
         ["beagle", "Oh....", () => {
             document.querySelector("#blackout").style.display = "inline";
+            document.querySelector("title").text = "BEAGLEBECOMESZEAGLE";
+            bgm4.pause();
+            bgm5.play();
         }],
     ];
 
@@ -558,7 +567,7 @@ async function start() {
                                          min_y + Math.random() * Math.max(max_y - min_y, 0)];
                         }
                     }
-                } else if (scene === scn_dump && (height - y) < button_height) {
+                } else if (scene === scn_dump && current_side_size === side_size && (height - y) < button_height) {
                     tape++;
                     side_on = false;
                 }
