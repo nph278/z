@@ -593,9 +593,9 @@ input { /* 1 */
     margin-left: auto;
     margin-right: auto;
     display: block;
-    background: white;
+    background: #8c8c8c;
+    background: linear-gradient(0deg,rgba(140, 140, 140, 1) 0%, rgba(230, 230, 230, 1) 50%, rgba(140, 140, 140, 1) 100%);
     touch-action: manipulation;
-    /* cursor: url("tzg_cursor.png") 16 16, auto; */
 }
 
 #merches {
@@ -661,6 +661,10 @@ input { /* 1 */
     display: none;
     width: 100vw;
     height: 100vh;
+    cursor: none;
+    color: white;
+    font-family: "Courier Prime", courier, monospace;
+    font-size: 20pt;
 }
 
 .beagle-article {
@@ -695,4 +699,10 @@ input { /* 1 */
     font-weight: 800;
     text-align: center;
     color: #004890;
+}
+
+.beagle-article figcaption {
+    font-size: 70%;
+    color: #525252;
+    font-style: italic;
 }
