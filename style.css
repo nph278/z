@@ -33,6 +33,7 @@ h1, section {
     color: white;
     background: black;
     font-size: 20pt;
+    font-family: "Libertinus Serif", times, serif;
     word-break: break-word;
     max-width: 30em;
 }
@@ -705,4 +706,33 @@ input { /* 1 */
     font-size: 70%;
     color: #525252;
     font-style: italic;
+}
+
+#emrpg-canvas {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background: #8c8c8c;
+    background: linear-gradient(0deg,rgba(140, 140, 140, 1) 0%, rgba(230, 230, 230, 1) 50%, rgba(140, 140, 140, 1) 100%);
+    touch-action: manipulation;
+}
+
+#contest {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-color: white;
+    border-style: dashed;
+    color: white;
+    background: black;
+    font-size: 20pt;
+    word-break: break-word;
+    max-width: 30em;
+    display: block;
+    padding: 3%;
+}
+
+#contest img {
+    width: 100%;
 }
