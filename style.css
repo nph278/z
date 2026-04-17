@@ -712,8 +712,9 @@ input { /* 1 */
     margin-left: auto;
     margin-right: auto;
     display: block;
-    background: #8c8c8c;
-    background: linear-gradient(0deg,rgba(140, 140, 140, 1) 0%, rgba(230, 230, 230, 1) 50%, rgba(140, 140, 140, 1) 100%);
+    background-size: 100% 100%;
+    background-image: url('./rpgbg1.gif');
+    background-color: #090b18;
     touch-action: manipulation;
 }
 
