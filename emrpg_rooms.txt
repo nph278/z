@@ -1,0 +1,103 @@
+Start:
+Another !e!day, another !e!Meck. (Use the number keys to make choices)
+Intro1: Continue
+
+Intro1:
+You wake up fifteen minutes later than you usually do. Luckily you walk to school, so you won't miss the bus.
+Intro2: Get ready quickly so as not to be late
+Leisure: Get ready at exactly the same speed you usually do
+
+Leisure:
+You take your sweet time getting ready. By the time you leave the house, it’s already !t!7:15. Failure.
+Start: Start from the beginning of time
+
+Intro2:
+You rush to the door, and begin the tread to !p!School.
+Intro3: Continue
+
+Intro3:
+It’s !t!7:07. You arrive at the !p!Student !p!Parking !p!Lot. You need to choose what to take out of your bag as you pass through the scanner.
+Scannerpass: Take out your school-issued chromebook
+Bagcheck: Take out your !s!chemistry notebook
+Scannerfail: Take out nothing
+
+Scannerfail:
+Your failure to remove anything from your backpack leads to the manager of the scanner demanding you try again, this time with more effort.
+Intro3: Continue
+
+Bagcheck:
+A security guard in a deep blue uniform probes your backpack for any unauthorized equipment. None is found, and you are off the hook. For now.
+Middle: Continue
+
+Scannerpass:
+You effortlessly glide through the security scanner, with no extraneous beeps emitted by the hi-tech obelisks.
+Middle: Continue
+
+Middle:
+You stand at the !p!central !p!crossroads. The !p!media !p!center, !p!student !p!parking !p!lot, and !p!600 !p!building are all within reach.
+Sixh1: Enter the !p!Six !p!Hundred
+Media: Walk towards the !p!media !p!center
+Studentlot: Walk towards the !p!parking !p!lot.
+Courtyardoutside: Walk towards the !p!courtyard.
+Splitoutside: Walk towards the !p!400 !p!Split
+
+Media:
+You stand under the steel canopy around the entrance to the !p!Media !p!Center. The media center is closed. You know this because of a big, clearly hastily-written poster on the door explaining the presence of “Work-keys” testing inside. Despite the claim, you see what looks to be a fashion show occurring inside. It seems the only style fit for the contestant will be absolute maximalism.
+Middle: Walk toward the !p!central !p!security !p!scanners.
+Mediaside: Walk around to the side of the !p!Media !p!Center.
+
+Studentlot:
+You stand at the boundary of the !p!student !p!parking-lot. Your eyes become lost in the dense variety of vehicles. You snap back to reality and realize you cannot progress this way, as leaving campus now would be an explicit violation of the Student Code of Conduct.
+Middle: Turn back before it is too late
+
+Sixh1:
+You stand at the most beloved end of the !p!Six-Hundred. You look ahead into the depths of the building, and see what looks to be some kind of party occurring further down.
+Orch: Enter the !s!Orchestra !p!Room
+Choir: Enter the !s!Choir !p!Room
+Bartkowiak: Enter !c!Bartkowiak’s !p!Classroom
+Roberts: Enter !c!Roberts’ !p!Classroom
+Dunn: Enter !c!Dunn’s !p!Classroom
+Cellocloset: Enter the !p!cello !p!storage !p!closet.
+Sixh2: Continue along the hall
+
+Orch:
+You stand in the center of the vast !s!Orchestra !p!room. The floor is littered with cellos, each with their respective end-pin protruding dangerously. The sun bounces off the intricate matrix of trophies and blinds you temporarily.
+Courtyardoutside: Walk outside the exterior door.
+Orchcloset: Walk into the !p!orchestra !p!closet.
+Sixh1: Leave into the !p!Six !p!Hundred !p!hall
+
+Courtyardoutside:
+You stand in a particularly familiar subregion of the East Meck Outdoors. The conveniently labeled doors to the !s!Orchestra and !s!Choir !p!rooms present one avenue of opportunity, while the industrial deep blue of the !p!Courtyard entrance presents another.
+Courtyard: Enter the !p!Courtyard.
+Orch: Enter the !s!Orchestra !p!Room.
+Choir: Enter the !s!Choir !p!Room.
+Middle: Walk outwards, towards the !p!central !p!scanners.
+
+Splitoutside:
+You stand under a steel roof. The dingy !p!400 !p!split and the nonspecific !p!300 !p!building are available through the two directions parallel to the canopy. On the perpendicular side of things, the outdoor region enclosed by East’s buildings continues further.
+Threeh1: Enter the !p!Three !p!Hundred
+Split: Enter the !p!Split
+Middle: Walk towards the !p!Student !p!Parking !p!Lot
+Outsidestairs: Take the stairs towards the !p!Thousands
+Slope: Descend the gravel slope
+
+Slope:
+As you brave the sheer cliff-face, you hear the whirring of the gigantic air conditioning unit beside you. Bats are flying out of the red brick chimney. Water is leaking onto the ground from some unidentifiable sub-apparatus.
+Fivekoutside: Go towards the classrooms of the future
+Splitoutside: Go towards the classrooms of yesteryear
+
+Fivekoutside:
+You are outside of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.
+Fivek1: Enter the !p!Five !p!Thousand
+Oneh1: Enter the !p!One !p!Hundred
+Slope: Ascend the cliff face
+Outsidestairs: Take the stairs instead
+Fnfenter1: Continue along the 
+
+Fnfenter1:
+You enter through the barbed revolving doors. The barbing is painful, but you know this is necessary for state security.
+Fnf1: Continue
+
+Fnfexit1:
+You exit through the barbed revolving doors. You are relieved to leave this poorly-conceived intermediary.
+Fivekoutside: Continue
