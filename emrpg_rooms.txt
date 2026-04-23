@@ -16,7 +16,7 @@ You rush to the door, and begin the tread to !p!School.
 Intro3: Continue
 
 Intro3:
-It’s !t!7:07. You arrive at the !p!Student !p!Parking !p!Lot. You need to choose what to take out of your bag as you pass through the scanner.
+It’s !t!7:10. You arrive at the !p!Student !p!Parking !p!Lot. You need to choose what to take out of your bag as you pass through the scanner.
 Scannerpass: Take out your school-issued chromebook
 Bagcheck: Take out your !s!chemistry notebook
 Scannerfail: Take out nothing
@@ -26,25 +26,334 @@ Your failure to remove anything from your backpack leads to the manager of the s
 Intro3: Continue
 
 Bagcheck:
-A security guard in a deep blue uniform probes your backpack for any unauthorized equipment. None is found, and you are off the hook. For now.
+A security guard in a deep blue uniform probes your backpack for any unauthorized equipment. None is found, and you are off the hook. For now. In any case, if you go directly to class, you will still be on time.
 Middle: Continue
 
 Scannerpass:
-You effortlessly glide through the security scanner, with no extraneous beeps emitted by the hi-tech obelisks.
+You effortlessly glide through the security scanner, with no extraneous beeps emitted by the hi-tech obelisks. If you go directly to class, you will still be on time.
 Middle: Continue
 
 Middle:
-You stand at the !p!central !p!crossroads. The !p!media !p!center, !p!student !p!parking !p!lot, and !p!600 !p!building are all within reach.
+You stand at the !p!southern !p!crossroads. The !p!media !p!center, !p!student !p!parking !p!lot, and !p!600 !p!building are all within reach.
 Sixh1: Enter the !p!Six !p!Hundred
 Media: Walk towards the !p!media !p!center
-Studentlot: Walk towards the !p!parking !p!lot.
-Courtyardoutside: Walk towards the !p!courtyard.
-Splitoutside: Walk towards the !p!400 !p!Split
+Studentlot: Walk towards the !p!student !p!parking !p!lot.
+Middle2: Walk north
+
+Middle2:
+You stand outside under a vast web of metallic structures. The !p!Four and !p!Seven !p!Hundreds are very close.
+Fourh1: Enter the !p!Four !p!Hundred
+Sevenh1: Enter the !p!Seven !p!Hundred.
+FourSevenPath: Go north, squeezing between the two
+Middle: Go south
+Middle3: Go east
 
 Media:
-You stand under the steel canopy around the entrance to the !p!Media !p!Center. The media center is closed. You know this because of a big, clearly hastily-written poster on the door explaining the presence of “Work-keys” testing inside. Despite the claim, you see what looks to be a fashion show occurring inside. It seems the only style fit for the contestant will be absolute maximalism.
-Middle: Walk toward the !p!central !p!security !p!scanners.
+You stand under the steel canopy around the entrance to the !p!Media !p!Center. The media center is closed. You know this because of a big, clearly hastily-written poster on the door explaining the presence of “Work-keys” testing inside. Despite the claim, you see what looks to be a fashion show occurring inside. It seems the only style fit for this contestant will be absolute maximalism.
+Middle: Walk toward the !p!southern !p!security !p!scanners.
 Mediaside: Walk around to the side of the !p!Media !p!Center.
+
+Mediaside:
+You are on the outside of the !p!media !p!center. A large puff of dust is blown into your face causing you to cough. You try not to let it bother you. You see a striped door and two heavily armed librarians. You also see a lonely !p!drum !p!shack though it seems incredibly locked.
+Media: Walk back in front of the !p!media center
+Drums: Walk to the !p!drum !p!shack
+GuardedDoor: Try to sneak past the library guards
+Traileroutside: Walk towards the !p!trailer !p!zone
+Automotive: Gaze at hot rods in automotive shop
+Staffparking: Walk into the staff parking lot
+SevenhA1: Enter the obscure !p!700A !p!Building
+
+Automotive: You look deeply at the various cars. You are entranced by their shiny wax bodies and wonder what it would take for you to get a nice car like that. 
+Mediaside: Shake off these thoughts and return to the side of the media center
+Automotive2: Try to hop the fence and take a car
+
+Automotive2:
+Almost as soon as you make it over the fence you are tackled by a group of rowdy automotive students. You are brought to the ground and your head slams against the concrete.
+Intro1: Try everything again. From the top. 
+
+Drums:
+You try the handle but it is caged by an absurd number of locks, though it seems mostly held together by one linch pin lock that if it were to be unlocked, the amalgam would be broken loose. Maybe if you had the 4 digit code you could get in.
+Mediaside: Walk back to the side of the media center
+EnterCode: Try to enter the code
+
+EnterCode:
+The lock seems very sturdy. You move to enter your first number
+One: enter one as the first digit of the code
+Two: enter two as the first digit of the code
+Three: enter three as the first digit of the code
+Four: enter four as the first digit of the code
+Five: enter five as the first digit of the code
+Six: enter six as the first digit of the code
+Seven: enter seven as the first digit of the code
+Eight: enter eight as the first digit of the code
+Nine: enter nine as the first digit of the code
+Zero: enter zero as the first digit of the code
+Mediaside: cut your loses and head back to the media center
+
+One:
+You enter a one. This was the first number that came to your mind.
+OneOne: Enter another one
+OneTwo: Shake it up by entering a two
+OneX: Shake it up by entering a three
+OneX: Shake it up by entering a four
+OneX: Shake it up by entering a five
+OneX: Shake it up by entering a six
+OneX: Shake it up by entering a seven
+OneX: Shake it up by entering a eight
+OneNine: Shake it up by entering a nine
+OneX: Shake it up by entering a zero
+EnterCode: Hit the big “reset” button
+
+Two:
+You confidently enter “2”. An interesting choice, if slightly unoriginal. You start to become so overwhelmed by the vast game tree of possibilities for future digits that you reset the device in a panic.
+EnterCode: Continue
+
+Three:
+Three. The most East Meck number of all, for it reminds you of all of East’s trinities: The main buildings ( !p!600, !p!4000, !p!5000 ), the three media organizations, and of course the reverse dialectic you are participating in now. This line of reasoning brings you down a rabbit hole of thought that ends with a rabbit hole rabbit telling you the first digit must have been a one.
+EnterCode: Restart in order to learn from your mistakes
+Mash: Ignore the rabbit, it was not real, just in your imagination
+
+Four:
+Visions of rectangles and rhombuses fill your mind. You march on, towards drum closet victory.
+FourX: Choose “one” as the next digit.
+FourX: Choose “two” as the next digit.
+FourX: Choose “three” as the next digit.
+Fours: Enter more fours over and over
+FourX: Choose “five” as the next digit.
+FourX: Choose “six” as the next digit.
+FourX: Choose “seven” as the next digit.
+FourX: Choose “eight” as the next digit.
+FourNine: Choose “nine” as the next digit.
+FourX: Choose “zero” as the next digit.
+EnterCode: Begin from the start of this numerical journey
+
+Five:
+You are so indecisive that you basically just split the possible options down the middle and narrow in on the boundary between. At this point you are too committed to this symmetry to disrupt it by choosing a particular side.
+Five2: Enter another five
+EnterCode: Reset
+
+Six:
+You are reminded of a feature in some game regarding the number six that you never quite understood. It just wasn’t helpful at all. Who knows.
+SixX: Enter a one
+SixX: Enter a two
+SixX: Enter a three
+SixX: Enter a four
+SixX: Enter a five
+SixX: Enter another six
+SixX: Enter a seven
+SixX: Enter an eight
+SixX: Enter a nine
+SixX: Enter a zero
+
+Seven:
+You randomly choose seven as your guess. You know this guess has only a measly 1 in 10 chance of working, but nonetheless you continue.
+SevenOne: seven one
+SevenX: seven two
+SevenX: seven three
+SevenX: seven four
+SevenX: seven five
+SevenX: seven six
+SevenX: seven seven
+SevenX: seven eight
+SevenX: seven nine
+SevenX: seven ten
+EnterCode: Just start over at this point
+
+Eight:
+You cautiously prod at the “eight” key, probing for what kind of reaction the machine will give. Not much: Only a prompt for another digit.
+EightX: Tack on a one to the code
+EightX: Tack on a two to the code
+EightX: Tack on a three to the code
+EightX: Tack on a four to the code
+EightX: Tack on a five to the code
+EightX: Tack on a six to the code
+EightX: Tack on a seven to the code
+EightX: Tack on another eight to the code
+EightX: Tack on a nine to the code
+EightX: Tack on a zero to the code
+EnterCode: Don’t even bother trying
+
+Nine:
+Your greed consumes you, and you involuntarily reach for the biggest digit of all: Nine. Still high off the magnitude of such a large number, you refuse to stoop much lower.
+NineSeven: Enter a seven
+NineEight: Enter an eight
+NineNine: Enter a nine
+EnterCode: Start over in a less greedy way
+
+Zero:
+You start moving your hand towards the “zero” key, but stop yourself before the silicone is depressed. “Does zero even count as a number?” you ask yourself. “Am I even doing any of this right?” You reset the device before this existential crisis goes too far.
+EnterCode: Continue
+
+OneNine:
+The device reads “nineteen”. What next?
+OneNineX: Enter a one.
+OneNineX: Enter a two.
+OneNineX: Enter a three.
+OneNineX: Enter a four.
+OneNineFive: Enter a five.
+OneNineX: Enter a six.
+OneNineX: Enter a seven.
+OneNineX: Enter an eight.
+OneNineX: Enter a nine.
+OneNineX: Enter a zero
+EnterCode: Restart the process.
+
+OneNineFive:
+Five. A bold choice. Three down, but no !e!three’s down. One to go, but potentially no !e!one to go.
+Wrong: Enter a one.
+Wrong: Enter a two.
+Wrong: Enter a three.
+Wrong: Enter a four.
+Wrong: Enter a five.
+Wrong: Enter a six.
+Wrong: Enter a seven.
+Wrong: Enter an eight.
+Wrong: Enter a nine.
+CorrectCode: Enter a zero.
+
+CorrectCode:
+Bingo! The code was entered effortlessly. The lock pops open, and the dense web of other locks of various shapes and sizes falls down at once. The door swings open and you enter the !p!shack.
+Shack: Continue
+
+Shack:
+You stand in the middle of the !p!Drum !p!Shack. You are too entranced by the variety of drums to leave the room any time soon.
+Drumplay: Try your hand at the drums
+Rummage: Rummage around on the floor looking for who knows what
+
+OneNineX:
+Another digit hits the floor of East Meck. Right after the button-press is completed, a very minor earthquake strikes. The keys on the keypad are shaken out of their respective enclosures and scatter on the ground. You lean down and reorganize the digits into the correct spots, but by the time you are done, the system has automatically reset your progress.
+EnterCode: Continue
+
+NineNine:
+You didn’t even know this level of greed was possible, and let alone possible from YOU. The greed transforms into rage as you realize you won’t be able to get more than four 9’s on the keypad at once. It is in this fit of rage that you reset the device.
+EnterCode: Continue, more peacefully
+
+NineEight:
+Reminiscent of the classic “1234” strategy, you contemplate adding a seven on to this alternative string of digits. You decide against it, and instead reset the device.
+EnterCode: Continue
+
+NineSeven:
+Easily the most bizarre choice out of the options your greed provided you with. Your greed is subsumed by your eccentricity, and only the strangest digit of all presents itself as an option.
+NineSevenThree: Enter a three
+EnterCode: Start over in a less eccentric way
+
+NineSevenThree:
+This feels promising. Nine seven three. Why, you are not sure. But it does.
+NineSevenThreeFour: Enter a four.
+EnterCode: Give up now
+
+NineSevenThreeFour:
+A big red li9ht flashes a7 exactly th3 rate that causes a mild seizure. You recover, but recover in pain, 4 you are burdened with the unfortunate knowledge that your code you were so confident about was wrong.
+EnterCode: Try again, but be more realistic this time
+
+FourNine:
+You feel like you’ve cracked the code. “Parker! Of course he’s behind this!”
+Five: Excitedly enter a five
+
+FourNineFive:
+You press the five anticipating the big green light to turn on, and perhaps to hear a prerecorded message congratulating you. But nothing happens. You wait. Nothing happens. And then it hits you: This wasn’t a three digit code you were after. It was four.
+EnterCode: Try again
+
+OneTwo:
+Dare you? Dare you continue the pattern? You dare.
+Count: 123456789
+EnterCode: Reset the device
+
+Count:
+The buzzing of the device indicates to you that this was not the correct strategy.
+
+OneX:
+Okay, so if you’re just going to hit random numbers, you might as well quit for good.
+EnterCode: Restart
+
+EightX:
+Another digit falls upon East Meck. What now, seeker of the drums?
+EightXX: One it is.
+EightXX: Two it is.
+EightXX: Three it is.
+EightXX: Four it is.
+EightXX: Five it is.
+EightXX: Six it is.
+EightXX: Seven it is.
+EightXX: Eight it is.
+EightXX: Nine it is.
+EightXX: Zero it is.
+EnterCode: Cut this line short
+
+EightXX:
+As the final decision confronts you, you are reminded of your humble beginnings with the digit Eight. Not so humble, perhaps, since you could turn your head to make more of an infinity sign. Snap back to the present.
+Wrong: End it with a one.
+Wrong: End it with a two.
+Wrong: End it with a three.
+Wrong: End it with a four.
+Wrong: End it with a five.
+Wrong: End it with a six.
+Wrong: End it with a seven.
+Wrong: End it with an eight.
+Wrong: End it with a nine.
+Wrong: End it with a zero.
+EnterCode: Turn back right at the home stretch.
+
+Wrong:
+A loud buzz. Incorrect! Better luck next time.
+EnterCode: Continue
+
+SevenOne:
+You accidentally enter a three instead. While you could continue on this new path, you were so dead set in your mind about your intended route that you refuse to, and reset the panel.
+EnterCode: Continue
+
+SevenX:
+You accidentally enter a one instead. While you could continue on this new path, you were so dead set in your mind about your intended route that you refuse to, and reset the panel.
+EnterCode: Continue
+
+SixX:
+You feel sick to your stomach. You’ve clearly made a bad move somewhere.
+EnterCode: Trust your gut and restart
+Mash: Full steam ahead
+
+Five2:
+A second five has been played. What now? You are even more committed to the symmetry now, and there is no turning back.
+Five3: Yet another five
+
+Five3:
+Another one. Another one. Another one.
+Five4: Another one.
+
+Five4:
+BUZZ! Well, it was fun while it lasted, but it seems this was not the appropriate strategy.
+EnterCode: Continue
+
+FourX:
+You enter another key, after the square-esque initial four. Who are you kidding? Everyone knows you don’t know the code, and at this point you are just insulting everyone’s intelligence by acting like we don’t know. Give up. Give up. Give up.
+EnterCode: Try again
+
+Fours.
+You add more fours. Then more. Over, and over, and over again.
+Fours: Just keep going
+Mash: Accidentally slam your open palm into the keypad
+EnterCode: Give either “up” or “it another go” 
+
+OneOne:
+You enter another one. You jokingly wonder to yourself if the answer will really be that simple.
+Ones: Just keep hitting one over and over
+Mash: Hit random keys to offset the previously imposed pattern structure
+EnterCode: Hit the ever more attractive “reset” button
+
+Ones:
+You keep hitting the button “one”. Every fourth button press, you hear a loud buzz and a flashing red light. You are too boneheaded to realize what this means.
+Ones: Keep going
+Mash: Switch to a new strategy
+EnterCode: Start from square one
+
+Mash:
+You keep hitting random buttons on the high tech button pad. Your ears are assaulted with a rapid string of buzzing noises. What could it all mean?
+Mash2: Keep going
+Ones: Switch to a new strategy
+EnterCode: Try again being more methodical this time
+
+Mash2:
+All of a sudden you hear a bell. You must have missed your opportunity to get to first block on time. Oh well. You start making your way there but you are met with a stampede of your classmates rushing out excited to return to their everyday lives. You realize that that hadn’t been the 7:15 bell but rather its afternoon counterpart. How long had you been mashing? Hours? Days? You decide to head back home to collect yourself. All that mashing made you tired anyways.
+Intro1: Head home and take a nap
 
 Studentlot:
 You stand at the boundary of the !p!student !p!parking-lot. Your eyes become lost in the dense variety of vehicles. You snap back to reality and realize you cannot progress this way, as leaving campus now would be an explicit violation of the Student Code of Conduct.
@@ -52,52 +361,180 @@ Middle: Turn back before it is too late
 
 Sixh1:
 You stand at the most beloved end of the !p!Six-Hundred. You look ahead into the depths of the building, and see what looks to be some kind of party occurring further down.
-Orch: Enter the !s!Orchestra !p!Room
+OrchBand: Enter the !s!Orchestra / !s!Band !p!Room
 Choir: Enter the !s!Choir !p!Room
 Bartkowiak: Enter !c!Bartkowiak’s !p!Classroom
 Roberts: Enter !c!Roberts’ !p!Classroom
 Dunn: Enter !c!Dunn’s !p!Classroom
-Cellocloset: Enter the !p!cello !p!storage !p!closet.
+Cellocloset: Enter the !p!cello/bass !p!storage !p!closet.
 Sixh2: Continue along the hall
+Middle: Exit out the classic door
 
-Orch:
-You stand in the center of the vast !s!Orchestra !p!room. The floor is littered with cellos, each with their respective end-pin protruding dangerously. The sun bounces off the intricate matrix of trophies and blinds you temporarily.
-Courtyardoutside: Walk outside the exterior door.
+Sixh2:
+You stand in the heart of the !p!Six !p!Hundred. The epicenter of the famous East Meck Grime that has sullied all of these old buildings over time. You hear fairly loud music being played to your East. !c!Mr. !c!Henry is sitting in an inverted desk grading papers. There is a fire extinguisher panel that has been installed upside down next to the exterior door.
+Henry: Enter !c!Henry’s !p!Classroom
+Sifford: Enter !c!Sifford’s !p!Classroom
+MsMiller: Enter !c!Miller’s !p!Classroom
+Sixh1: Head towards the !p!Media !p!Center
+Sixh3: Head towards the !p!Cafeteria
+Sixh4: Head towards the !p!Courtyard
+Nook: Exit through the exterior door
+
+Sixh3:
+A teacher is playing music at an earsplitting volume. You are panicking and can’t focus enough to even figure out where you are. You do see !c!Mr. !c!Watts standing though, and think his room might provide refuge.
+Watts: Enter !c!Watts’ !p!Room
+Komito: ???? Classroom ????
+Sixh2: ???? Direction ????
+CafeLobby1: ???? Direction ????
+
+Sixh4:
+You are at the most bustling corner of the !p!Six !p!Hundred. Students - some familiar, some not - pass you from all directions. The bathrooms are being guarded by three different teachers looking in different directions. There are two external doors with differing signage.
+Sixh2: Go South
+Sixh5: Go towards the !p!Cafeteria
+CourtyardCorner: Exit through the door labelled “EXIT ONLY, PLEASE USE THIS DOOR”
+CourtyardCorner: Exit through the door labelled “ENTRANCE ONLY, YOU MUST USE OTHER DOOR”
+
+Sixh5:
+You are at the more scientifically-inclined appendage of the sprawling creature that is the !p!SIx !p!Hundred. There is a door to the !p!Cafeteria !p!Lobby here.
+Johnson: Enter !c!Johnson’s !p!Room
+Walston: Enter !c!Walston’s !p!Room
+Dean Enter !c!Dean’s !p!Room
+Sixh4: Go down the hall to the corner
+CafeLobby2: Enter the !p!Cafeteria !p!Lobby
+
+Walston:
+You are in the front of !c!Mr. !c!Walston’s class. The students all look like they feel betrayed. You ask one of them why, and she says that everyone thought the class would be about oceanography (as Infinite Campus alleged), but the class is almost entirely about worms. One worm documentary after another. Another student explains how they are required to memorize 15 worm phyla before the test next week.
+Sixh5: Exit to the hall
+
+CafeLobby1:
+You stand at the South end of the !p!Cafeteria !p!Lobby. There are hinged mahogany doors that lead to the !p!Six !p!Hundred, and somewhat bluer doors leading to the !p!Cafeteria as well as to the !p!Outside !p!World (though those are permanently locked). The boys’ bathroom is encumbered by a large table placed intentionally in front of the entrance, halving your options in this department.
+Sixh3: Enter the !p!Six !p!Hundred
+CafeLobby2: Continue down the !p!Lobby
+Cafe1: Enter the !p!Cafeteria
+Security: Enter the !p!Security !p!Room
+
+CafeLobby2:
+You stand in the middle of the !p!Cafeteria !p!Lobby. There are doors to the !p!Six !p!Hundred, and of course the !p!Cafeteria. The !c!Marines, !c!Army, and !c!Navy seem to have mutually declared war on one another whilst fighting over whose turn it is to occupy the central table today.
+CafeLobby1: Walk South, towards the !p!Student !p!Parking !p!Lot
+CafeLobby3: Walk North, towards the !p!Auditorium
+Cafe2: Enter the !p!Cafeteria
+Sixh5: Enter the !p!Six !p!Hundred
+
+OrchBand:
+You stand in the center of the vast !s!Orchestra (but at other times !s!Band) !p!room. The floor is littered with cellos, each with their respective end-pin protruding dangerously. The sun bounces off the intricate matrix of trophies and blinds you temporarily.
+Middle3: Walk outside the exterior door.
 Orchcloset: Walk into the !p!orchestra !p!closet.
+Bandcloset: Walk into the !p!band !p!closet
+BandOff: Glimpse into the band office
 Sixh1: Leave into the !p!Six !p!Hundred !p!hall
 
-Courtyardoutside:
-You stand in a particularly familiar subregion of the East Meck Outdoors. The conveniently labeled doors to the !s!Orchestra and !s!Choir !p!rooms present one avenue of opportunity, while the industrial deep blue of the !p!Courtyard entrance presents another.
-Courtyard: Enter the !p!Courtyard.
-Orch: Enter the !s!Orchestra !p!Room.
+Bandcloset:
+You stare at the endless array of instruments, and are dazzled by the variety. You see a sticky note on the wall. On the sticky note text reads “1950”. It seems something about this number is integral to the operation of the band.
+OrchBand: Exit the closet
+
+Middle3:
+You stand in a particularly familiar subregion of the East Meck Outdoors. The conveniently labeled doors to the !s!Orchestra and/or !s!Band and !s!Choir !p!rooms present one avenue of opportunity, while the industrial deep blue of the !p!Courtyard entrance presents another.
+CourtyardCorner: Go through the ear-piercing metal slam-doors
+OrchBand: Enter the combination !s!Orchestra + !s!Band !p!Room.
 Choir: Enter the !s!Choir !p!Room.
-Middle: Walk outwards, towards the !p!central !p!scanners.
+Middle2: Walk west
+Zigzag1: Walk north, towards the new buildings
+Nook: Walk into the enclosed walkway leading to the !p!600
+
+Nook:
+You stand in an isolated Nook surrounded on all sides by classic !p!600 !p!Sprawl. As you walk, you repeatedly check behind your shoulder to make sure no adversaries are utilizing the low-visibility environment to sneak up behind you.
+Middle3: Walk outwards, away from this corner
+Sixh2: Enter the !p!600
+
+Zigzag1:
+You stand on the south side of a Zig-zagged footpath. You see the alternative route that has been plowed out behind the central row of trees, but you would never steep to the level of those people.
+Middle3: Move south
+Zigzag2: Move north
+Transformer: Inspect the large electrical transformer
+
+Transformer:
+You study the irreverent graffiti that coats the shield of East Meck’s central power converter. To get a better look, you open the panel and stick your face in. You are blown back by an extremely loud electrical sensation and fall to the grass. You get up slowly, and close the panel, protecting everyone else from this fate.
+Zigzag1: Continue
+
+
+Zigzag2:
+You stand on the north side of a Zig-zagged footpath. You see door entrances dotted around the !p!400 wall.
+Zigzag1: Move south
+Splitoutside: Move north
 
 Splitoutside:
 You stand under a steel roof. The dingy !p!400 !p!split and the nonspecific !p!300 !p!building are available through the two directions parallel to the canopy. On the perpendicular side of things, the outdoor region enclosed by East’s buildings continues further.
-Threeh1: Enter the !p!Three !p!Hundred
+Threeway: Enter the !p!Three !p!Hundred
 Split: Enter the !p!Split
-Middle: Walk towards the !p!Student !p!Parking !p!Lot
+Zigzag2: Walk towards the !p!Student !p!Parking !p!Lot
 Outsidestairs: Take the stairs towards the !p!Thousands
-Slope: Descend the gravel slope
+Slope: Descend the gravel slope instead
 
 Slope:
 As you brave the sheer cliff-face, you hear the whirring of the gigantic air conditioning unit beside you. Bats are flying out of the red brick chimney. Water is leaking onto the ground from some unidentifiable sub-apparatus.
-Fivekoutside: Go towards the classrooms of the future
+Center2: Go towards the classrooms of the future
 Splitoutside: Go towards the classrooms of yesteryear
 
-Fivekoutside:
-You are outside of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.
-Fivek1: Enter the !p!Five !p!Thousand
-Oneh1: Enter the !p!One !p!Hundred
+Oursidestairs:
+You climb the lame stairs, leaving the slope to rot on the side.
+Center2: Go towards the classrooms of the future
+Splitoutside: Go towards the classrooms of yesteryear
+
+Center2:
+Abcxyz
 Slope: Ascend the cliff face
 Outsidestairs: Take the stairs instead
-Fnfenter1: Continue along the 
+
+Fivekback:
+You are at the back of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.
+Fivek1: Enter the !p!Five !p!Thousand
+Fnfenter1: Continue into the !p!495000
+Center2: Turn back towards the !p!Hundreds
 
 Fnfenter1:
-You enter through the barbed revolving doors. The barbing is painful, but you know this is necessary for state security.
+You enter through the barbed revolving doors. The barbing is painful, but you know that it is necessary for state security.
 Fnf1: Continue
 
 Fnfexit1:
 You exit through the barbed revolving doors. You are relieved to leave this poorly-conceived intermediary.
-Fivekoutside: Continue
+Fivekback: Continue
+
+Fnf1:
+You stand on the Old side of the !p!495000. There is a long line of people waiting to have their passport scanned to enter the !p!Four !p!Thousand. The classrooms have all been moved to the new upstairs to accommodate the ever-growing passport checking operation.
+Fnfstairwell: Enter the shiny new stairwell
+Fnfexit1: Escape to the classrooms of old
+Fnfpass1: Attempt to pass though to the other side
+
+Fnfpass1: You enter the passport line, After what feels like an eternity, you are finally second in line. The person in front of you is expelled for having out of date documentation. You walk up to the stand, and present your state-issued ID. It clears. You walk through to the !p!4000 side.
+Fnf3: Continue
+
+Fnfstairwell:
+You stand in the brand new !p!495000 stairwell. Pieces of the wall are still missing, highlighting how Parker is rusty on school maintenance.
+Fnf1: Go downstairs
+Fnf2: Go upstairs
+
+Fnf2:
+You stand in East Meck’s most peaceful hallway, now decorated with Parker memorabilia in addition to the older symbols of unity.
+Gardening: Enter the !s!Gardening !p!classroom
+Meditation: Enter the !s!Meditation !p!classroom
+Scissorless: Enter the !s!Scissorless !s!Crafts !p!room
+Fnfstairwell: Go down the stairs
+
+Gardening:
+You stand in the tranquil !s!Gardening room. The air is full of spores and pollen, which would compromise the peaceful atmosphere if not for the fact that N95 masks have been distributed amongst the students, preventing any earsplitting sneezes.
+Fnf2: Exit into the hall
+
+Meditation:
+You tiptoe into the dead-silent !s!Meditation room, avoiding making a scene. A carefully-arranged array of students with crossed legs and closed eyes sit before you.
+Fnf2: Slowly creep back into the hall
+
+Scissorless:
+You stand in the innovative !s!Scissorless !s!Crafts room. You observe the carefree students handling their projects fearlessly, knowing any potentially dangerous sharp points are far out of reach.
+Fnf2: Gleefully waltz back into the hall
+
+Split:
+You stand in the middle of the bustling !p!400 !p!Split. There are myriads of people here, each one leaning on their officially-assigned steel pillar. You can still see the faint outline of the gargantuan Beagle poster on the wall.
+Fourh2: Enter the Southern !p!Four !p!Hundred
+Fourh3: Enter the Northern !p!Four !p!Hundred
+Splitoutside: Go East, towards the !p!300
+Pointy: Go West, towards the !p!700 and the !p!Gym
