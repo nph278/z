@@ -9,7 +9,7 @@ Leisure: Get ready at exactly the same speed you usually do
 
 Leisure:
 You take your sweet time getting ready. By the time you leave the house, it’s already !t!7:15. Failure.
-Start: Start from the beginning of time
+$reset: Start from the beginning of time
 
 Intro2:
 You rush to the door, and begin the tread to !p!School.
@@ -68,8 +68,8 @@ Mediaside: Shake off these thoughts and return to the side of the media center
 Automotive2: Try to hop the fence and take a car
 
 Automotive2:
-Almost as soon as you make it over the fence you are tackled by a group of rowdy automotive students. You are brought to the ground and your head slams against the concrete.
-Intro1: Try everything again. From the top. 
+Almost as soon as you make it over the fence you are tackled by a group of rowdy automotive students. You are brought to the ground and your head slams against the concrete. You are knocked out cold.
+$reset: Try everything again. From the top. 
 
 Drums:
 You try the handle but it is caged by an absurd number of locks, though it seems mostly held together by one linch pin lock that if it were to be unlocked, the amalgam would be broken loose. Maybe if you had the 4 digit code you could get in.
@@ -248,7 +248,7 @@ EnterCode: Try again, but be more realistic this time
 
 FourNine:
 You feel like you’ve cracked the code. “Parker! Of course he’s behind this!”
-Five: Excitedly enter a five
+FourNineFive: Excitedly enter a five
 
 FourNineFive:
 You press the five anticipating the big green light to turn on, and perhaps to hear a prerecorded message congratulating you. But nothing happens. You wait. Nothing happens. And then it hits you: This wasn’t a three digit code you were after. It was four.
@@ -261,6 +261,7 @@ EnterCode: Reset the device
 
 Count:
 The buzzing of the device indicates to you that this was not the correct strategy.
+EnterCode: Try again
 
 OneX:
 Okay, so if you’re just going to hit random numbers, you might as well quit for good.
@@ -353,7 +354,7 @@ EnterCode: Try again being more methodical this time
 
 Mash2:
 All of a sudden you hear a bell. You must have missed your opportunity to get to first block on time. Oh well. You start making your way there but you are met with a stampede of your classmates rushing out excited to return to their everyday lives. You realize that that hadn’t been the 7:15 bell but rather its afternoon counterpart. How long had you been mashing? Hours? Days? You decide to head back home to collect yourself. All that mashing made you tired anyways.
-Intro1: Head home and take a nap
+$reset: Head home and take a nap
 
 Studentlot:
 You stand at the boundary of the !p!student !p!parking-lot. Your eyes become lost in the dense variety of vehicles. You snap back to reality and realize you cannot progress this way, as leaving campus now would be an explicit violation of the Student Code of Conduct.
@@ -387,6 +388,15 @@ Komito: ???? Classroom ????
 Sixh2: ???? Direction ????
 CafeLobby1: ???? Direction ????
 
+Watts:
+You enter !c!Mr. !c!Watts’ classroom and are astounded by the economic delights. Your eyes are drawn in a thousand different directions at the various artifacts he has somehow procured (assumingly via his insanely deep pockets.) !c!Mr. !c!Watts is chatting with a student about a smuggling job. 
+Eavesdrop: Stick around and try to eavesdrop
+Sixh3: Try to get out of there before things get dangerous
+
+Eavesdrop: 
+They are discussing the need for a mule to bring a large payload of sludge all the way to the 495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed sludge tariffs. They say they would be willing to give !e!seven !e!Drye !e!Buxs to any one willing to brave the task. 
+Sludge1: Volunteer, taking the opportunity to potentially raise your status in the East Meck econsystem
+
 Sixh4:
 You are at the most bustling corner of the !p!Six !p!Hundred. Students - some familiar, some not - pass you from all directions. The bathrooms are being guarded by three different teachers looking in different directions. There are two external doors with differing signage.
 Sixh2: Go South
@@ -395,16 +405,17 @@ CourtyardCorner: Exit through the door labelled “EXIT ONLY, PLEASE USE THIS DO
 CourtyardCorner: Exit through the door labelled “ENTRANCE ONLY, YOU MUST USE OTHER DOOR”
 
 Sixh5:
-You are at the more scientifically-inclined appendage of the sprawling creature that is the !p!SIx !p!Hundred. There is a door to the !p!Cafeteria !p!Lobby here.
+You are at the more scientifically-inclined appendage of the sprawling creature that is the !p!Six !p!Hundred. There is a door to the !p!Cafeteria !p!Lobby here.
 Johnson: Enter !c!Johnson’s !p!Room
 Walston: Enter !c!Walston’s !p!Room
-Dean Enter !c!Dean’s !p!Room
+Dean: Enter !c!Dean’s !p!Room
 Sixh4: Go down the hall to the corner
 CafeLobby2: Enter the !p!Cafeteria !p!Lobby
 
 Walston:
-You are in the front of !c!Mr. !c!Walston’s class. The students all look like they feel betrayed. You ask one of them why, and she says that everyone thought the class would be about oceanography (as Infinite Campus alleged), but the class is almost entirely about worms. One worm documentary after another. Another student explains how they are required to memorize 15 worm phyla before the test next week.
+You are in the front of !c!Mr. !c!Walston’s class. The students all look like they feel betrayed. You ask one of them why, and she says that everyone thought the class would be about oceanography (as Infinite Campus alleged), but the class is almost entirely about worms. One worm documentary after another. Another !c!Shtudent, decked out in Zeagle merch, explains how they are required to memorize 15 worm phyla before the test next week. He slides you some !d!DryeBux. 
 Sixh5: Exit to the hall
+$dryebux: 3
 
 CafeLobby1:
 You stand at the South end of the !p!Cafeteria !p!Lobby. There are hinged mahogany doors that lead to the !p!Six !p!Hundred, and somewhat bluer doors leading to the !p!Cafeteria as well as to the !p!Outside !p!World (though those are permanently locked). The boys’ bathroom is encumbered by a large table placed intentionally in front of the entrance, halving your options in this department.
@@ -412,6 +423,12 @@ Sixh3: Enter the !p!Six !p!Hundred
 CafeLobby2: Continue down the !p!Lobby
 Cafe1: Enter the !p!Cafeteria
 Security: Enter the !p!Security !p!Room
+
+Cafe1:
+It is quite in the !p!cafeteria say for the bustling of cafeteria workers working hard to prepare the upcoming day's delicacies and packing up the breakfast. There are a small number of breakfast goers but they all seem to be heading out to their respective first blocks.
+Cafe2: Head to the other door where !c!Drye and friends sometimes hang out during lunch
+Cafe3: Head to back corner of the !p!cafeteria 
+
 
 CafeLobby2:
 You stand in the middle of the !p!Cafeteria !p!Lobby. There are doors to the !p!Six !p!Hundred, and of course the !p!Cafeteria. The !c!Marines, !c!Army, and !c!Navy seem to have mutually declared war on one another whilst fighting over whose turn it is to occupy the central table today.
@@ -447,7 +464,7 @@ Middle3: Walk outwards, away from this corner
 Sixh2: Enter the !p!600
 
 Zigzag1:
-You stand on the south side of a Zig-zagged footpath. You see the alternative route that has been plowed out behind the central row of trees, but you would never steep to the level of those people.
+You stand on the south side of a Zig-zagged footpath. You see the alternative route that has been plowed out behind the central row of trees, but you would never stoop to the level of those people.
 Middle3: Move south
 Zigzag2: Move north
 Transformer: Inspect the large electrical transformer
@@ -455,7 +472,6 @@ Transformer: Inspect the large electrical transformer
 Transformer:
 You study the irreverent graffiti that coats the shield of East Meck’s central power converter. To get a better look, you open the panel and stick your face in. You are blown back by an extremely loud electrical sensation and fall to the grass. You get up slowly, and close the panel, protecting everyone else from this fate.
 Zigzag1: Continue
-
 
 Zigzag2:
 You stand on the north side of a Zig-zagged footpath. You see door entrances dotted around the !p!400 wall.
@@ -482,8 +498,10 @@ Splitoutside: Go towards the classrooms of yesteryear
 
 Center2:
 Abcxyz
-Slope: Ascend the cliff face
+Slope: Ascend the Southbound cliff face
 Outsidestairs: Take the stairs instead
+Fivekback: Go North to the back of the !p!5000
+Fivekside1: Go East to the side
 
 Fivekback:
 You are at the back of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.

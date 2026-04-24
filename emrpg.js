@@ -3,10 +3,9 @@
 // Link from game page
 // Trailer
 // Reverse dialectic
-// Textual effects: Fonts, colors, italics, size, animation, ...
-// Lots of info/stats everywhere
-// (CSS?) Backgrounds for different regions. East meck photos?
+// Lots of info/stats everywhere. More text effets
 // Effects: Animated random caps, shaking, ripple
+// (CSS?) Backgrounds for different regions. East meck photos?
 // Mobile?
 // Music
 // Sfx
@@ -17,17 +16,16 @@
 // Worthiness meter
 // "The most heartwrenching East Meck story to date"
 // "Interactive Story"
-// Automatically remove all error room options, and log each occurance.
 // TAPE
 // Parse better: Caps, trailing spaces after colon.
 // Characterize the reader
 // Goal of game is to collect 5(?) items that are hidden
 // Handle more than 10 options. Font size adjusting.
 // Characters give you quests
-// Visual effects for matching rooms
-// It was all a dream?
 // Wait for someone to open the door at 4k since you are so late at that point
 // People switching the 400 rooms from earth science to health and vice versa repeatedly
+// Play tape in A/V room after sneaking past
+// Proper resetting
 
 "use strict";
 
@@ -47,6 +45,18 @@ const circleRate = 0.003;
 const circleRR = 0.1;
 const parityOffset = 0.1;
 const keys = "1234567890abcdefghijklmnopqrstuvwxyz";
+
+const images = [];
+const makeImage = (filename) => {
+    const image = new Image();
+    image.src = "./emrpg/" + filename;
+    images.push(image);
+    return image;
+};
+
+const imageDryebux3 = makeImage("dryebux3.png");
+const imageDryebux7 = makeImage("dryebux7.png");
+const imageDryebux11 = makeImage("dryebux11.png");
 
 class TextStyle {
     constructor() {
@@ -108,7 +118,7 @@ class TextStyle {
             this.effects.push("circle");
             break;
         case "id":
-            // Subject
+            // Id
             this.addFontStyle("bold");
             this.fontFamily = "major mono display, monospace";
             this.color = "red";
@@ -117,6 +127,12 @@ class TextStyle {
         case "o":
             // Option
             this.color = "orange";
+            this.fontSize *= 1.1;
+            break;
+        case "d":
+            // Dryebux
+            this.color = "gold";
+            this.fontFamily = "major mono display, monospace";
             this.fontSize *= 1.1;
             break;
         case "t":
@@ -225,11 +241,27 @@ class Line {
     }
 }
 
+class Action {
+    constructor(type, args) {
+        this.type = type;
+        if (type === "room") {
+            this.id = args[0];
+        } else if (type === "dryebux") {
+            this.dryebux = args[0];
+        } else if (type === "reset") {
+        } else {
+            alert("Bad action type: "+ type);
+        }
+    }
+}
+
 class RoomOption {
-    constructor(id, desc, n) {
-        this.id = id;
+    constructor(action, desc, n) {
+        this.action = action;
         this.text = new Line(desc);
         this.text.prependWord("!o![" + keys[n] + "]");
+        this.index = n;
+        this.action.index = n;
     }
 
     draw(ctx, pos, words) {
@@ -242,7 +274,16 @@ class Room {
     constructor(spec) {
         this.id = spec.id;
         this.desc = new Line(spec.desc);
-        this.options = spec.options.map((o, i) => new RoomOption(o[0], o[1], i));
+        this.options = spec.options.map((o, i) => new RoomOption(new Action("room", [o[0]]), o[1], i));
+        if (spec.dryebux !== undefined) {
+            this.options.push(new RoomOption(new Action("dryebux", [spec.dryebux]),
+                                             "!d!Pick !d!up !d!bill !d!of !d!" + spec.dryebux + " !d!DryeBux",
+                                             this.options.length));
+            this.dryebux = spec.dryebux;
+        }
+        if (spec.reset !== undefined) {
+            this.options.push(new RoomOption(new Action("reset", []), spec.reset, this.options.length));
+        }
     }
 
     draw(ctx, elapsed) {
@@ -251,10 +292,6 @@ class Room {
         this.desc.draw(ctx, pos, words);
         pos.newLine();
         this.options.forEach((o) => o.draw(ctx, pos, words));
-
-        const idPos = new TextPosition(spaceSize, height - 2 * lineHeight, width, lineHeight);
-        const s = new TextSegment("!id!" + this.id);
-        s.draw(ctx, idPos);
     }
 }
 
@@ -266,15 +303,23 @@ class Game {
         this.canvas.height = height;
         this.ctx = this.canvas.getContext("2d");
 
+        this.rooms = {};
+        roomSpecs.forEach(spec => {
+            const r = new Room(spec);
+            this.rooms[r.id] = r;
+        });
+
+        this.items = [];
         this.enterRoom("start");
+        this.dryebux = 0;
     }
 
     enterRoom(id) {
-        if (id in rooms) {
-            this.room = rooms[id];
+        if (id in this.rooms) {
+            this.room = this.rooms[id];
         } else {
             this.backRoom = this.room;
-            alert("Not implemented");
+            alert("Not implemented: " + id);
         }
         this.roomEnterTime = Date.now();
     }
@@ -289,13 +334,46 @@ class Game {
         this.canvas.style.width = sizemult * width + "px";
 
         this.room.draw(this.ctx, this.elapsedTime);
+
+        const idPos = new TextPosition(spaceSize, height - 2 * lineHeight, width, lineHeight);
+        const idSeg = new TextSegment("!id!" + this.room.id);
+        idSeg.draw(this.ctx, idPos);
+
+        if (this.dryebux > 0) {
+            const dryebuxPos = new TextPosition(spaceSize, height - 3 * lineHeight, width, lineHeight);
+            const dryebuxSeg = new TextSegment("!d!youhave-->" + this.dryebux + "₫");
+            dryebuxSeg.draw(this.ctx, dryebuxPos);
+        }
+
+        if (this.room.options.some(o => o.action.type === "dryebux")) {
+            let i;
+            if (this.room.dryebux === 7) {
+                i = imageDryebux7;
+            } else if (this.room.dryebux === 11) {
+                i = imageDryebux11;
+            } else {
+                i = imageDryebux3;
+            }
+            this.ctx.drawImage(i, width - 480, height - 200);
+        }
+    }
+
+    performAction(a) {
+        if (a.type === "room") {
+            this.enterRoom(a.id);
+        } else if (a.type === "dryebux") {
+            this.dryebux += a.dryebux;
+            this.room.options.splice(a.index, 1);
+        } else if (a.type === "reset") {
+            game = new Game();
+        }
     }
 
     handleKey(k) {
         if (this.elapsedTime > cooldown && keys.includes(k)) {
             const n = keys.indexOf(k);
             if (n < this.room.options.length) {
-                this.enterRoom(this.room.options[n].id);
+                this.performAction(this.room.options[n].action);
             }
         }
     }
@@ -321,8 +399,8 @@ const roomSpecs = [
         id: "leisure",
         desc: "You take your sweet time getting ready. By the time you leave the house, it’s already !t!7:15. Failure.",
         options: [
-            ["start", "Start from the beginning of time"],
         ],
+        reset: "Start from the beginning of time",
     },
     {
         id: "intro2",
@@ -367,7 +445,7 @@ const roomSpecs = [
         options: [
             ["sixh1", "Enter the !p!Six !p!Hundred"],
             ["media", "Walk towards the !p!media !p!center"],
-            ["studentlot", "Walk towards the !p!student !p!parking !p!lot."],
+            ["studentlot", "Walk towards the !p!student !p!parking !p!lot"],
             ["middle2", "Walk north"],
         ],
     },
@@ -376,7 +454,7 @@ const roomSpecs = [
         desc: "You stand outside under a vast web of metallic structures. The !p!Four and !p!Seven !p!Hundreds are very close.",
         options: [
             ["fourh1", "Enter the !p!Four !p!Hundred"],
-            ["sevenh1", "Enter the !p!Seven !p!Hundred."],
+            ["sevenh1", "Enter the !p!Seven !p!Hundred"],
             ["foursevenpath", "Go north, squeezing between the two"],
             ["middle", "Go south"],
             ["middle3", "Go east"],
@@ -386,8 +464,8 @@ const roomSpecs = [
         id: "media",
         desc: "You stand under the steel canopy around the entrance to the !p!Media !p!Center. The media center is closed. You know this because of a big, clearly hastily-written poster on the door explaining the presence of “Work-keys” testing inside. Despite the claim, you see what looks to be a fashion show occurring inside. It seems the only style fit for this contestant will be absolute maximalism.",
         options: [
-            ["middle", "Walk toward the !p!southern !p!security !p!scanners."],
-            ["mediaside", "Walk around to the side of the !p!Media !p!Center."],
+            ["middle", "Walk toward the !p!southern !p!security !p!scanners"],
+            ["mediaside", "Walk around to the side of the !p!Media !p!Center"],
         ],
     },
     {
@@ -404,7 +482,7 @@ const roomSpecs = [
         ],
     },
     {
-        id: "automotive: you look deeply at the various cars. you are entranced by their shiny wax bodies and wonder what it would take for you to get a nice car like that.",
+        id: "automotive",
         desc: "Mediaside: Shake off these thoughts and return to the side of the media center",
         options: [
             ["automotive2", "Try to hop the fence and take a car"],
@@ -412,10 +490,10 @@ const roomSpecs = [
     },
     {
         id: "automotive2",
-        desc: "Almost as soon as you make it over the fence you are tackled by a group of rowdy automotive students. You are brought to the ground and your head slams against the concrete.",
+        desc: "Almost as soon as you make it over the fence you are tackled by a group of rowdy automotive students. You are brought to the ground and your head slams against the concrete. You are knocked out cold.",
         options: [
-            ["intro1", "Try everything again. From the top. "],
         ],
+        reset: "Try everything again. From the top.",
     },
     {
         id: "drums",
@@ -478,16 +556,16 @@ const roomSpecs = [
         id: "four",
         desc: "Visions of rectangles and rhombuses fill your mind. You march on, towards drum closet victory.",
         options: [
-            ["fourx", "Choose “one” as the next digit."],
-            ["fourx", "Choose “two” as the next digit."],
-            ["fourx", "Choose “three” as the next digit."],
+            ["fourx", "Choose “one” as the next digit"],
+            ["fourx", "Choose “two” as the next digit"],
+            ["fourx", "Choose “three” as the next digit"],
             ["fours", "Enter more fours over and over"],
-            ["fourx", "Choose “five” as the next digit."],
-            ["fourx", "Choose “six” as the next digit."],
-            ["fourx", "Choose “seven” as the next digit."],
-            ["fourx", "Choose “eight” as the next digit."],
-            ["fournine", "Choose “nine” as the next digit."],
-            ["fourx", "Choose “zero” as the next digit."],
+            ["fourx", "Choose “five” as the next digit"],
+            ["fourx", "Choose “six” as the next digit"],
+            ["fourx", "Choose “seven” as the next digit"],
+            ["fourx", "Choose “eight” as the next digit"],
+            ["fournine", "Choose “nine” as the next digit"],
+            ["fourx", "Choose “zero” as the next digit"],
             ["entercode", "Begin from the start of this numerical journey"],
         ],
     },
@@ -570,33 +648,33 @@ const roomSpecs = [
         id: "onenine",
         desc: "The device reads “nineteen”. What next?",
         options: [
-            ["oneninex", "Enter a one."],
-            ["oneninex", "Enter a two."],
-            ["oneninex", "Enter a three."],
-            ["oneninex", "Enter a four."],
-            ["oneninefive", "Enter a five."],
-            ["oneninex", "Enter a six."],
-            ["oneninex", "Enter a seven."],
-            ["oneninex", "Enter an eight."],
-            ["oneninex", "Enter a nine."],
+            ["oneninex", "Enter a one"],
+            ["oneninex", "Enter a two"],
+            ["oneninex", "Enter a three"],
+            ["oneninex", "Enter a four"],
+            ["oneninefive", "Enter a five"],
+            ["oneninex", "Enter a six"],
+            ["oneninex", "Enter a seven"],
+            ["oneninex", "Enter an eight"],
+            ["oneninex", "Enter a nine"],
             ["oneninex", "Enter a zero"],
-            ["entercode", "Restart the process."],
+            ["entercode", "Restart the process"],
         ],
     },
     {
         id: "oneninefive",
         desc: "Five. A bold choice. Three down, but no !e!three’s down. One to go, but potentially no !e!one to go.",
         options: [
-            ["wrong", "Enter a one."],
-            ["wrong", "Enter a two."],
-            ["wrong", "Enter a three."],
-            ["wrong", "Enter a four."],
-            ["wrong", "Enter a five."],
-            ["wrong", "Enter a six."],
-            ["wrong", "Enter a seven."],
-            ["wrong", "Enter an eight."],
-            ["wrong", "Enter a nine."],
-            ["correctcode", "Enter a zero."],
+            ["wrong", "Enter a one"],
+            ["wrong", "Enter a two"],
+            ["wrong", "Enter a three"],
+            ["wrong", "Enter a four"],
+            ["wrong", "Enter a five"],
+            ["wrong", "Enter a six"],
+            ["wrong", "Enter a seven"],
+            ["wrong", "Enter an eight"],
+            ["wrong", "Enter a nine"],
+            ["correctcode", "Enter a zero"],
         ],
     },
     {
@@ -647,7 +725,7 @@ const roomSpecs = [
         id: "nineseventhree",
         desc: "This feels promising. Nine seven three. Why, you are not sure. But it does.",
         options: [
-            ["nineseventhreefour", "Enter a four."],
+            ["nineseventhreefour", "Enter a four"],
             ["entercode", "Give up now"],
         ],
     },
@@ -662,7 +740,7 @@ const roomSpecs = [
         id: "fournine",
         desc: "You feel like you’ve cracked the code. “Parker! Of course he’s behind this!”",
         options: [
-            ["five", "Excitedly enter a five"],
+            ["fourninefive", "Excitedly enter a five"],
         ],
     },
     {
@@ -684,6 +762,7 @@ const roomSpecs = [
         id: "count",
         desc: "The buzzing of the device indicates to you that this was not the correct strategy.",
         options: [
+            ["entercode", "Try again"],
         ],
     },
     {
@@ -697,16 +776,16 @@ const roomSpecs = [
         id: "eightx",
         desc: "Another digit falls upon East Meck. What now, seeker of the drums?",
         options: [
-            ["eightxx", "One it is."],
-            ["eightxx", "Two it is."],
-            ["eightxx", "Three it is."],
-            ["eightxx", "Four it is."],
-            ["eightxx", "Five it is."],
-            ["eightxx", "Six it is."],
-            ["eightxx", "Seven it is."],
-            ["eightxx", "Eight it is."],
-            ["eightxx", "Nine it is."],
-            ["eightxx", "Zero it is."],
+            ["eightxx", "One it is"],
+            ["eightxx", "Two it is"],
+            ["eightxx", "Three it is"],
+            ["eightxx", "Four it is"],
+            ["eightxx", "Five it is"],
+            ["eightxx", "Six it is"],
+            ["eightxx", "Seven it is"],
+            ["eightxx", "Eight it is"],
+            ["eightxx", "Nine it is"],
+            ["eightxx", "Zero it is"],
             ["entercode", "Cut this line short"],
         ],
     },
@@ -714,17 +793,17 @@ const roomSpecs = [
         id: "eightxx",
         desc: "As the final decision confronts you, you are reminded of your humble beginnings with the digit Eight. Not so humble, perhaps, since you could turn your head to make more of an infinity sign. Snap back to the present.",
         options: [
-            ["wrong", "End it with a one."],
-            ["wrong", "End it with a two."],
-            ["wrong", "End it with a three."],
-            ["wrong", "End it with a four."],
-            ["wrong", "End it with a five."],
-            ["wrong", "End it with a six."],
-            ["wrong", "End it with a seven."],
-            ["wrong", "End it with an eight."],
-            ["wrong", "End it with a nine."],
-            ["wrong", "End it with a zero."],
-            ["entercode", "Turn back right at the home stretch."],
+            ["wrong", "End it with a one"],
+            ["wrong", "End it with a two"],
+            ["wrong", "End it with a three"],
+            ["wrong", "End it with a four"],
+            ["wrong", "End it with a five"],
+            ["wrong", "End it with a six"],
+            ["wrong", "End it with a seven"],
+            ["wrong", "End it with an eight"],
+            ["wrong", "End it with a nine"],
+            ["wrong", "End it with a zero"],
+            ["entercode", "Turn back right at the home stretch"],
         ],
     },
     {
@@ -767,7 +846,7 @@ const roomSpecs = [
         id: "five3",
         desc: "Another one. Another one. Another one.",
         options: [
-            ["five4", "Another one."],
+            ["five4", "Another one"],
         ],
     },
     {
@@ -785,12 +864,12 @@ const roomSpecs = [
         ],
     },
     {
-        id: "fours",
+        id: "fours.",
         desc: "You add more fours. Then more. Over, and over, and over again.",
         options: [
             ["fours", "Just keep going"],
             ["mash", "Accidentally slam your open palm into the keypad"],
-            ["entercode", "Give either “up” or “it another go” "],
+            ["entercode", "Give either “up” or “it another go”"],
         ],
     },
     {
@@ -824,8 +903,8 @@ const roomSpecs = [
         id: "mash2",
         desc: "All of a sudden you hear a bell. You must have missed your opportunity to get to first block on time. Oh well. You start making your way there but you are met with a stampede of your classmates rushing out excited to return to their everyday lives. You realize that that hadn’t been the 7:15 bell but rather its afternoon counterpart. How long had you been mashing? Hours? Days? You decide to head back home to collect yourself. All that mashing made you tired anyways.",
         options: [
-            ["intro1", "Head home and take a nap"],
         ],
+        reset: "Head home and take a nap",
     },
     {
         id: "studentlot",
@@ -843,7 +922,7 @@ const roomSpecs = [
             ["bartkowiak", "Enter !c!Bartkowiak’s !p!Classroom"],
             ["roberts", "Enter !c!Roberts’ !p!Classroom"],
             ["dunn", "Enter !c!Dunn’s !p!Classroom"],
-            ["cellocloset", "Enter the !p!cello/bass !p!storage !p!closet."],
+            ["cellocloset", "Enter the !p!cello/bass !p!storage !p!closet"],
             ["sixh2", "Continue along the hall"],
             ["middle", "Exit out the classic door"],
         ],
@@ -872,6 +951,21 @@ const roomSpecs = [
         ],
     },
     {
+        id: "watts",
+        desc: "You enter !c!Mr. !c!Watts’ classroom and are astounded by the economic delights. Your eyes are drawn in a thousand different directions at the various artifacts he has somehow procured (assumingly via his insanely deep pockets.) !c!Mr. !c!Watts is chatting with a student about a smuggling job. ",
+        options: [
+            ["eavesdrop", "Stick around and try to eavesdrop"],
+            ["sixh3", "Try to get out of there before things get dangerous"],
+        ],
+    },
+    {
+        id: "eavesdrop",
+        desc: "They are discussing the need for a mule to bring a large payload of sludge all the way to the 495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed sludge tariffs. They say they would be willing to give !e!seven !e!Drye !e!Buxs to any one willing to brave the task. ",
+        options: [
+            ["sludge1", "Volunteer, taking the opportunity to potentially raise your status in the East Meck econsystem"],
+        ],
+    },
+    {
         id: "sixh4",
         desc: "You are at the most bustling corner of the !p!Six !p!Hundred. Students - some familiar, some not - pass you from all directions. The bathrooms are being guarded by three different teachers looking in different directions. There are two external doors with differing signage.",
         options: [
@@ -883,21 +977,22 @@ const roomSpecs = [
     },
     {
         id: "sixh5",
-        desc: "You are at the more scientifically-inclined appendage of the sprawling creature that is the !p!SIx !p!Hundred. There is a door to the !p!Cafeteria !p!Lobby here.",
+        desc: "You are at the more scientifically-inclined appendage of the sprawling creature that is the !p!Six !p!Hundred. There is a door to the !p!Cafeteria !p!Lobby here.",
         options: [
             ["johnson", "Enter !c!Johnson’s !p!Room"],
             ["walston", "Enter !c!Walston’s !p!Room"],
-            ["dea", "Enter !c!Dean’s !p!Room"],
+            ["dean", "Enter !c!Dean’s !p!Room"],
             ["sixh4", "Go down the hall to the corner"],
             ["cafelobby2", "Enter the !p!Cafeteria !p!Lobby"],
         ],
     },
     {
         id: "walston",
-        desc: "You are in the front of !c!Mr. !c!Walston’s class. The students all look like they feel betrayed. You ask one of them why, and she says that everyone thought the class would be about oceanography (as Infinite Campus alleged), but the class is almost entirely about worms. One worm documentary after another. Another student explains how they are required to memorize 15 worm phyla before the test next week.",
+        desc: "You are in the front of !c!Mr. !c!Walston’s class. The students all look like they feel betrayed. You ask one of them why, and she says that everyone thought the class would be about oceanography (as Infinite Campus alleged), but the class is almost entirely about worms. One worm documentary after another. Another !c!Shtudent, decked out in Zeagle merch, explains how they are required to memorize 15 worm phyla before the test next week. He slides you some !d!DryeBux. ",
         options: [
             ["sixh5", "Exit to the hall"],
         ],
+        dryebux: 3,
     },
     {
         id: "cafelobby1",
@@ -907,6 +1002,14 @@ const roomSpecs = [
             ["cafelobby2", "Continue down the !p!Lobby"],
             ["cafe1", "Enter the !p!Cafeteria"],
             ["security", "Enter the !p!Security !p!Room"],
+        ],
+    },
+    {
+        id: "cafe1",
+        desc: "It is quite in the !p!cafeteria say for the bustling of cafeteria workers working hard to prepare the upcoming day's delicacies and packing up the breakfast. There are a small number of breakfast goers but they all seem to be heading out to their respective first blocks.",
+        options: [
+            ["cafe2", "Head to the other door where !c!Drye and friends sometimes hang out during lunch"],
+            ["cafe3", "Head to back corner of the !p!cafeteria"],
         ],
     },
     {
@@ -923,8 +1026,8 @@ const roomSpecs = [
         id: "orchband",
         desc: "You stand in the center of the vast !s!Orchestra (but at other times !s!Band) !p!room. The floor is littered with cellos, each with their respective end-pin protruding dangerously. The sun bounces off the intricate matrix of trophies and blinds you temporarily.",
         options: [
-            ["middle3", "Walk outside the exterior door."],
-            ["orchcloset", "Walk into the !p!orchestra !p!closet."],
+            ["middle3", "Walk outside the exterior door"],
+            ["orchcloset", "Walk into the !p!orchestra !p!closet"],
             ["bandcloset", "Walk into the !p!band !p!closet"],
             ["bandoff", "Glimpse into the band office"],
             ["sixh1", "Leave into the !p!Six !p!Hundred !p!hall"],
@@ -942,8 +1045,8 @@ const roomSpecs = [
         desc: "You stand in a particularly familiar subregion of the East Meck Outdoors. The conveniently labeled doors to the !s!Orchestra and/or !s!Band and !s!Choir !p!rooms present one avenue of opportunity, while the industrial deep blue of the !p!Courtyard entrance presents another.",
         options: [
             ["courtyardcorner", "Go through the ear-piercing metal slam-doors"],
-            ["orchband", "Enter the combination !s!Orchestra + !s!Band !p!Room."],
-            ["choir", "Enter the !s!Choir !p!Room."],
+            ["orchband", "Enter the combination !s!Orchestra + !s!Band !p!Room"],
+            ["choir", "Enter the !s!Choir !p!Room"],
             ["middle2", "Walk west"],
             ["zigzag1", "Walk north, towards the new buildings"],
             ["nook", "Walk into the enclosed walkway leading to the !p!600"],
@@ -959,7 +1062,7 @@ const roomSpecs = [
     },
     {
         id: "zigzag1",
-        desc: "You stand on the south side of a Zig-zagged footpath. You see the alternative route that has been plowed out behind the central row of trees, but you would never steep to the level of those people.",
+        desc: "You stand on the south side of a Zig-zagged footpath. You see the alternative route that has been plowed out behind the central row of trees, but you would never stoop to the level of those people.",
         options: [
             ["middle3", "Move south"],
             ["zigzag2", "Move north"],
@@ -974,10 +1077,9 @@ const roomSpecs = [
         ],
     },
     {
-        id: "",
-        desc: "Zigzag2:",
+        id: "zigzag2",
+        desc: "You stand on the north side of a Zig-zagged footpath. You see door entrances dotted around the !p!400 wall.",
         options: [
-            ["yo", "stand on the north side of a Zig-zagged footpath. You see door entrances dotted around the !p!400 wall."],
             ["zigzag1", "Move south"],
             ["splitoutside", "Move north"],
         ],
@@ -1013,8 +1115,10 @@ const roomSpecs = [
         id: "center2",
         desc: "Abcxyz",
         options: [
-            ["slope", "Ascend the cliff face"],
+            ["slope", "Ascend the Southbound cliff face"],
             ["outsidestairs", "Take the stairs instead"],
+            ["fivekback", "Go North to the back of the !p!5000"],
+            ["fivekside1", "Go East to the side"],
         ],
     },
     {
@@ -1050,7 +1154,7 @@ const roomSpecs = [
         ],
     },
     {
-        id: "fnfpass1: you enter the passport line, after what feels like an eternity, you are finally second in line. the person in front of you is expelled for having out of date documentation. you walk up to the stand, and present your state-issued id. it clears. you walk through to the !p!4000 side",
+        id: "fnfpass1",
         desc: "Fnf3: Continue",
         options: [
         ],
@@ -1106,15 +1210,10 @@ const roomSpecs = [
     },
 ];
 
-const rooms = {};
+let game;
 
-roomSpecs.forEach(spec => {
-    const r = new Room(spec);
-    rooms[r.id] = r;
-});
-
-addEventListener('load', (event) => {
-    const game = new Game();
+addEventListener('load', async (event) => {
+    game = new Game();
     game.draw();
     setInterval(() => {
         game.draw();
