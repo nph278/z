@@ -35,10 +35,15 @@ Middle: Continue
 
 Middle:
 You stand at the !p!southern !p!crossroads. The !p!media !p!center, !p!student !p!parking !p!lot, and !p!600 !p!building are all within reach.
+Schedule: Check your schedule
 Sixh1: Enter the !p!Six !p!Hundred
 Media: Walk towards the !p!media !p!center
 Studentlot: Walk towards the !p!student !p!parking !p!lot.
 Middle2: Walk north, towards the !p!Four !p!Hundred
+
+Schedule:
+You check your schedule, and trace your finger down to the “1ST BLOCK” line. The entry reads: “ !p!4300 !p!HALL - !c!Kinney ”
+Middle: Continue
 
 Middle2:
 You stand outside under a vast web of metallic structures. The !p!Four and !p!Seven !p!Hundreds are very close.
@@ -238,10 +243,11 @@ Bingo! The code was entered effortlessly. The lock pops open, and the dense web 
 ^Mediaside^Drums^Drums2^Shack: Continue
 
 Shack:
-You stand in the middle of the !p!Drum !p!Shack. There is an awe-inspiring variety of drums, and you feel sad for the way they are kept in captivity here, rarely being allowed to show their colors to the world.
+You stand in the middle of the !p!Drum !p!Shack. There is an awe-inspiring variety of drums, and you feel sad for the way they are kept in captivity here, rarely being allowed to show their colors to the world. One of the Drums has a bill of !d!DryeBux on it.
 Drumplay: Try your hand at the drums
 #Rummage: Rummage around on the floor looking for who knows what
 Drums2: Exit the !p!Shack
+$dryebux: 7
 
 Rummage:
 You go down on all fours, looking under every drum for anything out of the ordinary. Amazingly, you do find something: An old cassette tape, labeled “BEAGLER INTERVIEW”. Unfortunately it seems that the first half of the tape is missing...
@@ -392,7 +398,6 @@ Church:
 You have made your way all the way out to the !p!East !p!City !p!church but you can tell the security is hot on your tail and it is not worth it to get on their bad side as it could have serious repercussions down the road (tranquilizer dart to the head).
 Middle: Head back and try to redeem yourself
 
-
 Sixh1:
 You stand at the most beloved end of the !p!Six-Hundred. You look ahead into the depths of the building, and see what looks to be some kind of party occurring further down.
 OrchBand: Enter the !s!Orchestra / !s!Band !p!Room
@@ -415,12 +420,14 @@ Sixh4: Head towards the !p!Courtyard
 Nook: Exit through the exterior door
 
 Henry: 
-Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. It would be a bigger problem if you had business to handle their 
+Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. You continuously try to bump it to it but !c!Mr. !c!Henry and his desk won’t budge. It would be a bigger problem if you had business to handle there but you would still like to look at the myriad of flags. You can’t think of a reason to plead for him to let you in.
+Sixh2: Give up and keep walking
 
 Sixh3:
 A teacher is playing music at an earsplitting volume. You are panicking and can’t focus enough to even figure out where you are. You do see !c!Mr. !c!Watts standing though, and think his room might provide refuge.
 Watts: Enter !c!Watts’ !p!Room
 Komito: ???? Classroom ????
+Wilson: ???? Classroom ????
 Sixh2: ???? Direction ????
 CafeLobby1: ???? Direction ????
 
@@ -430,11 +437,105 @@ Eavesdrop: Stick around and try to eavesdrop
 Sixh3: Try to get out of there before things get dangerous
 
 Eavesdrop: 
-They are discussing the need for a mule to bring a large payload of sludge all the way to the 495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed sludge tariffs. They say they would be willing to give !d!seven !d!DryeBux to any one willing to brave the task. 
+They are discussing the need for a mule to bring a large payload of sludge all the way to the !p!495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed !e!sludge !e!tariffs. They say they would be willing to give !d!seven !d!DryeBux to any one willing to brave the task. 
 Sludge1: Volunteer, taking the opportunity to potentially raise your status in the East Meck econsystem
+Sixh3: Leave and pretend you didn’t hear anything
+
+Sludge1: 
+Although they don’t like that you were eavesdropping you are quickly forgiven because they realize you must be crazy if you are truly willing to carry that much sludge in your back pack, and that type of behavior is forgiven. They lay out to you the terms of the deal: !e!You !e!must !e!carry !e!a !e!gallon !e!of !e!sludge !e!all !e!the !e!way !e!to !e!the !p!49500 !e!without !e!being !e!caught !e!by !c!Drye !e!or !e!any !e!of !e!his !e!henchmen. In a rare show of empathy !c!Watts gives you an opportunity to think it over because he knows you could really come to regret what you are about to do.
+Sludge2: Accept the risks and take the sludge 
+Sixh3: Decide it is to much risk and exit the room
+
+Sludge2:
+They pour the gallon of sludge into your backpack and send you off. Though they don’t say it, they have full expectation you may never return. !c!Mr. !c!Watts escorts you through the internal classrooms to the northern part of the !p!600 to get you started, but refuses to take the risk of bringing you any further. You’re on your own now.
+SludgeSixh5: Continue
+
+SludgeSixh5:
+You are in the !p!Six !p!Hundred, saddled with !e!Sludge. You need to move quickly, as you can already see that the teachers guarding the bathroom down the hall are suspicious of your huge bulging backpack.
+SludgeSixh4: Go towards the !p!bathrooms
+SludgeCafeLobby2: Go towards the !p!Cafeteria
+
+SludgeSixh4:
+As you crest the elbow of this !p!Six !p!Hundred !p!Arm, your backpack zipper fails. Sludge flows out like a waterfall all over the outside of !c!Coach !c!Price’s room. The End.
+$reset: Start Over
+
+SludgeCafeLobby2: 
+You are in the !p!Cafeteria !p!Lobby. You see !c!Ms. !c!Whitley giving you a strange look from her morning table.
+SludgeCafeLobby1: Go south, towards the !p!Student !p!Parking !p!Lot
+SludgeCafeLobby3: Go north, towards the !p!Auditorium
+SludgeCafe2: Enter the !p!Cafeteria
+
+SludgeCafeLobby1:
+As you walk past !c!Ms. !c!Whitley’s table, she catches a whiff of the sludge and is on to you. You are arrested immediately. Failure.
+$reset: Start Over
+
+SludgeCafe2:
+As you enter the !p!Cafeteria, a horde of !c!Cafeteria !c!Staff surround you. They misinterpret your sludge as the daily delivery of sludge that they use to turn into a delicious lunch. They take your backpack, sludge and all. Not out of malice, of course, but out of pure miscommunication.
+$reset: Start Over
+
+SludgeCafeLobby3:
+You are in the hallway outside of the !p!Auditorium. You don’t have enough time to figure out which door to the courtyard is an exit, and which is an entrance. You must plow forward.
+SludgeFourway: Continue North
+
+SludgeFourway:
+You are at a crossroads, and need to act fast: A security associate is on to you. You have to choose immediately between the !p!200-300 route, and the !p!100 route.
+SludgeOneh1: Continue straight to the !p!One !p!Hundred
+SludgeTwoh2: Pivot to the !p!Two !p!Hundred
+
+SludgeTwoh2:
+As you turn into the !p!Two !p!Hundred, you become distracted by the beautiful display of student artwork on the wall. This slows you down enough for you to be grabbed and handcuffed by security. Failure.
+$reset: Start Over
+
+SludgeOneh1:
+At this point, it is a full on police chase. You are sprinting, and now three security guards are sprinting right behind you.
+SludgeOneh2: Run for your life
+
+SludgeOneh2:
+You come to the !p!100 doorway, and are nearly out of breath. But you know you must continue.
+SludgeBreath: Stop and breath
+SludgeFivekside2: Go through the door
+
+SludgeBreath:
+After stopping for only two seconds, you are violently tackled by the three security guards at once. Failure.
+$reset: Start Over
+
+SludgeFivekside2:
+You blow through the blue doors. The limited size of the doors widdles down the squadron of security guards down to just one, though this one is now moving extremely fast, and is in the process of calling for backup.
+SludgeFivekfront: Continue forward, by the !p!Bus !p!Lot
+SludgeFivekside1: Turn to the left and run down the side of the !p!5000
+
+SludgeFivekfront:
+You continue sprinting forward, thinking this to be the fastest way to the !p!495k. Unfortunately, truth hits you like a brick in the forehead: There is no entrance to the !p!495000 on this side. You had forgotten about this critical design flaw of the new building. As you are mid facepalm, you are tackled by security. Failure.
+$reset: Start Over
+
+SludgeFivekside1:
+You take a sharp left, and just barely escape being tackled. You need to run, and have no time to catch your breath. Running is especially difficult here due to the rolling hills.
+SludgeFivekback: Run to the back of the !p!5000
+
+SludgeFivekback:
+You are in the home stretch. The !p!495000 doors are almost in reach. Two security guards are now maybe 10 feet behind you. You still need to sprint. You can’t give up now.
+SludgeFnf1: Blast through the entrance
+
+SludgeFnf1:
+You blow through the barbed revolving doors. You are too exhilarated to even notice the barbing sensation.
+SludgeFnf2: Continue
+
+SludgeFnf2:
+You are safe now. As the !p!495000 is a UN-Mandated demilitarized zone, it would be a violation of international law to arrest you here. You pour the sludge into the large receptacle at the entrance, and walk back to the !p!600.
+SludgeWalk: Continue
+
+SludgeWalk:
+You leisurely walk back to !c!Mr. !c!Watts’ room. Administrators around campus shake their fists at you, but have no power to punish you now that the sludge is in international waters.
+^Sixh3^Watts^Watts2^Watts2: Continue.
+
+Watts2:
+!c!Watts is extremely impressed with what you have done. As promised, your !d!11 !d!DryeBux are waiting for you.
+Sixh3: Leave into the hallway
+$dryebux: 11
 
 Sixh4:
 You are at the most bustling corner of the !p!Six !p!Hundred. Students - some familiar, some not - pass you from all directions. The bathrooms are being guarded by three different teachers looking in different directions. There are two external doors with differing signage.
+Price: Enter !c!Price’s !p!Room.
 Sixh2: Go South, towards the Heart of the building
 Sixh5: Go towards the !p!Cafeteria
 CourtyardCorner: Exit through the door labelled “EXIT ONLY, PLEASE USE THIS DOOR”
@@ -472,8 +573,9 @@ Cafe2:
 You see sprawling tables and not much else. There are some students finishing up breakfast but none are in the mood for idle chatter and are all focused on finishing their food with enough time to get to first block.
 Cafe1: Head toward the lunch line
 Cafe3: Head toward the !c!Backwall !c!Eagle 
-Cafe4: Head toward the microwaves 
+Cafe4: Head toward the microwaves
 Patio2: Exit the !p!cafeteria out to the !p!patio
+Cafelobby2: Exit to the !p!Cafeteria !p!Lobby
 
 Cafe3:
 You are before the !c!Backwall !c!Eagle. Though his wisdom is pseudo-infinite (as indicated by his !e!QR-Code !e!Eyes) you feel drawn to ask him about the one topic that dominates your mind day in and day out: how to gain power at East Meck.
@@ -520,7 +622,7 @@ You stand in a particularly familiar subregion of the East Meck Outdoors. The co
 CourtyardCorner: Go through the ear-piercing metal slam-doors
 OrchBand: Enter the combination !s!Orchestra + !s!Band !p!Room.
 Choir: Enter the !s!Choir !p!Room.
-Middle2: Walk west
+Middle2: Walk west, towards the !p!700
 Zigzag1: Walk north, towards the new buildings
 Nook: Walk into the enclosed walkway leading to the !p!600
 
@@ -568,21 +670,27 @@ You stand under a steel roof. The dingy !p!400 !p!split and the nonspecific !p!3
 Threeway: Enter the !p!Three !p!Hundred
 Split: Enter the !p!Split
 Zigzag2: Walk towards the !p!Student !p!Parking !p!Lot
+
+Center:
+You are at the dead center of East Meck, between the !p!300 and !p!Upper !p!400.
+Schedule: Check your schedule
+Splitoutside: Go South towards the !p!600.
 Outsidestairs: Take the stairs towards the !p!Thousands
 Slope: Descend the gravel slope instead
 
 Slope:
 As you brave the sheer cliff-face, you hear the whirring of the gigantic air conditioning unit beside you. Bats are flying out of the red brick chimney. Water is leaking onto the ground from some unidentifiable sub-apparatus.
 Center2: Go towards the classrooms of the future
-Splitoutside: Go towards the classrooms of yesteryear
+Center: Go towards the classrooms of yesteryear
 
 Oursidestairs:
 You climb the lame stairs, leaving the slope to rot on the side.
 Center2: Go towards the classrooms of the future
-Splitoutside: Go towards the classrooms of yesteryear
+Center: Go towards the classrooms of yesteryear
 
 Center2:
-Abcxyz
+You are at one of the most open sections of the free East Meck Air. The fresh air sensation however is hindered by the large blue and red dumpsters right by your nose.
+Schedule: Check your schedule
 Slope: Ascend the Southbound cliff face
 Outsidestairs: Take the stairs instead
 Fivekback: Go North to the back of the !p!5000

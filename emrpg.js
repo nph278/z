@@ -23,7 +23,6 @@
 // TAPE
 // Parse better: Caps, trailing spaces after colon.
 // Characterize the reader
-// Goal of game is to collect 5(?) items that are hidden
 // Handle more than 10 options. Font size adjusting.
 // Characters give you quests
 // Wait for someone to open the door at 4k since you are so late at that point
@@ -42,6 +41,8 @@
 // Game ends when you get to 1st block
 // Super bad ending where you didn't finish
 // Bus lot scaffolding
+// Instructions/Description
+// Checking your schedule is like savepoints
 
 "use strict";
 
@@ -105,6 +106,9 @@ class TextStyle {
     }
 
     textTransform(text) {
+        if (this.effects.includes("allcaps")) {
+            text = text.toUpperCase();
+        }
         if (this.effects.includes("crazycaps")) {
             text = text.split("").map(c => (Math.random() > .5) ? c.toUpperCase() : c.toLowerCase()).join("-");
         }
@@ -159,6 +163,13 @@ class TextStyle {
             this.addFontStyle("bold");
             this.fontSize *= 1.1;
             break;
+        case "g":
+            // Goal
+            this.color = "cyan";
+            this.addFontStyle("bold");
+            this.fontSize *= 1.1;
+            this.effects.push("allcaps");
+            break;
         default:
             console.log("bad spec: " + spec);
         }
@@ -166,15 +177,18 @@ class TextStyle {
 }
 
 class TextPosition {
-    constructor(startX, startY, maxX, maxY) {
+    constructor(startX, startY, maxX, maxY, noOverflow) {
         this.x = startX;
         this.y = startY;
         this.maxX = maxX;
         this.maxY = maxY;
+        this.minX = startX;
+        this.minY = startY;
+        this.noOverflow = noOverflow === true;
     }
 
     newLine() {
-        this.x = 0;
+        this.x = this.minX;
         this.y += lineHeight + lineWaverHeight * Math.sin(lineWaverRate * Date.now());
     }
 
@@ -183,7 +197,7 @@ class TextPosition {
     }
 
     overflow(n) {
-        return this.x + n > this.maxX;
+        return !this.noOverflow && ((this.x + n > this.maxX) && (this.x > this.minX));
     }
 }
 
@@ -276,15 +290,13 @@ class Action {
 }
 
 class RoomOption {
-    constructor(action, desc, n) {
+    constructor(action, desc) {
         this.action = action;
         this.text = new Line(desc);
-        this.text.prependWord("!o![" + keys[n] + "]");
-        this.index = n;
-        this.action.index = n;
     }
 
-    draw(ctx, pos, words) {
+    draw(ctx, pos, words, n) {
+        (new TextSegment("!o![" + keys[n] + "]")).draw(ctx, pos);
         this.text.draw(ctx, pos, words);
     }
 }
@@ -294,7 +306,7 @@ class Room {
     constructor(spec) {
         this.id = spec.id;
         this.desc = new Line(spec.desc);
-        this.options = spec.options.map((o, i) => new RoomOption(new Action("room", [o[0], o[2]]), o[1], i));
+        this.options = spec.options.map((o) => new RoomOption(new Action("room", [o[0], o[2]]), o[1]));
         this.hasHint = false;
         if (spec.dryebux !== undefined) {
             this.options.push(new RoomOption(new Action("dryebux", [spec.dryebux]),
@@ -316,7 +328,7 @@ class Room {
         const words = Math.floor(wps * elapsed / 1000);
         this.desc.draw(ctx, pos, words);
         pos.newLine();
-        this.options.forEach((o) => o.draw(ctx, pos, words));
+        this.options.forEach((o, i) => o.draw(ctx, pos, words, i));
     }
 }
 
@@ -363,12 +375,22 @@ class Game {
 
         this.room.draw(this.ctx, this.elapsedTime);
 
-        const idPos = new TextPosition(spaceSize, height - 2 * lineHeight, width, lineHeight);
-        const idSeg = new TextSegment("!id!" + this.room.id);
-        idSeg.draw(this.ctx, idPos);
+        let goal;
+
+        if (["start", "leisure", "intro1", "intro2"].includes(this.room.id)) {
+            goal = "!g!Get !g!to !g!School";
+        } else if (this.room.id.slice(0, 6) === "sludge" && this.room.id !== "sludge1") {
+            goal = "!g!Deliver !g!the !g!Sludge";
+        } else {
+            goal = "!g!Get !g!to !g!First !g!Block";
+        }
+
+        const idPos = new TextPosition(spaceSize, height - 2 * lineHeight, width, height, true);
+        const idLine = new Line(goal + (" !id!" + this.room.id).repeat(10));
+        idLine.draw(this.ctx, idPos);
 
         if (this.dryebux > 0) {
-            const dryebuxPos = new TextPosition(spaceSize, height - 3 * lineHeight, width, lineHeight);
+            const dryebuxPos = new TextPosition(spaceSize, height - 3 * lineHeight, width, height);
             const dryebuxSeg = new TextSegment("!d!youhave-->" + this.dryebux + "₫");
             dryebuxSeg.draw(this.ctx, dryebuxPos);
         }
@@ -386,10 +408,10 @@ class Game {
         }
     }
 
-    performAction(a) {
+    performAction(a, i) {
         if (a.type === "room") {
             if (a.onetime) {
-                this.room.options.splice(a.index, 1);
+                this.room.options.splice(i, 1);
             }
             if (a.replace) {
                 this.rooms[a.replace[0]].options.map(o => {
@@ -401,11 +423,11 @@ class Game {
             this.enterRoomId(a.id);
         } else if (a.type === "dryebux") {
             this.dryebux += a.dryebux;
-            this.room.options.splice(a.index, 1);
+            this.room.options.splice(i, 1);
             this.room.dryebux = undefined;
         } else if (a.type === "hint") {
             const backId = this.room.id;
-            this.room.options.splice(a.index, 1);
+            this.room.options.splice(i, 1);
             const hintIDs = Object.values(this.rooms)
                   .filter(r => r.dryebux !== undefined)
                   .map(r => r.id);
@@ -435,7 +457,7 @@ class Game {
         if (this.elapsedTime > cooldown && keys.includes(k)) {
             const n = keys.indexOf(k);
             if (n < this.room.options.length) {
-                this.performAction(this.room.options[n].action);
+                this.performAction(this.room.options[n].action, n);
             }
         }
     }
@@ -505,10 +527,18 @@ const roomSpecs = [
         id: "middle",
         desc: "You stand at the !p!southern !p!crossroads. The !p!media !p!center, !p!student !p!parking !p!lot, and !p!600 !p!building are all within reach.",
         options: [
+            ["schedule", "Check your schedule"],
             ["sixh1", "Enter the !p!Six !p!Hundred"],
             ["media", "Walk towards the !p!media !p!center"],
             ["studentlot", "Walk towards the !p!student !p!parking !p!lot"],
             ["middle2", "Walk north, towards the !p!Four !p!Hundred"],
+        ],
+    },
+    {
+        id: "schedule",
+        desc: "You check your schedule, and trace your finger down to the “1ST BLOCK” line. The entry reads: “ !p!4300 !p!HALL - !c!Kinney ”",
+        options: [
+            ["middle", "Continue"],
         ],
     },
     {
@@ -782,12 +812,13 @@ const roomSpecs = [
     },
     {
         id: "shack",
-        desc: "You stand in the middle of the !p!Drum !p!Shack. There is an awe-inspiring variety of drums, and you feel sad for the way they are kept in captivity here, rarely being allowed to show their colors to the world.",
+        desc: "You stand in the middle of the !p!Drum !p!Shack. There is an awe-inspiring variety of drums, and you feel sad for the way they are kept in captivity here, rarely being allowed to show their colors to the world. One of the Drums has a bill of !d!DryeBux on it.",
         options: [
             ["drumplay", "Try your hand at the drums"],
             ["rummage", "Rummage around on the floor looking for who knows what", true],
             ["drums2", "Exit the !p!Shack"],
         ],
+        dryebux: 7,
     },
     {
         id: "rummage",
@@ -1054,8 +1085,9 @@ const roomSpecs = [
     },
     {
         id: "henry",
-        desc: "Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. It would be a bigger problem if you had business to handle their ",
+        desc: "Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. You continuously try to bump it to it but !c!Mr. !c!Henry and his desk won’t budge. It would be a bigger problem if you had business to handle there but you would still like to look at the myriad of flags. You can’t think of a reason to plead for him to let you in.",
         options: [
+            ["sixh2", "Give up and keep walking"],
         ],
     },
     {
@@ -1064,6 +1096,7 @@ const roomSpecs = [
         options: [
             ["watts", "Enter !c!Watts’ !p!Room"],
             ["komito", "???? Classroom ????"],
+            ["wilson", "???? Classroom ????"],
             ["sixh2", "???? Direction ????"],
             ["cafelobby1", "???? Direction ????"],
         ],
@@ -1078,15 +1111,172 @@ const roomSpecs = [
     },
     {
         id: "eavesdrop",
-        desc: "They are discussing the need for a mule to bring a large payload of sludge all the way to the 495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed sludge tariffs. They say they would be willing to give !d!seven !d!DryeBux to any one willing to brave the task. ",
+        desc: "They are discussing the need for a mule to bring a large payload of sludge all the way to the !p!495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed !e!sludge !e!tariffs. They say they would be willing to give !d!eleven !d!DryeBux to any one willing to brave the task. ",
         options: [
             ["sludge1", "Volunteer, taking the opportunity to potentially raise your status in the East Meck econsystem"],
+            ["sixh3", "Leave and pretend you didn’t hear anything"],
         ],
+    },
+    {
+        id: "sludge1",
+        desc: "Although they don’t like that you were eavesdropping you are quickly forgiven because they realize you must be crazy if you are truly willing to carry that much sludge in your back pack, and that type of behavior is forgiven. They lay out to you the terms of the deal: !e!You !e!must !e!carry !e!a !e!gallon !e!of !e!sludge !e!all !e!the !e!way !e!to !e!the !p!49500 !e!without !e!being !e!caught !e!by !c!Drye !e!or !e!any !e!of !e!his !e!henchmen. In a rare show of empathy !c!Watts gives you an opportunity to think it over because he knows you could really come to regret what you are about to do.",
+        options: [
+            ["sludge2", "Accept the risks and take the sludge"],
+            ["sixh3", "Decide it is to much risk and exit the room"],
+        ],
+    },
+    {
+        id: "sludge2",
+        desc: "They pour the gallon of sludge into your backpack and send you off. Though they don’t say it, they have full expectation you may never return. !c!Mr. !c!Watts escorts you through the internal classrooms to the northern part of the !p!600 to get you started, but refuses to take the risk of bringing you any further. You’re on your own now.",
+        options: [
+            ["sludgesixh5", "Continue"],
+        ],
+    },
+    {
+        id: "sludgesixh5",
+        desc: "You are in the !p!Six !p!Hundred, saddled with !e!Sludge. You need to move quickly, as you can already see that the teachers guarding the bathroom down the hall are suspicious of your huge bulging backpack.",
+        options: [
+            ["sludgesixh4", "Go towards the !p!bathrooms"],
+            ["sludgecafelobby2", "Go towards the !p!Cafeteria"],
+        ],
+    },
+    {
+        id: "sludgesixh4",
+        desc: "As you crest the elbow of this !p!Six !p!Hundred !p!Arm, your backpack zipper fails. Sludge flows out like a waterfall all over the outside of !c!Coach !c!Price’s room. The End.",
+        options: [
+        ],
+        reset: "Start Over",
+    },
+    {
+        id: "sludgecafelobby2",
+        desc: "You are in the !p!Cafeteria !p!Lobby. You see !c!Ms. !c!Whitley giving you a strange look from her morning table.",
+        options: [
+            ["sludgecafelobby1", "Go south, towards the !p!Student !p!Parking !p!Lot"],
+            ["sludgecafelobby3", "Go north, towards the !p!Auditorium"],
+            ["sludgecafe2", "Enter the !p!Cafeteria"],
+        ],
+    },
+    {
+        id: "sludgecafelobby1",
+        desc: "As you walk past !c!Ms. !c!Whitley’s table, she catches a whiff of the sludge and is on to you. You are arrested immediately. Failure.",
+        options: [
+        ],
+        reset: "Start Over",
+    },
+    {
+        id: "sludgecafe2",
+        desc: "As you enter the !p!Cafeteria, a horde of !c!Cafeteria !c!Staff surround you. They misinterpret your sludge as the daily delivery of sludge that they use to turn into a delicious lunch. They take your backpack, sludge and all. Not out of malice, of course, but out of pure miscommunication.",
+        options: [
+        ],
+        reset: "Start Over",
+    },
+    {
+        id: "sludgecafelobby3",
+        desc: "You are in the hallway outside of the !p!Auditorium. You don’t have enough time to figure out which door to the courtyard is an exit, and which is an entrance. You must plow forward.",
+        options: [
+            ["sludgefourway", "Continue North"],
+        ],
+    },
+    {
+        id: "sludgefourway",
+        desc: "You are at a crossroads, and need to act fast: A security associate is on to you. You have to choose immediately between the !p!200-300 route, and the !p!100 route.",
+        options: [
+            ["sludgeoneh1", "Continue straight to the !p!One !p!Hundred"],
+            ["sludgetwoh2", "Pivot to the !p!Two !p!Hundred"],
+        ],
+    },
+    {
+        id: "sludgetwoh2",
+        desc: "As you turn into the !p!Two !p!Hundred, you become distracted by the beautiful display of student artwork on the wall. This slows you down enough for you to be grabbed and handcuffed by security. Failure.",
+        options: [
+        ],
+        reset: "Start Over",
+    },
+    {
+        id: "sludgeoneh1",
+        desc: "At this point, it is a full on police chase. You are sprinting, and now three security guards are sprinting right behind you.",
+        options: [
+            ["sludgeoneh2", "Run for your life"],
+        ],
+    },
+    {
+        id: "sludgeoneh2",
+        desc: "You come to the !p!100 doorway, and are nearly out of breath. But you know you must continue.",
+        options: [
+            ["sludgebreath", "Stop and breath"],
+            ["sludgefivekside2", "Go through the door"],
+        ],
+    },
+    {
+        id: "sludgebreath",
+        desc: "After stopping for only two seconds, you are violently tackled by the three security guards at once. Failure.",
+        options: [
+        ],
+        reset: "Start Over",
+    },
+    {
+        id: "sludgefivekside2",
+        desc: "You blow through the blue doors. The limited size of the doors widdles down the squadron of security guards down to just one, though this one is now moving extremely fast, and is in the process of calling for backup.",
+        options: [
+            ["sludgefivekfront", "Continue forward, by the !p!Bus !p!Lot"],
+            ["sludgefivekside1", "Turn to the left and run down the side of the !p!5000"],
+        ],
+    },
+    {
+        id: "sludgefivekfront",
+        desc: "You continue sprinting forward, thinking this to be the fastest way to the !p!495k. Unfortunately, truth hits you like a brick in the forehead: There is no entrance to the !p!495000 on this side. You had forgotten about this critical design flaw of the new building. As you are mid facepalm, you are tackled by security. Failure.",
+        options: [
+        ],
+        reset: "Start Over",
+    },
+    {
+        id: "sludgefivekside1",
+        desc: "You take a sharp left, and just barely escape being tackled. You need to run, and have no time to catch your breath. Running is especially difficult here due to the rolling hills.",
+        options: [
+            ["sludgefivekback", "Run to the back of the !p!5000"],
+        ],
+    },
+    {
+        id: "sludgefivekback",
+        desc: "You are in the home stretch. The !p!495000 doors are almost in reach. Two security guards are now maybe 10 feet behind you. You still need to sprint. You can’t give up now.",
+        options: [
+            ["sludgefnf1", "Blast through the entrance"],
+        ],
+    },
+    {
+        id: "sludgefnf1",
+        desc: "You blow through the barbed revolving doors. You are too exhilarated to even notice the barbing sensation.",
+        options: [
+            ["sludgefnf2", "Continue"],
+        ],
+    },
+    {
+        id: "sludgefnf2",
+        desc: "You are safe now. As the !p!495000 is a UN-Mandated demilitarized zone, it would be a violation of international law to arrest you here. You pour the sludge into the large receptacle at the entrance, and walk back to the !p!600.",
+        options: [
+            ["sludgewalk", "Continue"],
+        ],
+    },
+    {
+        id: "sludgewalk",
+        desc: "You leisurely walk back to !c!Mr. !c!Watts’ room. Administrators around campus shake their fists at you, but have no power to punish you now that the sludge is in international waters.",
+        options: [
+            ['watts2', 'Continue', ['sixh3', 'watts', 'watts2']],
+        ],
+    },
+    {
+        id: "watts2",
+        desc: "!c!Watts is extremely impressed with what you have done. As promised, your !d!11 !d!DryeBux are waiting for you.",
+        options: [
+            ["sixh3", "Leave into the hallway"],
+        ],
+        dryebux: 11,
     },
     {
         id: "sixh4",
         desc: "You are at the most bustling corner of the !p!Six !p!Hundred. Students - some familiar, some not - pass you from all directions. The bathrooms are being guarded by three different teachers looking in different directions. There are two external doors with differing signage.",
         options: [
+            ["price", "Enter !c!Price’s !p!Room"],
             ["sixh2", "Go South, towards the Heart of the building"],
             ["sixh5", "Go towards the !p!Cafeteria"],
             ["courtyardcorner", "Exit through the door labelled “EXIT ONLY, PLEASE USE THIS DOOR”"],
@@ -1141,6 +1331,7 @@ const roomSpecs = [
             ["cafe3", "Head toward the !c!Backwall !c!Eagle"],
             ["cafe4", "Head toward the microwaves"],
             ["patio2", "Exit the !p!cafeteria out to the !p!patio"],
+            ["cafelobby2", "Exit to the !p!Cafeteria !p!Lobby"],
         ],
     },
     {
@@ -1208,7 +1399,7 @@ const roomSpecs = [
             ["courtyardcorner", "Go through the ear-piercing metal slam-doors"],
             ["orchband", "Enter the combination !s!Orchestra + !s!Band !p!Room"],
             ["choir", "Enter the !s!Choir !p!Room"],
-            ["middle2", "Walk west"],
+            ["middle2", "Walk west, towards the !p!700"],
             ["zigzag1", "Walk north, towards the new buildings"],
             ["nook", "Walk into the enclosed walkway leading to the !p!600"],
         ],
@@ -1280,6 +1471,14 @@ const roomSpecs = [
             ["threeway", "Enter the !p!Three !p!Hundred"],
             ["split", "Enter the !p!Split"],
             ["zigzag2", "Walk towards the !p!Student !p!Parking !p!Lot"],
+        ],
+    },
+    {
+        id: "center",
+        desc: "You are at the dead center of East Meck, between the !p!300 and !p!Upper !p!400.",
+        options: [
+            ["schedule", "Check your schedule"],
+            ["splitoutside", "Go South towards the !p!600"],
             ["outsidestairs", "Take the stairs towards the !p!Thousands"],
             ["slope", "Descend the gravel slope instead"],
         ],
@@ -1289,7 +1488,7 @@ const roomSpecs = [
         desc: "As you brave the sheer cliff-face, you hear the whirring of the gigantic air conditioning unit beside you. Bats are flying out of the red brick chimney. Water is leaking onto the ground from some unidentifiable sub-apparatus.",
         options: [
             ["center2", "Go towards the classrooms of the future"],
-            ["splitoutside", "Go towards the classrooms of yesteryear"],
+            ["center", "Go towards the classrooms of yesteryear"],
         ],
     },
     {
@@ -1297,13 +1496,14 @@ const roomSpecs = [
         desc: "You climb the lame stairs, leaving the slope to rot on the side.",
         options: [
             ["center2", "Go towards the classrooms of the future"],
-            ["splitoutside", "Go towards the classrooms of yesteryear"],
+            ["center", "Go towards the classrooms of yesteryear"],
         ],
     },
     {
         id: "center2",
-        desc: "Abcxyz",
+        desc: "You are at one of the most open sections of the free East Meck Air. The fresh air sensation however is hindered by the large blue and red dumpsters right by your nose.",
         options: [
+            ["schedule", "Check your schedule"],
             ["slope", "Ascend the Southbound cliff face"],
             ["outsidestairs", "Take the stairs instead"],
             ["fivekback", "Go North to the back of the !p!5000"],
