@@ -38,15 +38,32 @@ You stand at the !p!southern !p!crossroads. The !p!media !p!center, !p!student !
 Sixh1: Enter the !p!Six !p!Hundred
 Media: Walk towards the !p!media !p!center
 Studentlot: Walk towards the !p!student !p!parking !p!lot.
-Middle2: Walk north
+Middle2: Walk north, towards the !p!Four !p!Hundred
 
 Middle2:
 You stand outside under a vast web of metallic structures. The !p!Four and !p!Seven !p!Hundreds are very close.
 Fourh1: Enter the !p!Four !p!Hundred
 Sevenh1: Enter the !p!Seven !p!Hundred.
 FourSevenPath: Go north, squeezing between the two
-Middle: Go south
-Middle3: Go east
+Middle: Go south, towards the !p!Security !p!Scanners
+Middle3: Go east, towards the !p!Courtyard
+
+FourSevenPath:
+You walk down an excessively long straightaway of the East Meck circuit. You admire the plants is variously-shaped pots that are displayed in the Earth Science windows along the West side of the !p!Lower !p!Four !p!Hundred.
+ConcreteRectangle: Visit the elusive !p!Concrete !p!Rectangle in the corner of the !p!700
+Middle2: Walk towards the !p!Student !p!Parking !p!Lot
+Pointy: Walk towards the !p!400 !p!Split
+
+ConcreteRectangle:
+You stand on one of the more bizarre regions of the East Meck Outdoors: A large concrete rectangle, engraved with Meck symbolics and decorated with two by three array of benches. You have heard rumors of this artifact resulting from some “outdoor classroom project”, but this myth remains unconfirmed. You notice some !d!DryeBux under one of the benches.
+FourSevenPath: Leave this confusing spot
+$dryebux: 3
+
+Pointy:
+You stand below what may very well be East Meck’s !e!Sharpest !e!Angle. This angle is formed by the steel rooves that characterize the grimier side of East, and represents a particularly important intersection.
+SevenhGym: Follow the shinier canopy towards the !p!Staff !p!Parking !p!Lot
+FourSevenPath: Walk towards the !p!Student one instead
+Split: Follow the grimier canopy into the !p!400 !p!Split
 
 Media:
 You stand under the steel canopy around the entrance to the !p!Media !p!Center. The media center is closed. You know this because of a big, clearly hastily-written poster on the door explaining the presence of “Work-keys” testing inside. Despite the claim, you see what looks to be a fashion show occurring inside. It seems the only style fit for this contestant will be absolute maximalism.
@@ -58,23 +75,28 @@ You are on the outside of the !p!media !p!center. A large puff of dust is blown 
 Media: Walk back in front of the !p!media center
 Drums: Walk to the !p!drum !p!shack
 GuardedDoor: Try to sneak past the library guards
-Traileroutside: Walk towards the !p!trailer !p!zone
-Automotive: Gaze at hot rods in automotive shop
-Staffparking: Walk into the staff parking lot
+Automotive: Gaze at hot rods in !s!automotive !p!shop
+Staffparking: Walk into the !p!staff !p!parking !p!lot
 SevenhA1: Enter the obscure !p!700A !p!Building
 
-Automotive: You look deeply at the various cars. You are entranced by their shiny wax bodies and wonder what it would take for you to get a nice car like that. 
-Mediaside: Shake off these thoughts and return to the side of the media center
+Automotive:
+You look deeply at the various cars. You are entranced by their shiny wax bodies and wonder what it would take for you to get a nice car like that. 
+Mediaside: Shake off these thoughts and return to the side of the !p!media !p!center
 Automotive2: Try to hop the fence and take a car
 
 Automotive2:
-Almost as soon as you make it over the fence you are tackled by a group of rowdy automotive students. You are brought to the ground and your head slams against the concrete. You are knocked out cold.
+Almost as soon as you make it over the fence you are tackled by a group of rowdy !s!automotive students. You are brought to the ground and your head slams against the concrete. You are knocked out cold.
 $reset: Try everything again. From the top. 
 
 Drums:
 You try the handle but it is caged by an absurd number of locks, though it seems mostly held together by one linch pin lock that if it were to be unlocked, the amalgam would be broken loose. Maybe if you had the 4 digit code you could get in.
-Mediaside: Walk back to the side of the media center
+Mediaside: Walk back to the side of the !p!media !p!center
 EnterCode: Try to enter the code
+
+Drums2:
+The !p!Drum !p!Shack is free from its shackles, and you are free to enter.
+Mediaside: Walk back to the side of the media center
+Shack: Enter the !p!Shack
 
 EnterCode:
 The lock seems very sturdy. You move to enter your first number
@@ -88,7 +110,7 @@ Seven: enter seven as the first digit of the code
 Eight: enter eight as the first digit of the code
 Nine: enter nine as the first digit of the code
 Zero: enter zero as the first digit of the code
-Mediaside: cut your loses and head back to the media center
+Mediaside: cut your losses and head back to the media center
 
 One:
 You enter a one. This was the first number that came to your mind.
@@ -213,12 +235,17 @@ CorrectCode: Enter a zero.
 
 CorrectCode:
 Bingo! The code was entered effortlessly. The lock pops open, and the dense web of other locks of various shapes and sizes falls down at once. The door swings open and you enter the !p!shack.
-Shack: Continue
+^Mediaside^Drums^Drums2^Shack: Continue
 
 Shack:
-You stand in the middle of the !p!Drum !p!Shack. You are too entranced by the variety of drums to leave the room any time soon.
+You stand in the middle of the !p!Drum !p!Shack. There is an awe-inspiring variety of drums, and you feel sad for the way they are kept in captivity here, rarely being allowed to show their colors to the world.
 Drumplay: Try your hand at the drums
-Rummage: Rummage around on the floor looking for who knows what
+#Rummage: Rummage around on the floor looking for who knows what
+Drums2: Exit the !p!Shack
+
+Rummage:
+You go down on all fours, looking under every drum for anything out of the ordinary. Amazingly, you do find something: An old cassette tape, labeled “BEAGLER INTERVIEW”. Unfortunately it seems that the first half of the tape is missing...
+Shack: Continue
 
 OneNineX:
 Another digit hits the floor of East Meck. Right after the button-press is completed, a very minor earthquake strikes. The keys on the keypad are shaken out of their respective enclosures and scatter on the ground. You lean down and reorganize the digits into the correct spots, but by the time you are done, the system has automatically reset your progress.
@@ -359,6 +386,12 @@ $reset: Head home and take a nap
 Studentlot:
 You stand at the boundary of the !p!student !p!parking-lot. Your eyes become lost in the dense variety of vehicles. You snap back to reality and realize you cannot progress this way, as leaving campus now would be an explicit violation of the Student Code of Conduct.
 Middle: Turn back before it is too late
+Church: Push your luck and attempt to escape
+
+Church:
+You have made your way all the way out to the !p!East !p!City !p!church but you can tell the security is hot on your tail and it is not worth it to get on their bad side as it could have serious repercussions down the road (tranquilizer dart to the head).
+Middle: Head back and try to redeem yourself
+
 
 Sixh1:
 You stand at the most beloved end of the !p!Six-Hundred. You look ahead into the depths of the building, and see what looks to be some kind of party occurring further down.
@@ -381,6 +414,9 @@ Sixh3: Head towards the !p!Cafeteria
 Sixh4: Head towards the !p!Courtyard
 Nook: Exit through the exterior door
 
+Henry: 
+Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. It would be a bigger problem if you had business to handle their 
+
 Sixh3:
 A teacher is playing music at an earsplitting volume. You are panicking and can’t focus enough to even figure out where you are. You do see !c!Mr. !c!Watts standing though, and think his room might provide refuge.
 Watts: Enter !c!Watts’ !p!Room
@@ -394,12 +430,12 @@ Eavesdrop: Stick around and try to eavesdrop
 Sixh3: Try to get out of there before things get dangerous
 
 Eavesdrop: 
-They are discussing the need for a mule to bring a large payload of sludge all the way to the 495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed sludge tariffs. They say they would be willing to give !e!seven !e!Drye !e!Buxs to any one willing to brave the task. 
+They are discussing the need for a mule to bring a large payload of sludge all the way to the 495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed sludge tariffs. They say they would be willing to give !d!seven !d!DryeBux to any one willing to brave the task. 
 Sludge1: Volunteer, taking the opportunity to potentially raise your status in the East Meck econsystem
 
 Sixh4:
 You are at the most bustling corner of the !p!Six !p!Hundred. Students - some familiar, some not - pass you from all directions. The bathrooms are being guarded by three different teachers looking in different directions. There are two external doors with differing signage.
-Sixh2: Go South
+Sixh2: Go South, towards the Heart of the building
 Sixh5: Go towards the !p!Cafeteria
 CourtyardCorner: Exit through the door labelled “EXIT ONLY, PLEASE USE THIS DOOR”
 CourtyardCorner: Exit through the door labelled “ENTRANCE ONLY, YOU MUST USE OTHER DOOR”
@@ -425,10 +461,33 @@ Cafe1: Enter the !p!Cafeteria
 Security: Enter the !p!Security !p!Room
 
 Cafe1:
-It is quite in the !p!cafeteria say for the bustling of cafeteria workers working hard to prepare the upcoming day's delicacies and packing up the breakfast. There are a small number of breakfast goers but they all seem to be heading out to their respective first blocks.
+It is quiet in the !p!cafeteria, for the bustling !p!cafeteria workers working hard to prepare the upcoming day's delicacies and packing up the breakfast. There are a small number of breakfast goers but they all seem to be heading out to their respective first blocks.
 Cafe2: Head to the other door where !c!Drye and friends sometimes hang out during lunch
-Cafe3: Head to back corner of the !p!cafeteria 
+Cafe3: Head to back corner of the !p!cafeteria by the infamous !c!Backwall !c!Eagle
+Cafe4: Walk across to over by the microwaves
+Cafelobby1: Exit the !p!cafeteria
+LunchCounter: Try to get some last minute breakfast 
 
+Cafe2: 
+You see sprawling tables and not much else. There are some students finishing up breakfast but none are in the mood for idle chatter and are all focused on finishing their food with enough time to get to first block.
+Cafe1: Head toward the lunch line
+Cafe3: Head toward the !c!Backwall !c!Eagle 
+Cafe4: Head toward the microwaves 
+Patio2: Exit the !p!cafeteria out to the !p!patio
+
+Cafe3:
+You are before the !c!Backwall !c!Eagle. Though his wisdom is pseudo-infinite (as indicated by his !e!QR-Code !e!Eyes) you feel drawn to ask him about the one topic that dominates your mind day in and day out: how to gain power at East Meck.
+$hint: Ask him about !d!DryeBux
+Cafe1: Go towards the lunch lines
+Cafe2: Go towards the front tables
+Cafe4: Move along the back wall to the microwaves
+Patio2: Exit the !p!Cafeteria, and move outside
+
+Cafe4:
+You stand in the !p!cafeteria, next to a small set of microwaves. You wonder what kind of catastrophe must have occurred here for there to be so many warning signs explaining what is and is not allowed in the microwaves.
+Cafe3: Move along the Backwall to visit the !p!Giant !p!Eagle
+Cafe2: Move towards the tables in the front
+Cafe1: Move towards the divisive lunch lines
 
 CafeLobby2:
 You stand in the middle of the !p!Cafeteria !p!Lobby. There are doors to the !p!Six !p!Hundred, and of course the !p!Cafeteria. The !c!Marines, !c!Army, and !c!Navy seem to have mutually declared war on one another whilst fighting over whose turn it is to occupy the central table today.
@@ -436,6 +495,13 @@ CafeLobby1: Walk South, towards the !p!Student !p!Parking !p!Lot
 CafeLobby3: Walk North, towards the !p!Auditorium
 Cafe2: Enter the !p!Cafeteria
 Sixh5: Enter the !p!Six !p!Hundred
+
+CafeLobby3:
+You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.
+AuditoriumLobby: Enter the !p!Auditorium !p!Lobby through one of the million components of this large array of doors
+Courtyard2: Exit to the !p!Courtyard
+Fourway: Walk towards the northern part of the !p!Old !p!Building
+CafeLobby2: Walk south, towards the !p!Cafeteria
 
 OrchBand:
 You stand in the center of the vast !s!Orchestra (but at other times !s!Band) !p!room. The floor is littered with cellos, each with their respective end-pin protruding dangerously. The sun bounces off the intricate matrix of trophies and blinds you temporarily.
@@ -457,6 +523,25 @@ Choir: Enter the !s!Choir !p!Room.
 Middle2: Walk west
 Zigzag1: Walk north, towards the new buildings
 Nook: Walk into the enclosed walkway leading to the !p!600
+
+CourtyardCorner:
+You stand in the middle of a cramped corner of the Courtyard. Your ears are being constantly assaulted by the slamming of the big blue doors next to you. The mural that explains all the stuff you can do after you graduate is very inspiring.
+CareerCenter: Enter the !p!Career !p!Center
+Middle3: Exit the !p!Courtyard
+Courtyard1: Continue up the wall under the !p!courtyard !p!roof
+Courtyard2: Drill deep into the Heart of the !p!Courtyard
+
+Courtyard1:
+You stand under the rooved portion of the !p!Courtyard. You can still see a small amount of salt left on the tables here. You can tell that this is the most popular spot for breakfast enjoyers.
+CourtyardCorner: Go towards the blue !p!Courtyard !p!Doors.
+Courtyard2: Walk to the middle of the !p!Courtyard
+Student Services: Enter !p!Student !p!Services
+
+Courtyard2:
+You stand under one of the large central trees of the !p!Courtyard. You observe students sitting on the ad-hoc brick protrusions lining the ground, neglecting the purpose-built yellow benches. You admire the mural of Parker holding up the administrators of East Mecks by marionette strings, artistically codifying his role as East Meck’s !e!Grand !e!Puppeteer.
+CafeLobby3: Go inside, near the !p!Auditorium.
+Couryard1: Walk to the sheltered region of the !p!Courtyard.
+CourtyardCorner: Walk to the corner of the !p!Courtyard, near the blue Exit.
 
 Nook:
 You stand in an isolated Nook surrounded on all sides by classic !p!600 !p!Sprawl. As you walk, you repeatedly check behind your shoulder to make sure no adversaries are utilizing the low-visibility environment to sneak up behind you.
@@ -504,7 +589,7 @@ Fivekback: Go North to the back of the !p!5000
 Fivekside1: Go East to the side
 
 Fivekback:
-You are at the back of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.
+You are outside at the back of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.
 Fivek1: Enter the !p!Five !p!Thousand
 Fnfenter1: Continue into the !p!495000
 Center2: Turn back towards the !p!Hundreds
@@ -517,13 +602,31 @@ Fnfexit1:
 You exit through the barbed revolving doors. You are relieved to leave this poorly-conceived intermediary.
 Fivekback: Continue
 
+Fivekside1:
+You are at the Grimier side of the !p!Five !p!Thousand. The ground is at a 45 degree angle, and there is a staircase upon the incline to compensate.
+Center2: Go towards the back of the building
+Threeh3: Enter the !p!Three !p!Hundred
+Trap1: Enter a grassy region that will certainly lead through to the other side of campus
+Fivekside2: Go towards the !p!Bus !p!Lot
+
+Fivekside2:
+You are on a flat concrete plane that wraps around the South-East Corner of the !p!Five !p!Thousand.
+Oneh2: Enter the !p!One !p!Hundred
+Trap1: Enter a grassy region that will certainly lead through to the other side of campus
+Fivekside1: Go towards the back of the building
+Fivekfront: Go to the front of the building
+
+Fivekfront:
+You stand outside the front of the !p!5000. You can just barely smell the pungent fumes of incredible food from the nearby culinary rooms. You are fascinated by the inaccurate !e!“500 !e!BUILDING” sign that has somehow stood the test of time.
+Fivekside2: Walk around the building, towards the !p!One !p!Hundred.
+
 Fnf1:
 You stand on the Old side of the !p!495000. There is a long line of people waiting to have their passport scanned to enter the !p!Four !p!Thousand. The classrooms have all been moved to the new upstairs to accommodate the ever-growing passport checking operation.
 Fnfstairwell: Enter the shiny new stairwell
 Fnfexit1: Escape to the classrooms of old
 Fnfpass1: Attempt to pass though to the other side
 
-Fnfpass1: You enter the passport line, After what feels like an eternity, you are finally second in line. The person in front of you is expelled for having out of date documentation. You walk up to the stand, and present your state-issued ID. It clears. You walk through to the !p!4000 side.
+Fnfpass1: You enter the passport line. After what feels like an eternity, you are finally second in line. The person in front of you is expelled for having out of date documentation. You walk up to the stand, and present your state-issued ID. It clears. You walk through to the !p!4000 side.
 Fnf3: Continue
 
 Fnfstairwell:
@@ -552,7 +655,7 @@ Fnf2: Gleefully waltz back into the hall
 
 Split:
 You stand in the middle of the bustling !p!400 !p!Split. There are myriads of people here, each one leaning on their officially-assigned steel pillar. You can still see the faint outline of the gargantuan Beagle poster on the wall.
-Fourh2: Enter the Southern !p!Four !p!Hundred
-Fourh3: Enter the Northern !p!Four !p!Hundred
+Fourh2: Enter the Lower !p!Four !p!Hundred
+Fourh3: Enter the Upper !p!Four !p!Hundred
 Splitoutside: Go East, towards the !p!300
 Pointy: Go West, towards the !p!700 and the !p!Gym

@@ -6,6 +6,7 @@
 // Lots of info/stats everywhere. More text effets
 // Effects: Animated random caps, shaking, ripple
 // (CSS?) Backgrounds for different regions. East meck photos?
+// More (animated) visual effects generally
 // Mobile?
 // Music
 // Sfx
@@ -16,6 +17,9 @@
 // Worthiness meter
 // "The most heartwrenching East Meck story to date"
 // "Interactive Story"
+// "The East Meck Game of the most Magnitude"
+// "East Meck" lower case cursive. "The RPG" upper case serifs.
+// "[n] unique regions"
 // TAPE
 // Parse better: Caps, trailing spaces after colon.
 // Characterize the reader
@@ -26,6 +30,18 @@
 // People switching the 400 rooms from earth science to health and vice versa repeatedly
 // Play tape in A/V room after sneaking past
 // Proper resetting
+// Detect Repeat IDs
+// Extensive Playtest
+// Look through all previous articles
+// Show game to incoming freshman as practice for the real Meck
+// No standing zones
+// First quarter next year, in a ypotetical world wher East Meck wasn't destroyed
+// Chemical Storage Room
+// Testing coordinator room
+// Teacher lounges
+// Game ends when you get to 1st block
+// Super bad ending where you didn't finish
+// Bus lot scaffolding
 
 "use strict";
 
@@ -105,6 +121,7 @@ class TextStyle {
         case "e":
             // Emphasis
             this.addFontStyle("italic");
+            this.addFontStyle("bold");
             break;
         case "c":
             // Character
@@ -246,8 +263,11 @@ class Action {
         this.type = type;
         if (type === "room") {
             this.id = args[0];
+            this.onetime = args[1] === true;
+            this.replace = Array.isArray(args[1]) && args[1];
         } else if (type === "dryebux") {
             this.dryebux = args[0];
+        } else if (type === "hint") {
         } else if (type === "reset") {
         } else {
             alert("Bad action type: "+ type);
@@ -274,7 +294,8 @@ class Room {
     constructor(spec) {
         this.id = spec.id;
         this.desc = new Line(spec.desc);
-        this.options = spec.options.map((o, i) => new RoomOption(new Action("room", [o[0]]), o[1], i));
+        this.options = spec.options.map((o, i) => new RoomOption(new Action("room", [o[0], o[2]]), o[1], i));
+        this.hasHint = false;
         if (spec.dryebux !== undefined) {
             this.options.push(new RoomOption(new Action("dryebux", [spec.dryebux]),
                                              "!d!Pick !d!up !d!bill !d!of !d!" + spec.dryebux + " !d!DryeBux",
@@ -283,6 +304,10 @@ class Room {
         }
         if (spec.reset !== undefined) {
             this.options.push(new RoomOption(new Action("reset", []), spec.reset, this.options.length));
+        }
+        if (spec.hint !== undefined) {
+            this.options.push(new RoomOption(new Action("hint", []), spec.hint, this.options.length));
+            this.hasHint = true;
         }
     }
 
@@ -310,18 +335,21 @@ class Game {
         });
 
         this.items = [];
-        this.enterRoom("start");
+        this.enterRoomId("start");
         this.dryebux = 0;
     }
 
-    enterRoom(id) {
+    enterRoom(r) {
+        this.room = r;
+        this.roomEnterTime = Date.now();
+    }
+
+    enterRoomId(id) {
         if (id in this.rooms) {
-            this.room = this.rooms[id];
+            this.enterRoom(this.rooms[id]);
         } else {
-            this.backRoom = this.room;
             alert("Not implemented: " + id);
         }
-        this.roomEnterTime = Date.now();
     }
 
     get elapsedTime() {
@@ -360,10 +388,44 @@ class Game {
 
     performAction(a) {
         if (a.type === "room") {
-            this.enterRoom(a.id);
+            if (a.onetime) {
+                this.room.options.splice(a.index, 1);
+            }
+            if (a.replace) {
+                this.rooms[a.replace[0]].options.map(o => {
+                    if (o.action.type === "room" && o.action.id === a.replace[1]) {
+                        o.action.id = a.replace[2];
+                    }
+                });
+            }
+            this.enterRoomId(a.id);
         } else if (a.type === "dryebux") {
             this.dryebux += a.dryebux;
             this.room.options.splice(a.index, 1);
+            this.room.dryebux = undefined;
+        } else if (a.type === "hint") {
+            const backId = this.room.id;
+            this.room.options.splice(a.index, 1);
+            const hintIDs = Object.values(this.rooms)
+                  .filter(r => r.dryebux !== undefined)
+                  .map(r => r.id);
+            if (hintIDs.length > 0) {
+                this.enterRoom(new Room({
+                    id: "bighint",
+                    desc: "You are left with the million-dollar hint phrase: !d!" + hintIDs[Math.floor(Math.random() * hintIDs.length)],
+                    options: [
+                        [backId, "Continue"],
+                    ],
+                }));
+            } else {
+                this.enterRoom(new Room({
+                    id: "nohint",
+                    desc: "Your completionist attidute has left no further hints available. Time to get to class.",
+                    options: [
+                        [backId, "Continue"],
+                    ],
+                }));
+            }
         } else if (a.type === "reset") {
             game = new Game();
         }
@@ -446,7 +508,7 @@ const roomSpecs = [
             ["sixh1", "Enter the !p!Six !p!Hundred"],
             ["media", "Walk towards the !p!media !p!center"],
             ["studentlot", "Walk towards the !p!student !p!parking !p!lot"],
-            ["middle2", "Walk north"],
+            ["middle2", "Walk north, towards the !p!Four !p!Hundred"],
         ],
     },
     {
@@ -456,8 +518,34 @@ const roomSpecs = [
             ["fourh1", "Enter the !p!Four !p!Hundred"],
             ["sevenh1", "Enter the !p!Seven !p!Hundred"],
             ["foursevenpath", "Go north, squeezing between the two"],
-            ["middle", "Go south"],
-            ["middle3", "Go east"],
+            ["middle", "Go south, towards the !p!Security !p!Scanners"],
+            ["middle3", "Go east, towards the !p!Courtyard"],
+        ],
+    },
+    {
+        id: "foursevenpath",
+        desc: "You walk down an excessively long straightaway of the East Meck circuit. You admire the plants is variously-shaped pots that are displayed in the Earth Science windows along the West side of the !p!Lower !p!Four !p!Hundred.",
+        options: [
+            ["concreterectangle", "Visit the elusive !p!Concrete !p!Rectangle in the corner of the !p!700"],
+            ["middle2", "Walk towards the !p!Student !p!Parking !p!Lot"],
+            ["pointy", "Walk towards the !p!400 !p!Split"],
+        ],
+    },
+    {
+        id: "concreterectangle",
+        desc: "You stand on one of the more bizarre regions of the East Meck Outdoors: A large concrete rectangle, engraved with Meck symbolics and decorated with two by three array of benches. You have heard rumors of this artifact resulting from some “outdoor classroom project”, but this myth remains unconfirmed. You notice some !d!DryeBux under one of the benches.",
+        options: [
+            ["foursevenpath", "Leave this confusing spot"],
+        ],
+        dryebux: 3,
+    },
+    {
+        id: "pointy",
+        desc: "You stand below what may very well be East Meck’s !e!Sharpest !e!Angle. This angle is formed by the steel rooves that characterize the grimier side of East, and represents a particularly important intersection.",
+        options: [
+            ["sevenhgym", "Follow the shinier canopy towards the !p!Staff !p!Parking !p!Lot"],
+            ["foursevenpath", "Walk towards the !p!Student one instead"],
+            ["split", "Follow the grimier canopy into the !p!400 !p!Split"],
         ],
     },
     {
@@ -475,22 +563,22 @@ const roomSpecs = [
             ["media", "Walk back in front of the !p!media center"],
             ["drums", "Walk to the !p!drum !p!shack"],
             ["guardeddoor", "Try to sneak past the library guards"],
-            ["traileroutside", "Walk towards the !p!trailer !p!zone"],
-            ["automotive", "Gaze at hot rods in automotive shop"],
-            ["staffparking", "Walk into the staff parking lot"],
+            ["automotive", "Gaze at hot rods in !s!automotive !p!shop"],
+            ["staffparking", "Walk into the !p!staff !p!parking !p!lot"],
             ["sevenha1", "Enter the obscure !p!700A !p!Building"],
         ],
     },
     {
         id: "automotive",
-        desc: "Mediaside: Shake off these thoughts and return to the side of the media center",
+        desc: "You look deeply at the various cars. You are entranced by their shiny wax bodies and wonder what it would take for you to get a nice car like that. ",
         options: [
+            ["mediaside", "Shake off these thoughts and return to the side of the !p!media !p!center"],
             ["automotive2", "Try to hop the fence and take a car"],
         ],
     },
     {
         id: "automotive2",
-        desc: "Almost as soon as you make it over the fence you are tackled by a group of rowdy automotive students. You are brought to the ground and your head slams against the concrete. You are knocked out cold.",
+        desc: "Almost as soon as you make it over the fence you are tackled by a group of rowdy !s!automotive students. You are brought to the ground and your head slams against the concrete. You are knocked out cold.",
         options: [
         ],
         reset: "Try everything again. From the top.",
@@ -499,8 +587,16 @@ const roomSpecs = [
         id: "drums",
         desc: "You try the handle but it is caged by an absurd number of locks, though it seems mostly held together by one linch pin lock that if it were to be unlocked, the amalgam would be broken loose. Maybe if you had the 4 digit code you could get in.",
         options: [
-            ["mediaside", "Walk back to the side of the media center"],
+            ["mediaside", "Walk back to the side of the !p!media !p!center"],
             ["entercode", "Try to enter the code"],
+        ],
+    },
+    {
+        id: "drums2",
+        desc: "The !p!Drum !p!Shack is free from its shackles, and you are free to enter.",
+        options: [
+            ["mediaside", "Walk back to the side of the media center"],
+            ["shack", "Enter the !p!Shack"],
         ],
     },
     {
@@ -517,7 +613,7 @@ const roomSpecs = [
             ["eight", "enter eight as the first digit of the code"],
             ["nine", "enter nine as the first digit of the code"],
             ["zero", "enter zero as the first digit of the code"],
-            ["mediaside", "cut your loses and head back to the media center"],
+            ["mediaside", "cut your losses and head back to the media center"],
         ],
     },
     {
@@ -681,15 +777,23 @@ const roomSpecs = [
         id: "correctcode",
         desc: "Bingo! The code was entered effortlessly. The lock pops open, and the dense web of other locks of various shapes and sizes falls down at once. The door swings open and you enter the !p!shack.",
         options: [
-            ["shack", "Continue"],
+            ['shack', 'Continue', ['mediaside', 'drums', 'drums2']],
         ],
     },
     {
         id: "shack",
-        desc: "You stand in the middle of the !p!Drum !p!Shack. You are too entranced by the variety of drums to leave the room any time soon.",
+        desc: "You stand in the middle of the !p!Drum !p!Shack. There is an awe-inspiring variety of drums, and you feel sad for the way they are kept in captivity here, rarely being allowed to show their colors to the world.",
         options: [
             ["drumplay", "Try your hand at the drums"],
-            ["rummage", "Rummage around on the floor looking for who knows what"],
+            ["rummage", "Rummage around on the floor looking for who knows what", true],
+            ["drums2", "Exit the !p!Shack"],
+        ],
+    },
+    {
+        id: "rummage",
+        desc: "You go down on all fours, looking under every drum for anything out of the ordinary. Amazingly, you do find something: An old cassette tape, labeled “BEAGLER INTERVIEW”. Unfortunately it seems that the first half of the tape is missing...",
+        options: [
+            ["shack", "Continue"],
         ],
     },
     {
@@ -911,6 +1015,14 @@ const roomSpecs = [
         desc: "You stand at the boundary of the !p!student !p!parking-lot. Your eyes become lost in the dense variety of vehicles. You snap back to reality and realize you cannot progress this way, as leaving campus now would be an explicit violation of the Student Code of Conduct.",
         options: [
             ["middle", "Turn back before it is too late"],
+            ["church", "Push your luck and attempt to escape"],
+        ],
+    },
+    {
+        id: "church",
+        desc: "You have made your way all the way out to the !p!East !p!City !p!church but you can tell the security is hot on your tail and it is not worth it to get on their bad side as it could have serious repercussions down the road (tranquilizer dart to the head).",
+        options: [
+            ["middle", "Head back and try to redeem yourself"],
         ],
     },
     {
@@ -941,6 +1053,12 @@ const roomSpecs = [
         ],
     },
     {
+        id: "henry",
+        desc: "Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. It would be a bigger problem if you had business to handle their ",
+        options: [
+        ],
+    },
+    {
         id: "sixh3",
         desc: "A teacher is playing music at an earsplitting volume. You are panicking and can’t focus enough to even figure out where you are. You do see !c!Mr. !c!Watts standing though, and think his room might provide refuge.",
         options: [
@@ -960,7 +1078,7 @@ const roomSpecs = [
     },
     {
         id: "eavesdrop",
-        desc: "They are discussing the need for a mule to bring a large payload of sludge all the way to the 495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed sludge tariffs. They say they would be willing to give !e!seven !e!Drye !e!Buxs to any one willing to brave the task. ",
+        desc: "They are discussing the need for a mule to bring a large payload of sludge all the way to the 495000 on !c!Mr. !c!Edde’s request, in an attempt to dodge !c!Drye’s newly imposed sludge tariffs. They say they would be willing to give !d!seven !d!DryeBux to any one willing to brave the task. ",
         options: [
             ["sludge1", "Volunteer, taking the opportunity to potentially raise your status in the East Meck econsystem"],
         ],
@@ -969,7 +1087,7 @@ const roomSpecs = [
         id: "sixh4",
         desc: "You are at the most bustling corner of the !p!Six !p!Hundred. Students - some familiar, some not - pass you from all directions. The bathrooms are being guarded by three different teachers looking in different directions. There are two external doors with differing signage.",
         options: [
-            ["sixh2", "Go South"],
+            ["sixh2", "Go South, towards the Heart of the building"],
             ["sixh5", "Go towards the !p!Cafeteria"],
             ["courtyardcorner", "Exit through the door labelled “EXIT ONLY, PLEASE USE THIS DOOR”"],
             ["courtyardcorner", "Exit through the door labelled “ENTRANCE ONLY, YOU MUST USE OTHER DOOR”"],
@@ -1006,10 +1124,43 @@ const roomSpecs = [
     },
     {
         id: "cafe1",
-        desc: "It is quite in the !p!cafeteria say for the bustling of cafeteria workers working hard to prepare the upcoming day's delicacies and packing up the breakfast. There are a small number of breakfast goers but they all seem to be heading out to their respective first blocks.",
+        desc: "It is quiet in the !p!cafeteria, for the bustling !p!cafeteria workers working hard to prepare the upcoming day's delicacies and packing up the breakfast. There are a small number of breakfast goers but they all seem to be heading out to their respective first blocks.",
         options: [
             ["cafe2", "Head to the other door where !c!Drye and friends sometimes hang out during lunch"],
-            ["cafe3", "Head to back corner of the !p!cafeteria"],
+            ["cafe3", "Head to back corner of the !p!cafeteria by the infamous !c!Backwall !c!Eagle"],
+            ["cafe4", "Walk across to over by the microwaves"],
+            ["cafelobby1", "Exit the !p!cafeteria"],
+            ["lunchcounter", "Try to get some last minute breakfast"],
+        ],
+    },
+    {
+        id: "cafe2",
+        desc: "You see sprawling tables and not much else. There are some students finishing up breakfast but none are in the mood for idle chatter and are all focused on finishing their food with enough time to get to first block.",
+        options: [
+            ["cafe1", "Head toward the lunch line"],
+            ["cafe3", "Head toward the !c!Backwall !c!Eagle"],
+            ["cafe4", "Head toward the microwaves"],
+            ["patio2", "Exit the !p!cafeteria out to the !p!patio"],
+        ],
+    },
+    {
+        id: "cafe3",
+        desc: "You are before the !c!Backwall !c!Eagle. Though his wisdom is pseudo-infinite (as indicated by his !e!QR-Code !e!Eyes) you feel drawn to ask him about the one topic that dominates your mind day in and day out: how to gain power at East Meck.",
+        options: [
+            ["cafe1", "Go towards the lunch lines"],
+            ["cafe2", "Go towards the front tables"],
+            ["cafe4", "Move along the back wall to the microwaves"],
+            ["patio2", "Exit the !p!Cafeteria, and move outside"],
+        ],
+        hint: "Ask him about !d!DryeBux",
+    },
+    {
+        id: "cafe4",
+        desc: "You stand in the !p!cafeteria, next to a small set of microwaves. You wonder what kind of catastrophe must have occurred here for there to be so many warning signs explaining what is and is not allowed in the microwaves.",
+        options: [
+            ["cafe3", "Move along the Backwall to visit the !p!Giant !p!Eagle"],
+            ["cafe2", "Move towards the tables in the front"],
+            ["cafe1", "Move towards the divisive lunch lines"],
         ],
     },
     {
@@ -1020,6 +1171,16 @@ const roomSpecs = [
             ["cafelobby3", "Walk North, towards the !p!Auditorium"],
             ["cafe2", "Enter the !p!Cafeteria"],
             ["sixh5", "Enter the !p!Six !p!Hundred"],
+        ],
+    },
+    {
+        id: "cafelobby3",
+        desc: "You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.",
+        options: [
+            ["auditoriumlobby", "Enter the !p!Auditorium !p!Lobby through one of the million components of this large array of doors"],
+            ["courtyard2", "Exit to the !p!Courtyard"],
+            ["fourway", "Walk towards the northern part of the !p!Old !p!Building"],
+            ["cafelobby2", "Walk south, towards the !p!Cafeteria"],
         ],
     },
     {
@@ -1050,6 +1211,34 @@ const roomSpecs = [
             ["middle2", "Walk west"],
             ["zigzag1", "Walk north, towards the new buildings"],
             ["nook", "Walk into the enclosed walkway leading to the !p!600"],
+        ],
+    },
+    {
+        id: "courtyardcorner",
+        desc: "You stand in the middle of a cramped corner of the Courtyard. Your ears are being constantly assaulted by the slamming of the big blue doors next to you. The mural that explains all the stuff you can do after you graduate is very inspiring.",
+        options: [
+            ["careercenter", "Enter the !p!Career !p!Center"],
+            ["middle3", "Exit the !p!Courtyard"],
+            ["courtyard1", "Continue up the wall under the !p!courtyard !p!roof"],
+            ["courtyard2", "Drill deep into the Heart of the !p!Courtyard"],
+        ],
+    },
+    {
+        id: "courtyard1",
+        desc: "You stand under the rooved portion of the !p!Courtyard. You can still see a small amount of salt left on the tables here. You can tell that this is the most popular spot for breakfast enjoyers.",
+        options: [
+            ["courtyardcorner", "Go towards the blue !p!Courtyard !p!Doors"],
+            ["courtyard2", "Walk to the middle of the !p!Courtyard"],
+            ["studen", "Services: Enter !p!Student !p!Services"],
+        ],
+    },
+    {
+        id: "courtyard2",
+        desc: "You stand under one of the large central trees of the !p!Courtyard. You observe students sitting on the ad-hoc brick protrusions lining the ground, neglecting the purpose-built yellow benches. You admire the mural of Parker holding up the administrators of East Mecks by marionette strings, artistically codifying his role as East Meck’s !e!Grand !e!Puppeteer.",
+        options: [
+            ["cafelobby3", "Go inside, near the !p!Auditorium"],
+            ["couryard1", "Walk to the sheltered region of the !p!Courtyard"],
+            ["courtyardcorner", "Walk to the corner of the !p!Courtyard, near the blue Exit"],
         ],
     },
     {
@@ -1123,7 +1312,7 @@ const roomSpecs = [
     },
     {
         id: "fivekback",
-        desc: "You are at the back of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.",
+        desc: "You are outside at the back of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.",
         options: [
             ["fivek1", "Enter the !p!Five !p!Thousand"],
             ["fnfenter1", "Continue into the !p!495000"],
@@ -1142,6 +1331,33 @@ const roomSpecs = [
         desc: "You exit through the barbed revolving doors. You are relieved to leave this poorly-conceived intermediary.",
         options: [
             ["fivekback", "Continue"],
+        ],
+    },
+    {
+        id: "fivekside1",
+        desc: "You are at the Grimier side of the !p!Five !p!Thousand. The ground is at a 45 degree angle, and there is a staircase upon the incline to compensate.",
+        options: [
+            ["center2", "Go towards the back of the building"],
+            ["threeh3", "Enter the !p!Three !p!Hundred"],
+            ["trap1", "Enter a grassy region that will certainly lead through to the other side of campus"],
+            ["fivekside2", "Go towards the !p!Bus !p!Lot"],
+        ],
+    },
+    {
+        id: "fivekside2",
+        desc: "You are on a flat concrete plane that wraps around the South-East Corner of the !p!Five !p!Thousand.",
+        options: [
+            ["oneh2", "Enter the !p!One !p!Hundred"],
+            ["trap1", "Enter a grassy region that will certainly lead through to the other side of campus"],
+            ["fivekside1", "Go towards the back of the building"],
+            ["fivekfront", "Go to the front of the building"],
+        ],
+    },
+    {
+        id: "fivekfront",
+        desc: "You stand outside the front of the !p!5000. You can just barely smell the pungent fumes of incredible food from the nearby culinary rooms. You are fascinated by the inaccurate !e!“500 !e!BUILDING” sign that has somehow stood the test of time.",
+        options: [
+            ["fivekside2", "Walk around the building, towards the !p!One !p!Hundred"],
         ],
     },
     {
@@ -1202,8 +1418,8 @@ const roomSpecs = [
         id: "split",
         desc: "You stand in the middle of the bustling !p!400 !p!Split. There are myriads of people here, each one leaning on their officially-assigned steel pillar. You can still see the faint outline of the gargantuan Beagle poster on the wall.",
         options: [
-            ["fourh2", "Enter the Southern !p!Four !p!Hundred"],
-            ["fourh3", "Enter the Northern !p!Four !p!Hundred"],
+            ["fourh2", "Enter the Lower !p!Four !p!Hundred"],
+            ["fourh3", "Enter the Upper !p!Four !p!Hundred"],
             ["splitoutside", "Go East, towards the !p!300"],
             ["pointy", "Go West, towards the !p!700 and the !p!Gym"],
         ],
@@ -1216,7 +1432,7 @@ addEventListener('load', async (event) => {
     game = new Game();
     game.draw();
     setInterval(() => {
-        game.draw();
+        requestAnimationFrame(() => game.draw());
     }, 1000/fps);
     addEventListener("keydown", (event) => {
         game.handleKey(event.key);
