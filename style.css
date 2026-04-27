@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 
 html, body {
     max-width: 100%;
@@ -198,6 +199,13 @@ section.article {
     margin-bottom: 0;
 }
 
+.article.expose h2 {
+    font-family: "BBH Bartle", sans-serif;
+    transform: scale(100%, 50%);
+    filter: drop-shadow(5px 5px 0px orangered);
+    margin-bottom: 0;
+}
+
 img.p {
     display: block;
     width: 100%;
@@ -243,6 +251,18 @@ img.i {
 .opinion p, .opinion ul, .lifestyle p, .lifestyle ul, .lifestyle ol {
     font-family: "major mono display", monospace;
     color: white;
+}
+
+span.exp {
+    font-family: "IM Fell English SC", serif;
+    font-size: 120%;
+}
+
+.expose p {
+    font-family: "IM Fell English SC", serif;
+    color: red;
+    text-align: right;
+    font-size: 150%;
 }
 
 .disclaimer {
