@@ -7,7 +7,7 @@
 // Diagram dump (posters?)
 // Lots of info/stats everywhere. More text effets
 // Effects: Animated random caps, shaking, ripple
-// (CSS?) Backgrounds for different regions. East meck photos?
+// (CSS?) Backgrounds for different regions (goals?). East meck photos?
 // More (animated) visual effects generally
 // Mobile?
 // Music
@@ -48,7 +48,6 @@
 // Tape ends with the tape being split across the timelines.
 // Zdshr is a cycle like east meck is a cycle;;; Cycle = meckroller
 // Look through guidlines doc section.
-// Bunker network
 // Dialogue text effect
 // Price: Sliwa and Cheney
 // Better opening line
@@ -772,6 +771,22 @@ const roomSpecs = [
         ],
     },
     {
+        id: "fourhstairs",
+        desc: "You are in a small staircase outside a corner of the !p!Upper !p!400. The staircase connects to a mysterious blue door underneath the building.",
+        options: [
+            ["underfourh", "Go through the door"],
+            ["fourhgym", "Go up the stairs to the outside"],
+        ],
+    },
+    {
+        id: "underfourh",
+        desc: "You are underground in a dark brick room. One bright light cuts through the darkness but only to a certain extent. There are several piles of half-ground up leaves and other types of grime.  There are small weights of various lengths strewn about the corner of the floor. There is an old door to the outside and a newer-looking door on the opposite side.",
+        options: [
+            ["fourhstairs", "Go through door to the outside"],
+            ["underthreeh", "Go through the other door"],
+        ],
+    },
+    {
         id: "media",
         desc: "You stand under the steel canopy around the entrance to the !p!Media !p!Center. The media center is closed. You know this because of a big, clearly hastily-written poster on the door explaining the presence of “Work-keys” testing inside. Despite the claim, you see what looks to be a fashion show occurring inside. It seems the only style fit for this contestant will be absolute maximalism.",
         options: [
@@ -1191,7 +1206,7 @@ const roomSpecs = [
     },
     {
         id: "tape13",
-        desc: "!c!??????: “How do you know the Beagle is trying to have you killed?”",
+        desc: "!c!??????: “How do you know the Beagle is going to have you killed?”",
         options: [
             ["tape14", "..."],
         ],
@@ -2108,6 +2123,7 @@ const roomSpecs = [
             ["officetv", "Watch the TV in the corner of the room"],
             ["bauer", "Enter !c!Bauer’s !p!Room"],
             ["officehall", "Enter the hallway further in"],
+            ["officeoutside", "Leave the !p!Office"],
         ],
     },
     {
@@ -2206,7 +2222,7 @@ const roomSpecs = [
     },
     {
         id: "duck",
-        desc: "As Parker’s Helping Other People Excel ideology dictates, he always aims for the stars. The pickaxe flies right over you, and you have quick enough reflexes to grab it. Parker knows he’s in trouble now, and runs down the tunnel as fast as he can. As he was running, the !d!Signed !d!DryeBuk fell out of his pocket onto the floor.",
+        desc: "As Parker’s Helping Other People Excel ideology dictates, he always aims for the stars. The pickaxe flies right over you, and you have quick enough reflexes to grab it. Parker knows he’s in trouble now, and runs down the tunnel as fast as he can. As he runs, the !d!Signed !d!DryeBuk falls out of his pocket onto the floor.",
         options: [
             ['tunnel2a', 'Continue', ['tunnel2', 'tunnel2a']],
         ],
@@ -2426,11 +2442,61 @@ const roomSpecs = [
     },
     {
         id: "slope",
-        desc: "As you brave the sheer cliff-face, you hear the whirring of the gigantic air conditioning unit beside you. Bats are flying out of the red brick chimney. Water is leaking onto the ground from some unidentifiable sub-apparatus.",
+        desc: "You stand on a particularly steep region of the East Meck Outdoors. As you brave the sheer cliff-face, you hear the whirring of the gigantic air conditioning unit beside you. Water is leaking onto the ground from some unidentifiable sub-apparatus. Bats are flying out of the red brick chimney.",
         options: [
             ["center2", "Go towards the classrooms of the future"],
             ["center", "Go towards the classrooms of yesteryear"],
+            ["threehstairs", "Enter the mysterious stairs next to the AC Unit"],
         ],
+    },
+    {
+        id: "threehstairs",
+        desc: "You are in a strange outdoor stairwell next to a large air conditioning unit. There is a blue door leading inside.",
+        options: [
+            ["underthreeh", "Go through the door"],
+            ["slope", "Go up the stairs"],
+        ],
+    },
+    {
+        id: "underthreeh",
+        desc: "You are in a large underground storage room. There are mid-century modern style chairs everywhere in huge piles. It seems these were moved here permanently when they went out of style, which in your opinion is unfortunate; They are so comfortable. There is an old door leading outside and two newer looking doors to its left.",
+        options: [
+            ["threehstairs", "Exit to the outside"],
+            ["underfourh", "Go through the door to the left"],
+            ["undergroundhall1", "Go through the door even farther to the left"],
+        ],
+    },
+    {
+        id: "undergroundhall1",
+        desc: "You are in an extremely long underground hallway. At first you think the hall is completely barren, but then you notice that what you thought was an impressionist ceiling design is actually a dense web of electrical wires, communications cables, water pipes, and heating ducts. There is a blue door on your end of the hall.",
+        options: [
+            ["underthreeh", "Go through the door"],
+            ["undergroundhall2", "Continue along the hall"],
+        ],
+    },
+    {
+        id: "undergroundhall2",
+        desc: "You are in the middle of an extremely long underground hallway. If you squint, you can see that on one side, there is a blue door, and on the other a red door.",
+        options: [
+            ["undergroundhall1", "Go towards the blue door"],
+            ["undergroundhall3", "Go towards the red door"],
+        ],
+    },
+    {
+        id: "undergroundhall3",
+        desc: "You are in an extremely long underground hallway. There is a red door on your end of the hall.",
+        options: [
+            ["bunker", "Go through the door"],
+            ["undergroundhall2", "Continue along the hall"],
+        ],
+    },
+    {
+        id: "bunker",
+        desc: "You are in an underground bunker. You expected this room to be as barren as its neighbors, but quite the opposite is true. There are blackjack and poker tables everywhere, as well as large roulette wheels and slot machines. There are several waiters in fancy suits at a counter preparing drinks for their customers (who will presumably be arriving shortly). On one of the blackjack tables, it seems a customer left some !d!Gambling !d!Bux behind. There is a red door to a hallway.",
+        options: [
+            ["undergroundhall3", "Go through the door"],
+        ],
+        dryebux: 7,
     },
     {
         id: "oursidestairs",
