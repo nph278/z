@@ -58,9 +58,13 @@ Sevenh1:
 You stand on the more practical side of the !p!Seven !p!Hundred. You see students rushing into their engineering classrooms holding elaborate contraptions, and coming out with them turned even more elaborate.
 Nguyen: Enter !c!Nguyen’s !p!Room.
 Wojo: Enter !c!Wojtalewski’s !p!Room
-Shefte: Enter !c!Shefte’s !p!Room
+#Shefte: Enter !c!Shefte’s !p!Room
 Sevenh2: Turn the corner
 Middle2: Exit the building
+
+Shefte:
+As you enter the !s!Automotive !p!Shop, you slip on a puddle of motor oil. Your face is covered in soot and grime and you are too embarrassed to come back here ever again.
+Sevenh1: Continue
 
 Wojo:
 You are in the !s!physics !p!classroom. The students have set up some kind of giant Rube Goldberg machine that takes up most of the room.
@@ -69,11 +73,11 @@ Sevenh1: Exit to the hall
 
 TouchMachine:
 You touch a small piece of the large blue plastic structure. When your finger makes contact, the plastic around it fizzes and pops and seems to boil off into thin air, as if made out of some kind of pure evil. The whole structure collapses as a result of the dense dependency network of the machine. You have been banned from this classroom.
-&Wojo&WojoBan&Sevenh1: Continue in shame
+&Wojo&Ban&Sevenh1: Continue in shame
 
-WojoBan:
-You have been banned from this room.
-Sevenh1: Continue
+Ban:
+You have been banned from this room forever.
+$back: Continue
 
 Sevenh2:
 You stand near the corner of the right angle that is the !p!700 !p!Hundred. You can feel the collision of theory and practice occurring around the nearby !s!environmental !s!science rooms.
@@ -222,10 +226,10 @@ Trailers1: Leave
 
 Trailers2:
 You stand on a wooden walkway in the mutual corner shared by four !p!trailer !p!classrooms.
-M191: M191
-M61: M61
-M78: M78
-M212: M212
+MysteryTrailer: Trailer M191
+MysteryTrailer: Trailer M61
+MysteryTrailer: Trailer M78
+MysteryTrailer: Trailer M212
 Trailers1: Continue down the walkway, towards the !p!Media !p!Center
 Staffparking2: Go down to the staff parking lot
 
@@ -252,8 +256,8 @@ Gymoutside: Go towards the !p!Gym
 
 Staffparking4:
 You stand at one of the several corners of the !p!Staff !p!Parking !p!Lot. There are two trailers separating you from the !p!Seven !p!Hundred.
-M444: M444
-M443: M443
+MysteryTrailer: Trailer M444
+MysteryTrailer: Trailer M443
 Gymoutside: Go towards the !p!Gym entrance
 Sevenhgym: Go between !p!700 and the !p!Gym
 Staffparking5: Go away from civilization
@@ -275,18 +279,18 @@ Gymlot1: Actively work against the will of the !c!Eagle and go south
 
 Trailers3:
 You are on a gravel path next to a well-organized line of trailers. The lumbering evergreens of the !p!Baseball !p!Field boundary block a large portion of the trailers’ ugly tin rooves.
-M555: M555
-M551: M551
-M549: M549
+MysteryTrailer: Trailer M555
+MysteryTrailer: Trailer M551
+MysteryTrailer: Trailer M549
 Trailers4: Continue along the gravel path towards the center of the school
 Gymlot2: Go towards the !p!track
 Trailers8: Go south, towards another group of trailers
 
 Trailers8:
 You stand on a wooden walkway around a group of trailers. The !p!Gym is extremely close.
-M171: M171
-M550: M550
-M671: M671
+MysteryTrailer: Trailer M171
+MysteryTrailer: Trailer M550
+MysteryTrailer: Trailer M671
 Trailerbathroom2: Enter the !p!trailer !p!bathroom
 Gymoutside: Walk towards the !p!Gym enterance
 Gymlot1: Go into the !p!gym !p!parking !p!lot
@@ -299,15 +303,15 @@ $dryebux: 3
 
 Trailers4:
 You stand on a gravel path near some trailers. Your eyes are immediately drawn to the bright New Zealand license plate on a car that is (presumably illegally) parked here.
-M556: M556
-M554: M554
+MysteryTrailer: Trailer M556
+MysteryTrailer: Trailer M554
 Trailers3: Continue along the gravel path towards the !p!Track
 Trailers6: Go towards the center of the school
 
 Trailers6:
 You are in the middle of a large cluster of trailers. It appears to trailers for miles from any direction you look.
-M284: M284
-M283: M283
+MysteryTrailer: Trailer M284
+MysteryTrailer: Trailer M283
 TrailerBathroom3: Enter the !p!trailer !p!restroom
 Trailers4: Go towards the !p!Track
 Trailers5: Go towards the !p!Tennis !p!Courts
@@ -321,9 +325,9 @@ $dryebux: 3
 
 Trailers7:
 You are on the fringe of a trailer megalopolis, but close enough to the rest of campus to avoid the worst of it.
-M282: M282
-M281: M281
-M280: M280
+MysteryTrailer: Trailer M282
+MysteryTrailer: Trailer M281
+MysteryTrailer: Trailer M280
 Trailers5: Go towards the !p!Tennis !p!Courts (There !e!are trailers this way)
 Trailers6: Go towards the !p!Track (There !e!are trailers this way)
 Center2: Escape to the middle of campus
@@ -787,14 +791,14 @@ You stand at the most beloved end of the !p!Six-Hundred. You look ahead into the
 OrchBand: Enter the !s!Orchestra / !s!Band !p!Room
 Choir: Enter the !s!Choir !p!Room
 Bartkowiak: Enter !c!Bartkowiak’s !p!Classroom
-Roberts: Enter !c!Roberts’ !p!Classroom
+Roberts1: Enter !c!Roberts’ !p!Classroom
 Dunn: Enter !c!Dunn’s !p!Classroom
 Cellocloset: Enter the !p!cello/bass !p!storage !p!closet.
 Sixh2: Continue along the hall
 Middle: Exit out the classic door
 
 Sixh2:
-You stand in the heart of the !p!Six !p!Hundred. The epicenter of the famous East Meck Grime that has sullied all of these old buildings over time. You hear fairly loud music being played to your East. !c!Mr. !c!Henry is sitting in an inverted desk grading papers. There is a fire extinguisher panel that has been installed upside down next to the exterior door.
+You stand in the heart of the !p!Six !p!Hundred. The epicenter of the famous East Meck Grime that has sullied all of these old buildings over time. You hear music being played to your East. !c!Mr. !c!Henry is sitting in an inverted desk grading papers. There is a fire extinguisher panel that has been installed upside down next to the exterior door.
 Henry: Enter !c!Henry’s !p!Classroom
 Sifford: Enter !c!Sifford’s !p!Classroom
 MsMiller: Enter !c!Miller’s !p!Classroom
@@ -810,17 +814,35 @@ Sixh2: Give up and keep walking
 
 Sixh3:
 A teacher is playing music at an earsplitting volume. You are panicking and can’t focus enough to even figure out where you are. You do see !c!Mr. !c!Watts standing though, and think his room might provide refuge.
-Watts: Enter !c!Watts’ !p!Room
+Watts: Enter !c!Watts’s !p!Room
 Komito: ???? Classroom ????
 Wilson: ???? Classroom ????
+LIvchin: ???? Classroom ????
+Gearhart: ???? Classroom ????
 Sixh2: ???? Direction ????
 CafeLobby1: ???? Direction ????
 
+Gearhart:
+You are in !c!Mr. !c!Gearhart’s room. You see a huge hand-carved wooden tiger in the middle of the room. The floor has been meticulously combed for crumbs to deter any potential influx of cockroaches or other pervasive 600-grime. Mr. Gearhart is standing at the front, facing an empty classroom, repeating the name “Bueller”.
+#CurrentEvents: Ask him about current events
+Sixh3: Exit to the hall
+
+CurrentEvents:
+You ask !c!Mr. !c!Gearhart about the state of our country. He talks politics for a little while, but eventually comes to the topic of !e!Cajun !e!Cooking. He says that he is really hungry today and would be willing to pay !d!Top !d!Dollar to anyone who could bring him some authentic !e!Cajun !e!Cuisine from the !s!culinary !p!kitchen.
+&CulinaryKitchen&CajunKitchen&Gearhart: Continue
+
+Gearhart2:
+Gearhart is delighted with the Gumbo you have brought him. He gives you !d!Eleven !d!DryeBux as a hearty thank-you.
+Sixh3: Exit to the hall
+$dryebux: 11
+
 Sixh3quiet:
 Teachers from around the hall are gathered around, celebrating your accomplishment of reducing the music volume. One teacher is so thankful, they give you some !d!DryeBux.
-Watts: Enter !c!Watts’ !p!Room
+Watts: Enter !c!Watts’s !p!Room
 Komito: Enter !c!Komito’s !p!Classroom
 Wilson2: Enter !c!Wilson’s !p!Classroom
+Livchin: Enter !c!Livchin’s !p!Classroom
+Gearhart: Enter !c!Gearhart’s !p!Classroom
 Sixh2: Go along the hall, towards the !p!Media !p!Center
 CafeLobby1: Enter the !p!Cafeteria !p!Lobby
 $dryebux: 3
@@ -835,7 +857,7 @@ You throw your hand on your head and sort of wave your fingers around. This gets
 &Sixh3&Sixh3quiet&Sixh3quiet: Continue
 
 Watts:
-You enter !c!Mr. !c!Watts’ classroom and are astounded by the economic delights. Your eyes are drawn in a thousand different directions at the various artifacts he has somehow procured (assumingly via his insanely deep pockets.) !c!Mr. !c!Watts is chatting with a student about a smuggling job. 
+You enter !c!Mr. !c!Watts’s classroom and are astounded by the economic delights. Your eyes are drawn in a thousand different directions at the various artifacts he has somehow procured (assumingly via his insanely deep pockets.) !c!Mr. !c!Watts is chatting with a student about a smuggling job. 
 Eavesdrop: Stick around and try to eavesdrop
 Sixh3: Try to get out of there before things get dangerous
 
@@ -928,7 +950,7 @@ You are safe now. As the !p!495000 is a UN-Mandated demilitarized zone, it would
 SludgeWalk: Continue
 
 SludgeWalk:
-You leisurely walk back to !c!Mr. !c!Watts’ room. Administrators around campus shake their fists at you, but have no power to punish you now that the sludge is in international waters.
+You leisurely walk back to !c!Mr. !c!Watts’s room. Administrators around campus shake their fists at you, but have no power to punish you now that the sludge is in international waters.
 &Watts&Watts2&Watts2: Continue.
 
 Watts2:
@@ -940,6 +962,7 @@ Sixh4:
 You are at the most bustling corner of the !p!Six !p!Hundred. Students - some familiar, some not - pass you from all directions. The bathrooms are being guarded by three different teachers looking in different directions. There are two external doors with differing signage.
 Price: Enter !c!Price’s !p!Room.
 Mercabi: Enter !c!Mercabi’s !p!Room
+Gatling: Enter !c!Gatling’s !p!Room
 Copier: Enter the !p!Copier !p!Room
 Sixh2: Go South, towards the Heart of the building
 Sixh5: Go towards the !p!Cafeteria
@@ -948,12 +971,22 @@ CourtyardCorner: Exit through the door labelled “ENTRANCE ONLY, YOU MUST USE O
 
 Sixh5:
 You are at the more scientifically-inclined appendage of the sprawling creature that is the !p!Six !p!Hundred. There is a door to the !p!Cafeteria !p!Lobby here.
-Johnson: Enter !c!Johnson’s !p!Room
+Johnson1: Enter !c!Johnson’s !p!Room
+Barone: Enter !c!Baron’s !p!Room
 Walston: Enter !c!Walston’s !p!Room
+MrMiller: Enter !c!Miller’s !p!Room
 Dean: Enter !c!Dean’s !p!Room
-Congress: Enter !p!Student !p!Congress !p!Room
+Cudabac: Enter !c!Cudabac’s !p!Room
 Sixh4: Go down the hall to the corner
 CafeLobby2: Enter the !p!Cafeteria !p!Lobby
+
+Dean:
+You are in !c!Ms. !c!Dean’s !s!biomedical !p!room. There are numerous posters on the wall listing the adverse effects of worms and detailing the various methods for eliminating worms. The students are doing a lab where they are in groups of three where one person connects the other two with a web of wires and complex electronics. Out of the corner of your eye, you can see a steady train of worms marching into the room from !c!Mr. !c!Walston’s room nextdoor.
+Sixh5: Leave before the worms become too much of a problem
+
+Johnson1:
+As you begin to hear !c!Coach !c!Johnson’s voice, a sudden revolutionary urge washes over you. You don’t have time to act on these thoughts before first block, though.
+Sixh5: Enter 
 
 Walston:
 You are in the front of !c!Mr. !c!Walston’s class. The students all look like they feel betrayed. You ask one of them why, and she says that everyone thought the class would be about oceanography (as Infinite Campus alleged), but the class is almost entirely about worms. One worm documentary after another. Another !c!Shtudent, decked out in Zeagle merch, explains how they are required to memorize 15 worm phyla before the test next week. He slides you some !d!DryeBux. 
@@ -967,6 +1000,11 @@ CafeLobby2: Continue down the !p!Lobby
 Cafe1: Enter the !p!Cafeteria
 Security: Enter the !p!Security !p!Room
 
+Security:
+You ignore the threatening hornet’s nest silhouette printing on the door and enter the security room. The !c!school !c!resource !c!officer welcomes you in with a warm greeting. On the wall, there is a giant array of monitors, showing live feeds from every nook and cranny of campus. If you studied the monitors, you may be able to get some information about the location of !d!DryeBux.
+CafeLobby1: Exit
+$hint: Get a DryeBux Hint
+
 Cafe1:
 It is quiet in the !p!cafeteria, for the bustling !p!cafeteria workers working hard to prepare the upcoming day's delicacies and packing up the breakfast. There are a small number of breakfast goers but they all seem to be heading out to their respective first blocks.
 Cafe2: Head to the other door where !c!Drye and friends sometimes hang out during lunch
@@ -976,9 +1014,17 @@ Cafelobby1: Exit the !p!cafeteria
 #LunchCounter: Try to get some last minute breakfast 
 
 LunchCounter:
-You go past the revolving gate and enter the line. There are no workers ready to serve you, but you ring the service bell enough times to attract their attention. You say you need breakfast and they are clearly aggravated that you wait until the last minutes till closing for your request. You see a ceiling high stack of the most delicious looking pancakes you have ever seen and a syrup river that would most likely prove itself unnecessary due to the pancakes’ intrinsic flavor. Unfortunately after about a minute of waiting they hand you a tray with a gritty grey pulp on it. The !p!cafeteria staff have decided to punish you for your greed.
+You go past the revolving gate and enter the line. There are no workers ready to serve you, but you ring the service bell enough times to attract their attention. You say you need breakfast and they are clearly aggravated that you wait until the last minutes till closing for your request. You see a ceiling high stack of the most delicious looking pancakes you have ever seen and a syrup river that would most likely prove itself unnecessary due to the pancakes’ intrinsic flavor. Unfortunately after about a minute of waiting they hand you a tray with a gritty grey pulp on it. The !c!cafeteria !c!staff have decided to punish you for your greed.
 LunchTable: Grab a seat and chow down 
 LunchSpite: Throw the food away while making eye contact with a !p!cafeteria staff member
+
+LunchTable:
+You sit down on one of the myriad of empty seats. While it takes you a few minutes to build up the confidence to put the slurry into your mouth, when you do, you are pleasantly surprised. As it turns out, this sludge is actually the precursor to the pancakes. The pancakes are just an organized arrangement of sludge puddles with some minor cosmetic adjustments. Yum!
+Cafe1: Continue
+
+LunchSpite:
+You stare directly at the worker who served you as you trash the plate of slop. You are now banned from the !p!Cafeteria. You will have to get your lunch at !p!Hawthorne’s for now on.
+Cafe1: Continue
 
 Cafe2: 
 You see sprawling tables and not much else. There are some students finishing up breakfast but none are in the mood for idle chatter and are all focused on finishing their food with enough time to get to first block.
@@ -998,7 +1044,7 @@ Patio2: Exit the !p!Cafeteria, and move outside
 
 Cafe4:
 You stand in the !p!cafeteria, next to a small set of microwaves. You wonder what kind of catastrophe must have occurred here for there to be so many warning signs explaining what is and is not allowed in the microwaves.
-Cafe3: Move along the Backwall to visit the !c!Giant !c!Eagle
+Cafe3: Move along the !p!Backwall to visit the !c!Giant !c!Eagle
 Cafe2: Move towards the tables in the front
 Cafe1: Move towards the divisive lunch lines
 
@@ -1040,6 +1086,11 @@ Patio1: Go down towards the hallway
 Patio3: Go up to the 2x2 block of tables
 Patio4: Go up to the edge of the patio towards Monroe
 
+Patio4:
+You stand near a small group of benches. You are very worried that you will lose your balance and fall down the hill towards !p!Monroe, but you comfort yourself in knowing that if this had ever happened before it would be all people talk about ever..
+Patio2: Go down to the exterior wall of the !p!cafeteria
+Patio3: Go down to the nearby block of tables on the other side
+
 CafeLobby3:
 You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.
 AuditoriumLobby: Enter the !p!Auditorium !p!Lobby through one of the million components of this large array of doors
@@ -1055,9 +1106,63 @@ Officeoutside: Enter the !p!Office !p!Lobby
 Oneh1: Walk to the !p!100
 Twoh2: Walk to the !p!200
 
+Twoh2:
+You are walking along the !p!Two! !p!Hundred. There is a four-way intersection on your side of the hall, and a less impressive three-way intersection on the far side. On the wall, there is a rogue’s gallery of the most senior East Meck Staff, complete with portraits and lists of weaknesses.
+Winiarski: Enter !c!Winiarski’s Room
+IBCoord: Enter the !c!IB !c!Coordinator’s !p!Room
+Fourway: Go to the big intersection
+Twoh1: Start the boring tread towards the less impressive one
+ParkerWeakness: Read !c!Parker’s Weakness
+
+ParkerWeakness:
+N/A
+Twoh2: Continue
+
+Twoh1:
+While you thought this section of the hall would be boring, you were quite wrong. Student artwork in all kinds of styles coats the walls. Your eyes can’t decide what to look at, and in the chaos, you bump into a student walking in the opposite direction to you. There is an intersection near you.
+Shields: Enter !c!Shield’s !p!Room
+Armstrong: Enter !c!Armstrong’s !p!Room
+Vincent: Enter !c!Vincent’s Room
+Threeway: Go to the intersection
+Twoh2: Continue down the hall
+
+Threeway:
+You are at an intersection of halls. The !p!Three !p!Hundred, main part of the !p!Two !p!Hundred, and path to !p!Student !p!Services are all available. There is also an external door leading towards the !p!400 !p!Split. The animated sign on the !p!Student !p!Services building greets you with a warm welcome.
+Threeh1: Go to the !p!Three !p!Hundred
+Twoh1: Go to the !p!Two !p!Hundred
+Twoh3: Go towards !p!Student !p!Services
+Splitoutside: Leave through the door
+
+Twoh3:
+You are in the small hall outside !p!Student !p!Services. There is a small table as well as an inconspicuous desk placed next to the wall, presumably to accommodate students waiting for their counselor, though the contents of the !p!student !p!services room itself makes this seem unlikely.
+Registrar: Enter the !c!Registrar’s !p!Room
+Nance: Enter !c!Nance’s !p!Room
+Threeway: Walk towards the !p!Three !p!Hundred.
+StudentServices: Enter !p!Student !p!Services
+
+StudentServices:
+You are behind an elaborate desk, that of the front receptionist for the !p!Student !p!Services !p!Department. To your right, there is a very neatly-arranged array of approximately 200 chairs. There are many students sitting down in these chairs, and they were considerate enough to have filled up the chairs in lexicographic order. Each student is holding a pink schedule slip, but one of them is holding a smaller, more yellow one.
+YellowSlip: Talk to the student with the yellow slip
+Counseling: Enter the !p!counselor !p!hallway
+Twoh3: Exit to the hall
+Courtyard1: Walk through the external door to the !p!Courtyard
+
+Counseling:
+The !p!counseling !p!hall is extremely cramped. The hall was small to start out with, but the situation is made several orders of magnitude worse by the rolling waves of desks placed along either side of the hall. When these waves constructively interfere, an extremely narrow passage is created.
+StudentServices: Go to the !p!Student !p!Services desk
+Tart: Enter your !s!counselor’s !s!office (your last name is in the range A-BRO)
+Ross: Enter your !s!counselor’s !s!office (your last name is in the range BRP-EL)
+Ibarra: Enter your !s!counselor’s !s!office (your last name is in the range EM-HARG)
+Johnson2: Enter your !s!counselor’s !s!office (your last name is in the range HARH-LEAC)
+Burgess: Enter your !s!counselor’s !s!office (your last name is in the range LEAD-MOL)
+Dimmick: Enter your !s!counselor’s !s!office (your last name is in the range MOM-RAI)
+Saucedo: Enter your !s!counselor’s !s!office (your last name is in the range RAJ-STAL)
+Johnson3: Enter your !s!counselor’s !s!office (your last name is in the range STAM-Z)
+
 Officeoutside:
 You stand at the front of the school. You see a caged cap and gown and a ranked list of the top Juniors from the previous year, all meant to encourage but they only make you bitter. There is still a steady stream of students going through the scanner. 
 Office: enter the !p!office 
+Fourway: Continue into the school halls
 Eighth1: enter the almost imperceptible door across from the !p!office
 
 Office:
@@ -1066,6 +1171,10 @@ OfficeTV: Watch the TV in the corner of the room
 Bauer: Enter !c!Bauer’s !p!Room
 Officehall: Enter the hallway further in
 Officeoutside: Leave the !p!Office
+
+Bauer:
+On !c!Ms. !c!Bauer’s wall there is a giant framed poster of the new nonlinear schedule that takes up almost the whole wall. There are sharpie annotations all over it, notes and arrows going everywhere.
+Office: Exit
 
 Officehall:
 You are swimming through the internal organs of East Meck. Offices are all around you, and administrators are passing by. You are repeatedly starstruck by the more and more famous faces walking through.
@@ -1146,15 +1255,15 @@ Tunnel3A: Sprint back in fear
 TunnelFar: Continue forward
 
 Eighth1:
-This hall feels dewier than the rest of the school. You hear the vague pounding of well-tempoed yet familiar songs coming from the !p!dance !p!room as well as a well-put-together patter song being sung from !p!The !p!Stage. There is an office of an !c!Exiled !c!Counselor here.
+This hall feels dewier than the rest of the school. You hear the vague pounding of well-tempoed yet familiar songs coming from the !p!dance !p!room as well as a well-put-together patter song being sung from !p!The !p!Stage. There is an office of an !c!Exiled !c!Social !c!Worker here.
 Dance: Enter the !p!Dance !p!Room 
 StageClassroom: Enter the !p!Stage !p!Classroom
-ExiledCounselor: Approach the !c!counselor’s door
+#ExiledCounselor: Approach the !c!social !c!worker’s door
 Officeoutside: Exit the !p!800
 Eighth2: Round the corner
 
 Dance:
-The ground is an interesting, springer and more rubbery. It is a sensation that gives you nothing but the urge to !s!dance. There is already a dazzling multipart one happening. You find your window and jump in but almost as soon as you do everyone stops and glares at you. Then a particularly bold !s!dance student finally says  “you need to take your shoes off.”
+The ground is an interesting, springy rubber surface. It is a sensation that gives you nothing but the urge to !s!dance. There is already a dazzling multipart one happening. You find your window and jump in but almost as soon as you do everyone stops and glares at you. Then a particularly bold !s!dance student finally says “you need to take your shoes off.”
 Dance2: Comply
 Eighth1: Just Leave
 
@@ -1163,9 +1272,17 @@ You take a minute to unlace your shoes and they all wait around for you. Once yo
 Eighth1: Crawl out
 
 ExiledCounselor:
-You put your ear up against the door and hear a vague whippering. Though you can’t make out every word, it seems to be that there is a counseling session happening, One in which a student is being advised about which APs would be easy or near impossible based on a split second glance at a transcript. It appears normal but after listening in for a while you realize that whenever it switches from counselor to student there is the brief sound of heavy breathing and running around a desk, you also realize that the students voice sounds alot like the counselors voice just pitched up.
+You put your ear up against the door and hear a vague whippering. Though you can’t make out every word, it seems to be that there is a counseling session happening, One in which a student is being advised how to approach joining one of the numerous 1st generation college groups and the pros and cons of each. It appears normal but after listening in for a while you realize that whenever it switches from counselor to student there is the brief sound of heavy breathing and running around a desk, you also realize that the students voice sounds a lot like the !c!Social !c!Worker’s voice just pitched up.
 Eighth1: Back away confused
 ExiledCounselor2: Listen in for more environmental storytelling
+
+ExiledCounselor2: 
+As you listen more an argument emerges between the !c!Social !c!Worker and the student. The pace of the conversion increases and the running increases. The person in the room begins panting and both of their characters are clearly winded until you hear a loud thud and the talking stops.
+Eighth1: Back away from the door
+
+Eighth2:
+You are in the even colder part of the 800. There are some bouige staff bathrooms as well as the entrances to offices of staff members you’ve never heard of. 
+AuditoriumLobby: Go into the !p!Au
 
 Oneh1:
 You stand in the (presumably oldest) !p!100 !p!building. The walls are chock-full of highly specialized rooms - offices purpose-built to deal with minor technical issues that come up at East Meck (health, attendance, etc.). You can hear faint screaming from inside the Nurse’s office. It might be your imagination but you also feel like you can smell the patient’s disease.
@@ -1192,10 +1309,15 @@ $dryebux: 3
 OrchBand:
 You stand in the center of the vast !s!Orchestra (but at other times !s!Band) !p!room. The floor is littered with cellos, each with their respective end-pin protruding dangerously. The sun bounces off the intricate matrix of trophies and blinds you temporarily.
 Middle3: Walk outside the exterior door.
-Orchcloset: Walk into the !c!orchestra !p!closet.
-Bandcloset: Walk into the !c!band !p!closet
-BandOff: Glimpse into the !c!band + !c!orchestra !p!office
+Orchcloset: Walk into the !s!orchestra !p!closet.
+Bandcloset: Walk into the !s!band !p!closet
+BandOff: Glimpse into the !s!band + !s!orchestra !p!office
 Sixh1: Leave into the !p!Six !p!Hundred !p!hall
+
+Orchcloset:
+As you walk into the !s!Orchestra !p!Closet, an avalanche of violin cases falls upon you. One of the cases cracks open, revealing a !d!DryeBuk stashed away inside.
+OrchBand: Exit the closet
+$dryebux: 3
 
 Bandcloset:
 You stare at the endless array of instruments, and are dazzled by the variety. You see a sticky note on the wall. On the sticky note text reads “1950”. It seems something about this number is integral to the operation of the band.
@@ -1250,8 +1372,8 @@ Zigzag1: Move south
 Splitoutside: Move north
 
 Splitoutside:
-You stand under a steel roof. The dingy !p!400 !p!split and the nonspecific !p!300 !p!building are available through the two directions parallel to the canopy. On the perpendicular side of things, the outdoor region enclosed by East’s buildings continues further.
-Threeway: Enter the !p!Three !p!Hundred
+You stand under a steel roof. The dingy !p!400 !p!split and the fascinating !p!200 !p!building are available through the two directions parallel to the canopy. On the perpendicular side of things, the outdoor region enclosed by East’s buildings continues further.
+Threeway: Enter the !p!Two !p!Hundred
 Split: Enter the !p!Split
 Zigzag2: Walk towards the !p!Student !p!Parking !p!Lot
 Center: Walk towards the !p!New !p!Buildings
@@ -1264,17 +1386,49 @@ Splitoutside: Go East, towards the !p!300
 Pointy: Go West, towards the !p!700 and the !p!Gym
 
 Center:
-You are at the dead center of East Meck, between the !p!300 and !p!Upper !p!400.
+You are at the dead center of East Meck, between the !p!300 and !p!Upper !p!400. A few external !p!400 !p!building !p!classrooms are available.
 Schedule: Check your schedule
+LeComte: Enter !c!LeComte’s !p!room
 Splitoutside: Go South towards the !p!600.
 Outsidestairs: Take the stairs towards the !p!Thousands
 Slope: Descend the gravel slope instead
+
+LeComte:
+You are in !c!LeCompte’s !s!environmental !s!science !p!room. There are piles of dirt everywhere, and various types of flowering plant are sprouting up from under the floor tiles. The students are also covered in dirt and playing with the mud and are learning about acid rain.
+Center: Exit to the outside
+FloorTile: Look under a floor tile that was pushed up by the plant
+
+FloorTile:
+Under the floor tile, you find an extremely muddy !d!DryeBuk. While it would probably not be accepted in its current state you figure it will be cleanable.
+LeComte: Continue
+$dryebux: 3
+
+Outsidestairs:
+You are on a set of covered external stairs that serve as an alternative to the sheer cliff-face. There are a few external !p!400 !p!building classrooms accessible here.
+Meegan: Enter !c!Meegan’s !p!Room.
+LaJoie: Enter !c!LaJoie’s !p!Room.
+Center: Go upstairs
+Center2: Go downstairs
+
+LaJoie:
+As you slip through the door to !c!Ms. !c!LaJoie’s !p!room, you are immediately disturbed by the lack of a framed teacher’s license on the wall. You leave before anything too unofficial happens.
+Outsidestairs: Continue
+
+Meegan:
+You are in !c!Mr. !c!Meegan’s !s!physical !s!science !p!room.  There are small solar panels dotteed about the room. Students are using them to do some kind of improvised welding project.
+Outsidestairs: Exit to the outside
 
 Slope:
 You stand on a particularly steep region of the East Meck Outdoors. As you brave the sheer cliff-face, you hear the whirring of the gigantic air conditioning unit beside you. Water is leaking onto the ground from some unidentifiable sub-apparatus. Bats are flying out of the red brick chimney.
 Center2: Go towards the classrooms of the future
 Center: Go towards the classrooms of yesteryear
+ThreehStairs2: Enter the !p!Three !p!Hundred
 ThreehStairs: Enter the mysterious stairs next to the AC Unit
+
+ThreehStairs2:
+You are in a strange, out-of-the way room containing a shallow stairwell. The room is very dark. There is an entrance to the !p!300 as well as an exit to the !p!Outside !p!World.
+Threeh2: Enter the !p!300
+Slope: Exit the building
 
 ThreehStairs:
 You are in a strange outdoor stairwell next to a large air conditioning unit. There is a blue door leading inside.
@@ -1329,9 +1483,114 @@ Center2: Turn back towards the !p!Hundreds
 
 Fivekstairs1A:
 You are on the !f!first !f!floor of the back stairwell of the !p!5000. If you want to go up the stairs, you will have to wait for a bit due to the group of freshmen currently clogging up the system.
-Fivekstairs2: Wait for a bit and then ascend
+Fivekstairs1B: Wait for a bit and then ascend
 Fivekback: Leave to the back of the building
 Fivek1A: Continue into the building
+
+FIvek1A:
+You are at the back end of the !f!first !f!floor of the !p!5000. The back stairs are available, and the beautiful odor of freshly cooked food is rising from the nearby !c!culinary !p!kitchen.
+CulinaryClass: Enter the !s!culinary !p!classroom
+Fivek2A: Follow the smell down the hall
+Fivekstairs1A: Enter the stairwell
+
+CulinaryClass:
+The !s!Culinary !p!Classroom is empty, as all of the students are hard at work in the !p!kitchen down the hall. All of the students’ chromebooks are open to notes on their desks, except for one which is open to a particularly high-scoring round of !e!The !e!Zeagle !e!Game.
+Fivek1A: Exit to the hall
+
+Fivek2A:
+You are in the middle of the !f!first !f!floor of the !p!5000. Your sinuses are filled with an incredible smell. The !c!chef !c!sculpture’s bright smile makes your day. 
+CulinaryKitchen: Enter the !s!Culinary !p!Kitchen.
+Fivek1A: Go towards the back of the building
+Fivek3A: Go towards the front
+
+CajunKitchen:
+!c!Chef !c!Morris is in the front of the kitchen lecturing about !e!Cajun !e!Cuisine. He is holding a triangular poster displaying the holy trinity of celery, bell peppers, and onions. The students are whipping up a delectable gumbo.
+#Gumbo: Take a Gumbo while the students aren’t looking.
+Fivek2A: Exit to the hall
+
+Gumbo:
+You grab one of the dishes and stuff it into your backpack. This is exactly what !c!Gearhart was looking for.
+&Gearhart&Gearhart2&CajunKitchen: Continue
+
+Fivek3A:
+You are at the front end of the !f!first !f!floor of the !p!5000. You see well-decorated generals entering and leaving through the offices around you, some holding delicious-looking pies. There are stairs and an elevator leading upwards.
+ROTC1: Enter the !s!ROTC !p!Room next to the elevator
+ROTC2: Enter the !s!ROTC !p!Room on the other side of the hall
+FivekElevatorA: Enter the elevator
+FivekStairs2A: Take the stairs
+Fivek2A: Continue along the hall
+
+FivekElevatorA:
+You are in the !p!5000 building elevator, on the !f!first !f!floor.
+FivekElevatorB: Go to !f!floor !f!2
+FivekElevatorC: Go to !f!floor !f!3
+Fivek3A: Exit the elevator
+PoolFail: Hit the button firmly one hundred times at a steady rate of six presses per second
+
+FivekElevatorB:
+You are in the !p!5000 building elevator, on the !f!second !f!floor.
+FivekElevatorA: Go to !f!floor !f!1
+FivekElevatorC: Go to !f!floor !f!3
+Fivek3B: Exit the elevator
+PoolFail: Hit the button firmly one hundred times at a steady rate of six presses per second
+
+FivekElevatorC:
+You are in the !p!5000 building elevator, on the !f!third !f!floor.
+FivekElevatorA: Go to !f!floor !f!1
+FivekElevatorB: Go to !f!floor !f!2
+Fivek3C: Exit the elevator
+Pool1: Hit the button firmly one hundred times at a steady rate of six presses per second
+
+PoolFail:
+You seem to have forgotten that the !p!5000 elevator is hard-wired to eject anyone attempting pool access from the !f!first !f!two !f!floors. The elevator shoots up extremely fast, and a hatch is opened at the top. You fly out, and land liquified in the !p!bus !p!lot.
+$reset: Try Again
+
+Pool1:
+The elevator emits a quick sequence of beeps, indicating that it is on the same page as you. You know the next step is to enter a phrase in morse code repeated several times.
+PoolFail2: Enter “I LOVE THE BEAGLE”
+Pool2: Enter “THE BEAGLE IS HOLDING ME HOSTAGE”
+PoolFail2: Enter “EAST MECK’S FINEST NEWS SOURCE”
+
+PoolFail2:
+The elevator emits a horrible buzz, and plummets to the ground. You hear the dialing of a three-digit phone number. The door refuses to open. You are trapped.
+$reset: Restart
+
+Pool2:
+The elevator begins a steady ascent. When it reaches the top, a beautiful bell melody plays. The beauty of the moment is squashed when the door opens and your ears and eyes are accosted by the core of East Meck Evil.
+Pool3: Continue
+
+Pool3:
+You are on the !p!roof of the !p!5000, near the !p!pool. The !p!pool is fizzing and popping, and a great darkness emanates from it, infesting the nearby air and roof. It seems the evil of the !p!pool has already claimed a vessel today: You see another !c!student standing on the roof holding a !d!101 !d!DryeBuk !d!Bill, presumably stolen from the !p!700.
+PoolExit: Exit the roof
+ConfrontThief: Confront the thief in an act of Vigilante Justice
+
+ConfrontThief:
+You walk up to the !c!student and ask them if they truly understand the severity of their offense. The !c!student seems unbothered: The !p!pool has clearly destroyed their mind.
+PoolPush: Push the student into the pool
+PoolExit: Leave this wretched place
+
+PoolPush:
+The student falls into the pool. When they hit the water, they vaporize before your eyes. The only thing left of them is the !d!DryeBuk that comes floating upwards. It seems Drye’s optimism is too powerful for the pool to corrupt.
+&Pool3&PoolEnd&PoolEnd: Continue
+
+PoolEnd:
+You are on the !p!roof of the !p!5000, near the !p!pool. The !p!pool is fizzing and popping, and a great darkness emanates from it, infesting the nearby air and roof. There is a !d!101 !d!DryeBuk !d!Bill on the !p!roof.
+PoolExit: Exit the roof
+$dryebux: 101
+
+PoolExit:
+You enter the elevator, and it brings you down to the !f!third !f!floor.
+FivekElevatorC: Continue
+
+ROTC1:
+You are in an !s!ROTC classroom that appears to be some kind of !p!strategy !p!room. Old generals with long moustaches and Pickelhaubes are sitting around a large circular table discussing the ongoing situation in the !p!cafeteria !p!lobby. There is a large portrait of !c!Kaiser !c!Wilhelm !c!II on the wall.
+Fivek3A: Exit to the hall
+
+Fivekstairs2A:
+You are on the !f!first !f!floor of the front stairwell of the !p!5000 !p!building. You feel an overwhelming sense of balance in this area.
+Fivekfront: Exit the building
+Fivekstairs2B: Go up the stairs
+Fivek3A: Continue into the hall
 
 Fivekstairs1B:
 You are on the !f!second !f!floor of the back stairwell of the !p!5000. As you gaze at the blue stairs infested with small grey impurities, you are extremely grateful for the decision to make the !p!4000 stairs look slightly different. This has saved you from long walks on many occasions when you have gone into the wrong building absent-mindedly.
@@ -1339,10 +1598,81 @@ Fivekstairs1A: Descend the stairs
 Fivekstairs1C: Ascend the stairs
 Fivek1B: Continue into the building
 
+Fivek1B:
+You are on the back end of the !f!second !f!floor of the !p!5000. The back staircase is accessible from here.
+Rodriguez: Enter !c!Rodriguez’s !p!Room
+Canon: Enter !c!Cañon’s !p!Room
+Cristiana: Enter !c!Cristiana’s !p!Room
+MasonGoins: Enter !c!Mason-Goins’s !p!Room
+Fivekstairs1B: Enter the stairs
+Fivek2B: Continue down the hall
+
+Rodriguez:
+You are in !c!Ms. !c!Rodriguez’s !s!Spanish !p!Room. The lecture has diverged from linguistics into a general discussion of Spanish-speaking nations. !c!Ms. !c!Rodriguez has brought in several !d!DryeBux as a relatable analogy for the now-defunct !e!Cuban !e!Convertible !e!Peso. Some of the !d!DryeBux were left near the door unguarded.
+Fivek1B: Exit to the hall
+$dryebux: 3
+
+Fivek2B:
+You are in the middle of the !f!second !f!floor of the !p!5000. The intense cultural exchange occurring in the hall warms your heart and lights your mind on fire.
+Chen: Enter !c!Chen’s !p!Room
+Vazquez: Enter !c!Vázquez’s !p!Room
+FivekData: Enter the !p!Data !p!Room
+Fivek1B: Go towards the back of the building
+Fivek3B: Go towards the front
+
+Chen:
+The students in the !s!Chinese room are learning how to differentiate between three words with identical pronunciations and almost indistinguishable uses. One !c!student, who appears to be the source for the bulk of Campus’s !d!Dryebuk !d!supply, hands you an extra.
+Fivek2B: Exit to the hall
+$dryebux: 3
+
+Fivek3B:
+You are on the front end of the !f!second !f!floor of the !p!5000. The front stairs and elevator are accessible from here.
+MsGrube: Enter !c!Grube’s !p!Room
+Silva: Enter !c!Silva’s !p!Room
+Beamer: Enter !c!Beamer’s !p!Room
+FivekElevatorB: Enter the elevator
+FivekStairs2B: Take the stairs
+Fivek2B: Continue along the hall
+
+Fivekstairs2B:
+You are on the !f!second !f!floor of the !p!5000’s !p!Front !p!Stairwell. The idea of going up ( in the direction of the !p!rooftop !p!pool ) scares you, but not enough to measurably hinder your movement.
+Fivekstairs2C: Bravely ascend
+Fivekstairs2A: Cowardously descend
+Fivek3B: Enter the hall
+
 Fivekstairs1C:
-You on the !f!third !f!floor of the back stairwell of the !p!5000. Up here, you can feel the negative energy from the rooftop pool quite clearly, drawing a sharp contrast with the near-perfection of the lower floors.
+You are on the !f!third !f!floor of the back stairwell of the !p!5000. Up here, you can feel the negative energy from the !p!rooftop !p!pool quite clearly, drawing a sharp contrast with the near-perfection of the lower floors.
 Fivekstairs1B: Descend the stairs back to safety
 Fivek1C: Enter the dubious hallway
+
+FIvek1C:
+You are on the back end of the !f!third !f!floor of the !p!5000 !p!building. You can tell from the misery inside the !s!business rooms that the !p!rooftop !p!pool is right above you. The back stairs are accessible.
+Business: Enter the !s!business !p!room
+Fivekstairs1C: Enter the stairs
+Fivek2C: Continue along the hall
+
+Fivek2C:
+You are in the middle of the !f!third !f!floor of the !p!5000 !p!building. The !c!Parkerisms on the wall offset the sadness induced by the !p!pool to some extent.
+Fivek1C: Go towards the back of the building
+Fivek3C: Go towards the front
+
+Fivek3C:
+You are in the front of the !f!third !f!floor of the !p!5000 !p!building. The weight of the unholy !p!pool water above you is crushing. There are stairs and an elevator here. The large window on the wall is completely coated with a thick, dark mat of cobwebs.
+Oates: Enter !c!Oates’s !p!Room
+Young: Enter !c!Young’s !p!Room
+Uglehus: Enter !c!Uglehus’s !p!Room
+FivekStairs2C: Enter the stairs
+FivekElevatorC: Use the elevator
+Fivek2C: Continue along the hall
+
+Oates:
+!c!Mr. !c!Oates immediately jumps into conversation with you. He explains that he really hates this hall, but that he isn’t allowed on the much nicer !f!lower !f!floors because the language he teaches is dead, and would thus suck the liveliness out of the other language classes surrounding him.
+Fivek3C: Exit to the hall
+
+Fivekstairs2C:
+You are on the !f!top !f!floor of the front staircase of the !p!5000. If you were misinformed enough to wish to visit the !p!rooftop !p!pool, you couldn’t even enter it this way. You’de have to take the elevator.
+Fivekstairs2B: Descend the stairs
+Fivek3C: Enter the hall
 
 Fivekside1:
 You are at the Grimier side of the !p!Five !p!Thousand. The ground is at a 45 degree angle, and there is a staircase upon the incline to compensate.
@@ -1350,6 +1680,53 @@ Center2: Go towards the back of the building
 Threeh3: Enter the !p!Three !p!Hundred
 Trap1: Enter a grassy region that will certainly lead through to the other side of campus
 Fivekside2: Go towards the !p!Bus !p!Lot
+
+Threeh3:
+You are at the end of the !p!Three !p!Hundred, the furthest extent of the tentacles of the !p!Old !p!Building. Looking one way, you see a door leading to the outside of the !p!5000. Looking the other way, you see nothing but unfamiliar faces and subject-ambiguous classrooms.
+Roberts2: Enter !c!Roberts's !p!Room
+Cohen: Enter !c!Cohen's !p!Room
+Costas: Enter !c!Costas's !p!Room
+Cochran: Enter !c!Cochran's !p!Room
+Fivekside1: Exit to the outside
+Threeh2: Continue down the hall
+
+Threeh2:
+You are in the middle of the unfamiliar !p!300 !p!hall. !c!Mr. !c!Zurhellen has evidently been banished to here.
+Zurhellen: Enter !c!Zurhellen’s !p!Room
+Speizman: Enter !c!Speizman’s !p!Room
+Feldstein: Enter !c!Feldstein’s !p!Room
+Durante: Enter !c!Darante’s !p!Room
+Threeh3: Walk towards the !p!5000
+Threeh1: Walk towards !p!Student !p!Services
+
+Zurhellen:
+!c!Mr. !c!Zurhellen is pacing around anxiously, and chewing his gum at a faster rate than usual. You are worried that he is moving too fast for the pencil behind his ear to stay put, and this puts you on edge too.
+AskZurhellen: Ask what’s up
+Threeh2: Exit into the hall
+
+AskZurhellen:
+!c!Zurhellen explains that he is paranoid about !c!Mr. !c!Majak stealing his !e!teaching !e!style. He says that he used to be right next to !c!Majak on the !p!4300 !p!hall, but moved here to avoid this. Now, he says, !c!Majak has bought a telescope to eavesdrop on him.
+AskZurhellen2: Continue
+
+AskZurhellen2:
+!c!Zurhellen says that he will pay !d!Eleven !d!DryeBux to anyone who can destroy !c!Mr. !c!Majak’s telescope, freeing him from constant surveillance.
+&Telescope&Telescope2&Zurhellen: Continue
+
+Zurhellen2:
+!c!Mr. !c!Zurhellen is infinitely grateful for your destruction of !c!Majak’s telescope. His gum-chewing has slowed down to a more typical pace. He hands you the promised !d!Eleven !d!DryeBux.
+$dryebux: 11
+
+Threeh1:
+You are in the !p!Three !p!Hundred, near an intersection. The !p!tech !p!depot that students once flocked to as a safe haven free from bugs and glitches can no longer accommodate the raving masses, as !c!Mr. !c!Henley has been displaced from his original location by a space-hungry marketing teacher, and is now forced to reside in a small closet.
+TechDepot: Enter the miniscule !p!Tech !p!Depot
+Woindrich: Enter !c!Woindrich’s !p!Room
+Johnson: Enter !c!Johnson’s !p!Room
+Threeway: Walk to the intersection
+Threeh2: Walk deeper into the !p!300
+
+TechDepot:
+You see !c!Mr. !c!Henley shoved in a tiny closet filled with Chromebooks in various states of health. You have to duck under a rack of broken chargers in order to fit in the room. This room is fit for no coordinator.
+Threeh1: Exit before you get too sad
 
 Fivekside2:
 You are on a flat concrete plane that wraps around the South-East Corner of the !p!Five !p!Thousand.
@@ -1392,7 +1769,7 @@ Fnf1: Go downstairs
 Fnf2: Go upstairs
 
 Fnf2:
-You stand in East Meck’s most peaceful hallway, now decorated with Parker memorabilia in addition to the older symbols of unity.
+You stand in East Meck’s most peaceful hallway, now decorated with !c!Parker memorabilia in addition to the older symbols of unity.
 Gardening: Enter the !s!Gardening !p!classroom
 Meditation: Enter the !s!Meditation !p!classroom
 Scissorless: Enter the !s!Scissorless !s!Crafts !p!room
@@ -1430,8 +1807,50 @@ Fnf3: Escape via the !p!495000
 
 Fourkstairs1A:
 You are on the !f!first !f!floor of the !p!4000 back stairwell. You can feel what you would interpret as wind if you weren’t painfully aware of the giant booming fans down the hall.
+Fourkback: Exit the building
 Fourkstairs1B: Go up the metallic stairs
 Fourk1A: Enter the hall
+
+Fourk1A:
+You are on the !f!first !f!floor of the !p!4000, towards the back stairwell. Peering into the classrooms, you are at once delighted and flummoxed by the novelty clocks rejecting simple numerals in favor of complex mathematical expressions. Your delightment fades when the whirring of the giant fans is turned up a notch.
+Koppe: Enter !c!Koppe's !p!Room
+Bennett: Enter !c!Bennett's !p!Room
+Forney: Enter !c!Forney's !p!Room
+Fourkstairs1A: Enter the stairs
+Fourk2A: Continue down the hall
+
+Fourk2A:
+You are in the middle of the !f!first !f!floor of the !p!4000. There are gigantic fans on the ceiling that are turned up to the max. Walking towards the middle of the hall is very physically difficult, as the fans are constantly working to push you away.
+Biwota: Enter !c!Biwota's !p!Room
+Fletcher: Enter !c!Fletcher's !p!Room
+Boone: Enter !c!Boone's !p!Room
+Fourk1A: Walk towards the back of the building
+Fourk3A: Walk towards the front
+
+Fourk3A:
+You are on the front end of the !f!first !f!floor of the !p!4000. Giant fans are whirring down the hall, but a nearby elevator or set of stairs could provide an escape from the whirring.
+Barbey: Enter !c!Barbey's !p!Room
+Freiberg: Enter !c!Freiberg's !p!Room
+Sawyer: Enter !c!Sawyer's !p!Room
+Fourkstairs2A: Enter the stairs
+FourkElevator: Enter the elevator
+Fourk2A: Walk to the fans
+
+Fourkstairs2A:
+You are on the !f!first !f!floor of the front !p!4000 stairs. The artificial feeling of the building is making it hard to maintain your focus. You wonder why the stairwell is so empty compared to the bustling nature of the floors within.
+Fourkstairs2B: Go up the stairs
+Fourk3A: Enter the hall
+&Fourkstairs2A&Fourkstairs3A&Fourkfront: Exit the building
+
+Fourkstairs3A:
+You are on the !f!first !f!floor of the front !p!4000 stairs. The artificial feeling of the building is making it hard to maintain your focus. The stairwell is completely empty.
+&Fourkstairs2C&Fourkstairs3C&Fourkstairs3B: Go up the stairs
+&Fourkstairs2C&Fourkstairs3C&Fourk3A: Enter the hall
+&Fourkstairs2C&Fourkstairs3C&Fourkfront: Exit the building
+
+Fourkfront:
+You now see why the stairwell was so empty. The front entrance to the building is completely blocked by the large fence that surrounds the building. You will have to go through the !p!495000 on the other side to get through.
+&Fourkstairs2B&Fourkstairs3B&Fourkstairs3A: Continue
 
 Fourkstairs1B:
 You are on the !f!second !f!floor of the !p!4000 back stairwell. The painful odor of rubbing alcohol burns your sinuses, and cuts through your focus the way Drye cuts through pessimism.
@@ -1439,7 +1858,110 @@ Fourkstairs1C: Go up the stairs
 Fourkstairs1A: Do down the stairs
 Fourk1B: Enter the hall
 
+Fourk1B:
+You are on the back end of the !f!second !f!floor of the !p!4000. All of the classrooms are boarded up with large planks of wood except that of !c!Ms. !c!Halbison. The stairs are accessible from here. You are the only student in the hall, and it is dead silent.
+Halbison: Enter !c!Ms. !c!Halbison’s !p!Room
+Fourkstairs1B: Enter the stairs
+Fourk2B: Continue down the hall
+
+Halbison:
+You are in !c!Ms. !c!Halbison’s room. There is a poster on the wall including several repetitions of the phrase “UNC Chapel Hill” and the name !c!“Lucas” dotted around. On the back of the poster, there is a !d!DryeBuk that has been stashed away. The class is completely empty.
+Fourk1B: Exit the hall
+$dryebux: 3
+
+Fourk2B:
+You are in the middle of a long metallic hall, specifically the !f!second !f!floor of the !p!4000. There are several classrooms here but they are all boarded up with large wooden planks. On some of the planks, messages such as “gone fishing” have been engraved and/or written in sharpie. You are the only student in the hall, and it is dead silent.
+Fourk1B: Go towards the back of the building
+Fourk3B: Go towards the front
+
+Fourk3B:
+You are on the front end of the !f!second !f!floor of the !p!4000. The walls, floor, and ceiling are all made of a reflective metal. You see yourself in the reflection and shudder. The elevator is accessible through here, as well as the front stairwell. You are the only student in the hall, and it is dead silent.
+FourkElevator: Enter the elevator
+Fourkstairs2B: Take the stairs
+Fourk2B: Continue down the hall
+
+Fourkstairs2B:
+You are on the !f!second !f!floor of the front !p!4000 stairs. You feel the antiseptic qualities of the sterilized slabs of concrete that they call “stairs”. You wonder why the stairwell is completely empty, in sharp contrast to the halls above and below you.
+Fourkstairs2A: Descend the stairs
+Fourkstairs2C: Ascend the stairs
+Fourk3B: Enter the building
+
+Fourkstairs3B:
+You are on the !f!second !f!floor of the front !p!4000 stairs. You feel the antiseptic qualities of the sterilized slabs of concrete that they call “stairs”. The stairwell is completely empty.
+Fourkstairs2A: Descend the stairs
+Fourkstairs2C: Ascend the stairs
+Fourk3B: Enter the building
+
 Fourkstairs1C:
-You are on the !f!third !f!floor of the !p!4000 back stairwell. There is a long line at the small hand-washing station that the top of the stairs is equipped with.
+You are on the !f!third !f!floor of the !p!4000 back stairwell. There is a long line at the small hand-washing station that the top of the stairs is equipped with. The sterilizing ultraviolet lights around the room are giving you a migraine.
 Fourkstairs1B: Go down the stairs
 Fourk1C: Enter the hall
+
+Fourk1C:
+You are on the back side of the !f!third !f!floor of the !p!4000. The hall is fairly busy, and the crowd of students is constantly required to reorganize itself to allow room for the janitor who is spreading a soapy cleaning substance all over the pristine floor. The back stairs are accessible from here.
+Fourkstairs1C: Enter the stairs
+Fourk2C: Continue down the hall
+
+Fourk2C:
+You are in the middle of the !f!third !f!floor of the !p!4000. The floor is very shiny, and the ceiling feels so thin that it is in danger of ripping open, but you know the steel supports would never allow for such an unsanitary breach of this hermetically sealed floor. Students are coming in droves from the back staircase and filling up all of the rooms.
+Laing: Enter !c!Laing’s !p!Room
+Folk: Enter !c!Folk’s !p!Room
+Majak: Enter !c!Majak’s !p!Room
+Sanders: Enter !c!Sanders’s !p!Room
+Fourk1C: Go towards the back of the building
+Fourk3C: Go towards the front
+
+Majak:
+You are in !c!Mr. !c!Majak’s room. !c!Majak is looking through a telescope that he has pointed out of his window towards !c!Mr. !c!Zurhellen’s room in the !p!300. He has a notebook and is frantically jotting down notes, mumbling “right that down, right that down”.
+#Telescope: Ask to use the telescope
+Fourk2C: Exit to the hall
+
+Telescope:
+You ask !c!Majak to borrow his telescope. He says yes but that you need to return it quickly so he doesn’t miss anything important.
+TelescopeRoof: Look at the !p!roof of the !p!five !p!thousand
+TelescopeParking: Look at the !p!Staff !p!Parking !p!Lot.
+
+Telescope2:
+You ask !c!Majak to borrow his telescope. He says yes but that you need to return it quickly so he doesn’t miss anything important.
+TelescopeRoof: Look at the !p!roof of the !p!five !p!thousand
+TelescopeParking: Look at the !p!Staff !p!Parking !p!Lot.
+&Zurhellen&Zurhellen2&TelescopeSmash: Smash the telescope on the ground
+
+TelescopeSmash:
+You throw the telescope on to the floor, destroying it immediately. !c!Majak is furious that his plot has been foiled. You have been permanently banned from this room.
+&Majak&Ban&Fourk2C: Continue
+
+TelescopeRoof:
+You point the telescope at the !p!5000 !p!rooftop. While the !p!pool is invisible from this angle, you know it is there. Next to where the !p!pool should be, you see a !c!deranged !c!student holding a small !d!rainbow-colored !d!strip.
+Majak: Continue
+
+TelescopeParking:
+You point the telescope at the corner of the !p!staff !p!parking !p!lot. You see a !c!shifty-looking !c!teacher leaning on an activity bus. The !c!teacher is also fairly spectral in appearance and may or may not be a ghost.
+Majak: Continue
+
+Fourk3C:
+You are at the front end of the !f!third !f!floor of the !p!4000. You stop and think about how far you’ve come. Before you get too nostalgic, you remember you still need to get to !p!first !p!block. Stairs and an elevator are accessible here. This side of the hall is less busy than the back.
+Baldwin: Enter !c!Baldwin’s !p!Room
+Kinney: Enter !c!Kinney’s !p!Room
+FourkElevator: Enter the elevator
+Fourkstairs2C: Enter the stairs
+Fourk2C: Continue down the hall
+
+Kinney:
+This is your !e!First !e!Block. If you enter now, you will have no time to explore more before class starts.
+Fourk3C: Keep exploring
+$end: Seat yourself in !e!First !e!Block
+
+Fourkstairs2C:
+You are on the !f!third !f!floor of the front !p!4000 stairs. You wonder why the stairwell is completely empty, in sharp contrast to the hall in front of you.
+Fourkstairs2B: Descend the stairs
+Fourk3C: Enter the building
+
+Fourkstairs3C:
+You are on the !f!third !f!floor of the front !p!4000 stairs. The stairwell is completely empty due to the lack of a usable entrance on this side.
+Fourkstairs3B: Descend the stairs
+Fourk3C: Enter the building
+
+FourkElevator:
+Unfortunately the elevator door is locked. You have heard rumors however that the !p!5000 elevator is usually kept unlocked.
+$back: Continue
