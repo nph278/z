@@ -22,7 +22,6 @@
 // "[n] unique regions". Repeatedly use that number "[n] ... Xthings"
 // "[m] action-packed hours of content"
 // Splitscreen of many rooms for trailer
-// Wait for someone to open the door at 4k since you are so late at that point
 // People switching the 400 rooms from earth science to health and vice versa repeatedly
 // Extensive Playtest
 // Look through all previous articles
@@ -32,7 +31,6 @@
 // Chemical Storage Room
 // Testing coordinator room
 // Teacher lounges
-// Game ends when you get to 1st block
 // Instructions/Description
 // Checking your schedule is like savepoints
 // Detect softlocks
@@ -40,17 +38,15 @@
 // God is more powerful?
 // Tape ends with the tape being split across the timelines.
 // Zdshr is a cycle like east meck is a cycle;;; Cycle = meckroller
-// Look through guidlines doc section.
+// Look through eastmeckzeagle.tech doc
 // Dialogue text effect
 // Price: Sliwa and Cheney
 // Better opening line
 // Copier?: Link to crossword pdfs
 // Fourkstairs2: Wonder why so empty. Its becase the exit runs straight into the fence and so is useless.
-// Pool
 // More dryebux
 // Vision in patio blocked by 900
 // 900
-// Elevators
 // Someone pays you off to stay silent about what they are doing
 // Trailer areas super sandy
 // Sports fields
@@ -3450,7 +3446,7 @@ const roomSpecs = [
         id: "majak",
         desc: "You are in !c!Mr. !c!Majak’s room. !c!Majak is looking through a telescope that he has pointed out of his window towards !c!Mr. !c!Zurhellen’s room in the !p!300. He has a notebook and is frantically jotting down notes, mumbling “right that down, right that down”.",
         options: [
-            ["telescope", "Ask to use the telescope", true],
+            ["telescope", "Ask to use the telescope"],
             ["fourk2c", "Exit to the hall"],
         ],
     },
