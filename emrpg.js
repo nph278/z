@@ -24,7 +24,6 @@
 // Splitscreen of many rooms for trailer
 // People switching the 400 rooms from earth science to health and vice versa repeatedly
 // Extensive Playtest
-// Look through all previous articles
 // Show game to incoming freshman as practice for the real Meck
 // No standing zones
 // First quarter next year, in a ypotetical world wher East Meck wasn't destroyed
@@ -33,7 +32,6 @@
 // Teacher lounges
 // Instructions/Description
 // Checking your schedule is like savepoints
-// Detect softlocks
 // Timeline split like tape was split like 400 building was split.
 // God is more powerful?
 // Tape ends with the tape being split across the timelines.
@@ -52,6 +50,10 @@
 // Sports fields
 // Someone stole the poster's 101 dryebuk
 // Balancing for the ending reactions
+// More hint areas
+// Maze
+// Reclining 26 meeting / leader
+// Mystery Trailers
 
 "use strict";
 
@@ -301,6 +303,7 @@ class Action {
         } else if (type === "hint") {
         } else if (type === "reset") {
         } else if (type === "end") {
+        } else if (type === "mysterytrailer") {
         } else if (type === "back") {
         } else {
             alert("Bad action type: "+ type);
@@ -371,6 +374,12 @@ class Game {
             this.rooms[r.id] = r;
         });
 
+        this.mysteryTrailers = [];
+        trailerSpects.forEach(spec => {
+            const r = new Room(spec);
+            this.mysteryTrailers.push(r);
+        });
+
         this.items = [];
         this.enterRoomId("start");
         this.dryebux = 0;
@@ -409,8 +418,8 @@ class Game {
             goal = "!g!Deliver !g!the !g!Sludge";
         } else if (this.room.id.slice(0, 8) === "busdrive") {
             goal = "!g!Recruit !g!students";
-        } else if (["tunnel4", "dodgeleft", "dodgeright", "jump", "duck"].includes(this.room.id)) {
-            goal = "!g!Defeat !g!Parker";
+        } else if (["confrontthief", "poolpush"].includes(this.room.id)) {
+            goal = "!g!Administer !g!Justice";
         } else {
             goal = "!g!Get !g!to !g!First !g!Block";
         }
@@ -495,6 +504,8 @@ class Game {
             game = new Game();
         } else if (a.type === "back") {
             this.enterRoom(this.backRoom);
+        } else if (a.type === "mysterytrailer") {
+            this.enterRoom(this.mysteryTrailers[Math.floor(Math.random() * this.mysteryTrailers.length)]);
         } else if (a.type === "end") {
             let reaction;
             if (this.dryebux === 0) {
@@ -528,6 +539,9 @@ class Game {
         }
     }
 }
+
+const trailerSpecs = [
+];
 
 const roomSpecs = [
     {
