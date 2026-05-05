@@ -27,31 +27,33 @@ for para in paras:
                 extras.append([re.sub(r'\s+$', "", l)[1:], "true"])
         else:
             onetime = False
-            replace = False
-            replace2 = False
+            replaces = False
             if l[0] == "#":
                 onetime = True
                 l = l[1:]
-            elif l[0] == "^":
+            while l[0] == "^":
+                if replaces == False:
+                    replaces = []
                 l = l[1:]
                 q = l.split("^")
-                replace = [q[0].lower(), q[1].lower(), q[2].lower()]
-                l = q[3]
-            elif l[0] == "&":
+                replaces.append([q[0].lower(), q[1].lower(), q[2].lower()])
+                l = "^".join(q[3:])
+            while l[0] == "&":
+                if replaces == False:
+                    replaces = []
                 l = l[1:]
                 q = l.split("&")
-                replace2 = [q[0].lower(), q[1].lower()]
-                l = q[2]
+                replaces.append([q[0].lower(), q[1].lower()])
+                l = "&".join(q[2:])
             oid = l.split(" ")[0][:-1].lower()
             odesc = re.sub(r'([^\.])\.?\s*$', r'\1', l[len(oid)+2:])
             odesc = odesc[0].upper() + odesc[1:]
-            references.append(oid)
+            if not (oid in references):
+                references.append(oid)
             if onetime:
                 print("[\"" + oid + "\", \"" + odesc + "\", true],")
-            elif replace:
-                print("['" + oid + "', '" + odesc + "', ['" + replace[0] + "', '" + replace[1] + "', '" + replace[2] + "']],")
-            elif replace2:
-                print("['" + oid + "', '" + odesc + "', ['" + replace2[0] + "', '" + replace2[1] + "']],")
+            elif replaces != False:
+                print("['" + oid + "', '" + odesc + "', " + ",".join(["[" + ",".join(["'" + s + "'" for s in l]) + "]" for l in replaces]) + "],")
             else:
                 print("[\"" + oid + "\", \"" + odesc + "\"],")
     print("],")
