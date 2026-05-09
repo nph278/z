@@ -8,7 +8,6 @@
 // Music
 // Sfx - Room enter, Dryebux get, Reset, End
 // More grime
-// Grime meter
 // Worthiness meter
 // "The most heartwrenching East Meck story to date"
 // "Interactive Story"
@@ -32,7 +31,7 @@
 // Sports fields. Football - Dodge the marching band by guessing what they're spelling
 // Balancing for the ending reactions
 // Finish 800 connections
-// 5300, business
+// Gym
 
 "use strict";
 
@@ -53,6 +52,7 @@ const circleRR = 0.1;
 const parityOffset = 0.1;
 const keys = "1234567890abcdefghijklmnopqrstuvwxyz";
 let f = .85;
+const grimeWidth = 100;
 
 const openInNewTab = (href) => {
   Object.assign(document.createElement('a'), {
@@ -165,11 +165,32 @@ class TextStyle {
             this.addFontStyle("bold");
             this.fontSize *= 1.1;
             break;
+        case "4":
+            // Grime
+            this.fontFamily = "Alegraya Sans, sans-serif";
+            this.color = "grey";
+            this.addFontStyle("bold");
+            this.fontSize *= 1.1;
+            break;
+        case "5":
+            // Sand
+            this.fontFamily = "Alegraya Sans, sans-serif";
+            this.color = "yellow";
+            this.addFontStyle("bold");
+            this.fontSize *= 1.1;
+            break;
         case "f":
             // Floor
             this.fontFamily = "Alegraya Sans, sans-serif";
             this.color = "magenta";
             this.fontSize *= 0.8;
+            break;
+        case "r":
+            // Rank
+            this.fontFamily = "Alegraya Sans, sans-serif";
+            this.color = "gold";
+            this.addFontStyle("bold");
+            this.fontSize *= 1.1;
             break;
         case "g":
             // Goal
@@ -400,6 +421,7 @@ class Game {
     constructor(metaLevel) {
         this.metaLevel = metaLevel;
         this.reset()
+        this.grime = new Array(grimeWidth).fill(0);
     }
 
     enterRoom(r) {
@@ -426,6 +448,47 @@ class Game {
     draw(ctx, startX, startY, startW, startH) {
         ctx.clearRect(startX, startY, startW, startH);
 
+        let grimeOffset = 0;
+        let sand = false;
+        if (this.room.id.slice(0, 5) === "fourk") {
+            grimeOffset = -.3;
+        } else if (this.room.id.slice(0, 6) === "sludge") {
+            grimeOffset = .5;
+        } else if (this.room.id.slice(0, 7) === "trailer") {
+            grimeOffset = .2;
+            sand = true;
+        } else if (this.room.id.slice(0, 5) === "under") {
+            grimeOffset = .2;
+        } else if (this.room.id.slice(0, 4) === "sixh") {
+            grimeOffset = .2;
+        }
+
+        if (this.room.id.slice(0, 4) === "rank") {
+            this.grime.push(this.grime[grimeWidth - 1]);
+        } else {
+            this.grime.push(this.grime[grimeWidth - 1] + (Math.random() - .5 + grimeOffset));
+        }
+        this.grime.shift();
+
+        const minGrime = Math.min(...this.grime);
+        const maxGrime = Math.max(...this.grime);
+        const grimeW = startW * .2;
+        const grimeH = startH * .2;
+        const grimeX = startX + startW - grimeW;
+        const grimeY = startY + startH - grimeH - 2 * lineHeight;
+
+        ctx.strokeStyle = sand ? "yellow" : "white";
+        ctx.beginPath();
+        ctx.moveTo(grimeX, grimeY + grimeH - (this.grime[0] - minGrime) * grimeH / (maxGrime - minGrime));
+        this.grime.forEach((n, i) => {
+            ctx.lineTo(grimeX + i * grimeW / grimeWidth, grimeY + grimeH - (n - minGrime) * grimeH / (maxGrime - minGrime));
+        });
+        ctx.stroke();
+
+        const grimePos = new TextPosition(grimeX, grimeY - lineHeight, 10000, 10000);
+        const grimeSeg = new TextSegment(sand ? "!5!SAND:" : "!4!GRIME:");
+        grimeSeg.draw(ctx, grimePos);
+
         this.room.draw(ctx, this.elapsedTime, startX, startY, startW, startH);
 
         let goal;
@@ -439,6 +502,8 @@ class Game {
                 goal = "!g!Recruit !g!students";
             } else if (["confrontthief", "poolpush"].includes(this.room.id)) {
                 goal = "!g!Administer !g!Justice";
+            } else if (this.room.id.slice(0, 4) === "rank") {
+                goal = "!g!The !g!End";
             } else {
                 goal = "!g!Get !g!to !g!First !g!Block";
             }
@@ -449,6 +514,7 @@ class Game {
         const idPos = new TextPosition(startX + spaceSize, startY + startH - 2 * lineHeight, width, height, true);
         const idLine = new Line(goal + (" !id!" + this.room.id).repeat(10));
         idLine.draw(ctx, idPos);
+
 
         if (this.dryebux > 0) {
             const dryebuxPos = new TextPosition(startX + spaceSize, startY + startH - 3 * lineHeight, width, height);
@@ -486,10 +552,10 @@ class Game {
         }
 
         if (this.eyeOn) {
-            ctx.drawImage(imageEye, 0, 0, width, height);
+            ctx.drawImage(imageEye, startX, startY, startW, startH);
             ctx.fillStyle = "white";
             ctx.font = "100px bold Libertinus Serif, times, serif";
-            ctx.fillText("CLICK2VIEW", 0, 100);
+            ctx.fillText("CLICK2VIEW", startX, startY + 100);
         }
     }
 
@@ -568,26 +634,17 @@ class Game {
         } else if (a.type === "normal") {
             this.eyeOn = "./emrpg/crossword_normal.pdf";
         } else if (a.type === "end") {
-            let reaction;
             if (this.dryebux === 0) {
-                reaction = "Your classmates can't stop laughing at how pathetic you are. !c!Ms. !c!Kinney chuckles with them. You have failed East Meck.";
-            } else if (this.dryebux < 14) {
-                reaction = "Your classmates aren't impressed but only make fun of you a little bit. They know you can do better.";
-            } else if (this.dryebux < 30) {
-                reaction = "Your classmates are impressed, but you know you can do even better.";
-            } else if (this.dryebux < 100) {
-                reaction = "Your classmates are quite impressed. It is still possible to do better.";
-            } else if (this.dryebux < 200) {
-                reaction = "Your classmates are extremely impressed. !c!Ms. !c!Kinney congratulates you on your achievement.";
+                this.enterRoomId("RankD");
+            } else if (this.dryebux < 15) {
+                this.enterRoomId("RankC");
+            } else if (this.dryebux < 40) {
+                this.enterRoomId("RankB");
+            } else if (this.dryebux < 150) {
+                this.enterRoomId("RankA");
             } else {
-                reaction = "You are rich. Your classmates overthrow !c!Ms. !c!Kinney and accept you as their new leader. You have won East Meck.";
+                this.enterRoomId("RankS");
             }
-            this.enterRoom(new Room({
-                id: "end",
-                desc: "THE END. You arrived to !p!first !p!block with !d!" + this.dryebux + " !d!DryeBux. " + reaction,
-                options: [],
-                reset: "Play Again"
-            }));
         }
     }
 
@@ -610,7 +667,14 @@ class Game {
     }
 
     handleClick() {
-        if (this.eyeOn) {
+        if (this.subgame !== null) {
+            if (this.subgame.eyeOn) {
+                this.subgame = null;
+                this.enterRoomId("gamequit2")
+            } else {
+                this.subgame.handleClick();
+            }
+        } else if (this.eyeOn) {
             openInNewTab(this.eyeOn);
             this.eyeOn = false;
         }
@@ -656,6 +720,48 @@ const trailerSpecs = [
 
 const roomSpecs = [
 {
+id: "rankf",
+desc: "THE END. Rank: !r!F. You have failed to make it to first block.",
+options: [
+],
+reset: "Try the day again",
+},
+{
+id: "rankd",
+desc: "THE END. Rank: !r!D. You haven’t a single !d!DryeBuk. Your classmates can't stop laughing at how pathetic you are. !c!Ms. !c!Kinney chuckles with them. You have failed East Meck.",
+options: [
+],
+reset: "Try the day again",
+},
+{
+id: "rankc",
+desc: "THE END. Rank: !r!C. You managed to gather a few !d!DryeBux. Your classmates aren't impressed but only make fun of you a little bit. They know you can do better.",
+options: [
+],
+reset: "Try the day again",
+},
+{
+id: "rankb",
+desc: "THE END. Rank: !r!B. You have a fairly large collection of !d!DryeBux. Your classmates are quite impressed. It is still possible to do better.",
+options: [
+],
+reset: "Try the day again",
+},
+{
+id: "ranka",
+desc: "THE END. Rank: !r!A. You have accrued a massive pile of !d!DryeBux. Your classmates are extremely impressed, but you can do even better.",
+options: [
+],
+reset: "Try the day again",
+},
+{
+id: "ranks",
+desc: "THE END. Rank: !r!S. You are rich. Your classmates overthrow !c!Ms. !c!Kinney and accept you as their new leader. You have won East Meck.",
+options: [
+],
+reset: "Try the day again",
+},
+{
 id: "start",
 desc: "Another !e!day, another !e!Meck. (Use the number keys to make choices. You will fail if you do not read all text carefully.)",
 options: [
@@ -674,8 +780,8 @@ options: [
 id: "leisure",
 desc: "You take your sweet time getting ready. By the time you leave the house, it’s already !t!7:15. Failure.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start from the beginning of time",
 },
 {
 id: "intro2",
@@ -1015,6 +1121,8 @@ options: [
 id: "wrestling",
 desc: "You are in the dingy !s!Wrestling !p!Room. There is one dim, flickering light on the ceiling. You see a group of students in some kind of committee. They are sitting around a large table and are discussing what new rules and regulations to implement for this year’s upcoming Cookout Fight Night season. They offer you !d!a !d!bribe to keep silent about the operation.",
 options: [
+["gym", "Enter the !p!Gym"],
+["gymlobby", "Go to the !p!Gym !p!Lobby"],
 ["sevenhgym", "Exit to the outside"],
 ],
 dryebux: 7,
@@ -1023,14 +1131,14 @@ dryebux: 7,
 id: "foursevenpath",
 desc: "You walk down an excessively long straightaway of the East Meck circuit. You admire the plants in variously-shaped pots that are displayed in the Earth Science windows along the West side of the !p!Upper !p!Four !p!Hundred.",
 options: [
-["concreterectangle", "Visit the elusive !p!Concrete !p!Rectangle in the corner of the !p!700"],
+["concreterectangle", "Visit the elusive !p!Brick !p!Rectangle in the corner of the !p!700"],
 ["middle2", "Walk towards the !p!Student !p!Parking !p!Lot"],
 ["pointy", "Walk towards the !p!400 !p!Split"],
 ],
 },
 {
 id: "concreterectangle",
-desc: "You stand on one of the more bizarre regions of the East Meck Outdoors: A large concrete rectangle, engraved with Meck symbolics and decorated with two by three array of benches. You have heard rumors of this artifact resulting from some “outdoor classroom project”, but this myth remains unconfirmed. You notice some !d!DryeBux under one of the benches.",
+desc: "You stand on one of the more bizarre regions of the East Meck Outdoors: A large brick rectangle, engraved with Meck symbolics and decorated with a two by three array of benches. You have heard rumors of this artifact resulting from some “outdoor classroom project”, but this myth remains unconfirmed. You notice some !d!DryeBux under one of the benches.",
 options: [
 ["foursevenpath", "Leave this confusing spot"],
 ],
@@ -1056,6 +1164,66 @@ options: [
 ["pointy", "Go towards the !p!700"],
 ["trailers6", "Dive deep into !p!Trailer !p!World"],
 ["underfourh", "Enter the mysterious door under the !p!400"],
+["gymlobby", "Enter the !p!Gym !p!Lobby"],
+],
+},
+{
+id: "gymlobby",
+desc: "You are in the !p!Gym !p!Lobby. There are blue and yellow paint splatters coating the walls of one-way glass and chain-linked mesh. There are baskets full of tennis balls in each of the four corners of the room.",
+options: [
+["wrestling", "Go through the door to the !p!Wrestling !p!Room"],
+["gym", "Enter the !p!Gym"],
+["fourhgym", "Exit to the outside"],
+],
+},
+{
+id: "gym",
+desc: "You are in the !p!Gym. A few students are setting up small nets around the gym for what seems to be a multitude of tennis adjacent games. The bleachers are compressed on the wall.",
+options: [
+["gymlobby", "Go into the lobby by the !p!Girl’s !p!Locker !p!Room"],
+["wrestling", "Enter the !p!Wrestling !p!Room through the door further along that same wall"],
+["gymexit", "Go into the lobby by the !p!Boy’s !p!Locker !p!Room"],
+["gymoutside", "Exit the Gym through the door further along that same wall"],
+["gymbleachers1", "Press the button to expand the bleachers"],
+],
+},
+{
+id: "gym2",
+desc: "You are in the !p!Gym. A few students are setting up small nets around the gym for what seems to be a multitude of tennis adjacent games. The bleachers are expanded and fill a large part of the room.",
+options: [
+["gymlobby", "Go into the lobby by the !p!Girl’s !p!Locker !p!Room"],
+["wrestling", "Enter the !p!Wrestling !p!Room through the door further along that same wall"],
+["gymexit", "Go into the lobby by the !p!Boy’s !p!Locker !p!Room"],
+["gymoutside", "Exit the Gym through the door further along that same wall"],
+["gymbleachers2", "Climb around on the bleachers"],
+],
+},
+{
+id: "gymbleachers1",
+desc: "You reach for the beige control panel, and firmly depress the small circular button. A loud alarm starts blaring, ensuring that no oblivious students would be unjustly shoved by the mechanism. The alarm is silenced and the machine comes to a whirring halt. The bleachers now fill approximately one sixth of the room.",
+options: [
+['gym2', 'Continue', ['gym','gym2']],
+],
+},
+{
+id: "gymbleachers2",
+desc: "You move to inspect the bleachers. You romp around for a while, and you take mental notes of all the intricate nooks and crannies. Under one of the benches, you spot a few !d!DryeBux.",
+options: [
+["gym2", "Go back down to the floor"],
+],
+dryebux: 7,
+},
+{
+id: "gymoutside",
+desc: "You are in a small grassy area near the !p!Gym. The large oak trees make you feel nostalgic, and you make a few circles around the lot.",
+options: [
+["gym", "Enter directly into the !p!Gym"],
+["gymexit", "Enter the small hall outside the !p!Gym"],
+["gymlot1", "Go up to the !p!Gym !p!Parking !p!Lot"],
+["staffparking4", "Go down to the !p!Staff !p!Parking !p!Lot"],
+["staffparking5", "Go to the centerpoint between the lots"],
+["sevenhgym", "Go towards the !p!700"],
+["trailers8", "Go up to a nearby group of !p!Trailers"],
 ],
 },
 {
@@ -1156,6 +1324,7 @@ options: [
 ["trailerbathroom1", "Enter the !p!bathroom !p!trailer"],
 ["trailers2", "Continue down the walkway"],
 ["staffparking1", "Step down to the !p!Staff !p!Parking !p!Lot"],
+["softball", "Go down to the !p!Softball !p!Field"],
 ],
 },
 {
@@ -1186,6 +1355,7 @@ desc: "You stand on a wooden walkway in the mutual corner shared by four !p!trai
 options: [
 ["trailers1", "Continue down the walkway, towards the !p!Media !p!Center"],
 ["staffparking2", "Go down to the staff parking lot"],
+["softball", "Go down to the !p!Softball !p!Field"],
 ],
 mysterytrailer: "Trailer M191",
 mysterytrailer: "Trailer M61",
@@ -1208,6 +1378,7 @@ desc: "You are in the far corner of the !p!staff !p!parking !p!lot. It seems alm
 options: [
 ["staffparking2", "Walk towards the school"],
 ["staffparking5", "Go towards the !p!Gym !p!Parking !p!Lot"],
+["softball", "Go down to the !p!Softball !p!Field"],
 ["shadyteacher", "Talk to !c!shady !c!teacher"],
 ],
 },
@@ -1253,6 +1424,112 @@ options: [
 ["trailers3", "Ignore the claws and walk towards the middle of the school"],
 ["gymlot1", "Actively work against the will of the !c!Eagle and go south"],
 ],
+},
+{
+id: "bleachers1",
+desc: "You are in the set of bleachers nearer to the school. The twangy metallic sound of your footsteps on the steel sitting-beams jostles your inner ear in an unexpected and not wholly appreciated manner.",
+options: [
+["track1", "Go down to the !p!Track"],
+["gymlot2", "Go down to the !p!Gym !p!Parking !p!Lot"],
+],
+},
+{
+id: "track1",
+desc: "You are on the !p!Track. Specifically, the long straightaway on the side nearest to !p!School.",
+options: [
+["track2", "Jog towards the !p!Baseball !p!Field"],
+["track4", "Jog towards the !p!Softball !p!Field"],
+["football", "Go down to the !p!Football !p!Field"],
+["belachers1", "Go up to the !p!Bleachers"],
+],
+},
+{
+id: "track2",
+desc: "You are on the !p!Track. Specifically, the sharp turn on the side closest to the !p!Baseball !p!Field.",
+options: [
+["track1", "Jog towards !p!School"],
+["track3", "Jog away from !p!School"],
+["football", "Go down to the !p!Football !p!Field"],
+],
+},
+{
+id: "track4",
+desc: "You are on the !p!Track. Specifically, the sharp turn on the side closest to the !p!Softball !p!Field.",
+options: [
+["track1", "Jog towards !p!School"],
+["track3", "Jog away from !p!School"],
+["football", "Go down to the !p!Football !p!Field"],
+["practicefield", "Go down to the !p!Practice !p!Field"],
+],
+},
+{
+id: "track3",
+desc: "You are on the !p!Track. Specifically, the long straightaway on the side farthest from !p!School.",
+options: [
+["track2", "Jog towards the !p!Baseball !p!Field"],
+["track4", "Jog towards the !p!Softball !p!Field"],
+["bleachers2", "Go up to the !p!Bleachers"],
+],
+},
+{
+id: "practicefield",
+desc: "You are in the !p!general-purpose !p!Practice !p!Field, which happens to be the !e!furthest !e!possible !e!point from your 1st Block Class that is still considered East Meck grounds. You’ve really done it this time.",
+options: [
+["softball", "Walk to the !p!Softball !p!Field"],
+["track4", "Walk to the !p!Track"],
+],
+},
+{
+id: "softball",
+desc: "You are in the !p!Softball !p!Field. You start to admire the large oak tree next to the field but are interrupted by a stampede of marching band students who are clearly spelling out some series of letters visible only from up high. To avoid being trampled, you will have to predict what the first letter they are spelling is.",
+options: [
+["softballfail", "Avoid as if they are spelling “E”"],
+["softballpass", "Avoid as if they are spelling “Z”"],
+["softballfail", "Avoid as if they are spelling “B”"],
+],
+},
+{
+id: "softballfail",
+desc: "You were clearly incorrect, and slam directly into a very tall tuba player. A long line of trumpeters follow, and step all over you. You are squashed to death.",
+options: [
+["rankf", "Continue"],
+],
+},
+{
+id: "softballpass",
+desc: "You barely miss the horde of instrumentalists. At this point, it is clear what the word is they are spelling, and so you are able to effortlessly dodge them from this point onwards.",
+options: [
+['softball2', 'Continue', ['softball','softball2']],
+],
+},
+{
+id: "softball2",
+desc: "You are in the !p!Softball !p!Field. You are finally able to admire the oak tree in peace, as you are able to delegate the now-trivial task of dodging the marching band to the robotic subconsciousness of your cerebellum.",
+options: [
+["trailers1", "Go up to a nearby group of trailers on the side far from school"],
+["trailers2", "Go up to the same trailers but on the side near the school"],
+["practicefield", "Walk to the !p!Practice !p!Field"],
+["staffparking3", "Walk over to the !p!Staff !p!Parking !p!Lot"],
+],
+},
+{
+id: "football",
+desc: "You are in the large !p!Football !p!FIeld. You can tell from looking around you that this is certainly East Meck’’’s premiere location for stargazing; Your view is unencumbered by industrial buildings or air conditioning units.",
+options: [
+["track1", "Walk to the !p!Track, towards school"],
+["track2", "Walk to the !p!Track, towards the !p!Baseball !p!Field"],
+["track4", "Walk to the !p!Track, towards the !p!Softball !p!Field"],
+["bleachers2", "Walk to the far !p!Bleachers, away from the school"],
+],
+},
+{
+id: "bleachers2",
+desc: "You are in the set of bleachers farther from the school. You are not feeling good, since you know it will be impossible to make it to class on time now that you are so far off track. Just as you are milling over your impending tardy in your head, you are struck with a sudden stroke of luck and uncover a !d!Seven !d!DryeBuk !d!Bill under one of the metal benches.",
+options: [
+["track3", "Go down to the !p!Track"],
+["football", "Go down to the !p!Football !p!Field"],
+],
+dryebux: 7,
 },
 {
 id: "trailers3",
@@ -1440,8 +1717,8 @@ options: [
 id: "busdrive8",
 desc: "As you make a sharp U-turn back towards the !p!softball !p!field, your bus crashes into a pile of staff vehicles. You have failed this day at East Meck.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Try again",
 },
 {
 id: "busdrive7",
@@ -1618,8 +1895,8 @@ options: [
 id: "automotive2",
 desc: "Almost as soon as you make it over the fence you are tackled by a group of rowdy !s!automotive students. You are brought to the ground and your head slams against the concrete. You are knocked out cold.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Try everything again. From the top.",
 },
 {
 id: "drums",
@@ -1693,7 +1970,7 @@ options: [
 ["fourx", "Choose “one” as the next digit"],
 ["fourx", "Choose “two” as the next digit"],
 ["fourx", "Choose “three” as the next digit"],
-["fours", "Enter more fours over and over"],
+["four", "You don’t want more fours"],
 ["fourx", "Choose “five” as the next digit"],
 ["fourx", "Choose “six” as the next digit"],
 ["fourx", "Choose “seven” as the next digit"],
@@ -1827,6 +2104,13 @@ options: [
 ["drums2", "Exit the !p!Shack"],
 ],
 dryebux: 7,
+},
+{
+id: "drumplay",
+desc: "You start slapping the first drum you see. Since you have never done this before, you start off completely randomly, hoping it will begin to make sense soon. Eventually, you get in a good rhythm. You attract a small crowd of students around the !p!shack to hear you play.",
+options: [
+["shack", "Continue"],
+],
 },
 {
 id: "rummage",
@@ -2046,12 +2330,12 @@ options: [
 id: "mash2",
 desc: "All of a sudden you hear a bell. You must have missed your opportunity to get to first block on time. Oh well. You start making your way there but you are met with a stampede of your classmates rushing out excited to return to their everyday lives. You realize that that hadn’t been the 7:15 bell but rather its afternoon counterpart. How long had you been mashing? Hours? Days? You overhear some students talking about their upcoming AP Exams. Isn’t it December? You decide to head back home to collect yourself. All that mashing made you tired anyways.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Head home and take a nap",
 },
 {
 id: "studentlot",
-desc: "You stand at the boundary of the !p!student !p!parking-lot. Your eyes become lost in the dense variety of vehicles. You snap back to reality and realize you cannot progress this way, as leaving campus now would be an explicit violation of the Student Code of Conduct.",
+desc: "You stand at the boundary of the !p!student !p!parking-lot. Your eyes become lost in the dense variety of vehicles. You snap back to reality and realize you cannot progress this way, as leaving campus now would be an explicit violation of the !e!Student !e!Code !e!of !e!Conduct.",
 options: [
 ["middle", "Turn back before it is too late"],
 ["church", "Push your luck and attempt to escape", true],
@@ -2076,6 +2360,20 @@ options: [
 ["cellocloset", "Enter the !p!cello/bass !p!storage !p!closet"],
 ["sixh2", "Continue along the hall"],
 ["middle", "Exit out the classic door"],
+],
+},
+{
+id: "dunn",
+desc: "You are in !c!Ms. !c!Dunn’s room. To get into the room, you have to squeeze past a long line of students waiting (their teacher is not here yet), though the door is unlocked. Inside there is a student at the front desk. You start to try and engage them in friendly conversation, but they don’t respond. In fact, when you get closer, you can see they aren’t even breathing. It seems this student has been waiting for a while.",
+options: [
+["sixh1", "Exit to the hall"],
+],
+},
+{
+id: "roberts1",
+desc: "The flags in !c!Mr. !c!Roberts’ room indicate to you that his room is some kind of Carowinds recreation. Your suspicions are confirmed when you spot the small model rollercoasters on the desks in the center of the room.",
+options: [
+["sixh1", "Exit to the hallb"],
 ],
 },
 {
@@ -2229,8 +2527,8 @@ options: [
 id: "sludgesixh4",
 desc: "As you crest the elbow of this !p!Six !p!Hundred !p!Arm, your backpack zipper fails. Sludge flows out like a waterfall all over the outside of !c!Coach !c!Price’s room. The End.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start Over",
 },
 {
 id: "sludgecafelobby2",
@@ -2245,15 +2543,15 @@ options: [
 id: "sludgecafelobby1",
 desc: "As you walk past !c!Ms. !c!Whitley’s table, she catches a whiff of the sludge and is on to you. You are arrested immediately. Failure.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start Over",
 },
 {
 id: "sludgecafe2",
 desc: "As you enter the !p!Cafeteria, a horde of !c!Cafeteria !c!Staff surround you. They misinterpret your sludge as the daily delivery of sludge that they use to turn into a delicious lunch. They take your backpack, sludge and all. Not out of malice, of course, but out of pure miscommunication.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start Over",
 },
 {
 id: "sludgecafelobby3",
@@ -2274,8 +2572,8 @@ options: [
 id: "sludgetwoh2",
 desc: "As you turn into the !p!Two !p!Hundred, you become distracted by the beautiful display of student artwork on the wall. This slows you down enough for you to be grabbed and handcuffed by security. Failure.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start Over",
 },
 {
 id: "sludgeoneh1",
@@ -2296,8 +2594,8 @@ options: [
 id: "sludgebreath",
 desc: "After stopping for only two seconds, you are violently tackled by the three security guards at once. Failure.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start Over",
 },
 {
 id: "sludgefivekside2",
@@ -2311,8 +2609,8 @@ options: [
 id: "sludgefivekfront",
 desc: "You continue sprinting forward, thinking this to be the fastest way to the !p!495k. Unfortunately, truth hits you like a brick in the forehead: There is no entrance to the !p!495000 on this side. You had forgotten about this critical design flaw of the new building. As you are mid facepalm, you are tackled by security. Failure.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start Over",
 },
 {
 id: "sludgefivekside1",
@@ -2373,7 +2671,7 @@ options: [
 },
 {
 id: "copier",
-desc: "!c!Ms. !c!Sifford is assisting a student making copies of a crossword puzzle. The puzzle is labeled “mini” but is clearly of a normal size.",
+desc: "!c!Ms. !c!Sifford is assisting a student making copies of a crossword puzzle. The puzzle is labeled “mini” but is clearly of standard size.",
 options: [
 ["sixh4", "Exit to the hall"],
 ["copier2", "Ask for the “normal” puzzle"],
@@ -2400,13 +2698,20 @@ id: "sixh5",
 desc: "You are at the more scientifically-inclined appendage of the sprawling creature that is the !p!Six !p!Hundred. There is a door to the !p!Cafeteria !p!Lobby here.",
 options: [
 ["johnson1", "Enter !c!Johnson’s !p!Room"],
-["barone", "Enter !c!Baron’s !p!Room"],
+["barone", "Enter !c!Barone’s !p!Room"],
 ["walston", "Enter !c!Walston’s !p!Room"],
 ["mrmiller", "Enter !c!Miller’s !p!Room"],
 ["dean", "Enter !c!Dean’s !p!Room"],
 ["cudabac", "Enter !c!Cudabac’s !p!Room"],
 ["sixh4", "Go down the hall to the corner"],
 ["cafelobby2", "Enter the !p!Cafeteria !p!Lobby"],
+],
+},
+{
+id: "barone",
+desc: "You are in !c!Mr. !c!Barone’s room. Everything in his room made of glass -- the windows, cups, and lightbulbs -- are completely shattered. You reason that this is due to the extreme temperature swing this room experiences -- The transition from extreme hot in the summer to extreme cold in the winter must have caused thermal shock in the glass.",
+options: [
+["sixh5", "Exit to the hall"],
 ],
 },
 {
@@ -2582,6 +2887,15 @@ options: [
 ["patio2", "Go down towards the !p!Cafeteria !p!Entrance"],
 ["patio4", "Go up towards the farthest reaches of the !p!Patio"],
 ["807", "Enter the very torn up door labeled as the entrance to the non-existent “807”"],
+["patiostairs", "Go down the stairs next to the building"],
+],
+},
+{
+id: "patiostairs",
+desc: "You are in a small region cut into the ground next to the !p!lunch !p!patio. There are stairs leading upwards and a double-door leading inside:",
+options: [
+["stageauditoriumthing", "Go through the door"],
+["patio3", "Go up the stairs"],
 ],
 },
 {
@@ -2813,8 +3127,8 @@ options: [
 id: "dodgeright",
 desc: "Parker tackles you, and you fall to the floor. He jams his pickaxe into your head. You lose.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start Over",
 },
 {
 id: "dodgeleft",
@@ -2828,8 +3142,8 @@ options: [
 id: "jump",
 desc: "The pickaxe hits you square in the forehead. You lose.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Start Over",
 },
 {
 id: "duck",
@@ -2904,7 +3218,7 @@ id: "807help",
 desc: "You also began examining every square inch of everything in this room. You at first want to allow !c!Mrs. !c!Macleod to maintain a level of privacy but after a few minutes you are too desperate to begin looking through a pile of family photographs hoping that it might contain what you are looking for. Eventually when the student gathers up the courage to ask her, !c!Mrs. !c!Macleod comes into the room and suddenly remembers that the thing never actually existed. ",
 options: [
 ["stageclassroom", "Exit, frustrated, into the !p!stage"],
-["patio", "Exit, frustrated, into the !p!cafeteriaria !p!patio"],
+["patio3", "Exit, frustrated, into the !p!cafeteriaria !p!patio"],
 ],
 },
 {
@@ -3167,7 +3481,6 @@ options: [
 id: "fourh2",
 desc: "You are at the north end of the !p!Upper !p!Four !p!Hundred. You see several workers in bright orange reflective vests walking down the hall, removing !s!“environmental !s!science” signs and putting up !s!”health” signs. Ten feet behind them, another group in green vests is undoing their work.",
 options: [
-["williams", "Enter !c!Williams’ !p!Room"],
 ["gray", "Enter !c!Gray’s !p!Room"],
 ["rupert", "Enter !c!Rupert’s !p!Room"],
 ["billota", "Enter !c!Billota’s !p!Room"],
@@ -3177,9 +3490,18 @@ options: [
 },
 {
 id: "rupert",
-desc: "You are in !c!Coach !c!Rupert’s room. There are many students in here, but none of them are in their seats, They are in a line behind !c!Ms. !c!Rupert desk, all waiting their turn to ask her some generic question (can I go to the bathroom, can I fill my water bottle, etc). She tells each of them in turn to wait until she is done talking to the person before them in line, wrapping around at the end, creating an ouroboros-esque deadlock.",
+desc: "You are in !c!Coach !c!Rupert’s room. There are many students in here, but none of them are in their seats. They are in a line behind !c!Ms. !c!Rupert desk, all waiting their turn to ask her some generic question (can I go to the bathroom, can I fill my water bottle, etc). She tells each of them in turn to wait until she is done talking to the person before them in line, wrapping around at the end, creating an ouroboros-esque deadlock.",
 options: [
 ["fourh2", "Exit to the hall"],
+],
+},
+{
+id: "fourh1",
+desc: "You are at the south end of the !p!Upper !p!Four !p!Hundred. As you skim over the illicit drug infographics along the walls, you are reminded of the myriad reasons why you will never try that stuff.",
+options: [
+["buzzard", "Enter !c!Buzzard’s !p!Room"],
+["fourh2", "Continue down the hall"],
+["middle2", "Exit to the outside, towards the !p!Student !p!Parking !p!Lot"],
 ],
 },
 {
@@ -3359,7 +3681,7 @@ id: "fivekback",
 desc: "You are outside at the back of the !p!Five !p!Thousand. You look up, and see the opposing forces of East Meck colliding and annihilating one another, creating a safe haven below.",
 options: [
 ["fivekstairs1a", "Enter the !p!Five !p!Thousand"],
-["fnfenter1", "Continue into the !p!495000"],
+["fnfenter1", "Continue into the unique new !p!495000 !p!Building"],
 ["center2", "Turn back towards the !p!Hundreds"],
 ],
 },
@@ -3376,14 +3698,14 @@ options: [
 id: "fivek1a",
 desc: "You are at the back end of the !f!first !f!floor of the !p!5000. The back stairs are available, and the beautiful odor of freshly cooked food is rising from the nearby !c!culinary !p!kitchen.",
 options: [
-["culinaryclass", "Enter the !s!culinary !p!classroom"],
+["culinarykitchen", "Enter the !s!Culinary !p!Kitchen"],
 ["fivek2a", "Follow the smell down the hall"],
 ["fivekstairs1a", "Enter the stairwell"],
 ],
 },
 {
 id: "culinaryclass",
-desc: "The !s!Culinary !p!Classroom is empty, as all of the students are hard at work in the !p!kitchen down the hall. All of the students’ chromebooks are open to notes on their desks, except for one which is open to a particularly high-scoring round of !e!The !e!Zeagle !e!Game. The whiteboard is covered in the ramblings of a madman.",
+desc: "This !s!Culinary !p!Classroom is empty, as all of the students are hard at work in the !p!kitchen down the hall. All of the students’ chromebooks are open to notes on their desks, except for one which is open to a particularly high-scoring round of !e!The !e!Zeagle !e!Game. The whiteboard is covered in the ramblings of a madman.",
 options: [
 ["fivek1a", "Exit to the hall"],
 ],
@@ -3392,7 +3714,7 @@ options: [
 id: "fivek2a",
 desc: "You are in the middle of the !f!first !f!floor of the !p!5000. Your sinuses are filled with an incredible smell. The !c!chef !c!sculpture’s bright smile makes your day. ",
 options: [
-["culinarykitchen", "Enter the !s!Culinary !p!Kitchen"],
+["culinaryclass", "Enter one of the !s!culinary !p!classrooms"],
 ["fivek1a", "Go towards the back of the building"],
 ["fivek3a", "Go towards the front"],
 ],
@@ -3425,9 +3747,17 @@ desc: "You are at the front end of the !f!first !f!floor of the !p!5000. You see
 options: [
 ["rotc1", "Enter the !s!ROTC !p!Room next to the elevator"],
 ["rotc2", "Enter the !s!ROTC !p!Room on the other side of the hall"],
+["rotcstore", "Enter the “abandoned” !p!ROTC !p!Store"],
 ["fivekelevatora", "Enter the elevator"],
 ["fivekstairs2a", "Take the stairs"],
-["fivek2a", "Continue along the hall"],
+["fivek2a", "Continue along the hall2"],
+],
+},
+{
+id: "rotcstore",
+desc: "You are in the nominally-defunct !p!ROTC !p!Store. Although Drye ordered the destruction of this place several years ago, it is still operating in a shady, unofficial capacity. An ROTC student is selling various items that could come in handy.",
+options: [
+["fivek3a", "Exit to the hall and pretend you aren’t involved in this"],
 ],
 },
 {
@@ -3464,8 +3794,8 @@ options: [
 id: "poolfail",
 desc: "You seem to have forgotten that the !p!5000 elevator is hard-wired to eject anyone attempting pool access from the !f!first !f!two !f!floors. The elevator shoots up extremely fast, and a hatch is opened at the top. You fly out, and land liquified in the !p!bus !p!lot.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Try Again",
 },
 {
 id: "pool1",
@@ -3480,8 +3810,8 @@ options: [
 id: "poolfail2",
 desc: "The elevator emits a horrible buzz, and plummets to the ground. You hear the dialing of a three-digit phone number. The door refuses to open. You are trapped.",
 options: [
+["rankf", "Continue"],
 ],
-reset: "Restart",
 },
 {
 id: "pool2",
@@ -3630,10 +3960,19 @@ options: [
 },
 {
 id: "fivek1c",
-desc: "You are on the back end of the !f!third !f!floor of the !p!5000 !p!building. You can tell from the misery inside the !s!business rooms that the !p!rooftop !p!pool is right above you. The back stairs are accessible.",
+desc: "You are on the back end of the !f!third !f!floor of the !p!5000 !p!building. You can tell from the misery leaking from the !s!business rooms ahead of you that the !p!rooftop !p!pool is right above you. The back stairs are accessible.",
 options: [
+["uglehus", "Enter !c!Uglehus’s !p!Room"],
+["hartwell", "Enter !c!Hartwell’s !p!Room"],
 ["fivekstairs1c", "Enter the stairs"],
 ["fivek2c", "Continue along the hall"],
+],
+},
+{
+id: "hartwell",
+desc: "You are in !c!Mr. !c!Hartwell’s room. The !s!accounting students are sorting several gigantic piles of !d!DryeBux. You consider taking one !d!Buk, but remember that these !s!accounting experts would immediately notice the discrepancy.",
+options: [
+["fivek1c", "Exit to the hall"],
 ],
 },
 {
@@ -3667,7 +4006,6 @@ desc: "You are in the front of the !f!third !f!floor of the !p!5000 !p!building.
 options: [
 ["oates", "Enter !c!Oates’s !p!Room"],
 ["young", "Enter !c!Young’s !p!Room"],
-["uglehus", "Enter !c!Uglehus’s !p!Room"],
 ["fivekstairs2c", "Enter the stairs"],
 ["fivekelevatorc", "Use the elevator"],
 ["fivek2c", "Continue along the hall"],
@@ -4005,6 +4343,13 @@ options: [
 ],
 },
 {
+id: "koppe",
+desc: "You are in !c!Coach !c!Koppe’s room. On the wall, there is a large map of a standard baseball field, but from the surrounding foliage and small trailers you can tell it is specifically the East Meck one. In the center of the field, there is a large radiation hazard symbol. Clearly something about this location is important to !c!Koppe’s coaching.",
+options: [
+["fourk1a", "Exit to the hall"],
+],
+},
+{
 id: "maze",
 desc: "You go through the opening into a small hall. The hall has a single turn before a dead end. It seems like this is as far as !c!Drye’s huge maze project has extended. !c!Drye better watch his back for boulders.",
 options: [
@@ -4031,16 +4376,31 @@ options: [
 ],
 },
 {
+id: "boone",
+desc: "As you slowly enter !c!Ms. !c!Boone’s room, the fan sound from the hall is gradually replaced by a series of repeated popping noises. When you make it fully into the room, you notice several “pop quizzes” being sprung upon unsuspecting students. You will ponder the exact nature of this situation in the hallway.",
+options: [
+["fourk2a", "Ponder"],
+],
+},
+{
 id: "fourk3a",
 desc: "You are on the front end of the !f!first !f!floor of the !p!4000. Giant fans are whirring down the hall, but a nearby elevator or set of stairs could provide an escape from the whirring.",
 options: [
-["barbey", "Enter !c!Barbey's !p!Room"],
+["barbee", "Enter !c!Barbee's !p!Room"],
 ["freiberg", "Enter !c!Freiberg's !p!Room"],
 ["sawyer", "Enter !c!Sawyer's !p!Room"],
 ["fourkstairs2a", "Enter the stairs"],
 ["fourkelevator", "Enter the elevator"],
 ["fourk2a", "Walk to the fans"],
 ],
+},
+{
+id: "barbee",
+desc: "You are in !c!Ms. !c!Barbee’s room. She knows you well, and knows that your first block is on the third floor. She knows you will obviously be very late at this point, and hands you a few !d!DryeBux for your troubles.",
+options: [
+["fourk3a", "Exit to the hall"],
+],
+dryebux: 3,
 },
 {
 id: "fourkstairs2a",
@@ -4105,6 +4465,9 @@ dryebux: 3,
 id: "fourk2b",
 desc: "You are in the middle of a long metallic hall, specifically the !f!second !f!floor of the !p!4000. There are several classrooms here but they are all boarded up with large wooden planks. On some of the planks, messages such as “gone fishing” have been engraved and/or written in sharpie. You are the only student in the hall, and it is dead silent.",
 options: [
+["ellet", "Pry your way into !c!Ellet’s door"],
+["mcfarland", "Pry your way into !c!McFarland’s door"],
+["jarman", "Pry your way into !c!Jarman’s door"],
 ["fourk1b", "Go towards the back of the building"],
 ["fourk3b", "Go towards the front"],
 ],
@@ -4114,7 +4477,8 @@ id: "fourk3b",
 desc: "You are on the front end of the !f!second !f!floor of the !p!4000. All the classrooms here are boarded up with wooden planks. The walls, floor, and ceiling are all made of a reflective metal. You see yourself in the reflection and shudder. The elevator is accessible through here, as well as the front stairwell. You are the only student in the hall, and it is dead silent.",
 options: [
 ["cooper", "Pry your way into !c!Cooper’s door"],
-["jarman", "Pry your way into !c!Jarman’s door"],
+["woodcock", "Pry your way into !c!Jarman’s door"],
+["edde", "Pry your way into !c!Edde’s door"],
 ["fourkelevator", "Enter the elevator"],
 ["fourkstairs2b", "Take the stairs"],
 ["fourk2b", "Continue down the hall"],
@@ -4122,7 +4486,7 @@ options: [
 },
 {
 id: "jarman",
-desc: "You are in !c!Mr. !c!Jarman’s room, which is currently hosting the D&D club. The members of the club have broadened their horizons and are engaging in a friendly match of !e!East !e!Meck: !e!the !e!RPG.",
+desc: "You are in !c!Mr. !c!Jarman’s room, which is currently hosting the !e!top-secret !e!D&D !e!club. The members of the club have broadened their horizons and are engaging in a friendly match of !e!East !e!Meck: !e!the !e!RPG.",
 options: [
 ["jarman2", "Join in"],
 ["fourk3b", "Exit to the hall"],
@@ -4138,6 +4502,13 @@ meta: "Continue",
 {
 id: "gamequit",
 desc: "You exit the extremely fun game. Your head starts spinning with the potential complexities introduced by recursion in your daily life.",
+options: [
+["jarman", "Continue"],
+],
+},
+{
+id: "gamequit2",
+desc: "A PDF file of the crossword opens in a new tab. Because you are unfamiliar with !c!Mr. !c!Jarman’s computers, you accidentally close the game while trying to close the PDF. Oh well.",
 options: [
 ["jarman", "Continue"],
 ],
@@ -4188,10 +4559,17 @@ desc: "You are on the back side of the !f!third !f!floor of the !p!4000. The hal
 options: [
 ["hill", "Enter !c!Hill’s !p!Room"],
 ["mook", "Enter !c!Mook’s !p!Room"],
-["jacobs", "Enter !c!Jacob’s !p!Room"],
+["jacobs", "Enter !c!Jacobs’ !p!Room"],
 ["inabennet", "Enter !c!Inabennet’s !p!Room"],
 ["fourkstairs1c", "Enter the stairs"],
 ["fourk2c", "Continue down the hall"],
+],
+},
+{
+id: "jacobs",
+desc: "You are in !c!Ms. !c!Jacobs’ room. You are enchanted by the extremely high-quality social contract installation, which provides a sharp contrast to the flimsy paper-and-pen sheets in the other rooms you’ve been to. The swarm of hummingbirds surrounding the legal obligations is a beautiful reminder of the eternal peace between Staff and Student.",
+options: [
+["fourk1c", "Exit to the hall"],
 ],
 },
 {
@@ -4201,7 +4579,7 @@ options: [
 ["laing", "Enter !c!Laing’s !p!Room"],
 ["folk", "Enter !c!Folk’s !p!Room"],
 ["majak", "Enter !c!Majak’s !p!Room"],
-["sanders", "Enter !c!Sanders’s !p!Room"],
+["sanders1", "Enter !c!Sanders’s !p!Room"],
 ["fourk1c", "Go towards the back of the building"],
 ["fourk3c", "Go towards the front"],
 ],
@@ -4270,6 +4648,13 @@ options: [
 ["fourkelevator", "Enter the elevator"],
 ["fourkstairs2c", "Enter the stairs"],
 ["fourk2c", "Continue down the hall"],
+],
+},
+{
+id: "baldwin",
+desc: "You are in !c!Ms. !c!Baldwin’s room. A !c!student in an inverted baseball cap is frantically writing down Taylor Swift lyrics on a general-purpose whiteboard in the back.",
+options: [
+["fourk3c", "Exit to the hall"],
 ],
 },
 {
