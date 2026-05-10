@@ -200,6 +200,10 @@ ChemicalStorage: Enter the !p!Chemical !p!Storage !p!Room
 Sevenh2: Continue down the hall, towards the !p!Media !p!Center
 SevenhGym: Exit towards the !p!Gym
 
+ChemicalStorage:
+You are in the unexpectedly large !p!Chemical !p!Storage !p!Room. There is a huge quantity of unopened bags of M&M’s, which all seem to be part of some unwanted kit that keeps arriving. The M&M’s are slowly consuming all of the space in the room, and the dangerous chemicals are spilling out into the hall as a result. The M&M’s are rotting.
+Sevenh3: Exit to the hall
+
 MrGrube:
 !c!Mr. !c!Grube is methodically asking the same question to every student in his class. Nobody has a clue but !c!Grube continues, becoming more and more disappointed in your generation with each wrong answer.
 #ChemQuestion: Jump in with an answer
@@ -385,7 +389,7 @@ Trailers1:
 You are on a rickety wooden walkway surrounded by aluminum !p!trailers. You see a student standing outside of the !s!music !s!theory !p!trailer motionless.
 #AskMusicStudent: Ask the student what their whole deal is
 MusicTheory: Enter the !c!Music !c!Theory !p!Trailer
-TrailerBathroom1: Enter the !p!bathroom !p!trailer
+BathroomTrailer1: Enter the !p!bathroom !p!trailer
 Trailers2: Continue down the walkway
 Staffparking1: Step down to the !p!Staff !p!Parking !p!Lot
 Softball: Go down to the !p!Softball !p!Field
@@ -394,7 +398,7 @@ AskMusicStudent:
 The student explains that they were assigned the role of standing outside in the freezing cold and warning people of the slipping hazard associated with the iced-over wooden walkway.
 Trailers1: Continue
 
-TrailerBathroom1:
+BathroomTrailer1:
 In this most lonely of East Meck bathrooms, there is almost nothing of importance to mention. However, out of the corner of your eye, you spot a !d!DryeBuk on top of the soap dispenser.
 Trailers1: Leave
 $dryebux: 3
@@ -405,10 +409,10 @@ Trailers1: Leave
 
 Trailers2:
 You stand on a wooden walkway in the mutual corner shared by four !p!trailer !p!classrooms.
-$mysterytrailer: Trailer M191
-$mysterytrailer: Trailer M61
-$mysterytrailer: Trailer M78
-$mysterytrailer: Trailer M212
+MysteryTrailer: Trailer M191
+MysteryTrailer: Trailer M61
+MysteryTrailer: Trailer M78
+MysteryTrailer: Trailer M212
 Trailers1: Continue down the walkway, towards the !p!Media !p!Center
 Staffparking2: Go down to the staff parking lot
 Softball: Go down to the !p!Softball !p!Field
@@ -437,8 +441,8 @@ Gymoutside: Go towards the !p!Gym
 
 Staffparking4:
 You stand at one of the several corners of the !p!Staff !p!Parking !p!Lot. There are two trailers separating you from the !p!Seven !p!Hundred.
-$mysterytrailer: Trailer M444
-$mysterytrailer: Trailer M443
+MysteryTrailer: Trailer M444
+MysteryTrailer: Trailer M443
 Gymoutside: Go towards the !p!Gym
 Sevenhgym: Go between !p!700 and the !p!Gym
 Staffparking5: Go away from civilization
@@ -530,55 +534,55 @@ $dryebux: 7
 
 Trailers3:
 You are on a gravel path next to a well-organized line of trailers. The lumbering evergreens of the !p!Baseball !p!Field boundary block a large portion of the trailers’ ugly tin rooves. There is sand everywhere, and your eyes sting.
-$mysterytrailer: Trailer M555
-$mysterytrailer: Trailer M551
-$mysterytrailer: Trailer M549
+MysteryTrailer: Trailer M555
+MysteryTrailer: Trailer M551
+MysteryTrailer: Trailer M549
 Trailers4: Continue along the gravel path towards the center of the school
 Gymlot2: Go towards the !p!track
 Trailers8: Go south, towards another group of trailers
 
 Trailers8:
 You stand on a wooden walkway around a group of trailers. The !p!Gym is extremely close. A gust of wind causes several sand particles to lodge themselves in your eyes and nostrils. You start coughing and sneezing and by the end of it your hair is all messed up.
-$mysterytrailer: Trailer M171
-$mysterytrailer: Trailer M550
-$mysterytrailer: Trailer M671
-Trailerbathroom2: Enter the !p!trailer !p!bathroom
+MysteryTrailer: Trailer M171
+MysteryTrailer: Trailer M550
+MysteryTrailer: Trailer M671
+BathroomTrailer2: Enter the !p!trailer !p!bathroom
 Gymoutside: Walk towards the !p!Gym
 Gymlot1: Go into the !p!gym !p!parking !p!lot
 Trailers3: Go north towards more trailers
 
-TrailerBathroom2:
+BathroomTrailer2:
 In this second loneliest of East Meck bathrooms, there is almost nothing of importance to mention. However, out of the corner of your eye, you spot a !d!DryeBuk on top of the paper towel dispenser.
 Trailers8: Leave
 $dryebux: 3
 
 Trailers4:
 You stand on a gravel path near some trailers. Your eyes are immediately drawn to the bright New Zealand license plate on a car that is (presumably illegally) parked here. There is sand everywhere, and your eyes sting.
-$mysterytrailer: Trailer M556
-$mysterytrailer: Trailer M554
+MysteryTrailer: Trailer M556
+MysteryTrailer: Trailer M554
 Trailers3: Continue along the gravel path towards the !p!Track
 Trailers6: Go towards the center of the school
 
 Trailers6:
 You are in the middle of a large cluster of trailers. It appears to trailers for miles from any direction you look.
-$mysterytrailer: Trailer M284
-$mysterytrailer: Trailer M283
-TrailerBathroom3: Enter the !p!trailer !p!restroom
+MysteryTrailer: Trailer M284
+MysteryTrailer: Trailer M283
+BathroomTrailer3: Enter the !p!trailer !p!restroom
 Trailers4: Go towards the !p!Track
 Trailers5: Go towards the !p!Tennis !p!Courts
 Trailers7: Go towards the middle of the school
 FourhGym: Walk towards the !p!700 in the only sliver of your field of view not plastered over with aluminum
 
-TrailerBathroom3:
+BathroomTrailer3:
 In this third loneliest of East Meck bathrooms, there is almost nothing of importance to mention. However, out of the corner of your eye, you spot a !d!DryeBuk on top of the sink.
 Trailers6: Leave
 $dryebux: 3
 
 Trailers7:
 You are on the fringe of a trailer megalopolis, but close enough to the rest of campus to avoid the worst of it.
-$mysterytrailer: Trailer M282
-$mysterytrailer: Trailer M281
-$mysterytrailer: Trailer M280
+MysteryTrailer: Trailer M282
+MysteryTrailer: Trailer M281
+MysteryTrailer: Trailer M280
 Fourh3: Enter the !p!Lower !p!400
 Trailers5: Go towards the !p!Tennis !p!Courts (There !e!are trailers this way)
 Trailers6: Go towards the !p!Track (There !e!are trailers this way)
@@ -587,9 +591,9 @@ FourhGym: Escape towards the !p!700
 
 Trailers5:
 You are in a small group of trailers at the corner of the !p!tennis !p!courts.
-$mysterytrailer: M161
-$mysterytrailer: M160
-$mysterytrailer: M122
+MysteryTrailer: M161
+MysteryTrailer: M160
+MysteryTrailer: M122
 Trailers6: Walk towards the !p!Gym
 Trailers7: Walk towards the !p!400
 Tennisoutside: Walk along the bak of the !p!Tennis !p!Courts
@@ -1083,7 +1087,7 @@ SIxh1: Exit to the hall
 
 Roberts1:
 The flags in !c!Mr. !c!Roberts’ room indicate to you that his room is some kind of Carowinds recreation. Your suspicions are confirmed when you spot the small model rollercoasters on the desks in the center of the room.
-Sixh1: Exit to the hallb
+Sixh1: Exit to the hall
 
 Bartkowiak:
 You are in !c!Mr. !c!Barkowiak’s room. While their teacher is busy holding the door in the hallway open, the students are working on developing some kind of tax evasion scheme. The scheme involves transferring their entire income into a large shared reserve of !d!DryeBux, which are by definition legal property of !c!Mr. !c!Drye. Once !c!Drye pays the required taxes, they are converted back into USD. If you stole some of their !d!DryeBux, they could never tell on you, since that would reveal their plan.
@@ -1810,6 +1814,10 @@ Billota: Enter !c!Billota’s !p!Room
 Fourh1: Continue down the hall
 Split: Exit to the !p!400 !p!Split
 
+Billota:
+You enter !c!Ms. !c!Billota’s room. Unfortunately, you failed to remember that you had a peanut three months ago. !c!Billota catches on instantly, and slams the door. You have been banned from this room.
+&Billota&Ban&Fourh2: Continue
+
 Rupert:
 You are in !c!Coach !c!Rupert’s room. There are many students in here, but none of them are in their seats. They are in a line behind !c!Ms. !c!Rupert desk, all waiting their turn to ask her some generic question (can I go to the bathroom, can I fill my water bottle, etc). She tells each of them in turn to wait until she is done talking to the person before them in line, wrapping around at the end, creating an ouroboros-esque deadlock.
 Fourh2: Exit to the hall
@@ -2189,7 +2197,7 @@ You are in the middle of the unfamiliar !p!300 !p!hall. !c!Mr. !c!Zurhellen has 
 Zurhellen: Enter !c!Zurhellen’s !p!Room
 Speizman: Enter !c!Speizman’s !p!Room
 Feldstein: Enter !c!Feldstein’s !p!Room
-Durante: Enter !c!Darante’s !p!Room
+Durante: Enter !c!Durante’s !p!Room
 Threeh3: Walk towards the !p!5000
 Threeh1: Walk towards !p!Student !p!Services
 

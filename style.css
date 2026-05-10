@@ -733,8 +733,7 @@ input { /* 1 */
     margin-right: auto;
     display: block;
     background-size: 100% 100%;
-    background-image: url('./rpgbg1.gif');
-    background-color: #090b18;
+    background-color: black;
     touch-action: manipulation;
 }
 
