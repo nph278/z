@@ -97,7 +97,7 @@ Sevenh1: Search quickly before it is to late
 
 NguyenSuccess:
 You enter the room and a rotary engine is spinning way out of control of the students who sit in the more classroom structured section of the room hoping for some !e!gallant !e!hero will come save them. Thank goodness you can help. You run over to the more industrial side of the classroom and slam the hall pass deep inside the engine. It spudders and spurs for a moment and then it lets out a big final puff of steam which is quickly followed by a sigh of relief from the whole class. They give you !d!11 !d!DryeBux for your help.
-&NguyenSuccess&NguyenSuccess2&NguyenSuccess: Continue
+&NguyenSuccess&NguyenSuccess2&NguyenSuccess2: Continue
 
 NguyenSuccess2:
 You are in !c!Mr. !c!Nguyen’s room. The students are tranquil due to the calm engine in front of you that is spinning at a rate that is by all accounts completely reasonable. Your !d!DryeBux are waiting for you.
@@ -105,7 +105,7 @@ Sevenh1: Exit to the hall
 $DryeBux: 11
 
 Shefte:
-As you enter the room you see various !e!car !e!parts laid about the room. You assume that most likely no one has ever needed what those !e!car !e!parts do and they serve an almost entirely aesthetic purpose. The chairs are higher tech then you thought were allowed and you assume the !c!Reclining !c!26 would be impressed.
+As you enter the room you see various !e!car !e!parts laid about the room. You assume that most likely no one has ever known what those !e!car !e!parts do and they serve an almost entirely aesthetic purpose. The chairs are higher tech then you thought were allowed and you assume the !c!Reclining !c!26 would be impressed.
 Sevenh1: Head back into hallway 
 AutoShop: Enter the !s!Automotive !p!Shop
 ShefteOffice: Enter !c!Mr. !c!Shefte’s !p!Office
@@ -1105,6 +1105,10 @@ Sixh3: Head towards the !p!Cafeteria
 Sixh4: Head towards the !p!Courtyard
 Nook: Exit through the exterior door
 
+MsMiller:
+You are in !c!Ms. !c!Miller’s !p!room. You see secretive students attempting to discuss things among themselves at an (at least to you) almost imperceptible whisper though !c!Ms. !c!Miller appears to be able to hear them loud and clear as she interprets what one of said as funny (not funny in the way a joke is funny but more in the way a sad dog is funny) and makes a meal out of writing it on her overheard board which takes up a large percentage of white board despite clearly not seeing much use. Now the students are talking even quieter, attempting to not set off their unwanted listener again though a few power hungry students are now saying irreverent lines in an attempt to get their quotes immortalized as well but !c!Ms !c!Miller sees right through this and doesn’t bite at their cheap worms.
+Sixh2: Exit, as quietly as possible
+
 Sifford:
 You are in !c!Ms. !c!Sifford’s room. There is !e!Zeagle merch throughout the room, including at least a dozen zeagle necklaces hanging from the large central ceiling fan, as well as large zeagle-themed tapestries covering the walls.
 Sixh2: Exit to the hall
@@ -1151,6 +1155,10 @@ Gearhart: Enter !c!Gearhart’s !p!Classroom
 Sixh2: Go along the hall, towards the !p!Media !p!Center
 CafeLobby1: Enter the !p!Cafeteria !p!Lobby
 $dryebux: 3
+
+Komito:
+You recognize this as !c!Ms !c!Komito’s classroom. You gaze up at the rim of the classroom and see hand painted canvases of every president. Washington is beautiful with an artist touch on every element but as your eyes follow the presidential succession the paintings grow into more abstract renderings of the president. Their proportions grow warped and the colors grow into a swirling blend. Somewhere around Hoover the painting grow so abstract that you can’t really tell which one is which (other than Bush jr. which is pretty much regular except his head is slightly too large for his body) they are all just a cerebral mess of dots and hashes.
+Sixh3: Exit confused
 
 Wilson:
 You have managed to navigate to the source of the music. You would find the barrage of !e!80s, !e!90s, and !e!2000s hits delightful if it wasn’t so loud. You attempt to negotiate with the teacher but because the music is so loud, speech has rendered itself useless. 
@@ -1630,19 +1638,24 @@ As you are walking there you see a table with a long hall pass on it. It looks l
 &Nguyen&NguyenSuccess&&8072&807&&StageShop2&StageShop&807: Grab the pass, it might come in handy.
 
 807: 
-You enter a room. You see !s!tech !s!theater frantically looking for something. They are desperately looking through every square inch of the desk fully invading !c!Mrs. !c!Macleod’s privacy per her instructions. They look pitiful and you have a strong desire to help them.
+You enter a room. You see !s!tech !s!theater student frantically looking for something. They are desperately looking through every square inch of the desk fully invading !c!Mrs. !c!Macleod’s privacy per her instructions. They look pitiful and you have a strong desire to help them.
 807help: Help find it 
-StageClassroom: Leave them for dead and go back to the !p!stage 
+StageClassroom: Leave them for dead and go to the !p!stage 
 Patio3: Abandon them and exit into the !p!cafeteria !p!patio
 
 807help:
 You also began examining every square inch of everything in this room. You at first want to allow !c!Mrs. !c!Macleod to maintain a level of privacy but after a few minutes you are too desperate to begin looking through a pile of family photographs hoping that it might contain what you are looking for. Eventually when the student gathers up the courage to ask her, !c!Mrs. !c!Macleod comes into the room and suddenly remembers that the thing never actually existed. 
 StageClassroom: Exit, frustrated, into the !p!stage 
-Patio3: Exit, frustrated, into the !p!cafeteriaria !p!patio
+Patio4: Exit, frustrated, into the !p!cafeteriaria !p!patio
 
 StageShop2:
 As you are walking there you see a table with a long hall pass on it. It looks like it would be exceptionally good for stopping a rotary engine.
 &Nguyen&NguyenSuccess&&8072&807&&StageShop2&StageShop&StageShop: Grab the pass, it might come in handy.
+
+StageShop:
+You see a treasure trove of blue collar goodies. Anything from drills to buzzsaws all have a home. Your eyes are drawn to the various painted pieces of wood that draw you in as you imagine what delicately crafted stage play they must have been a part of.
+StageClassroom: Exit to the !p!stage
+Patio4: Exit to the !p!Cafeteria !p!Patio
 
 Dance:
 The ground is an interesting, springy rubber surface. It is a sensation that gives you nothing but the urge to !s!dance. There is already a dazzling multipart one happening. You find your window and jump in but almost as soon as you do everyone stops and glares at you. Then a particularly bold !s!dance student finally says “you need to take your shoes off.”
@@ -2400,8 +2413,30 @@ Fourkstairs2A: Enter the stairs
 FourkElevator: Enter the elevator
 Fourk2A: Walk to the fans
 
+Sawyer:
+You see !c!Mrs. !c!Sawyer standing at a large podium quasi-rhythmically blowing into a harsh whistle. There is a table of a !s!AP !s!Statistics students who are sorting sweet treats and regional delicacies into jars corresponding to the treat’s colors. Once a jar is filled up all of the students are forced according to !c!Mrs. !c!Sawyer’s demand to eat up the tasty treat. The students resist for a few seconds and are reminded that they are some of the luckiest in the school and that !s!Analysis students would kill for this type of pampering, so they choke down more disgustingly sweet pastries.
+Sawyer2: Attempt to free the students
+Four3A: Run free before you are taken in
+
+Sawyer2:
+You figure the best way to destroy the system is from the inside so you grab a seat at the table. You quickly fall into the swing of the sorting. It is fun to get your hands dirty for once but then the yellow pastry jar reaches its fill line and you remember why you came here. The students are hesitant to eat yet another helping and you are left to eat the bulk of the jar.
+SawyerFail: Eat the pastries 
+Sawyer3: Don’t eat the pastries and stand up to !c!Mrs !c!Sawyer
+
+Sawyer3:
+As you continue to not eat the pastry !c!Mrs. !c!Sawyer grows more and more frustrated. She blows her whistle louder and louder until it is a near ear breaking blast but you manage to not be worn down. By this point she gets down from her podium and is circling you as her face grows red from the large quantity of air she has to force through the small hole. After a couple of minutes of tooth rattling blast she passes out on the ground exhausted. A cheer erupts from the crowd of students and they toss you some !d!Drye !d!Bux as a reward for your work.
+&Sawyer&SawyerSucess&:Fourk3A: Leave the class room with your head held high
+$dryebux: 11
+
+SawyerSucess:
+The students have trapped !c!Mrs. !c!Sawyer in a cage assembled from left over pastries. It is almost less humane than a regular cage because it gives you the option to get out on your own but you would have to chew through about a foot of abhorrent baked goods. That being said this is a classic example of the punishment fitting the crime as !c!Mrs. !c!Sawyer had the students in a similar lose lose hellscape.
+
+SawyerFail:
+You stuff your face with pastries and feel disgusted by your own gluttony but you do not relent as you chose this fate for yourself. You disdainfully choke down bite after bite and feel yourself slowly inflating with flaky dough and cream puff. There is probably a moral in there somewhere but you are too stuffed to realize it or even to walk.
+RankF: You spend all your time rotting away sorting more delights and don’t even here the bell ring
+
 Barbee:
-You are in !c!Ms. !c!Barbee’s room. She knows you well, and knows that your first block is on the third floor. She knows you will obviously be very late at this point, and hands you a few !d!DryeBux for your troubles.
+You are in !c!Ms. !c!Barbee’s room. You are bombarded with posters that recontextualize your current situation. A particular post of a disgusting looking dog finally puts the pieces together for you. !e!You !e!are !e!not !e!trying !e!make !e!it !e! !e!to !e!first !e!block. If you were, you would be there already. There is something that you are, avoiding some reason you don’t want to go, maybe it is that you are not powerful enough in the !p!East !p!Meck ecosystem yet. !c!Ms !c!Barbee, always quick to help out a student in need (especially when they are crying and drooling on her nice Persian rug) gives you some !d!Drye !d!Bux. Maybe these will help.
 Fourk3A: Exit to the hall
 $dryebux: 3
 
