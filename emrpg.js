@@ -20,7 +20,6 @@
 // Extensive Playtest - Chromebook
 // Show game to incoming freshman as practice for the real Meck
 // Teacher lounges
-// Instructions/Descriptlion
 // Checking your schedule is like savepoints
 // Timeline split like tape was split like 400 building was split.
 // Zdshr is a cycle like east meck is a cycle
@@ -32,7 +31,6 @@
 // Balancing for the ending reactions
 // Finish 800 connections
 // Detect duplicate rooms
-// Don't replay song if it's the same one
 
 "use strict";
 
@@ -529,8 +527,6 @@ class Game {
     }
 
     draw(ctx, startX, startY, startW, startH) {
-        ctx.clearRect(startX, startY, startW, startH);
-
         if (this.grimeOn) {
             let grimeOffset = 0;
             let sand = false;
@@ -4914,6 +4910,7 @@ addEventListener('load', async (event) => {
     }
 
     setInterval(() => {
+        ctx.clearRect(0, 0, width, height);
         const sizemult = Math.min((window.innerWidth-hmargin)/width, (window.innerHeight-vmargin)/height);
         canvas.style.width = sizemult * width + "px";
         requestAnimationFrame(() => game.draw(ctx, 0, 0, width, height));
