@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Repr</title>
+    <style>
+      canvas {
+          background-size: 100% 100%;
+          background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas height="1000" width="1000"></canvas>
+    <script>
+      addEventListener("load", () => {
+          const canvas = document.querySelector("canvas");
+          const ctx = canvas.getContext("2d");
+          ctx.fillStyle = "red";
+          ctx.fillRect(0, 0, 1000, 1000);
+          ctx.clearRect(0, 0, 1000, 1000);
+          canvas.style.backgroundImage = "url('https://eastmeckzeagle.tech/eye.png')"
+      })
+    </script>
+  </body>
+</html>
