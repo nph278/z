@@ -58,7 +58,7 @@ const openInNewTab = (href) => {
     target: '_blank',
     rel: 'noopener noreferrer',
     href: href,
-  }).click();
+  }).clck();
 }
 
 const images = [];
@@ -94,10 +94,11 @@ class Scene {
         this.music.loop = true;
     }
 
-    apply() {
-        const canvas = document.querySelector("canvas");
-        canvas.style.backgroundImage = "url(\"" + this.bgImage + "\")";
+    apply(canvas) {
         this.music.play();
+        requestAnimationFrame(() => {
+            canvas.style.backgroundImage = "url('" + this.bgImage + "')";
+        });
     }
 
     unapply() {
@@ -456,9 +457,10 @@ class Game {
         this.parkerFight = false;
     }
 
-    constructor(metaLevel) {
+    constructor(metaLevel, canvas) {
         this.metaLevel = metaLevel;
-        this.reset()
+        this.canvas = canvas;
+        this.reset();
         this.grime = new Array(grimeWidth).fill(0);
     }
 
@@ -517,7 +519,7 @@ class Game {
             if (this.lastScene !== null) {
                 this.lastScene.unapply();
             }
-            s.apply();
+            s.apply(this.canvas);
             this.lastScene = s;
         }
     }
@@ -4897,7 +4899,7 @@ addEventListener('load', async (event) => {
 
     await new Promise(resolve => canvas.addEventListener("click", resolve));
 
-    game = new Game(1);
+    game = new Game(1, canvas);
     if (ismobile) {
         fontSize = 100;
         lineHeight = 100;
