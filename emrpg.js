@@ -58,7 +58,7 @@ const openInNewTab = (href) => {
     target: '_blank',
     rel: 'noopener noreferrer',
     href: href,
-  }).clck();
+  }).click();
 }
 
 const images = [];
