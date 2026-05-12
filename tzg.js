@@ -5,11 +5,44 @@ let grid = Array.from({ length: size }, () => new Array(size).fill("0"));
 let initgrid = Array.from({ length: size }, () => new Array(size).fill("0"));
 let data = Array.from({ length: size }, () => new Array(size).fill(false));
 const abc = "qwertyuioplkjhgfdsazxcvbnm";
+const ABC = "QWERTYUIOPLKJHGFDSAZXCVBNM";
 const nums = ["zero", "one", "two", "three", "fourk", "fivek", "sixh", "seven", "eight", "nine"];
 
-const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis", "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych", "maze", "lunch", "apwh", "apush"];
+const spells = ["hint", "fourh", "fourk", "fivek", "sixh", "qr", "beagle", "drye", "aplit", "iblit", "apcalc", "analysis", "parker", "pool", "tunnel", "aday", "bday", "zeagle", "otot", "econ", "phone", "bunker", "psych", "maze", "lunch", "apwh", "apush", "bio", "chem"];
 let hint_words = spells;
 const angle_steps = 12;
+
+const elements2 = [
+    "Ac", "Ag", "Al", "Am", "Ar", "As", "At", "Au", "Ba",
+    "Be", "Bh", "Bi", "Bk", "Br", "Ca", "Cd", "Ce", "Cf",
+    "Cl", "Cm", "Co", "Cr", "Cs", "Cu", "Ds", "Db", "Dy", "Er",
+    "Es", "Eu", "Fe", "Fm", "Fr", "Ga", "Gd", "Ge",
+    "He", "Hf", "Hg", "Ho", "Hs", "In", "Ir", "Kr",
+    "La", "Li", "Lr", "Lu", "Md", "Mg", "Mn", "Mo", "Mt",
+    "Na", "Nb", "Nd", "Ne", "Ni", "No", "Np", "Os",
+    "Pa", "Pb", "Pd", "Pm", "Po", "Pr", "Pt", "Pu", "Ra", "Rb",
+    "Re", "Rf", "Rg", "Rh", "Rn", "Ru", "Sb", "Sc", "Se",
+    "Sg", "Si", "Sm", "Sn", "Sr", "Ta", "Tb", "Tc", "Te", "Th",
+    "Ti", "Tl", "Tm", "Xe", "Yb", "Zn",
+    "Zr",
+];
+
+const elements1 = "FSBPKCHIUVWYON".split("");
+
+const wgts = {
+    H: 1, HE: 4, LI: 7, BE: 9, B: 10, C: 12, N: 14, O: 16, F: 19, NE: 20,
+    NA: 23, MG: 24, AL: 27, SI: 28, P: 31, S: 32, CL: 35, AR: 39, K: 39, CA: 40,
+    SC: 45, TI: 47, V: 51, CR: 52, MN: 55, FE: 55, CO: 59, NI: 58, CU: 63, ZN: 65,
+    GA: 69, GE: 72, AS: 75, SE: 79, BR: 79, KR: 83, RB: 85, SR: 87, Y: 89, ZR: 91,
+    NB: 93, MO: 96, TC: 97, RU: 101, RH: 103, PD: 106, AG: 107, CD: 112, IN: 114, SN: 118,
+    SB: 121, TE: 127, I: 127, XE: 131, CS: 133, BA: 137, LA: 139, CE: 140, PR: 141, ND: 144,
+    PM: 145, SM: 150, EU: 152, GD: 157, TB: 159, DY: 162, HO: 165, ER: 167, TM: 169, YB: 173,
+    LU: 175, HF: 178, TA: 181, W: 183, RE: 186, OS: 190, IR: 192, PT: 195, AU: 197, HG: 200,
+    TL: 204, PB: 207, BI: 209, PO: 209, AT: 210, RN: 222, FR: 223, RA: 226, AC: 227, TH: 232,
+    PA: 231, U: 238, NP: 237, PU: 244, AM: 243, CM: 247, BK: 247, CF: 251, ES: 252, FM: 257,
+    MD: 258, NO: 259, LR: 262, RF: 267, DB: 270, SG: 269, BH: 270, HS: 270, MT: 278, DS: 281,
+    RG: 281, CN: 285, NH: 286, FL: 289, MC: 289, LV: 293, TS: 293, OG: 294,
+};
 
 const pipev = "║";
 const pipeh = "═";
@@ -18,7 +51,6 @@ const pipeur = "╚";
 const pipedl = "╗";
 const pipedr = "╔";
 const pipe = ["║", "╗", "╝", "╚", "╔", "═"];
-// summon bouncing drye image
 
 const unpat = (p) => p.split(" ").map((a) => a.split("").map(a => parseInt(a)));
 
@@ -32,12 +64,14 @@ for (let i = 0; i <= size; i++) {
 const sounds = {};
 
 const playsound = (s) => {
-    if (!(s in sounds)) {
-        sounds[s] = new Audio("./sfx/"+s+".wav");
-    }
-    const sfx = sounds[s];
-    sfx.load();
-    sfx.play();
+    try {
+        if (!(s in sounds)) {
+            sounds[s] = new Audio("./sfx/"+s+".wav");
+        }
+        const sfx = sounds[s];
+        sfx.load();
+        sfx.play();
+    } catch {}
 }
 
 const loadsound = (s) => {
@@ -103,13 +137,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let fw = 0;
     let frenzy = 0;
 
-    const neighbors = (e) => [[e[0]+1, e[1]],
-                              [e[0], e[1]+1],
-                              [e[0]-1, e[1]],
-                              [e[0], e[1]-1]].filter((l) => (l[0] >= 0 &&
-                                                       l[0] < size &&
-                                                       l[1] >= 0 &&
-                                                       l[1] < size));
+    const neighbors = (e, s) => {
+        let sz = s || size;
+        return [[e[0]+1, e[1]],
+                [e[0], e[1]+1],
+                [e[0]-1, e[1]],
+                [e[0], e[1]-1]].filter((l) => (l[0] >= 0 &&
+                                               l[0] < sz &&
+                                               l[1] >= 0 &&
+                                               l[1] < sz));
+    };
     let msg = "";
     let msgoffset = [0,0];
     let notes = "welcome to the zeagle game  the zeagle game is a registered trademark of the east mecklenburg zeagle  the east mecklenburg zeagle has no official ties to east mecklenburg or the eagle or the beagle thereof  ".split(" ");
@@ -128,6 +165,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let resultsover = false;
     let severed = false;
     let mazeon = false;
+    let bioon = false;
 
     let dryes = [];
     let psych = false;
@@ -369,6 +407,34 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath([[1,1],[1,7],[7,1],[7,7]]);
                         addpath([[15,1],[15,7],[21,1],[21,7]]);
                         addpath([[1,15],[1,21],[7,15],[7,21]]);
+                    } else if (spell === "chem") {
+                        playsound("maj69");
+                            for (let i = 0; i < size; i++) {
+                                for (let j = 0; j < size; j++) {
+                                    elements2.forEach(e => {
+                                        e = e.toLowerCase();
+                                        if (i < size - 1 && grid[j][i] === e[0] && grid[j][i+1] === e[1]) {
+                                            grid[j][i] = e[0].toUpperCase();
+                                            data[j][i] = "r";
+                                            grid[j][i+1] = e[1].toUpperCase();
+                                            data[j][i+1] = "l";
+                                        }
+                                        if (j < size - 1 && grid[j][i] === e[0] && grid[j+1][i] === e[1]) {
+                                            grid[j][i] = e[0].toUpperCase();
+                                            data[j][i] = "d";
+                                            grid[j+1][i] = e[1].toUpperCase();
+                                            data[j+1][i] = "u";
+                                        }
+                                    });
+                                    elements1.forEach(e => {
+                                        e = e.toLowerCase();
+                                        if (grid[j][i] === e) {
+                                            grid[j][i] = e.toUpperCase();
+                                            data[i][j] = false;
+                                        }
+                                    });
+                                }
+                            }
                     } else if (spell === "apwh") {
                         playsound("maj69");
                         grid = structuredClone(history[0]);
@@ -482,6 +548,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             grid[3][i] = "☻";
                         }
                         addpath([[0,4],[size-1,4]]);
+                    } else if (spell === "bio") {
+                        playsound("maj69");
+                        bioon = true;
+                        grid[size-2] = "actgactgactgactgdryeact".split("");
+                        addpath([[0,size-1],[size-1,size-1]]);
+                        addpath([[0,size-3],[size-1,size-3]]);
                     } else if (spell === "lunch") {
                         playsound("maj69");
                         frenzy = 125;
@@ -500,7 +572,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         addpath([[0,size-5],[size-1,size-5]]);
                     } else if (spell === "drye") {
                         playsound("eagle");
-                        dryes.push([cellx, celly]);
+                        dryes.push([cellx, celly, 1]);
                         addpath([[cellx+1,celly+1],[cellx+1,celly-1],[cellx-1,celly-1],[cellx-1,celly+1]]);
                         addpath([[cellx+2,celly+2],[cellx+2,celly-2],[cellx-2,celly-2],[cellx-2,celly+2]]);
                     } else if (spell === "aday") {
@@ -650,6 +722,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 playsound("slam");
                 grid[celly][cellx] = data[celly][cellx] || "9";
                 data[celly][cellx] = false;
+            } else if (ABC.includes(prev)) {
+                const sevens = grid.flat().filter(x => x === "7").length;
+                playsound("slam");
+                shower(cellx, celly, 10);
+                const active = [[cellx, celly]];
+                if (data[celly][cellx] === "d") {
+                    active.push([cellx, celly + 1]);
+                } else if (data[celly][cellx] === "u") {
+                    active.unshift([cellx, celly - 1]);
+                } else if (data[celly][cellx] === "r") {
+                    active.push([cellx + 1, celly]);
+                } else if (data[celly][cellx] === "l") {
+                    active.unshift([cellx - 1, celly]);
+                }
+                const element = active.map(xy => grid[xy[1]][xy[0]]).join("");
+                const wgt = wgts[element];
+                addscore(wgt * (sevens + 1));
+                active.forEach(xy => {
+                    grid[xy[1]][xy[0]] = "0";
+                    data[xy[1]][xy[0]] = false;
+                });
             }
             requestAnimationFrame(draw);
         }
@@ -690,7 +783,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             } else {
                 let xys = [[cellx, celly]];
                 if (psych && !boulders.length) {
-                    xys = xys.concat(dryes);
+                    dryes.forEach(d => {
+                        for (let j = 0; j < d[2]; j++) {
+                            for (let k = 0; k < d[2]; k++) {
+                                xys.push([d[0] + j, d[1] + k]);
+                            }
+                        }
+                    });
                 }
                 xys.forEach(xy => {
                     handleclick(xy[0], xy[1]);
@@ -739,6 +838,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         mazeon = false;
         fracsize = 0;
         fw = 0;
+        bioon = false;
         prefrac = [];
         let mins = [0, 0, 1, 5, 10, 30, .5][n];
         framesleft = Math.floor(mins * 60 * (1000/framelength));
@@ -762,10 +862,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             xy[0] = Math.max(0, xy[0]-1);
                         }
                     } else if (k === "arrowdown") {
-                        xy[1] = Math.min(size-1, xy[1]+1);
+                        xy[1] = Math.min(size-xy[2], xy[1]+1);
                     } else if (k === "arrowright") {
                         if (!severed || xy[0] !== 10) {
-                            xy[0] = Math.min(size-1, xy[0]+1);
+                            xy[0] = Math.min(size-xy[2], xy[0]+1);
                         }
                     }
                 }
@@ -818,6 +918,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if (a === "9") { return x%2 ? "red" : "orange";}
         else if (a === "?") { return x%2 ? "yellow" : "black";}
         else if (abc.includes(a)) {return "white"}
+        else if (ABC.includes(a)) {return "black"}
         else if (["·", "■", "█"].includes(a)) {return "black"}
         else if (a === "+") { return "green";}
         else if (a === "☻") { return "black";}
@@ -837,6 +938,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if ("12345678".includes(a)) { return Math.random() < .05 ? "#A0A0A0" : "#808080";}
         else if (a === "?") { return "green";}
         else if (abc.includes(a)) {return "green"}
+        else if (ABC.includes(a)) {return "yellow"}
         else if (["·", "■", "█"].includes(a)) {return "white"}
         else if (a === "+") { return x%2 ? "orange" : "yellow";}
         else if (a === "☻") { return "red";}
@@ -946,9 +1048,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 for (let j = 0; j < size; j++) {
                     let [x,y] = getcellpos([i,j]);
                     let value = grid[j][i];
-                    if (dryes.some(xy => xy[0] === i && xy[1] === j)) {
-                        value = "ü";
-                    }
+                    let mult = 1;
                     if (man && man[0] === i && man[1] === j) {
                         value = "ö";
                     }
@@ -1032,14 +1132,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         ctx.fillStyle = bgcolor(value, frame);
                         ctx.fillRect(x, y, cellwidth, cellwidth);
                         ctx.fillStyle = "black";
-                        ctx.fillRect(x, y, cellwidth, 1);
-                        ctx.fillRect(x, y, 1, cellwidth);
+                        if (!(ABC.includes(value) && data[j][i] === "u")) {
+                            ctx.fillRect(x, y, cellwidth, 1);
+                        }
+                        if (!(ABC.includes(value) && data[j][i] === "l")) {
+                            ctx.fillRect(x, y, 1, cellwidth);
+                        }
                         ctx.fillStyle = fgcolor(value, frame);
                         const pat = font.slice(cp437[value]*5,cp437[value]*5+5).map(a=>[a%2, Math.floor(a/2)%2, Math.floor(a/4)%2, Math.floor(a/8)%2, Math.floor(a/16)%2]);
                         for (let i = 0; i < fontwidth; i++) {
                             for (let j = 0; j < fontwidth; j++) {
                                 if (pat[j][i]) {
-                                    ctx.fillRect(x + 2 + i, y + 2 + j, 1, 1);
+                                    ctx.fillRect(x + 2 + i * mult, y + 2 + j * mult, mult, mult);
                                 }
                             }
                         }
@@ -1082,6 +1186,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ctx.fill();
                 ctx.stroke();
             }
+
+            dryes.forEach(d => {
+                const i = d[0];
+                const j = d[1];
+                let [x,y] = getcellpos([i,j]);
+                const mult = d[2];
+                const value = "ü";
+                ctx.fillStyle = bgcolor(value, frame);
+                ctx.fillRect(x, y, cellwidth * mult, cellwidth * mult);
+                ctx.fillStyle = "black";
+                ctx.fillRect(x, y, cellwidth * mult, mult);
+                ctx.fillRect(x, y, mult, cellwidth * mult);
+                ctx.fillStyle = fgcolor(value, frame);
+                const pat = font.slice(cp437[value]*5,cp437[value]*5+5).map(a=>[a%2, Math.floor(a/2)%2, Math.floor(a/4)%2, Math.floor(a/8)%2, Math.floor(a/16)%2]);
+                for (let i = 0; i < fontwidth; i++) {
+                    for (let j = 0; j < fontwidth; j++) {
+                        if (pat[j][i]) {
+                            ctx.fillRect(x + 2 + i * mult, y + 2 + j * mult, mult, mult);
+                        }
+                    }
+                }
+            });
 
             ctx.fillStyle = "black";
             if (!mazeon) {
@@ -1282,6 +1408,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
 
+            if (bioon) {
+                let deldryes = [];
+                for (let i = 0; i < dryes.length; i++) {
+                    let d = dryes[i];
+                    let ds = dryes.slice(0, i).filter(d2 => d2[0] === d[0] && d2[1] === d[1]);
+                    if (ds.length > 0) {
+                        let d2 = ds[0];
+                        d2[2] += d[2];
+                        deldryes.push(i);
+                    }
+                };
+                dryes = dryes.filter((_, i) => !deldryes.includes(i));
+            }
+
             if (frame % angle_steps === 0) {
                 const fans = Array.from({ length: size }, () => new Array(size).fill(false));
                 let isfans = false;
@@ -1415,13 +1555,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (!psych && !boulders.length) {
                 for (let i = 0; i < dryes.length; i++) {
                     const d = dryes[i];
-                    let n = neighbors(d);
+                    let n = neighbors(d, size + 1 - d[2]);
                     n = n.filter(xy => grid[xy[1]][xy[0]] !== "#" && grid[xy[1]][xy[0]] !== "!");
-                    if (phones.length) {
-                        worsen(d);
-                    } else if (Math.random() < 0.2) {
-                        improve(d);
+                    let r = [];
+                    for (let j = 0; j < d[2]; j++) {
+                        for (let k = 0; k < d[2]; k++) {
+                            r.push([d[0] + j, d[1] + k]);
+                        }
                     }
+                    r.forEach(xy => {
+                        if (phones.length) {
+                            worsen(xy);
+                        } else if (Math.random() < 0.2) {
+                            improve(xy);
+                        }
+                    });
                     let option = 0;
                     if (phones.length) {
                         option = n.reduce((xy1, xy2) => {
@@ -1442,7 +1590,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     } else {
                         option = d;
                     }
-                    dryes[i] = option;
+                    dryes[i][0] = option[0];
+                    dryes[i][1] = option[1];
                 }
             }
 
