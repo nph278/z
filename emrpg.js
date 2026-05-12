@@ -96,9 +96,7 @@ class Scene {
 
     apply(canvas) {
         this.music.play();
-        requestAnimationFrame(() => {
-            canvas.style.backgroundImage = "url('" + this.bgImage + "')";
-        });
+        canvas.style.backgroundImage = "url('" + this.bgImage + "')";
     }
 
     unapply() {
@@ -4891,6 +4889,9 @@ addEventListener('load', async (event) => {
     const ctx = canvas.getContext("2d");
     const sizemult = Math.min((window.innerWidth-hmargin)/width, (window.innerHeight-vmargin)/height);
     canvas.style.width = sizemult * width + "px";
+
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, width, height);
 
     ctx.fillStyle = "white";
     ctx.font = "100px Courier Prime, courier, monospace";
