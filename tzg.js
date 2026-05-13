@@ -17,13 +17,13 @@ const elements2 = [
     "Be", "Bh", "Bi", "Bk", "Br", "Ca", "Cd", "Ce", "Cf",
     "Cl", "Cm", "Co", "Cr", "Cs", "Cu", "Ds", "Db", "Dy", "Er",
     "Es", "Eu", "Fe", "Fm", "Fr", "Ga", "Gd", "Ge",
-    "He", "Hf", "Hg", "Ho", "Hs", "In", "Ir", "Kr",
+    "He", "Hf", "Hg", "Ho", "Hs", "In", "Ir", "Kr", "Og",
     "La", "Li", "Lr", "Lu", "Md", "Mg", "Mn", "Mo", "Mt",
-    "Na", "Nb", "Nd", "Ne", "Ni", "No", "Np", "Os",
+    "Na", "Nb", "Nd", "Ne", "Ni", "No", "Np", "Os", "Lv", "Ts",
     "Pa", "Pb", "Pd", "Pm", "Po", "Pr", "Pt", "Pu", "Ra", "Rb",
     "Re", "Rf", "Rg", "Rh", "Rn", "Ru", "Sb", "Sc", "Se",
     "Sg", "Si", "Sm", "Sn", "Sr", "Ta", "Tb", "Tc", "Te", "Th",
-    "Ti", "Tl", "Tm", "Xe", "Yb", "Zn",
+    "Ti", "Tl", "Tm", "Xe", "Yb", "Zn", "Cn", "Nh", "Fl", "Mc",
     "Zr",
 ];
 
