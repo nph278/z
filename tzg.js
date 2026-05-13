@@ -1414,6 +1414,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     let d = dryes[i];
                     let ds = dryes.slice(0, i).filter(d2 => d2[0] === d[0] && d2[1] === d[1]);
                     if (ds.length > 0) {
+                        playsound("squish");
                         let d2 = ds[0];
                         d2[2] += d[2];
                         deldryes.push(i);
