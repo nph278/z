@@ -852,7 +852,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 begin_game(+k);
             }
         } else if (screen === scr_game) {
-            if (psych) {
+            if (psych && !boulders.length) {
                 for (let i = 0; i < dryes.length; i++) {
                     let xy = dryes[i];
                     if (k === "arrowup") {
