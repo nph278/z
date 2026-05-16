@@ -2,35 +2,16 @@
 
 // Link from game page
 // Trailer
-// Lots of info/stats everywhere. More text effets: shaking, ripple
-// (CSS?) Backgrounds for different regions (goals?). East meck photos?
-// More (animated) visual effects generally
-// Music
-// Sfx - Room enter, Dryebux get, Reset, End
-// More grime
-// Worthiness meter
-// "The most heartwrenching East Meck story to date"
-// "Interactive Story"
-// "The East Meck Game of the most Magnitude"
-// "East Meck" lower case cursive. "The RPG" upper case serifs.
-// "[n] unique regions". Repeatedly use that number "[n] ... Xthings"
-// "[m] action-packed hours of content"
-// "Comedy will no longer be subservient to art"
+// More text effets: shaking, ripple
+// Repeatedly use that number "[n] ... Xthings" >495?
 // Splitscreen of many rooms for trailer
-// Extensive Playtest - Chromebook
+// Extensive Playtest on Chromebook. Playtest espeically the jarman stuff
 // Show game to incoming freshman as practice for the real Meck
 // Teacher lounges
 // Checking your schedule is like savepoints
-// Timeline split like tape was split like 400 building was split.
-// Zdshr is a cycle like east meck is a cycle
 // Dialogue text effect
 // Better opening line
-// Fourkstairs2: Wonder why so empty. Its becase the exit runs straight into the fence and so is useless.
-// Someone pays you off to stay silent about what they are doing
-// Sports fields. Football - Dodge the marching band by guessing what they're spelling
 // Balancing for the ending reactions
-// Finish 800 connections
-// Detect duplicate rooms
 
 "use strict";
 
@@ -109,7 +90,7 @@ const scene_main = new Scene("rpgbg4.gif", "rpgbg2.mp3");
 const scene_fourk = new Scene("rpgbg3.gif", "rpgbg1.mp3");
 const scene_underground = new Scene("rpgbg2.gif", "rpgbg2.mp3");
 const scene_trailers = new Scene("rpgbg2.gif", "rpgbg2.mp3");
-const scene_tunnel = new Scene("rpgtunnel.gif", "rpgbg2.mp3");
+const scene_tunnel = new Scene("rpgtunnel.gif", "banger.mp3");
 
 class TextStyle {
     constructor() {
@@ -156,7 +137,7 @@ class TextStyle {
         case "p":
             // Place
             this.fontFamily = "Courier Prime, courier, monospace";
-            this.color = "green";
+            this.color = "lime";
             break;
         case "e":
             // Emphasis
@@ -343,7 +324,7 @@ class Action {
         this.type = type;
         if (type === "room") {
             this.id = args[0];
-            this.onetime = args[1] === true;
+            this.onetime = args[1][0] === true;
             this.replaces = Array.isArray(args[1]) && args[1];
         } else if (type === "dryebux") {
             this.dryebux = args[0];
@@ -475,7 +456,11 @@ class Game {
             if (id === "techdepot5") {
                 f *= .9;
             }
-            if (id === "fnf3") {
+            if (["rankf", "rankd", "rankc", "rankb", "ranka", "ranks"].includes(id)) {
+                this.lastScene.unapply();
+                soundCrystal.load();
+                soundCrystal.play();
+            } if (id === "fnf3") {
                 this.enterScene(scene_fourk);
             } else if (id === "fnf1") {
                 this.enterScene(scene_main);
@@ -702,8 +687,6 @@ class Game {
                 }));
             }
         } else if (a.type === "reset") {
-            soundCrystal.load();
-            soundCrystal.play();
             this.reset();
         } else if (a.type === "back") {
             soundPhone.load();
@@ -717,6 +700,9 @@ class Game {
         } else if (a.type === "destroy") {
             if (this.metaLevel === 1) {
                 document.querySelector("#blackout").style.display = "inline";
+                setTimeout(() => {
+                    document.querySelector("#blackout").innerText = "Click";
+                }, 3000);
             } else {
                 this.supergame.enterRoomId("gamecrash");
                 this.supergame.cracked = true;
@@ -727,8 +713,6 @@ class Game {
         } else if (a.type === "normal") {
             this.eyeOn = "./emrpg/crossword_normal.pdf";
         } else if (a.type === "end") {
-            soundCrystal.load();
-            soundCrystal.play();
             if (this.dryebux === 0) {
                 this.enterRoomId("rankd");
             } else if (this.dryebux < 15) {
@@ -924,6 +908,15 @@ options: [
 ["media", "Walk towards the !p!media !p!center"],
 ["studentlot", "Walk towards the !p!student !p!parking !p!lot"],
 ["middle2", "Walk north, towards the !p!Four !p!Hundred"],
+["bench", "Walk to the bench by the !p!Media !p!Center"],
+],
+},
+{
+id: "bench",
+desc: "You are at a small bench by the front of the !p!Media !p!Center. It’s been a long time since you were last here, and it makes you feel nostalgic.",
+options: [
+["middle", "Go towards the !p!600"],
+["media", "Go to the front of the !p!Media !p!Center"],
 ],
 },
 {
@@ -1359,6 +1352,7 @@ options: [
 ["middle", "Walk toward the !p!southern !p!security !p!scanners"],
 ["middle2", "Walk north, towards the !p!Four !p!Hundred"],
 ["mediaside", "Walk around to the side of the !p!Media !p!Center"],
+["bench", "Walk to the bench by the side of the building"],
 ],
 },
 {
@@ -1525,6 +1519,7 @@ options: [
 ["bleachers1", "Follow the !c!Eagle’s advice and go to the !p!Bleachers"],
 ["trailers3", "Ignore the claws and walk towards the middle of the school"],
 ["gymlot1", "Actively work against the will of the !c!Eagle and go south"],
+["baseball", "Make a crazy move and go to the !p!Baseball !p!Field"],
 ],
 },
 {
@@ -1552,11 +1547,12 @@ options: [
 ["track1", "Jog towards !p!School"],
 ["track3", "Jog away from !p!School"],
 ["football", "Go down to the !p!Football !p!Field"],
+["baseball", "Run away to the !p!Baseball !p!Field"],
 ],
 },
 {
 id: "track4",
-desc: "You are on the !p!Track. Specifically, the sharp turn on the side closest to the !p!Softball !p!Field.",
+desc: "You are on the !p!Track. Specifically, the sharp turn on the side closest to the !p!Softball !p!Field. You see a small rat scurry under the fence to the nearby neighborhood.",
 options: [
 ["track1", "Jog towards !p!School"],
 ["track3", "Jog away from !p!School"],
@@ -1566,7 +1562,7 @@ options: [
 },
 {
 id: "track3",
-desc: "You are on the !p!Track. Specifically, the long straightaway on the side farthest from !p!School.",
+desc: "You are on the !p!Track. Specifically, the long straightaway on the side farthest from !p!School. The barbed wire fence is looking particularly decrepit today.",
 options: [
 ["track2", "Jog towards the !p!Baseball !p!Field"],
 ["track4", "Jog towards the !p!Softball !p!Field"],
@@ -1622,6 +1618,25 @@ options: [
 ["track2", "Walk to the !p!Track, towards the !p!Baseball !p!Field"],
 ["track4", "Walk to the !p!Track, towards the !p!Softball !p!Field"],
 ["bleachers2", "Walk to the far !p!Bleachers, away from the school"],
+],
+},
+{
+id: "baseball",
+desc: "You are in the middle of a colossal !p!Baseball !p!Field. You reckon this field takes up, say, a ninth of East Meck’s area.",
+options: [
+["baseballdig", "Dig around in the ground", true],
+["dugout", "Enter the !p!dugout"],
+["commentary", "!c!Announcer’s !p!booth"],
+["outfield", "Go into the !p!outfield"],
+["gymlot2", "Walk down to the !p!Gym !p!Parking !p!Lot"],
+["track2", "Run over to the !p!Track"],
+],
+},
+{
+id: "baseballdig",
+desc: "You dig around in the ground, completely ruining the hard work of those who dedicate their lives to keep these fields in order. You find a small metal box. Upon opening the box, you see a slip of paper with a twenty-digit code. This may be important.",
+options: [
+['baseball', 'Continue', ['dryedesk','dryedesk2']],
 ],
 },
 {
@@ -1720,7 +1735,7 @@ options: [
 ["mysterytrailer", "M122"],
 ["trailers6", "Walk towards the !p!Gym"],
 ["trailers7", "Walk towards the !p!400"],
-["tennisoutside", "Walk along the bak of the !p!Tennis !p!Courts"],
+["tennisoutside", "Walk along the back of the !p!Tennis !p!Courts"],
 ],
 },
 {
@@ -1730,14 +1745,22 @@ options: [
 ["tennisshed", "Enter the !p!Tennis !p!Shed"],
 ["missingtennis", "Walk to the !p!Missing !p!Tennis !p!Court"],
 ["trailers5", "Go towards the !p!Gym"],
+["tennis", "Enter the !p!tennis !p!courts"],
+],
+},
+{
+id: "tennis",
+desc: "You are in a large group of eight !p!Tennis !p!Courts. ",
+options: [
 ],
 },
 {
 id: "missingtennis",
-desc: "You are at the site of the potential !p!9th !p!tennis !p!court. If a court was built here, it would complete a clean three by three rectangle of courts, and a good chunk of East Meck’s ambiguity would evaporate away.",
+desc: "You are at the site of the potential !p!9th !p!tennis !p!court. If a court was built here, it would complete a clean three by three rectangle of courts, and a good chunk of East Meck’s ambiguity would evaporate away. As for the present, you spot a !d!DryeBuk !d!Bill left under the very far fence of the eighth court.",
 options: [
 ["tennisoutside", "Return to the back of the realer !p!courts"],
 ],
+dryebux: 7,
 },
 {
 id: "tennisshed",
@@ -1917,7 +1940,7 @@ options: [
 },
 {
 id: "tape8",
-desc: "!c!BEAGLER: “It did. Part of the process, if you recall, was that the Techlenburg article became the truth. Just as Truth became Beagle, Zeagle became Truth.”",
+desc: "!c!BEAGLER: “It did. Part of the process, if you recall, was that the Techlenburg article became the truth. Just as Truth became Beagle, Zeagle became Truth. Our world, the world of Ethics, and theirs, the world of Aesthetics, will unite again.”",
 options: [
 ["tape9", "..."],
 ],
@@ -2459,9 +2482,17 @@ options: [
 ["bartkowiak", "Enter !c!Bartkowiak’s !p!Classroom"],
 ["roberts1", "Enter !c!Roberts’ !p!Classroom"],
 ["dunn", "Enter !c!Dunn’s !p!Classroom"],
+["kindt", "Enter !c!Kindt’s !p!Room"],
 ["cellocloset", "Enter the !p!cello/bass !p!storage !p!closet"],
 ["sixh2", "Continue along the hall"],
 ["middle", "Exit out the classic door"],
+],
+},
+{
+id: "cellocloset",
+desc: "There are a bunch of cellos in here. Pretty much what you expected.",
+options: [
+["sixh1", "Exit"],
 ],
 },
 {
@@ -2777,8 +2808,8 @@ desc: "You are at the most bustling corner of the !p!Six !p!Hundred. Students --
 options: [
 ["price", "Enter !c!Price’s !p!Room"],
 ["mercabi", "Enter !c!Mercabi’s !p!Room"],
-["gatling", "Enter !c!Gatling’s !p!Room"],
 ["copier", "Enter the !p!Copier !p!Room"],
+["green", "Enter !c!Mr. !c!Green’s !p!room"],
 ["sixh2", "Go South, towards the Heart of the building"],
 ["sixh5", "Go towards the !p!Cafeteria"],
 ["courtyardcorner", "Exit through the door labelled “EXIT ONLY, PLEASE USE THIS DOOR”"],
@@ -2825,7 +2856,7 @@ options: [
 },
 {
 id: "barone",
-desc: "You are in !c!Mr. !c!Barone’s room. Everything in his room made of glass -- the windows, cups, and lightbulbs -- are completely shattered. You reason that this is due to the extreme temperature swing this room experiences -- The transition from extreme hot in the summer to extreme cold in the winter must have caused thermal shock in the glass.",
+desc: "You are in !c!Mr. !c!Barone’s room. Everything in his room made of glass -- the windows, cups, and lightbulbs -- are completely shattered. You reason that this is due to the extreme temperature swing this room experiences; The transition from extreme hot in the summer to extreme cold in the winter must have caused thermal shock in the glass.",
 options: [
 ["sixh5", "Exit to the hall"],
 ],
@@ -3015,6 +3046,14 @@ options: [
 ],
 },
 {
+id: "stageauditoriumthing",
+desc: "You try to open the door and you have to break off a large amount of rust to open it, furthering proving that !p!the !p!silver !p!auditorium would prove to be a triangle shirtwaist-esque death trap. You feel guilty about taking this below board way through the school but it is so much faster.",
+options: [
+["auditorium", "Enter the !p!Auditorium"],
+["patio3", "Go on to !p!cafeteria !p!patio"],
+],
+},
+{
 id: "cafelobby3",
 desc: "You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.",
 options: [
@@ -3062,7 +3101,60 @@ options: [
 ["vincent", "Enter !c!Vincent’s Room"],
 ["threeway", "Go to the intersection"],
 ["twoh2", "Continue down the hall"],
+["courtyard1", "Exit to the !p!Courtyard"],
 ],
+},
+{
+id: "vincent",
+desc: "You are in !c!Mrs. !c!Vincent’s room. You want to cross the room but the tables are arranged in a way that would make that impossible. They seem like a maze designed to contain some sort of abhorrent art beast and prevent it from reaching the rest of East. As far fetched as it seems it is the only possible explanation for why the tables would be arranged this way.  The whole room seems to be shifting and the art on the walls seems to be constantly changing yet still maintaining its near-professional quality. You try to walk deeper into the room to try to examine some but the tables start spinning really fast and you figure you couldn’t get in without having your legs ripped from your body.",
+options: [
+["twoh1", "Give up and leave"],
+],
+},
+{
+id: "shields",
+desc: "You are in the heart of the yearbook machine. You feel an incredible power emanating from the bulletin board in this room as if it alone could skyrocket someone into the proverbial moon as far as status goes. The source is the allusive !d!103 !d!DryeBuk !d!Bill. You feel drawn to it but you also feel that it could corrupt your soul.",
+options: [
+["twoh1", "Back away, afraid"],
+["103dryebuk", "Reach for the buk"],
+],
+},
+{
+id: "103dryebuk",
+desc: "You feel its power as your hand reaches closer until you make contact and the world seems to go still for a second and everything goes quiet... and then you hear in your mind a subtly southern inoffensive voice: !d!“Hello !d!student, !d!you !d!must !d!really !d!love !d!power”. You look down and see the face on the !d!buk flashing a big smile. !d!“So !d!what !d!makes !d!you !d!think !d!you !d!deserve !d!to !d!wield !d!me?” You see the miniature !c!Drye mouthing along to the telepathic question.",
+options: [
+["103dryebuk2", "Continue..."],
+],
+},
+{
+id: "103dryebuk2",
+desc: "You are too stunned to respond so after about a couple seconds of radio silence the !d!Buk responds !d!“I !d!will !d!answer !d!for !d!you, !d!you !d!do !d!not.” !d!“No !d!one !d!does.” !d!“I !d!was !d!too !d!coveted !d!and !d!needed !d!to !d!be !d!held !d!from !d!the !d!rest !d!of !d!East !d!Meck.” !d!“There !d!is !d!a !d!very !d!specific !d!protocol !d!I !d!have !d!been !d!told !d!to !d!follow !d!if !d!some !d!overzealous !d!student !d!tries !d!to !d!steal !d!me. !d!I !d!will !d!be !d!wiping !d!your !d!memory !d!and !d!putting !d!you !d!back !d!at !d!the !d!start !d!of !d!the !d!day !d!hoping !d!that !d!you !d!never !d!come !d!back !d!here !d!but !d!I !d!will !d!let !d!you !d!ask !d!me !d!one !d!question.”",
+options: [
+["db103talk", "Why can you talk?"],
+["db103yearbook", "Why were you left in the !s!yearbook !p!room"],
+["db103spit", "Refuse to ask a question, your getting your mind wiped anyway"],
+],
+},
+{
+id: "db103spit",
+desc: "The !d!Buk feels your objection and is deeply enraged by it. You feel it begin to heat up and then burn. It hurts your hands to hold but something deep inside you can’t let it go: you would be stupid to give up that much power. The !d!Buk begins to burn away. !d!“How !d!dare !d!you.” The skin on your hands burns away until it is just a skeleton and then that begins to burn too but the !d!Buk is still getting hotter. You feel the heat start to rise up your arms and burn away that flesh too but still you don’t release the !d!Buk. You clutch it close until you and it become withered.",
+options: [
+["rankf", "... "],
+],
+},
+{
+id: "db103yearbook",
+desc: "!d!“Everyone !d!knew !d!as !d!soon !d!as !d!I !d!was !d!printed !d!that !d!I !d!was !d!going !d!to !d!be !d!too !d!powerful !d!for !d!East. !d!I !d!am !d!far !d!from !d!the !d!most !d!powerful !d!being !d!at !d!East !d!but !d!when !d!you !d!liquidate !d!this !d!much !d!status !d!issues !d!start !d!to !d!emerge. !c!The !c!Zeagle !c!Staff !d!realized !d!that !d!they !d!needed !d!a !d!place !d!to !d!put !d!me !d!so !d!that !d!I !d!wasn’t !d!added !d!to !d!circulation. !d!They !d!decided !d!the !p!yearbook !p!room !d!would !d!be !d!the !d!perfect !d!place !d!for !d!me. !d!Although !d!it's !d!not !d!an !d!exciting !d!way !d!to !d!live, !d!it !d!beats !d!the !d!alternative: !d!East !d!Meck !d!in !d!utter !d!chaos.” You feel a sharp hum in your temples and your vision begins to blur then...",
+options: [
+],
+reset: "...",
+},
+{
+id: "db103talk",
+desc: "!d!“I !d!was !d!a !d!mistake, !d!a !d!product !d!of !d!an !d!experiment !d!gone !d!awry. !d!It !d!was !d!too !d!much !d!power, !d!too !d!much !d!status !d!infused !d!into !d!one !d!object. !d!When !d!power !d!is !d!this !d!condensed !d!this !d!much !d!consciousness !d!comes !d!soon !d!after.” You feel a buzzing in the very back of your skull and then...",
+options: [
+],
+reset: "...",
 },
 {
 id: "threeway",
@@ -3127,6 +3219,13 @@ options: [
 ],
 },
 {
+id: "saucedo",
+desc: "You don’t want to burst in as you can hear a student deep in debate with !c!Mr. !c!Valdivia !c!Saucedo. You can’t make out exactly what is being said but you can !c!Mr. !c!Valdivia !c!Saucedo is winning. The student seems to be so deeply conceded by excellent social maneuvers by the young gun counselor. ",
+options: [
+["counseling", "Exit to the hall"],
+],
+},
+{
 id: "officeoutside",
 desc: "You stand at the front of the school. You see a caged cap and gown and a ranked list of the top Juniors from the previous year, all meant to encourage but they only make you bitter. There is still a steady stream of students going through the scanner. ",
 options: [
@@ -3188,7 +3287,44 @@ id: "drye",
 desc: "You are standing in the !p!Principal’s !p!Office. !c!Drye’s room is surprisingly barren, highlighting his aversion to the concept of picking any kind of side (good vs. evil, etc.). He has a frame on the wall labeled !d!“Signed !d!Dryebuk”, but the glass is smashed and no !d!bill is inside.",
 options: [
 ["officehall", "Leave to the hall"],
-["dryechair", "Inspect Drye’s chair"],
+["dryechair", "Inspect !c!Drye’s chair"],
+["dryedesk", "Inspect !c!Drye’s desk"],
+],
+},
+{
+id: "dryedesk",
+desc: "On !c!Drye’s desk there is a large red button behind a glass panel. The panel seems to be controlled by a numerical keypad. The keypad demands a twenty digit code. You don’t have enough time to guess this one.",
+options: [
+["drye", "Ok"],
+],
+},
+{
+id: "dryedesk2",
+desc: "On !c!Drye’s desk there is a large red button behind a glass panel. The panel seems to be controlled by a numerical keypad. The keypad demands a twenty digit code.",
+options: [
+["button1", "Enter the code you found in the !p!Baseball !p!Field"],
+["drye", "Don’t"],
+],
+},
+{
+id: "dryedesk3",
+desc: "On !c!Drye’s desk there is a large red button under a glass panel that has been opened. A small screen next to the device shows the flashing text “LANCASTER COUNTY” and several large skulls-and-crossbones and radiation hazard signs.",
+options: [
+["drye", "Ok"],
+],
+},
+{
+id: "button1",
+desc: "A crunchy sound is emitted by the device. You would usually interpret this as a sign you entered the code incorrectly, however the glass panel swings right open. It seems the unpleasant sound was only meant to indicate to you the severity of the situation you are getting yourself into.",
+options: [
+["button2", "Hit the big red button"],
+],
+},
+{
+id: "button2",
+desc: "An extremely loud alarm plays for a few seconds, and then you hear an extremely loud bang and a flash of white light. Whatever it was must have happened at least twenty miles away though, as East Meck seems to have been unaffected.",
+options: [
+['drye', 'Ok', ['dryedesk2','dryedesk3']],
 ],
 },
 {
@@ -3263,7 +3399,7 @@ options: [
 },
 {
 id: "duck",
-desc: "As Parker’s Helping Other People Excel ideology dictates, he always aims for the stars. The pickaxe flies right over you, and you have quick enough reflexes to grab it. Parker knows he’s in trouble now, and runs down the tunnel as fast as he can. As he runs, the !d!Signed !d!DryeBuk falls out of his pocket onto the floor.",
+desc: "As !c!Parker’s !e!Helping !e!Other !e!People !e!Excel ideology dictates, he always aims for the stars. The pickaxe flies right over you, and you have quick enough reflexes to grab it. !c!Parker knows he’s in trouble now, and runs down the tunnel as fast as he can. As he runs, the !d!Signed !d!DryeBuk falls out of his pocket onto the floor.",
 options: [
 ['tunnel2a', 'Continue', ['tunnel2','tunnel2a']],
 ],
@@ -3295,7 +3431,7 @@ options: [
 },
 {
 id: "eighth1",
-desc: "This hall feels dewier than the rest of the school. You hear the vague pounding of well-tempoed yet familiar songs coming from the !p!dance !p!room as well as a well-put-together patter song being sung from !p!The !p!Stage. There is an office of an !c!Exiled !c!Social !c!Worker here.",
+desc: "This hall feels dewier than the rest of the school. You hear the vague pounding of well-tempoed, familiar songs coming from the !p!dance !p!room as well as a well-put-together patter song being sung from !p!The !p!Stage. There is an office of an !c!Exiled !c!Social !c!Worker here.",
 options: [
 ["dance", "Enter the !p!Dance !p!Room"],
 ["stageclassroom", "Enter the !p!Stage !p!Classroom"],
@@ -3306,11 +3442,18 @@ options: [
 },
 {
 id: "stageclassroom",
-desc: "There is a complex set constructed on the stage. The actors are in the middle of dress rehearsal. You clearly walked in at an important because and lying on a large script Z is being lowered to the ground by an intricate pulley mechanism while they sing one of the loudest songs you have ever heard. ",
+desc: "There is a complex set constructed on the stage. The actors are in the middle of dress rehearsal. You clearly walked in at an important moment because a large script !e!Z is being lowered to the ground by an intricate pulley mechanism while they sing one of the loudest songs you have ever heard. ",
 options: [
 ["stageclassroom2", "Stick around to hear more of the preview for this year's musical"],
 ["stageshop2", "Enter !p!Stage !p!Workshop"],
 ["8072", "Enter the !p!Stage !p!Office"],
+],
+},
+{
+id: "stageclassroom2",
+desc: "You find yourself absorbed into the rehearsal. Although it definitely still has some kinks it needs to work out, they are still trying out new things to see what they like and what their fan base likes and they are eventually going to have a finished product everyone is happy with. The curtain closes briefly and everyone works to transition the stage for one of the many climatic numbers “4k tengo” and someone hands you one of the many props that need to move and you find yourself helping in the transition.",
+options: [
+["rankf", "Spend the whole day helping out around the set to help make the musical really work"],
 ],
 },
 {
@@ -3384,7 +3527,7 @@ options: [
 },
 {
 id: "eighth2",
-desc: "You are in the even colder part of the !p!800. There are some bouige !p!staff !p!bathrooms as well as the entrances to offices of staff members you’ve never heard of. ",
+desc: "You are in the even colder part of the !p!800. There are some bougie !p!staff !p!bathrooms as well as the entrances to offices of staff members you’ve never heard of. ",
 options: [
 ["auditoriumlobby", "Go straight, into the !p!Auditorium !p!Lobby"],
 ["staffbathroom", "Enter one of the !p!staff !p!bathrooms"],
@@ -3442,7 +3585,7 @@ options: [
 },
 {
 id: "auditoriumlobby",
-desc: "You are standing in front of an uncountable amount of doors. The airlock to prevent sludge from completely destroying the entire school. There are posters for musicals that you have definitely heard of but you couldn’t explain a plot or sing a song from.",
+desc: "You are standing in front of an uncountable amount of doors. The airlock to prevent sludge from completely destroying the entire school. There are avant-garde posters for the upcoming zeagle the musical which is anticipated to sweep the Blumey’s.",
 options: [
 ["auditorium", "Enter the !p!auditorium"],
 ["cafelobby3", "Enter the hallway in front of the !p!Court !p!Yard"],
@@ -3538,6 +3681,7 @@ options: [
 ["courtyardcorner", "Go towards the blue !p!Courtyard !p!Doors"],
 ["courtyard2", "Walk to the middle of the !p!Courtyard"],
 ["studentservices", "Enter !p!Student !p!Services"],
+["twoh1", "Enter the !p!Two !p!Hundred"],
 ],
 },
 {
@@ -3613,6 +3757,13 @@ options: [
 ],
 },
 {
+id: "gray",
+desc: "You are in !c!Coach !c!Gray’s room. You see an ouroboros-style chain of students each performing CPR on the classmate in front of them. This seems to be due to the fact that the extreme technique they are being taught often results in exhaustion from the applicant.",
+options: [
+["fourh2", "Exit to the hall"],
+],
+},
+{
 id: "billota",
 desc: "You enter !c!Ms. !c!Billota’s room. Unfortunately, you failed to remember that you had a peanut three months ago. !c!Billota catches on instantly, and slams the door. You have been banned from this room.",
 options: [
@@ -3668,6 +3819,7 @@ options: [
 ["schedule", "Check your schedule"],
 ["lecomte", "Enter !c!LeComte’s !p!room"],
 ["corson", "Enter !c!Corson’s !p!room"],
+["iss", "Enter the !p!In-School !p!Suspension room"],
 ["splitoutside", "Go South towards the !p!600"],
 ["outsidestairs", "Take the stairs towards the !p!Thousands"],
 ["slope", "Descend the gravel slope instead"],
@@ -3715,7 +3867,7 @@ options: [
 },
 {
 id: "meegan",
-desc: "You are in !c!Mr. !c!Meegan’s !s!physical !s!science !p!room.  There are small solar panels dotted about the room. Students are using them to do some kind of improvised welding project.",
+desc: "You are in !c!Mr. !c!Meegan’s !s!physical !s!science !p!room. There are small solar panels dotted about the room. Students are using them to do some kind of improvised welding project. There is also a manikin in the corner of the room with a balloon for a head. The balloon has a face sharpied on that bears a striking resemblance to !c!Meegan himself.",
 options: [
 ["outsidestairs", "Exit to the outside"],
 ],
@@ -3814,6 +3966,7 @@ options: [
 ["fivekstairs1a", "Enter the !p!Five !p!Thousand"],
 ["fnfenter1", "Continue into the unique new !p!495000 !p!Building"],
 ["center2", "Turn back towards the !p!Hundreds"],
+["tennis", "Enter the !p!tennis !p!courts"],
 ],
 },
 {
@@ -3830,31 +3983,15 @@ id: "fivek1a",
 desc: "You are at the back end of the !f!first !f!floor of the !p!5000. The back stairs are available, and the beautiful odor of freshly cooked food is rising from the nearby !c!culinary !p!kitchen.",
 options: [
 ["culinarykitchen", "Enter the !s!Culinary !p!Kitchen"],
-["fivek2a", "Follow the smell down the hall"],
+["fivek2a", "Continue further in to the hall"],
 ["fivekstairs1a", "Enter the stairwell"],
-],
-},
-{
-id: "culinaryclass",
-desc: "This !s!Culinary !p!Classroom is empty, as all of the students are hard at work in the !p!kitchen down the hall. All of the students’ chromebooks are open to notes on their desks, except for one which is open to a particularly high-scoring round of !e!The !e!Zeagle !e!Game. The whiteboard is covered in the ramblings of a madman.",
-options: [
-["fivek1a", "Exit to the hall"],
-],
-},
-{
-id: "fivek2a",
-desc: "You are in the middle of the !f!first !f!floor of the !p!5000. Your sinuses are filled with an incredible smell. The !c!chef !c!sculpture’s bright smile makes your day. ",
-options: [
-["culinaryclass", "Enter one of the !s!culinary !p!classrooms"],
-["fivek1a", "Go towards the back of the building"],
-["fivek3a", "Go towards the front"],
 ],
 },
 {
 id: "culinarykitchen",
 desc: "You have to walk through a pile of feathers to get into the kitchen. When you get through, you see that all of the students are holding live turkeys at their stations. They are struggling to hold on to the turkeys and prevent them from escaping. !c!Chef !c!Morris is streaming the debacle on Twitch instead of explaining the process.",
 options: [
-["fivek2a", "Exit to the hall"],
+["fivek1a", "Exit to the hall"],
 ],
 },
 {
@@ -3862,7 +3999,7 @@ id: "cajunkitchen",
 desc: "!c!Chef !c!Morris is in the front of the kitchen lecturing about !e!Cajun !e!Cuisine. He is holding a triangular poster displaying the holy trinity of celery, bell peppers, and onions. The students are whipping up a delectable gumbo.",
 options: [
 ["gumbo", "Take a Gumbo while the students aren’t looking", true],
-["fivek2a", "Exit to the hall"],
+["fivek1a", "Exit to the hall"],
 ],
 },
 {
@@ -3870,6 +4007,22 @@ id: "gumbo",
 desc: "You grab one of the dishes and stuff it into your backpack. This is exactly what !c!Gearhart was looking for.",
 options: [
 ['cajunkitchen', 'Continue', ['gearhart','gearhart2']],
+],
+},
+{
+id: "fivek2a",
+desc: "You are in the middle of the !f!first !f!floor of the !p!5000. Your sinuses are filled with an incredible smell. The !c!chef !c!sculpture’s bright smile makes your day. ",
+options: [
+["culinaryclass", "Enter one of the !s!culinary !p!classrooms"],
+["fivek1a", "Follow the smell down the hall"],
+["fivek3a", "Go towards the front"],
+],
+},
+{
+id: "culinaryclass",
+desc: "This !s!Culinary !p!Classroom is empty, as all of the students are hard at work in the !p!kitchen down the hall. All of the students’ chromebooks are open to notes on their desks, except for one which is open to a particularly high-scoring round of !e!The !e!Zeagle !e!Game. The whiteboard is covered in the ramblings of a madman.",
+options: [
+["fivek2a", "Exit to the hall"],
 ],
 },
 {
@@ -3881,13 +4034,14 @@ options: [
 ["rotcstore", "Enter the “abandoned” !p!ROTC !p!Store"],
 ["fivekelevatora", "Enter the elevator"],
 ["fivekstairs2a", "Take the stairs"],
-["fivek2a", "Continue along the hall2"],
+["fivek2a", "Continue along the hall"],
 ],
 },
 {
 id: "rotcstore",
 desc: "You are in the nominally-defunct !p!ROTC !p!Store. Although Drye ordered the destruction of this place several years ago, it is still operating in a shady, unofficial capacity. An ROTC student is selling various items that could come in handy.",
 options: [
+["blackbird", "Purchase !e!SR-71 !e!Blackbird !e!aircraft"],
 ["fivek3a", "Exit to the hall and pretend you aren’t involved in this"],
 ],
 },
@@ -4100,6 +4254,13 @@ options: [
 ],
 },
 {
+id: "uglehus",
+desc: "As you open the door to !c!Mr. !c!Uglehus’s !p!room you are hit with a wave of referrals. It appears that he has transformed his room into a referral ball pit with referrals cruppled floor to ceiling for him and his few subordinate students to play in. The referral balls are draining out of the pit and in just a couple more seconds the whole pit might be empty.",
+options: [
+["fivek1c", "Close the door before !c!Mr. !c!Uglehus and his students are left beached on the ground in their swim suits waiting to regain their land legs"],
+],
+},
+{
 id: "hartwell",
 desc: "You are in !c!Mr. !c!Hartwell’s room. The !s!accounting students are sorting several gigantic piles of !d!DryeBux. You consider taking one !d!Buk, but remember that these !s!accounting experts would immediately notice the discrepancy.",
 options: [
@@ -4118,7 +4279,7 @@ options: [
 },
 {
 id: "potts",
-desc: "You are in !c!Ms. !c!Potts’s room. !c!Ms. !c!Potts tilts her head to the side and grins as a gaggle of freshmen recite her home address aloud. The warmup question has been on the board for 45 minutes (you are very late at this point). A student raises her hand to ask what the difference between a tuple and a list is. !c!Ms.!c! Potts points at her, eyes narrowing, and tells her that she’ll “look into it”.",
+desc: "You are in !c!Ms. !c!Potts’s room. !c!Ms. !c!Potts tilts her head to the side and grins as a gaggle of freshmen recite her home address aloud. The warmup question has been on the board for 45 minutes (you are very late at this point). A student raises her hand to ask what the difference between a tuple and a list is. !c!Ms. !c!Potts points at her, eyes narrowing, and tells her that she’ll “look into it”.",
 options: [
 ["fivek2c", "Exit to the hall"],
 ],
@@ -4196,7 +4357,7 @@ options: [
 },
 {
 id: "threeh2",
-desc: "You are in the middle of the unfamiliar !p!300 !p!hall. !c!Mr. !c!Zurhellen has evidently been banished to here.",
+desc: "You are in the middle of the unfamiliar !p!300 !p!hall. You are bombarded with faces you have never seen, and you can’t tell the subjects of any of the classrooms except !c!Mr. !c!Zurhellen’s, who has evidently been banished to here. A teacher you have never seen waves at you. You wave back, assuming that they must have been your computer lab teacher in 2nd grade.",
 options: [
 ["zurhellen", "Enter !c!Zurhellen’s !p!Room"],
 ["speizman", "Enter !c!Speizman’s !p!Room"],
@@ -4256,7 +4417,7 @@ options: [
 },
 {
 id: "techdepot",
-desc: "You see !c!Mr. !c!Henley shoved in a tiny closet filled with Chromebooks in various states of health. You have to duck under a rack of broken chargers in order to fit in the room. This room is fit for no coordinator.",
+desc: "You see !c!Mr. !c!Henley shoved in a tiny closet filled with Chromebooks in various states of health. You have to duck under a rack of broken chargers in order to fit in the room. This room is fit for no coordinator. There is a small portrait of !c!Jean !c!Baudrillard hung on what would be the only empty part of the wall.",
 options: [
 ["threeh1", "Exit before you get too sad"],
 ],
@@ -4328,7 +4489,24 @@ options: [
 ["trap1", "Enter a grassy region that will certainly lead through to the other side of campus"],
 ["fivekside1", "Go towards the back of the building"],
 ["fivekfront", "Go to the front of the building"],
+["buslotside", "Go towards Monroe"],
 ],
+},
+{
+id: "buslotside",
+desc: "You are under an incredibly complex network of steel, and above a similarly complex web of concrete. The ground is sloped in every direction.",
+options: [
+["fivekside2", "Go to the side of the !p!5000"],
+["cranny", "Go to the nook between the !p!Office and the !p!100"],
+],
+},
+{
+id: "cranny",
+desc: "You are in a very tight nook between the !p!Font !p!Office and the !p!One !p!Hundred !p!Hall. You can tell this is one of the most stylish spots on campus. There is a large tree by the wall, and under the tree you spot some !d!DryeBux.",
+options: [
+["buslotside", "Walk towards the !p!bus !p!lot"],
+],
+dryebux: 7,
 },
 {
 id: "fivekfront",
@@ -4545,7 +4723,7 @@ options: [
 id: "sawyer3",
 desc: "As you continue to not eat the pastry !c!Mrs. !c!Sawyer grows more and more frustrated. She blows her whistle louder and louder until it is a near ear breaking blast but you manage to not be worn down. By this point she gets down from her podium and is circling you as her face grows red from the large quantity of air she has to force through the small hole. After a couple of minutes of tooth rattling blast she passes out on the ground exhausted. A cheer erupts from the crowd of students and they toss you some !d!Drye !d!Bux as a reward for your work.",
 options: [
-[':fourk3a', 'Leave the class room with your head held high', ['sawyer','sawyersucess']],
+['fourk3a', 'Leave the class room with your head held high', ['sawyer','sawyersucess']],
 ],
 dryebux: 11,
 },
@@ -4553,6 +4731,7 @@ dryebux: 11,
 id: "sawyersucess",
 desc: "The students have trapped !c!Mrs. !c!Sawyer in a cage assembled from left over pastries. It is almost less humane than a regular cage because it gives you the option to get out on your own but you would have to chew through about a foot of abhorrent baked goods. That being said this is a classic example of the punishment fitting the crime as !c!Mrs. !c!Sawyer had the students in a similar lose lose hellscape.",
 options: [
+["fourk3a", "Exit the room"],
 ],
 },
 {
@@ -4600,7 +4779,7 @@ id: "fourkstairs1b",
 desc: "You are on the !f!second !f!floor of the !p!4000 back stairwell. The painful odor of rubbing alcohol burns your sinuses, and cuts through your focus the way Drye cuts through pessimism.",
 options: [
 ["fourkstairs1c", "Go up the stairs"],
-["fourkstairs1a", "Do down the stairs"],
+["fourkstairs1a", "Go down the stairs"],
 ["fourk1b", "Enter the hall"],
 ],
 },
@@ -4761,7 +4940,7 @@ options: [
 },
 {
 id: "majak",
-desc: "You are in !c!Mr. !c!Majak’s room. !c!Majak is looking through a telescope that he has pointed out of his window towards !c!Mr. !c!Zurhellen’s room in the !p!300. He has a notebook and is frantically jotting down notes, mumbling “right that down, right that down”.",
+desc: "You are in !c!Mr. !c!Majak’s room. !c!Majak is looking through a telescope that he has pointed out of his window towards !c!Mr. !c!Zurhellen’s room in the !p!300. He has a notebook and is frantically jotting down notes, mumbling “write that down, write that down”.",
 options: [
 ["telescope", "Ask to use the telescope"],
 ["fourk2c", "Exit to the hall"],
@@ -4820,7 +4999,7 @@ options: [
 },
 {
 id: "baldwin",
-desc: "You are in !c!Ms. !c!Baldwin’s room. A !c!student in an inverted baseball cap is frantically writing down Taylor Swift lyrics on a general-purpose whiteboard in the back.",
+desc: "You are in !c!Ms. !c!Baldwin’s room. A !c!student in an inverted baseball cap is frantically writing down Taylor Swift lyrics on a general-purpose whiteboard by the door.",
 options: [
 ["fourk3c", "Exit to the hall"],
 ],
@@ -4869,6 +5048,23 @@ desc: "Unfortunately the elevator door is locked. You have heard rumors however 
 options: [
 ],
 back: "Continue",
+},
+{
+id: "driversed1",
+desc: "You wake up in a daze, surrounded by students in desks. Some teacher is lecturing in the front of the room about the various penalties for driving past a stopped schoolbus at various speeds. The teacher points at you to answer a question: “If you are driving at below ten above the speed limit, have illicit drugs in the trunk, and drive past a schoolbus that just stopped in the opposite direction, how long will your license be suspended for?”",
+options: [
+["driversed2", "6 months"],
+["driversed2", "12 months"],
+["driversed2", "18 months"],
+["driversed2", "24 months"],
+],
+},
+{
+id: "driversed2",
+desc: "Before the words can leave your mouth, you wake up. It seems like it was all a dream. But when you move to exit through the door out the trailer, you see nobody standing outside. It seems you slept through the day.",
+options: [
+["rankf", "Continue"],
+],
 },
 ];
 
