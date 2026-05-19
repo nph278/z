@@ -73,7 +73,7 @@ Media: Go to the front of the !p!Media !p!Center
 
 Schedule:
 You check your schedule, and trace your finger down to the “1ST BLOCK” line. The entry reads: “ !p!4300 !p!HALL -- !c!Kinney ”
-Middle: Continue
+$back: Continue
 
 Middle2:
 You stand outside under a vast web of metallic structures. The !p!Four and !p!Seven !p!Hundreds are very close.
@@ -265,6 +265,7 @@ $dryebux: 7
 
 FourSevenPath:
 You walk down an excessively long straightaway of the East Meck circuit. You admire the plants in variously-shaped pots that are displayed in the Earth Science windows along the West side of the !p!Upper !p!Four !p!Hundred.
+Schedule: Check your schedule
 ConcreteRectangle: Visit the elusive !p!Brick !p!Rectangle in the corner of the !p!700
 Middle2: Walk towards the !p!Student !p!Parking !p!Lot
 Pointy: Walk towards the !p!400 !p!Split
@@ -321,6 +322,12 @@ GymBleachers2:
 You move to inspect the bleachers. You romp around for a while, and you take mental notes of all the intricate nooks and crannies. Under one of the benches, you spot a few !d!DryeBux.
 Gym2: Go back down to the floor
 $dryebux: 7
+
+GymExit:
+You are in a small lobby outside the !p!Gym, on the side farther from the rest of the school. The eagle mural on the wall is particularly threatening, and the sign above the door reminds you how incredibly lucky you are to be in the company of these incredible athletes.
+Gym: Enter the !p!Gym
+Weightlifting: Enter the !p!Weightlifting !p!Dojo
+Gymoutside: Leave to the outside
 
 Gymoutside:
 You are in a small grassy area near the !p!Gym. The large oak trees make you feel nostalgic, and you make a few circles around the lot.
@@ -480,7 +487,7 @@ You are on the !p!Track. Specifically, the long straightaway on the side nearest
 Track2: Jog towards the !p!Baseball !p!Field
 Track4: Jog towards the !p!Softball !p!Field
 Football: Go down to the !p!Football !p!Field
-Belachers1: Go up to the !p!Bleachers
+Bleachers1: Go up to the !p!Bleachers
 
 Track2:
 You are on the !p!Track. Specifically, the sharp turn on the side closest to the !p!Baseball !p!Field.
@@ -545,7 +552,7 @@ Track2: Run over to the !p!Track
 
 Dugout:
 You enter the dugout. You see a long well worn bench with pictures of school beauties from years past to remind the players what they are fighting for taped across from them. The amount the team has sacrificed in order to bring their school mates at home some pride astonishes you.
-Baseball: Walk away inspired
+Baseball: Walk away inspired 
 
 Commentary:
 You walk up to the stairs and look down at the baseball field. You feel a bit dizzy so you look around the desk to distract yourself. You see a baseball (obviously) as well as a simple document labeled CMS sports script. You are suddenly upset by the school board's potential lack of athletic integrity.
@@ -593,7 +600,7 @@ $dryebux: 3
 Trailers4:
 You stand on a gravel path near some trailers. Your eyes are immediately drawn to the bright New Zealand license plate on a car that is (presumably illegally) parked here. There is sand everywhere, and your eyes sting.
 MysteryTrailer: Trailer M556
-MysteryTrailer: Trailer M5w54
+MysteryTrailer: Trailer M554
 Trailers3: Continue along the gravel path towards the !p!Track
 Trailers6: Go towards the center of the school
 
@@ -1165,7 +1172,7 @@ Bello:
 Sixh2: Exit to the hall
 
 Henry: 
-Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. You continuously try to bump it to it but !c!Mr. !c!Henry and his desk won’t budge. It would be a bigger problem if you had business to handle there but you would still like to look at the menagerie of flags. You can’t think of a reason to plead for him to let you in.
+Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. You continuously try to bump into it but !c!Mr. !c!Henry and his desk won’t budge. It would be a bigger problem if you had business to handle there but you would still like to look at the menagerie of flags. You can’t think of a reason to plead for him to let you in.
 Sixh2: Give up and keep walking
 
 Sixh3:
@@ -1204,7 +1211,7 @@ CafeLobby1: Enter the !p!Cafeteria !p!Lobby
 $dryebux: 3
 
 Komito:
-You recognize this as !c!Ms !c!Komito’s classroom. You gaze up at the rim of the classroom and see hand painted canvases of every president. Washington is beautiful with an artist touch on every element but as your eyes follow the presidential succession the paintings grow into more abstract renderings of the president. Their proportions grow warped and the colors grow into a swirling blend. Somewhere around Hoover the painting grow so abstract that you can’t really tell which one is which (other than Bush jr. which is pretty much regular except his head is slightly too large for his body) they are all just a cerebral mess of dots and hashes.
+You recognize this as !c!Ms. !c!Komito’s classroom. You gaze up at the rim of the classroom and see hand painted canvases of every president. Washington is beautiful with an artist’s touch on every element but as your eyes follow the presidential succession the renderings grow more and more abstract. Their proportions become warped and the colors morph into a swirling blend. Somewhere around Hoover the paintings are so abstract that you can’t really tell which one is which (other than Bush jr. which is pretty much regular except his head is slightly too large for his body); They are all just a cerebral mess of dots and hashes.
 Sixh3: Exit confused
 
 Wilson:
@@ -1475,7 +1482,7 @@ You stand in a well-organized group of blue tables. There are a few trees near y
 Patio1: Go down towards the !p!Cafeteria !p!Lobby
 Patio2: Go down towards the !p!Cafeteria !p!Entrance
 Patio4: Go up towards the farthest reaches of the !p!Patio
-807: Enter the very torn up door labeled as the entrance to the non-existent “807” 
+8072: Enter the very torn up door labeled as the entrance to the non-existent “807” 
 Patiostairs: Go down the stairs next to the building
 
 Patiostairs:
@@ -1745,11 +1752,12 @@ StageClassroom:
 There is a complex set constructed on the stage. The actors are in the middle of dress rehearsal. You clearly walked in at an important moment because a large script !e!Z is being lowered to the ground by an intricate pulley mechanism while they sing one of the loudest songs you have ever heard. 
 StageClassroom2: Stick around to hear more of the preview for this year's musical.
 StageShop2: Enter !p!Stage !p!Workshop
+Eighth1: Exit to the !p!800 !p!hall
 8072: Enter the !p!Stage !p!Office
 
 StageClassroom2:
-You find yourself absorbed into the rehearsal. Although it definitely still has some kinks it needs to work out, they are still trying out new things to see what they like and what their fan base likes and they are eventually going to have a finished product everyone is happy with. The curtain closes briefly and everyone works to transition the stage for one of the many climatic numbers “4k tengo” and someone hands you one of the many props that need to move and you find yourself helping in the transition.
-RankF: Spend the whole day helping out around the set to help make the musical really work
+You find yourself absorbed into the rehearsal. It definitely still has some kinks to work out, and they are still trying out new things to see what they like and what their fan base likes so they eventually will get a finished product everyone is happy with. The curtain closes briefly and everyone works to transition the stage for one of the many climatic numbers !e!(“4k !e!tango”) and someone hands you one of several props that need to move and so you find yourself helping in the transition.
+RankF: Spend the whole day helping out around the set to make the musical really work
 
 8072:
 As you are walking there you see a table with a long hall pass on it. It looks like it would be exceptionally good for stopping a rotary engine.
@@ -1764,7 +1772,7 @@ Patio3: Abandon them and exit into the !p!cafeteria !p!patio
 807help:
 You also began examining every square inch of everything in this room. You at first want to allow !c!Mrs. !c!Macleod to maintain a level of privacy but after a few minutes you are too desperate to begin looking through a pile of family photographs hoping that it might contain what you are looking for. Eventually when the student gathers up the courage to ask her, !c!Mrs. !c!Macleod comes into the room and suddenly remembers that the thing never actually existed. 
 StageClassroom: Exit, frustrated, into the !p!stage 
-Patio4: Exit, frustrated, into the !p!cafeteriaria !p!patio
+Patio3: Exit, frustrated, into the !p!cafeteriaria !p!patio
 
 StageShop2:
 As you are walking there you see a table with a long hall pass on it. It looks like it would be exceptionally good for stopping a rotary engine.
@@ -1773,7 +1781,7 @@ As you are walking there you see a table with a long hall pass on it. It looks l
 StageShop:
 You see a treasure trove of blue collar goodies. Anything from drills to buzzsaws all have a home. Your eyes are drawn to the various painted pieces of wood that draw you in as you imagine what delicately crafted stage play they must have been a part of.
 StageClassroom: Exit to the !p!stage
-Patio4: Exit to the !p!Cafeteria !p!Patio
+Patio4: Exit through a one-way trap-door to the !p!Cafeteria !p!Patio
 
 Dance:
 The ground is an interesting, springy rubber surface. It is a sensation that gives you nothing but the urge to !s!dance. There is already a dazzling multipart one happening. You find your window and jump in but almost as soon as you do everyone stops and glares at you. Then a particularly bold !s!dance student finally says “you need to take your shoes off.”
@@ -1785,7 +1793,7 @@ You take a minute to unlace your shoes and they all wait around for you. Once yo
 Eighth1: Crawl out
 
 ExiledCounselor:
-You put your ear up against the door and hear a vague whippering. Though you can’t make out every word, it seems to be that there is a counseling session happening, One in which a student is being advised how to approach joining one of the numerous 1st generation college groups and the pros and cons of each. It appears normal but after listening in for a while you realize that whenever it switches from counselor to student there is the brief sound of heavy breathing and running around a desk, you also realize that the students voice sounds a lot like the !c!Social !c!Worker’s voice just pitched up.
+You put your ear up against the door and hear a vague whispering. Though you can’t make out every word, it seems to be that there is a counseling session happening, One in which a student is being advised how to approach joining one of the numerous 1st generation college groups and the pros and cons of each. It appears normal but after listening in for a while you realize that whenever it switches from counselor to student there is the brief sound of heavy breathing and running around a desk, you also realize that the students voice sounds a lot like the !c!Social !c!Worker’s voice just pitched up.
 Eighth1: Back away confused
 ExiledCounselor2: Listen in for more environmental storytelling
 
@@ -1802,12 +1810,12 @@ Eighth1: Round the corner
 Nineh1: Enter the unlabeled door in the corner of the hall
 
 StaffBathroom:
-You enter the !p!staff !p!bathroom and guilt instantly takes it. You should not be in here. You feel so guilty. What an intrusion of privacy. What were you thinking? You squint your eyes closed hard and exit before you really see any details.
+You enter the !p!staff !p!bathroom and guilt instantly takes over your mind. You should not be in here. You feel so guilty. What an intrusion of privacy. What were you thinking? You squint your eyes closed hard and exit before you really see any details.
 Eighth2: Continue 
 
 Nineh1:
 You are in a pitch black hallway. Feeling around, you can tell that there is a doorknob near you.
-Eighth2: Exit the hall
+Eighth2: Exit the hall via the door
 Nineh2: Continue down the hall
 
 Nineh2:
@@ -1835,7 +1843,7 @@ You click on the recently overhauled picture submission form. The first field re
 CaveDoor: Get frustrated and close !c!the !c!Beagle website
 
 AuditoriumLobby:
-You are standing in front of an uncountable amount of doors. The airlock to prevent sludge from completely destroying the entire school. There are avant-garde posters for the upcoming zeagle the musical which is anticipated to sweep the Blumey’s.
+You are standing in front of an uncountable amount of doors. The airlock to prevent sludge from completely destroying the entire school. There are avant-garde posters for the upcoming !e!Zeagle: !e!the !e!Musical which is anticipated to sweep the Blumey’s.
 Auditorium: Enter the !p!auditorium
 CafeLobby3: Enter the hallway in front of the !p!Court !p!Yard
 Eighth2: Enter the !p!800 !p!hallway
@@ -1932,7 +1940,8 @@ You study the irreverent graffiti that coats the shield of East Meck’s central
 Zigzag1: Continue
 
 Zigzag2:
-You stand on the north side of a Zig-zagged footpath. You see door entrances dotted around the !p!400 wall.
+You stand on the north side of a Zig-zagged footpath. You see windows dotted around the !p!400 wall. You are shivering.
+Schedule: Check your schedule
 Zigzag1: Move south
 Splitoutside: Move north
 
@@ -1977,7 +1986,7 @@ Fourh2: Continue down the hall
 Middle2: Exit to the outside, towards the !p!Student !p!Parking !p!Lot
 
 Buzzard:
-You see a rabid group of students circling !c!Coach !c!Buzzard who, it appears, has locked himself in a cage for protection as locking up every one of his meat-hungry in cages was both dangerous and impractical. He still has a tranq fearfully aimed in case one of the students manages to slip through the bars.
+You see a rabid group of students circling !c!Coach !c!Buzzard, who, it appears, has locked himself in a cage for protection as locking up every one of his meat-hungry students in cages would be both dangerous and impractical. He still has a tranq fearfully aimed in case one of the students manages to slip through the bars.
 Fourh1: Exit before they smell you
 
 Fourh3:
@@ -2340,6 +2349,7 @@ Fivekside1: Turn back
 
 Trap2:
 You have been tricked. The !p!200, and reality, smack you in the face: There is no way through here. The only thing left to do is enjoy the well-taken care of greenery in this small region.
+Schedule: Check your schedule so you can get back on track
 Trap1: Turn around dejectedly
 
 Threeh3:

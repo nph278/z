@@ -947,8 +947,8 @@ options: [
 id: "schedule",
 desc: "You check your schedule, and trace your finger down to the “1ST BLOCK” line. The entry reads: “ !p!4300 !p!HALL -- !c!Kinney ”",
 options: [
-["middle", "Continue"],
 ],
+back: "Continue",
 },
 {
 id: "middle2",
@@ -1250,6 +1250,7 @@ dryebux: 7,
 id: "foursevenpath",
 desc: "You walk down an excessively long straightaway of the East Meck circuit. You admire the plants in variously-shaped pots that are displayed in the Earth Science windows along the West side of the !p!Upper !p!Four !p!Hundred.",
 options: [
+["schedule", "Check your schedule"],
 ["concreterectangle", "Visit the elusive !p!Brick !p!Rectangle in the corner of the !p!700"],
 ["middle2", "Walk towards the !p!Student !p!Parking !p!Lot"],
 ["pointy", "Walk towards the !p!400 !p!Split"],
@@ -1331,6 +1332,15 @@ options: [
 ["gym2", "Go back down to the floor"],
 ],
 dryebux: 7,
+},
+{
+id: "gymexit",
+desc: "You are in a small lobby outside the !p!Gym, on the side farther from the rest of the school. The eagle mural on the wall is particularly threatening, and the sign above the door reminds you how incredibly lucky you are to be in the company of these incredible athletes.",
+options: [
+["gym", "Enter the !p!Gym"],
+["weightlifting", "Enter the !p!Weightlifting !p!Dojo"],
+["gymoutside", "Leave to the outside"],
+],
 },
 {
 id: "gymoutside",
@@ -1449,7 +1459,7 @@ options: [
 },
 {
 id: "askmusicstudent",
-desc: "The student explains that they were assigned the role of standing outside in the freezing cold and warning people of the slipping hazard associated with the iced-over wooden walkway.",
+desc: "The student explains that they were assigned the role of standing outside in the freezing cold and warning people of the slipping hazard associated with the iced-over wooden walkway. You see them warn a nearby classmate, who says “OK” and promptly slips and falls anyways.",
 options: [
 ["trailers1", "Continue"],
 ],
@@ -1561,7 +1571,7 @@ options: [
 ["track2", "Jog towards the !p!Baseball !p!Field"],
 ["track4", "Jog towards the !p!Softball !p!Field"],
 ["football", "Go down to the !p!Football !p!Field"],
-["belachers1", "Go up to the !p!Bleachers"],
+["bleachers1", "Go up to the !p!Bleachers"],
 ],
 },
 {
@@ -1650,10 +1660,31 @@ desc: "You are in the middle of a colossal !p!Baseball !p!Field. You reckon this
 options: [
 ["baseballdig", "Dig around in the ground", true],
 ["dugout", "Enter the !p!dugout"],
-["commentary", "!c!Announcer’s !p!booth"],
-["outfield", "Go into the !p!outfield"],
+["commentary", "Go to the !c!Announcer’s !p!booth"],
 ["gymlot2", "Walk down to the !p!Gym !p!Parking !p!Lot"],
 ["track2", "Run over to the !p!Track"],
+],
+},
+{
+id: "dugout",
+desc: "You enter the dugout. You see a long well worn bench with pictures of school beauties from years past to remind the players what they are fighting for taped across from them. The amount the team has sacrificed in order to bring their school mates at home some pride astonishes you.",
+options: [
+["baseball", "Walk away inspired"],
+],
+},
+{
+id: "commentary",
+desc: "You walk up to the stairs and look down at the baseball field. You feel a bit dizzy so you look around the desk to distract yourself. You see a baseball (obviously) as well as a simple document labeled CMS sports script. You are suddenly upset by the school board's potential lack of athletic integrity.",
+options: [
+["baseball", "Climb back down, disgusted"],
+["commentaryleak", "Read the script", true],
+],
+},
+{
+id: "commentaryleak",
+desc: "You worry about potentially ruining the upcoming seasons’ narratives for yourself but your journalistic instinct urges you to push forward. Your eyes look at the body of the document which is one sentence: !e!“Ardrey !e!Kell !e!wins !e!it !e!all”. So that explains it.",
+options: [
+["baseball", "Climb back down (now made harder by the new chip on your shoulder)"],
 ],
 },
 {
@@ -1774,9 +1805,12 @@ options: [
 },
 {
 id: "tennis",
-desc: "You are in a large group of eight !p!Tennis !p!Courts. ",
+desc: "You are in a large group of eight !p!Tennis !p!Courts. Lodged in the net, you see several badminton birdies, as well as a white !d!DryeBuk.",
 options: [
+["tennisoutside", "Go to the area behind the courts"],
+["fivekback", "Go to the back of the !p!5000"],
 ],
+dryebux: 3,
 },
 {
 id: "missingtennis",
@@ -2506,7 +2540,7 @@ options: [
 ["bartkowiak", "Enter !c!Bartkowiak’s !p!Classroom"],
 ["roberts1", "Enter !c!Roberts’ !p!Classroom"],
 ["dunn", "Enter !c!Dunn’s !p!Classroom"],
-["kindt", "Enter !c!Kindt’s !p!Room"],
+["kindt", "Enter !c!Kindt’s !p!Classroom"],
 ["cellocloset", "Enter the !p!cello/bass !p!storage !p!closet"],
 ["sixh2", "Continue along the hall"],
 ["middle", "Exit out the classic door"],
@@ -2578,7 +2612,7 @@ options: [
 },
 {
 id: "henry",
-desc: "Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. You continuously try to bump it to it but !c!Mr. !c!Henry and his desk won’t budge. It would be a bigger problem if you had business to handle there but you would still like to look at the menagerie of flags. You can’t think of a reason to plead for him to let you in.",
+desc: "Attempt to access !c!Mr !c!Henry’s room but his desk is blocking the entry. You continuously try to bump into it but !c!Mr. !c!Henry and his desk won’t budge. It would be a bigger problem if you had business to handle there but you would still like to look at the menagerie of flags. You can’t think of a reason to plead for him to let you in.",
 options: [
 ["sixh2", "Give up and keep walking"],
 ],
@@ -2635,7 +2669,7 @@ dryebux: 3,
 },
 {
 id: "komito",
-desc: "You recognize this as !c!Ms !c!Komito’s classroom. You gaze up at the rim of the classroom and see hand painted canvases of every president. Washington is beautiful with an artist touch on every element but as your eyes follow the presidential succession the paintings grow into more abstract renderings of the president. Their proportions grow warped and the colors grow into a swirling blend. Somewhere around Hoover the painting grow so abstract that you can’t really tell which one is which (other than Bush jr. which is pretty much regular except his head is slightly too large for his body) they are all just a cerebral mess of dots and hashes.",
+desc: "You recognize this as !c!Ms. !c!Komito’s classroom. You gaze up at the rim of the classroom and see hand painted canvases of every president. Washington is beautiful with an artist’s touch on every element but as your eyes follow the presidential succession the renderings grow more and more abstract. Their proportions become warped and the colors morph into a swirling blend. Somewhere around Hoover the paintings are so abstract that you can’t really tell which one is which (other than Bush jr. which is pretty much regular except his head is slightly too large for his body); They are all just a cerebral mess of dots and hashes.",
 options: [
 ["sixh3", "Exit confused"],
 ],
@@ -3057,7 +3091,7 @@ options: [
 ["patio1", "Go down towards the !p!Cafeteria !p!Lobby"],
 ["patio2", "Go down towards the !p!Cafeteria !p!Entrance"],
 ["patio4", "Go up towards the farthest reaches of the !p!Patio"],
-["807", "Enter the very torn up door labeled as the entrance to the non-existent “807”"],
+["8072", "Enter the very torn up door labeled as the entrance to the non-existent “807”"],
 ["patiostairs", "Go down the stairs next to the building"],
 ],
 },
@@ -3293,6 +3327,13 @@ options: [
 ],
 },
 {
+id: "whitley",
+desc: "You are in !c!Ms. !c!Whitley’s !p!office. She is not here, as she is on patrol outside the !p!Cafeteria. Under her desk you see several small boxes labeled !e!“CKH”. You hear rattling from inside the boxes and barely notice a faint red glow from within. On the wall a screen reads “HEARTS CAPTURED: 1,950”. Under the number there is a small sticker with !c!Drye’s face and an arrow that says “I did that!”",
+options: [
+["officehall", "Exit to the hall"],
+],
+},
+{
 id: "cages",
 desc: "You are in a large room full of elaborate cages. These are the cages that !c!Drye will use in case any teachers try anything funny.",
 options: [
@@ -3470,14 +3511,15 @@ desc: "There is a complex set constructed on the stage. The actors are in the mi
 options: [
 ["stageclassroom2", "Stick around to hear more of the preview for this year's musical"],
 ["stageshop2", "Enter !p!Stage !p!Workshop"],
+["eighth1", "Exit to the !p!800 !p!hall"],
 ["8072", "Enter the !p!Stage !p!Office"],
 ],
 },
 {
 id: "stageclassroom2",
-desc: "You find yourself absorbed into the rehearsal. Although it definitely still has some kinks it needs to work out, they are still trying out new things to see what they like and what their fan base likes and they are eventually going to have a finished product everyone is happy with. The curtain closes briefly and everyone works to transition the stage for one of the many climatic numbers “4k tengo” and someone hands you one of the many props that need to move and you find yourself helping in the transition.",
+desc: "You find yourself absorbed into the rehearsal. It definitely still has some kinks to work out, and they are still trying out new things to see what they like and what their fan base likes so they eventually will get a finished product everyone is happy with. The curtain closes briefly and everyone works to transition the stage for one of the many climatic numbers !e!(“4k !e!tango”) and someone hands you one of several props that need to move and so you find yourself helping in the transition.",
 options: [
-["rankf", "Spend the whole day helping out around the set to help make the musical really work"],
+["rankf", "Spend the whole day helping out around the set to make the musical really work"],
 ],
 },
 {
@@ -3501,7 +3543,7 @@ id: "807help",
 desc: "You also began examining every square inch of everything in this room. You at first want to allow !c!Mrs. !c!Macleod to maintain a level of privacy but after a few minutes you are too desperate to begin looking through a pile of family photographs hoping that it might contain what you are looking for. Eventually when the student gathers up the courage to ask her, !c!Mrs. !c!Macleod comes into the room and suddenly remembers that the thing never actually existed. ",
 options: [
 ["stageclassroom", "Exit, frustrated, into the !p!stage"],
-["patio4", "Exit, frustrated, into the !p!cafeteriaria !p!patio"],
+["patio3", "Exit, frustrated, into the !p!cafeteriaria !p!patio"],
 ],
 },
 {
@@ -3516,7 +3558,7 @@ id: "stageshop",
 desc: "You see a treasure trove of blue collar goodies. Anything from drills to buzzsaws all have a home. Your eyes are drawn to the various painted pieces of wood that draw you in as you imagine what delicately crafted stage play they must have been a part of.",
 options: [
 ["stageclassroom", "Exit to the !p!stage"],
-["patio4", "Exit to the !p!Cafeteria !p!Patio"],
+["patio4", "Exit through a one-way trap-door to the !p!Cafeteria !p!Patio"],
 ],
 },
 {
@@ -3536,7 +3578,7 @@ options: [
 },
 {
 id: "exiledcounselor",
-desc: "You put your ear up against the door and hear a vague whippering. Though you can’t make out every word, it seems to be that there is a counseling session happening, One in which a student is being advised how to approach joining one of the numerous 1st generation college groups and the pros and cons of each. It appears normal but after listening in for a while you realize that whenever it switches from counselor to student there is the brief sound of heavy breathing and running around a desk, you also realize that the students voice sounds a lot like the !c!Social !c!Worker’s voice just pitched up.",
+desc: "You put your ear up against the door and hear a vague whispering. Though you can’t make out every word, it seems to be that there is a counseling session happening, One in which a student is being advised how to approach joining one of the numerous 1st generation college groups and the pros and cons of each. It appears normal but after listening in for a while you realize that whenever it switches from counselor to student there is the brief sound of heavy breathing and running around a desk, you also realize that the students voice sounds a lot like the !c!Social !c!Worker’s voice just pitched up.",
 options: [
 ["eighth1", "Back away confused"],
 ["exiledcounselor2", "Listen in for more environmental storytelling"],
@@ -3561,10 +3603,17 @@ options: [
 ],
 },
 {
+id: "staffbathroom",
+desc: "You enter the !p!staff !p!bathroom and guilt instantly takes over your mind. You should not be in here. You feel so guilty. What an intrusion of privacy. What were you thinking? You squint your eyes closed hard and exit before you really see any details.",
+options: [
+["eighth2", "Continue"],
+],
+},
+{
 id: "nineh1",
 desc: "You are in a pitch black hallway. Feeling around, you can tell that there is a doorknob near you.",
 options: [
-["eighth2", "Go through the door"],
+["eighth2", "Exit the hall via the door"],
 ["nineh2", "Continue down the hall"],
 ],
 },
@@ -3609,7 +3658,7 @@ options: [
 },
 {
 id: "auditoriumlobby",
-desc: "You are standing in front of an uncountable amount of doors. The airlock to prevent sludge from completely destroying the entire school. There are avant-garde posters for the upcoming zeagle the musical which is anticipated to sweep the Blumey’s.",
+desc: "You are standing in front of an uncountable amount of doors. The airlock to prevent sludge from completely destroying the entire school. There are avant-garde posters for the upcoming !e!Zeagle: !e!the !e!Musical which is anticipated to sweep the Blumey’s.",
 options: [
 ["auditorium", "Enter the !p!auditorium"],
 ["cafelobby3", "Enter the hallway in front of the !p!Court !p!Yard"],
@@ -3662,6 +3711,13 @@ options: [
 ],
 },
 {
+id: "bandoff",
+desc: "You glimpse into the band office. You see all number of elaborate props used to “fix” instruments. There are floor to ceiling drawers that have clamps providing a contingency for anything that could possibly go wrong with an instrument. If you broke an instrument this would be the first place to go.",
+options: [
+["orchband", "Exit"],
+],
+},
+{
 id: "orchcloset",
 desc: "As you walk into the !s!Orchestra !p!Closet, an avalanche of violin cases falls upon you. One of the cases cracks open, revealing a !d!DryeBuk stashed away inside.",
 options: [
@@ -3696,6 +3752,13 @@ options: [
 ["middle3", "Exit the !p!Courtyard"],
 ["courtyard1", "Continue up the wall under the !p!courtyard !p!roof"],
 ["courtyard2", "Drill deep into the Heart of the !p!Courtyard"],
+],
+},
+{
+id: "careercenter",
+desc: "You are in the !p!Career !p!Center. There is a long conference table and students are standing on it and putting on a show for !c!Felker and !c!McGraw, dancing and performing, attempting to convince them that the career that they are pursuing is right for them. !c!Felker and !c!McGraw are sitting in large thrones as aspiring grape holders are delicately feeding them huge grapes. They seem pleased with this year's career fair.",
+options: [
+["courtyardcorner", "Exit"],
 ],
 },
 {
@@ -3743,8 +3806,9 @@ options: [
 },
 {
 id: "zigzag2",
-desc: "You stand on the north side of a Zig-zagged footpath. You see door entrances dotted around the !p!400 wall.",
+desc: "You stand on the north side of a Zig-zagged footpath. You see windows dotted around the !p!400 wall. You are shivering.",
 options: [
+["schedule", "Check your schedule"],
 ["zigzag1", "Move south"],
 ["splitoutside", "Move north"],
 ],
@@ -3808,6 +3872,13 @@ options: [
 ["buzzard", "Enter !c!Buzzard’s !p!Room"],
 ["fourh2", "Continue down the hall"],
 ["middle2", "Exit to the outside, towards the !p!Student !p!Parking !p!Lot"],
+],
+},
+{
+id: "buzzard",
+desc: "You see a rabid group of students circling !c!Coach !c!Buzzard, who, it appears, has locked himself in a cage for protection as locking up every one of his meat-hungry students in cages would be both dangerous and impractical. He still has a tranq fearfully aimed in case one of the students manages to slip through the bars.",
+options: [
+["fourh1", "Exit before they smell you"],
 ],
 },
 {
@@ -4364,6 +4435,7 @@ options: [
 id: "trap2",
 desc: "You have been tricked. The !p!200, and reality, smack you in the face: There is no way through here. The only thing left to do is enjoy the well-taken care of greenery in this small region.",
 options: [
+["schedule", "Check your schedule so you can get back on track"],
 ["trap1", "Turn around dejectedly"],
 ],
 },
@@ -4526,7 +4598,7 @@ options: [
 },
 {
 id: "cranny",
-desc: "You are in a very tight nook between the !p!Font !p!Office and the !p!One !p!Hundred !p!Hall. You can tell this is one of the most stylish spots on campus. There is a large tree by the wall, and under the tree you spot some !d!DryeBux.",
+desc: "You are in a very tight nook between the !p!Front !p!Office and the !p!One !p!Hundred !p!Hall. You can tell this is one of the most stylish spots on campus. There is a large tree by the wall, and under the tree you spot some !d!DryeBux.",
 options: [
 ["buslotside", "Walk towards the !p!bus !p!lot"],
 ],
@@ -4621,7 +4693,7 @@ options: [
 id: "fnf3",
 desc: "You stand on the !p!4000 side of the !p!495000. There is a lonely passport-checking station that hasn’t seen any customers yet (people have no reason to leave the !p!4000 at this time).",
 options: [
-["fourkback", "Exit to !c!Edde’s !p!Domain"],
+["fourkback", "Exit to !p!4000 building"],
 ["fnfpass2", "Scan your passport to get to the other side"],
 ],
 },
@@ -4729,7 +4801,7 @@ options: [
 },
 {
 id: "sawyer",
-desc: "You see !c!Mrs. !c!Sawyer standing at a large podium quasi-rhythmically blowing into a harsh whistle. There is a table of a !s!AP !s!Statistics students who are sorting sweet treats and regional delicacies into jars corresponding to the treat’s colors. Once a jar is filled up all of the students are forced according to !c!Mrs. !c!Sawyer’s demand to eat up the tasty treat. The students resist for a few seconds and are reminded that they are some of the luckiest in the school and that !s!Analysis students would kill for this type of pampering, so they choke down more disgustingly sweet pastries.",
+desc: "You see !c!Mrs. !c!Sawyer standing at a large podium quasi-rhythmically blowing into a harsh whistle. There is a table of !s!AP !s!Statistics students who are sorting sweet treats and regional delicacies into jars corresponding to the treat’s colors. Once a jar is filled up all of the students are forced according to !c!Mrs. !c!Sawyer’s demand to eat up the tasty treat. The students resist for a few seconds and are reminded that they are some of the luckiest in the school and that !s!Analysis students would kill for this type of pampering, so they choke down more disgustingly sweet pastries.",
 options: [
 ["sawyer2", "Attempt to free the students"],
 ["four3a", "Run free before you are taken in"],
@@ -4745,24 +4817,31 @@ options: [
 },
 {
 id: "sawyer3",
-desc: "As you continue to not eat the pastry !c!Mrs. !c!Sawyer grows more and more frustrated. She blows her whistle louder and louder until it is a near ear breaking blast but you manage to not be worn down. By this point she gets down from her podium and is circling you as her face grows red from the large quantity of air she has to force through the small hole. After a couple of minutes of tooth rattling blast she passes out on the ground exhausted. A cheer erupts from the crowd of students and they toss you some !d!Drye !d!Bux as a reward for your work.",
+desc: "As you continue to not eat the pastry !c!Mrs. !c!Sawyer grows more and more frustrated. She blows her whistle louder and louder until it is a near ear breaking blast but you manage to not be worn down. By this point she gets down from her podium and is circling you as her face grows red from the large quantity of air she has to force through the small hole. After a couple of minutes of tooth rattling blast she passes out on the ground exhausted. A cheer erupts from the crowd of students and they toss you some !d!DryeBux as a reward for your work.",
 options: [
-['fourk3a', 'Leave the class room with your head held high', ['sawyer','sawyersucess']],
+['sawyersucess', 'Continue', ['sawyer','sawyersucess']],
 ],
-dryebux: 11,
 },
 {
 id: "sawyersucess",
-desc: "The students have trapped !c!Mrs. !c!Sawyer in a cage assembled from left over pastries. It is almost less humane than a regular cage because it gives you the option to get out on your own but you would have to chew through about a foot of abhorrent baked goods. That being said this is a classic example of the punishment fitting the crime as !c!Mrs. !c!Sawyer had the students in a similar lose lose hellscape.",
+desc: "The students have now trapped !c!Mrs. !c!Sawyer in a cage assembled from left over pastries. It is almost less humane than a regular cage because it gives you the option to get out on your own but you would have to chew through about a foot of abhorrent baked goods. That being said this is a classic example of the punishment fitting the crime as !c!Mrs. !c!Sawyer had the students in a similar lose-lose hellscape. Your !d!DryeBux are waiting for you.",
 options: [
-["fourk3a", "Exit the room"],
+["fourk3a", "Leave the class room with your head held high"],
 ],
+dryebux: 11,
 },
 {
 id: "sawyerfail",
 desc: "You stuff your face with pastries and feel disgusted by your own gluttony but you do not relent as you chose this fate for yourself. You disdainfully choke down bite after bite and feel yourself slowly inflating with flaky dough and cream puff. There is probably a moral in there somewhere but you are too stuffed to realize it or even to walk.",
 options: [
-["rankf", "You spend all your time rotting away sorting more delights and don’t even here the bell ring"],
+["sawyerfail2", "Continue"],
+],
+},
+{
+id: "sawyerfail2",
+desc: "You spend all your time rotting away sorting more delights and don’t even hear the bell ring.",
+options: [
+["rankf", "Oh well"],
 ],
 },
 {
@@ -4848,7 +4927,8 @@ id: "fourk3b",
 desc: "You are on the front end of the !f!second !f!floor of the !p!4000. All the classrooms here are boarded up with wooden planks. The walls, floor, and ceiling are all made of a reflective metal. You see yourself in the reflection and shudder. The elevator is accessible through here, as well as the front stairwell. You are the only student in the hall, and it is dead silent.",
 options: [
 ["cooper", "Pry your way into !c!Cooper’s door"],
-["woodcock", "Pry your way into !c!Jarman’s door"],
+["conyers", "Pry your way into !c!Conyers’ door"],
+["woodcock", "Pry your way into !c!Woodcock’s door"],
 ["edde", "Pry your way into !c!Edde’s door"],
 ["fourkelevator", "Enter the elevator"],
 ["fourkstairs2b", "Take the stairs"],
@@ -5023,7 +5103,7 @@ options: [
 },
 {
 id: "baldwin",
-desc: "You are in !c!Ms. !c!Baldwin’s room. A !c!student in an inverted baseball cap is frantically writing down Taylor Swift lyrics on a general-purpose whiteboard by the door.",
+desc: "You are in !c!Ms. !c!Baldwin’s room. A !c!student in an inverted baseball cap is frantically writing down !c!Taylor !c!Swift lyrics on a general-purpose whiteboard by the door.",
 options: [
 ["fourk3c", "Exit to the hall"],
 ],
@@ -5078,7 +5158,7 @@ id: "driversed1",
 desc: "You wake up in a daze, surrounded by students in desks. Some teacher is lecturing in the front of the room about the various penalties for driving past a stopped schoolbus at various speeds. The teacher points at you to answer a question: “If you are driving at below ten above the speed limit, have illicit drugs in the trunk, and drive past a schoolbus that just stopped in the opposite direction, how long will your license be suspended for?”",
 options: [
 ["driversed2", "6 months"],
-["driversed2", "12 months"],
+["driversed2", "12 monthsk"],
 ["driversed2", "18 months"],
 ["driversed2", "24 months"],
 ],
