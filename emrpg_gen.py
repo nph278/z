@@ -2,7 +2,7 @@ import sys
 import re
 
 f = open("./emrpg_rooms.txt")
-txt = re.sub(r'\n\n\n+', "\n\n", f.read()[:-1].replace("\r\n", "\n"))
+txt = re.sub(r'^\s$', "", re.sub(r'\n\n\n+', "\n\n", f.read()[:-1].replace("\r\n", "\n")))
 
 paras = txt.split("\n\n");
 

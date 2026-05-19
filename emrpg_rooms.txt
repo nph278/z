@@ -402,7 +402,7 @@ Staffparking1: Step down to the !p!Staff !p!Parking !p!Lot
 Softball: Go down to the !p!Softball !p!Field
 
 AskMusicStudent:
-The student explains that they were assigned the role of standing outside in the freezing cold and warning people of the slipping hazard associated with the iced-over wooden walkway.
+The student explains that they were assigned the role of standing outside in the freezing cold and warning people of the slipping hazard associated with the iced-over wooden walkway. You see them warn a nearby classmate, who says “OK” and promptly slips and falls anyways.
 Trailers1: Continue
 
 BathroomTrailer1:
@@ -539,10 +539,22 @@ Baseball:
 You are in the middle of a colossal !p!Baseball !p!Field. You reckon this field takes up, say, a ninth of East Meck’s area.
 #BaseballDig: Dig around in the ground
 Dugout: Enter the !p!dugout
-Commentary: !c!Announcer’s !p!booth
-Outfield: Go into the !p!outfield 
+Commentary: Go to the !c!Announcer’s !p!booth
 Gymlot2: Walk down to the !p!Gym !p!Parking !p!Lot
 Track2: Run over to the !p!Track
+
+Dugout:
+You enter the dugout. You see a long well worn bench with pictures of school beauties from years past to remind the players what they are fighting for taped across from them. The amount the team has sacrificed in order to bring their school mates at home some pride astonishes you.
+Baseball: Walk away inspired
+
+Commentary:
+You walk up to the stairs and look down at the baseball field. You feel a bit dizzy so you look around the desk to distract yourself. You see a baseball (obviously) as well as a simple document labeled CMS sports script. You are suddenly upset by the school board's potential lack of athletic integrity.
+Baseball: Climb back down, disgusted 
+#CommentaryLeak: Read the script
+
+CommentaryLeak:
+You worry about potentially ruining the upcoming seasons’ narratives for yourself but your journalistic instinct urges you to push forward. Your eyes look at the body of the document which is one sentence: !e!“Ardrey !e!Kell !e!wins !e!it !e!all”. So that explains it.
+Baseball: Climb back down (now made harder by the new chip on your shoulder)
 
 BaseballDig:
 You dig around in the ground, completely ruining the hard work of those who dedicate their lives to keep these fields in order. You find a small metal box. Upon opening the box, you see a slip of paper with a twenty-digit code. This may be important.
@@ -581,7 +593,7 @@ $dryebux: 3
 Trailers4:
 You stand on a gravel path near some trailers. Your eyes are immediately drawn to the bright New Zealand license plate on a car that is (presumably illegally) parked here. There is sand everywhere, and your eyes sting.
 MysteryTrailer: Trailer M556
-MysteryTrailer: Trailer M554
+MysteryTrailer: Trailer M5w54
 Trailers3: Continue along the gravel path towards the !p!Track
 Trailers6: Go towards the center of the school
 
@@ -628,7 +640,10 @@ Trailers5: Go towards the !p!Gym
 Tennis: Enter the !p!tennis !p!courts
 
 Tennis:
-You are in a large group of eight !p!Tennis !p!Courts. 
+You are in a large group of eight !p!Tennis !p!Courts. Lodged in the net, you see several badminton birdies, as well as a white !d!DryeBuk.
+Tennisoutside: Go to the area behind the courts
+Fivekback: Go to the back of the !p!5000
+$dryebux: 3
 
 MissingTennis:
 You are at the site of the potential !p!9th !p!tennis !p!court. If a court was built here, it would complete a clean three by three rectangle of courts, and a good chunk of East Meck’s ambiguity would evaporate away. As for the present, you spot a !d!DryeBuk !d!Bill left under the very far fence of the eighth court.
@@ -1104,7 +1119,7 @@ Choir: Enter the !s!Choir !p!Room
 Bartkowiak: Enter !c!Bartkowiak’s !p!Classroom
 Roberts1: Enter !c!Roberts’ !p!Classroom
 Dunn: Enter !c!Dunn’s !p!Classroom
-Kindt: Enter !c!Kindt’s !p!Room
+Kindt: Enter !c!Kindt’s !p!Classroom
 Cellocloset: Enter the !p!cello/bass !p!storage !p!closet.
 Sixh2: Continue along the hall
 Middle: Exit out the classic door
@@ -1616,6 +1631,10 @@ DryeEnter: Enter !c!Drye’s !p!Room
 Cages: Enter !c!Drye’s !p!Room !p!of !p!Cages
 Office: Go to the front of the !p!Office
 
+Whitley:
+You are in !c!Ms. !c!Whitley’s !p!office. She is not here, as she is on patrol outside the !p!Cafeteria. Under her desk you see several small boxes labeled !e!“CKH”. You hear rattling from inside the boxes and barely notice a faint red glow from within. On the wall a screen reads “HEARTS CAPTURED: 1,950”. Under the number there is a small sticker with !c!Drye’s face and an arrow that says “I did that!”
+Officehall: Exit to the hall
+
 Cages:
 You are in a large room full of elaborate cages. These are the cages that !c!Drye will use in case any teachers try anything funny.
 Officehall: Exit to the hall
@@ -1782,9 +1801,13 @@ CaveDoor: Enter the !p!auditorium !p!cave
 Eighth1: Round the corner
 Nineh1: Enter the unlabeled door in the corner of the hall
 
+StaffBathroom:
+You enter the !p!staff !p!bathroom and guilt instantly takes it. You should not be in here. You feel so guilty. What an intrusion of privacy. What were you thinking? You squint your eyes closed hard and exit before you really see any details.
+Eighth2: Continue 
+
 Nineh1:
 You are in a pitch black hallway. Feeling around, you can tell that there is a doorknob near you.
-Eighth2: Go through the door
+Eighth2: Exit the hall
 Nineh2: Continue down the hall
 
 Nineh2:
@@ -1847,6 +1870,10 @@ Bandcloset: Walk into the !s!band !p!closet
 BandOff: Glimpse into the !s!band + !s!orchestra !p!office
 Sixh1: Leave into the !p!Six !p!Hundred !p!hall
 
+BandOff:
+You glimpse into the band office. You see all number of elaborate props used to “fix” instruments. There are floor to ceiling drawers that have clamps providing a contingency for anything that could possibly go wrong with an instrument. If you broke an instrument this would be the first place to go.
+OrchBand: Exit
+
 Orchcloset:
 As you walk into the !s!Orchestra !p!Closet, an avalanche of violin cases falls upon you. One of the cases cracks open, revealing a !d!DryeBuk stashed away inside.
 OrchBand: Exit the closet
@@ -1871,6 +1898,10 @@ CareerCenter: Enter the !p!Career !p!Center
 Middle3: Exit the !p!Courtyard
 Courtyard1: Continue up the wall under the !p!courtyard !p!roof
 Courtyard2: Drill deep into the Heart of the !p!Courtyard
+
+CareerCenter:
+You are in the !p!Career !p!Center. There is a long conference table and students are standing on it and putting on a show for !c!Felker and !c!McGraw, dancing and performing, attempting to convince them that the career that they are pursuing is right for them. !c!Felker and !c!McGraw are sitting in large thrones as aspiring grape holders are delicately feeding them huge grapes. They seem pleased with this year's career fair.
+CourtyardCorner: Exit 
 
 Courtyard1:
 You stand under the rooved portion of the !p!Courtyard. You can still see a small amount of salt left on the tables here. You can tell that this is the most popular spot for breakfast enjoyers.
@@ -1944,6 +1975,10 @@ You are at the south end of the !p!Upper !p!Four !p!Hundred. As you skim over th
 Buzzard: Enter !c!Buzzard’s !p!Room
 Fourh2: Continue down the hall
 Middle2: Exit to the outside, towards the !p!Student !p!Parking !p!Lot
+
+Buzzard:
+You see a rabid group of students circling !c!Coach !c!Buzzard who, it appears, has locked himself in a cage for protection as locking up every one of his meat-hungry in cages was both dangerous and impractical. He still has a tranq fearfully aimed in case one of the students manages to slip through the bars.
+Fourh1: Exit before they smell you
 
 Fourh3:
 You are in the quite small !p!Lower !p!400. There are a few classrooms accessible through here, but some of the doors have big warnings on them that mention something about other doors. You ignore them.
@@ -2408,7 +2443,7 @@ Fivekside2: Go to the side of the !p!5000
 Cranny: Go to the nook between the !p!Office and the !p!100
 
 Cranny:
-You are in a very tight nook between the !p!Font !p!Office and the !p!One !p!Hundred !p!Hall. You can tell this is one of the most stylish spots on campus. There is a large tree by the wall, and under the tree you spot some !d!DryeBux.
+You are in a very tight nook between the !p!Front !p!Office and the !p!One !p!Hundred !p!Hall. You can tell this is one of the most stylish spots on campus. There is a large tree by the wall, and under the tree you spot some !d!DryeBux.
 BuslotSide: Walk towards the !p!bus !p!lot
 $dryebux: 7
 
@@ -2466,7 +2501,7 @@ Fnf2: Gleefully waltz back into the hall
 
 Fnf3:
 You stand on the !p!4000 side of the !p!495000. There is a lonely passport-checking station that hasn’t seen any customers yet (people have no reason to leave the !p!4000 at this time).
-Fourkback: Exit to !c!Edde’s !p!Domain.
+Fourkback: Exit to !p!4000 building.
 Fnfpass2: Scan your passport to get to the other side
 
 Fnfpass2:
@@ -2536,7 +2571,7 @@ FourkElevator: Enter the elevator
 Fourk2A: Walk to the fans
 
 Sawyer:
-You see !c!Mrs. !c!Sawyer standing at a large podium quasi-rhythmically blowing into a harsh whistle. There is a table of a !s!AP !s!Statistics students who are sorting sweet treats and regional delicacies into jars corresponding to the treat’s colors. Once a jar is filled up all of the students are forced according to !c!Mrs. !c!Sawyer’s demand to eat up the tasty treat. The students resist for a few seconds and are reminded that they are some of the luckiest in the school and that !s!Analysis students would kill for this type of pampering, so they choke down more disgustingly sweet pastries.
+You see !c!Mrs. !c!Sawyer standing at a large podium quasi-rhythmically blowing into a harsh whistle. There is a table of !s!AP !s!Statistics students who are sorting sweet treats and regional delicacies into jars corresponding to the treat’s colors. Once a jar is filled up all of the students are forced according to !c!Mrs. !c!Sawyer’s demand to eat up the tasty treat. The students resist for a few seconds and are reminded that they are some of the luckiest in the school and that !s!Analysis students would kill for this type of pampering, so they choke down more disgustingly sweet pastries.
 Sawyer2: Attempt to free the students
 Four3A: Run free before you are taken in
 
@@ -2546,17 +2581,21 @@ SawyerFail: Eat the pastries
 Sawyer3: Don’t eat the pastries and stand up to !c!Mrs !c!Sawyer
 
 Sawyer3:
-As you continue to not eat the pastry !c!Mrs. !c!Sawyer grows more and more frustrated. She blows her whistle louder and louder until it is a near ear breaking blast but you manage to not be worn down. By this point she gets down from her podium and is circling you as her face grows red from the large quantity of air she has to force through the small hole. After a couple of minutes of tooth rattling blast she passes out on the ground exhausted. A cheer erupts from the crowd of students and they toss you some !d!Drye !d!Bux as a reward for your work.
-&Sawyer&SawyerSucess&Fourk3A: Leave the class room with your head held high
-$dryebux: 11
+As you continue to not eat the pastry !c!Mrs. !c!Sawyer grows more and more frustrated. She blows her whistle louder and louder until it is a near ear breaking blast but you manage to not be worn down. By this point she gets down from her podium and is circling you as her face grows red from the large quantity of air she has to force through the small hole. After a couple of minutes of tooth rattling blast she passes out on the ground exhausted. A cheer erupts from the crowd of students and they toss you some !d!DryeBux as a reward for your work.
+&Sawyer&SawyerSucess&SawyerSucess: Continue
 
 SawyerSucess:
-The students have trapped !c!Mrs. !c!Sawyer in a cage assembled from left over pastries. It is almost less humane than a regular cage because it gives you the option to get out on your own but you would have to chew through about a foot of abhorrent baked goods. That being said this is a classic example of the punishment fitting the crime as !c!Mrs. !c!Sawyer had the students in a similar lose lose hellscape.
-Fourk3A: Exit the room
+The students have now trapped !c!Mrs. !c!Sawyer in a cage assembled from left over pastries. It is almost less humane than a regular cage because it gives you the option to get out on your own but you would have to chew through about a foot of abhorrent baked goods. That being said this is a classic example of the punishment fitting the crime as !c!Mrs. !c!Sawyer had the students in a similar lose-lose hellscape. Your !d!DryeBux are waiting for you.
+Fourk3A: Leave the class room with your head held high
+$dryebux: 11
 
 SawyerFail:
 You stuff your face with pastries and feel disgusted by your own gluttony but you do not relent as you chose this fate for yourself. You disdainfully choke down bite after bite and feel yourself slowly inflating with flaky dough and cream puff. There is probably a moral in there somewhere but you are too stuffed to realize it or even to walk.
-RankF: You spend all your time rotting away sorting more delights and don’t even here the bell ring
+SawyerFail2: Continue
+
+SawyerFail2:
+You spend all your time rotting away sorting more delights and don’t even hear the bell ring.
+RankF: Oh well
 
 Barbee:
 You are in !c!Ms. !c!Barbee’s room. You are bombarded with posters that recontextualize your current situation. A particular post of a disgusting looking dog finally puts the pieces together for you. !e!You !e!are !e!not !e!trying !e!make !e!it !e! !e!to !e!first !e!block. If you were, you would be there already. There is something that you are, avoiding some reason you don’t want to go, maybe it is that you are not powerful enough in the !p!East !p!Meck ecosystem yet. !c!Ms !c!Barbee, always quick to help out a student in need (especially when they are crying and drooling on her nice Persian rug) gives you some !d!Drye !d!Bux. Maybe these will help.
@@ -2612,7 +2651,8 @@ Fourk3B: Go towards the front
 Fourk3B:
 You are on the front end of the !f!second !f!floor of the !p!4000. All the classrooms here are boarded up with wooden planks. The walls, floor, and ceiling are all made of a reflective metal. You see yourself in the reflection and shudder. The elevator is accessible through here, as well as the front stairwell. You are the only student in the hall, and it is dead silent.
 Cooper: Pry your way into !c!Cooper’s door
-Woodcock: Pry your way into !c!Jarman’s door
+Conyers: Pry your way into !c!Conyers’ door
+Woodcock: Pry your way into !c!Woodcock’s door
 Edde: Pry your way into !c!Edde’s door
 FourkElevator: Enter the elevator
 Fourkstairs2B: Take the stairs
@@ -2725,7 +2765,7 @@ Fourkstairs2C: Enter the stairs
 Fourk2C: Continue down the hall
 
 Baldwin:
-You are in !c!Ms. !c!Baldwin’s room. A !c!student in an inverted baseball cap is frantically writing down Taylor Swift lyrics on a general-purpose whiteboard by the door.
+You are in !c!Ms. !c!Baldwin’s room. A !c!student in an inverted baseball cap is frantically writing down !c!Taylor !c!Swift lyrics on a general-purpose whiteboard by the door.
 Fourk3C: Exit to the hall
 
 Comer:
@@ -2758,7 +2798,7 @@ $back: Continue
 DriversEd1:
 You wake up in a daze, surrounded by students in desks. Some teacher is lecturing in the front of the room about the various penalties for driving past a stopped schoolbus at various speeds. The teacher points at you to answer a question: “If you are driving at below ten above the speed limit, have illicit drugs in the trunk, and drive past a schoolbus that just stopped in the opposite direction, how long will your license be suspended for?”
 DriversEd2: 6 months
-DriversEd2: 12 months
+DriversEd2: 12 monthsk
 DriversEd2: 18 months
 DriversEd2: 24 months
 

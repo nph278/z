@@ -7,11 +7,11 @@
 // Splitscreen of many rooms for trailer
 // Extensive Playtest on Chromebook. Playtest espeically the jarman stuff
 // Show game to incoming freshman as practice for the real Meck
-// Teacher lounges
 // Checking your schedule is like savepoints
 // Dialogue text effect
 // Better opening line
 // Balancing for the ending reactions
+// weightlifting
 
 "use strict";
 
@@ -33,6 +33,7 @@ const parityOffset = 0.1;
 const keys = "1234567890abcdefghijklmnopqrstuvwxyz";
 let f = .85;
 const grimeWidth = 100;
+const endIDs = ["rankf", "rankd", "rankc", "rankb", "ranka", "ranks"];
 
 const openInNewTab = (href) => {
   Object.assign(document.createElement('a'), {
@@ -91,6 +92,7 @@ const scene_fourk = new Scene("rpgbg3.gif", "rpgbg1.mp3");
 const scene_underground = new Scene("rpgbg2.gif", "rpgbg2.mp3");
 const scene_trailers = new Scene("rpgbg2.gif", "rpgbg2.mp3");
 const scene_tunnel = new Scene("rpgtunnel.gif", "banger.mp3");
+const scene_musical = new Scene("rpgmusical.gif", "rpgmusical.mp3");
 
 class TextStyle {
     constructor() {
@@ -434,6 +436,11 @@ class Game {
         this.enterScene(scene_intro);
         this.grimeOn = false;
         this.parkerFight = false;
+        this.dryebukRooms = Object.values(this.rooms)
+            .filter(r => r.dryebux !== undefined && r.id !== "techdepot3");
+        this.hintIDs = this.dryebukRooms.map(r => r.id);
+        this.maxBux = this.dryebukRooms.map(r => r.dryebux).reduce((a, b) => a + b);
+        console.log(this.maxBux);
     }
 
     constructor(metaLevel, canvas) {
@@ -456,7 +463,7 @@ class Game {
             if (id === "techdepot5") {
                 f *= .9;
             }
-            if (["rankf", "rankd", "rankc", "rankb", "ranka", "ranks"].includes(id)) {
+            if (endIDs.includes(id)) {
                 this.lastScene.unapply();
                 soundCrystal.load();
                 soundCrystal.play();
@@ -481,6 +488,22 @@ class Game {
                 this.enterScene(scene_main);
             } else if (id === "tunnel1") {
                 this.enterScene(scene_tunnel);
+            } else if (id === "officeoutside") {
+                this.enterScene(scene_main);
+            } else if (id === "patio3") {
+                this.enterScene(scene_main);
+            } else if (id === "patio4") {
+                this.enterScene(scene_main);
+            } else if (id === "cafelobby3") {
+                this.enterScene(scene_main);
+            } else if (id === "auditoriumlobby") {
+                this.enterScene(scene_musical);
+            } else if (id === "eighth1") {
+                this.enterScene(scene_musical);
+            } else if (id === "807") {
+                this.enterScene(scene_musical);
+            } else if (id === "8072") {
+                this.enterScene(scene_musical);
             }
 
             if (id === "tunnel4") {
@@ -584,10 +607,15 @@ class Game {
         idLine.draw(ctx, idPos);
 
 
-        if (this.dryebux > 0) {
-            const dryebuxPos = new TextPosition(startX + spaceSize, startY + startH - 3 * lineHeight, width, height);
-            const dryebuxSeg = new TextSegment("!d!youhave-->" + this.dryebux + "₫");
-            dryebuxSeg.draw(ctx, dryebuxPos);
+        const dryebuxPos = new TextPosition(startX + spaceSize, startY + startH - 3 * lineHeight, width, height);
+        let dryebuxLine;
+        if (endIDs.includes(this.room.id) && this.room.id !== "rankf") {
+            dryebuxLine = new Line("!d!Percent !d!Of !d!Maxbux: !d!" + (100 * this.dryebux / this.maxBux));
+        } else if (this.dryebux > 0) {
+            dryebuxLine = new Line("!d!youhave-->" + this.dryebux + "₫");
+        }
+        if (dryebuxLine !== undefined) {
+            dryebuxLine.draw(ctx, dryebuxPos);
         }
 
         if (this.room.options.some(o => o.action.type === "dryebux")) {
@@ -665,14 +693,10 @@ class Game {
             soundCrystal.play();
             const backId = this.room.id;
             this.room.options.splice(i, 1);
-            const hintIDs = Object.values(this.rooms)
-                  .filter(r => r.dryebux !== undefined)
-                  .map(r => r.id)
-                  .filter(id => id !== "techdepot3");
-            if (hintIDs.length > 0) {
+            if (this.hintIDs.length > 0) {
                 this.enterRoom(new Room({
                     id: "bighint",
-                    desc: "You are left with the million-dollar hint phrase: !d!" + hintIDs[Math.floor(Math.random() * hintIDs.length)],
+                    desc: "You are left with the million-dollar hint phrase: !d!" + this.hintIDs[Math.floor(Math.random() * this.hintIDs.length)],
                     options: [
                         [backId, "Continue"],
                     ],
