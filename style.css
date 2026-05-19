@@ -413,6 +413,10 @@ span.exp {
     color: magenta;
 }
 
+.yellow {
+    color: yellow;
+}
+
 .goldlink {
     color: black;
     background: gold;
