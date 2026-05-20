@@ -93,6 +93,7 @@ const scene_underground = new Scene("rpgbg2.gif", "rpgbg2.mp3");
 const scene_trailers = new Scene("rpgbg2.gif", "rpgbg2.mp3");
 const scene_tunnel = new Scene("rpgtunnel.gif", "banger.mp3");
 const scene_musical = new Scene("rpgmusical.gif", "rpgmusical.mp3");
+const scene_900 = new Scene("rpg900.gif", "rpg900.mp3");
 
 class TextStyle {
     constructor() {
@@ -504,6 +505,10 @@ class Game {
                 this.enterScene(scene_musical);
             } else if (id === "8072") {
                 this.enterScene(scene_musical);
+            } else if (id === "eighth2") {
+                this.enterScene(scene_musical);
+            } else if (id === "nineh1") {
+                this.enterScene(scene_900);
             }
 
             if (id === "tunnel4") {
@@ -723,10 +728,11 @@ class Game {
             this.subgame.supergame = this
         } else if (a.type === "destroy") {
             if (this.metaLevel === 1) {
+                this.lastScene.unapply();
                 document.querySelector("#blackout").style.display = "inline";
                 setTimeout(() => {
-                    document.querySelector("#blackout").innerText = "Click";
-                }, 3000);
+                    window.location.href = "https://www.eastmeckeagle.com";
+                }, 2000);
             } else {
                 this.supergame.enterRoomId("gamecrash");
                 this.supergame.cracked = true;
