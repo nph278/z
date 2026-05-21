@@ -108,7 +108,7 @@ You enter the room and a rotary engine is spinning way out of control of the stu
 NguyenSuccess2:
 You are in !c!Mr. !c!Nguyen’s room. The students are tranquil due to the calm engine in front of you that is spinning at a rate that is by all accounts completely reasonable. Your !d!DryeBux are waiting for you.
 Sevenh1: Exit to the hall
-$DryeBux: 11
+$dryebux: 11
 
 Shefte:
 As you enter the room you see various !e!car !e!parts laid about the room. You assume that most likely no one has ever known what those !e!car !e!parts do and they serve an almost entirely aesthetic purpose. The chairs are higher tech then you thought were allowed and you assume the !c!Reclining !c!26 would be impressed.
@@ -206,6 +206,10 @@ ChemicalStorage: Enter the !p!Chemical !p!Storage !p!Room
 Sevenh2: Continue down the hall, towards the !p!Media !p!Center
 SevenhGym: Exit towards the !p!Gym
 
+Burbs:
+You enter !c!Mr. !p!Burbs’s !p!classroom. It has been fitted to embrace a new warehouse-punk aesthetic with high rafters and a sheet metal exterior. There is a large mass of students all bumping into each other repeatedly. They are all moshing to guerilla drumming and unpolished bass guitar and you can see the band as they set themselves apart by not using a stage or mics. The students seem to be loving it. You don’t feel a strong desire to join in but you are happy to watch.
+Sevenh3: Exit 
+
 ChemicalStorage:
 You are in the unexpectedly large !p!Chemical !p!Storage !p!Room. There is a huge quantity of unopened bags of M&M’s, which all seem to be part of some unwanted kit that keeps arriving. The M&M’s are slowly consuming all of the space in the room, and the dangerous chemicals are spilling out into the hall as a result. The M&M’s are rotting.
 Sevenh3: Exit to the hall
@@ -255,6 +259,10 @@ Pointy: Go towards the !p!400 !p!Split
 Staffparking4: Go towards the trailers
 Gymoutside: Walk to the !p!Gym entrance
 TrailerUnder: Go under the trailer
+
+TrailerUnder:
+You get down on your belly and see an opossum looking back at you. You are making eye contact, both afraid to move closer but with no desire to back away. There are thousands of different ways to interpret this omen but you chose to take it as a good sign.
+SevenhGym: Stand back up
 
 Wrestling:
 You are in the dingy !s!Wrestling !p!Room. There is one dim, flickering light on the ceiling. You see a group of students in some kind of committee. They are sitting around a large table and are discussing what new rules and regulations to implement for this year’s upcoming Cookout Fight Night season. They offer you !d!a !d!bribe to keep silent about the operation.
@@ -846,7 +854,7 @@ OneX: Shake it up by entering a seven
 OneX: Shake it up by entering a eight
 OneNine: Shake it up by entering a nine
 OneX: Shake it up by entering a zero
-EnterCode: Hit the big “reset” button
+EnterCode: Hit the big “4$” button
 
 Two:
 You confidently enter “2”. An interesting choice, if slightly unoriginal. You start to become so overwhelmed by the vast game tree of possibilities for future digits that you reset the device in a panic.
@@ -1130,6 +1138,24 @@ Kindt: Enter !c!Kindt’s !p!Classroom
 Cellocloset: Enter the !p!cello/bass !p!storage !p!closet.
 Sixh2: Continue along the hall
 Middle: Exit out the classic door
+
+Choir:
+You are in the !s!Choir !p!room. You see several students with school-sponsored full body ring lights attempting to drum up buzz for whatever the upcoming !s!Choir event is. They are all interviewing each other in one big homogenous melting pot. Questions like “what's your favorite note?” and “why did you join !s!Choir?” fly around like overstuffed doves. Other students throw all journalistic integrity to the wind by demanding “wrong answers only.” Eventually one of the students walks over and engages you in some petty topic.
+Choir2: Engage them in conversation knowing it will probably make you late
+Sixh1: Ignore them and go into the !p!600 !p!hallway
+Middle3: Ignore them and go into out the rear door
+BandOff: Peak into the !s!band !p!office
+
+Choir2:
+You tell yourself it won’t take too long. You tell yourself you won’t let it affect your ego. You find a hilarious line on what most interviewees would consider an open-n’-shut question. The interviewer is laughing so hard the audio of the video is almost unlistenable and it takes them a while to finish their question. The interviewer gives you !d!3 !d!DryeBux for your time, an insultingly low amount for how much engagement the video is sure to generate online.
+&Choir&ChoirPostInterview&ChoirPostInterview: continue
+
+ChoirPostInterview:
+The Choir students are still feeding coals to their social media machine but know all the questions are a desperate attempt to try to recreate your 15 minutes of fame again with someone with an even more controversial stance. Your !d!Bux are waiting.
+Sixh1: Exit into the !p!600 !p!hallway
+Middle3: Exit through the backdoor to !p!outside
+BandOff: Peer into the band office
+$dryebux: 3
 
 CelloCloset:
 There are a bunch of cellos in here. Pretty much what you expected.
@@ -1482,7 +1508,7 @@ You stand in a well-organized group of blue tables. There are a few trees near y
 Patio1: Go down towards the !p!Cafeteria !p!Lobby
 Patio2: Go down towards the !p!Cafeteria !p!Entrance
 Patio4: Go up towards the farthest reaches of the !p!Patio
-8072: Enter the very torn up door labeled as the entrance to the non-existent “807” 
+8072: Enter the very torn up door labeled as the entrance to the non-existent !p!“807” 
 Patiostairs: Go down the stairs next to the building
 
 Patiostairs:
@@ -1492,8 +1518,8 @@ Patio3: Go up the stairs
 
 StageAuditoriumThing:
 You try to open the door and you have to break off a large amount of rust to open it, furthering proving that !p!the !p!silver !p!auditorium would prove to be a triangle shirtwaist-esque death trap. You feel guilty about taking this below board way through the school but it is so much faster.
-Auditorium: Enter the !p!Auditorium
-Patio3: Go on to !p!cafeteria !p!patio
+&StageAuditoriumThing&Auditorium&Auditorium: Enter the !p!Auditorium
+&StageAuditoriumThing&Auditorium&Patio3: Go on to !p!cafeteria !p!patio
 
 CafeLobby3:
 You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.
@@ -1513,10 +1539,106 @@ Twoh2: Walk to the !p!200
 Twoh2:
 You are walking along the !p!Two! !p!Hundred. There is a four-way intersection on your side of the hall, and a less impressive three-way intersection on the far side. On the wall, there is a rogue’s gallery of the most senior East Meck Staff, complete with portraits and lists of weaknesses.
 Winiarski: Enter !c!Winiarski’s Room
-IBCoord: Enter the !c!IB !c!Coordinator’s !p!Room
+IBCoord: Enter the !c!IB !c!Coordinators’ !p!Room
 Fourway: Go to the big intersection
 Twoh1: Start the boring tread towards the less impressive one
 ParkerWeakness: Read !c!Parker’s Weakness
+
+IBCoord:
+You enter the !c!IB !c!Coordinators’ !p!Room. They are staring at you like two headlights. You feel so incredibly intimidated; you are not in IB, you don’t belong here. You see many elaborate charts which outline the many elements of IB and all come together to form one shape. You feel excluded from this exclusive club and wish you could be included. The !c!IB !c!Coordinators are still looking at you; they can tell what you are thinking which isn’t hard as you are starting to whimper. Eventually !c!Ms. !c!Hays speaks, “would you like to join the IB program?”
+IBCoord2: Yes
+Twoh2: No, leave
+
+IBCoord2:
+!c!Ms. !c!Hays sits you down next to at her computer. She has you give out all sorts of personal information but eventually it is determined that you pretty much just need to take more of language and you would be a full on IB student. She tells you you are pretty much good, you just need to pick a path.
+&IBCoord&IBCoordIB&DP: Diploma programme
+&IBCoord&IBCoorddIB&CP: Career programme
+
+DP:
+!c!Ms. !c!Hays clicks the check box and says you are all good. Instantly your phone buzzes. It is a text from !e!the !e!Beagle. It offers you a position at !e!the !e!Beagle saying the bar is low and even if you were to be a guy who just kind of bumbled around actively hurting !e!the !e!Beagle as an institution in the process because you're in DP you would still be great by Beagle standards.
+Twoh2: Respectfully decline and exit into the hallway.
+
+CP:
+!c!Ms. !c!Hays tells you that in order to be in CP you have to pick a career, and gives you a long laundry list to pick from.
+CP2: Nurse Practitioner
+CP2: Physician Assistant
+CP2: Dentist
+CP2: Physical Therapist
+CP2: Occupational Therapist
+CP2: Pharmacist
+CP2: Dental Hygienist
+CP2: Medical Assistant
+CP2: Radiologic Technologist
+CP2: Surgical Technologist
+CP2: Respiratory Therapist
+CP2: Anesthesiologist
+CP2: Pediatrician
+CP2: Software Developer
+CP2: Cybersecurity Analyst
+CP2: Data Scientist
+CP2: Database Administrator
+CP2: Network Architect
+CP2: Cloud Engineer
+CP2: IT Manager
+CP2: Web Developer
+CP2: Systems Analyst
+CP2: UX/UI Designer
+CP2: Computer Hardware Engineer
+CP2: Machine Learning Engineer
+CP2: Penetration Tester
+CP2: IT Support Specialist
+CP2: Financial Manager
+CP2: Accountant
+CP2: Financial Advisor
+CP2: Human Resources Manager
+CP2: Market Research Analyst
+CP2: Operations Manager
+CP2: Management Consultant
+CP2: Marketing Specialist
+CP2: Electrician
+CP2: Plumber
+CP2: HVAC Technician
+CP2: Carpenter
+CP2: Welder
+CP2: Automotive Mechanic
+CP2: Construction Manager
+CP2: Civil Engineer
+CP2: Wind Turbine Technician
+CP2: Solar Photovoltaic Installer
+CP2: Machinist
+CP2: Pipefitter
+CP2: Heavy Equipment Operator
+CP2: Ironworker
+CP2: Painter
+CP2: Graphic Designer
+CP2: Art Director
+CP2: Writer
+CP2: Author
+CP2: Editor
+CP2: Photographer
+CP2: Multimedia Artist 
+CP2: Animator
+CP2: Video Game Designer
+CP2: Public Speaker
+CP2: Content Creator
+CP2: Interior Designer
+CP2: Landscape Architect
+CP2: Film Producer
+CP2: Sound Engineer 
+CP2: Fashion Designer
+CP2: Technical Writer
+
+CP2:
+You experienced a small amount of anxiety about your pick but you are maybe 80% confident in your pick and the choice actually really mattered because it determined like 2 of your classes. 
+Twoh2: Exit, excited for your future but also scared (who isn’t?)
+
+IBcoordIB:
+The multilevel staircase charts actually make sense to you now. You are just a piece in a much larger world, something you never could have realized had you not been indoctrinated into the IB program. !c!Ms. !c!Flanagan looks at you and gives you a thumbs up.
+Twoh2: Exit
+
+Winiarski:
+You enter !c!Winiarski’s !p!classroom. You hear phones ringing off the hook. !c!Winiarski is sitting in the center of a semicircular desk that has 50 different rotary phones. She is repeatedly answering and giving simple answers to complex questions about her upcoming thread mural. Almost as soon as she answers she slams the phone back down to answer yet another confused offsite participant hoping to make it big.
+Twoh2: Exit 
 
 ParkerWeakness:
 N/A
@@ -1532,7 +1654,7 @@ Twoh2: Continue down the hall
 Courtyard1: Exit to the !p!Courtyard
 
 Vincent:
-You are in !c!Mrs. !c!Vincent’s room. You want to cross the room but the tables are arranged in a way that would make that impossible. They seem like a maze designed to contain some sort of abhorrent art beast and prevent it from reaching the rest of East. As far fetched as it seems it is the only possible explanation for why the tables would be arranged this way.  The whole room seems to be shifting and the art on the walls seems to be constantly changing yet still maintaining its near-professional quality. You try to walk deeper into the room to try to examine some but the tables start spinning really fast and you figure you couldn’t get in without having your legs ripped from your body.
+You are in !c!Mrs. !c!Vincent’s room. You want to cross the room but the tables are arranged in a way that would make that impossible. They seem like a maze designed to contain some sort of abhorrent art beast and prevent it from reaching the rest of East. As far fetched as it seems it is the only possible explanation for why the tables would be arranged this way.  The whole room seems to be shifting and the art on the walls seems to be constantly changing yet still maintaining its near-professional quality. You try to walk deeper into the room and examine some art but the tables start spinning really fast and you figure you couldn’t get in without having your legs ripped from your body.
 Twoh1: Give up and leave
 
 Shields:
@@ -1548,14 +1670,14 @@ You feel its power as your hand reaches closer until you make contact and the wo
 You are too stunned to respond so after about a couple seconds of radio silence the !d!Buk responds !d!“I !d!will !d!answer !d!for !d!you, !d!you !d!do !d!not.” !d!“No !d!one !d!does.” !d!“I !d!was !d!too !d!coveted !d!and !d!needed !d!to !d!be !d!held !d!from !d!the !d!rest !d!of !d!East !d!Meck.” !d!“There !d!is !d!a !d!very !d!specific !d!protocol !d!I !d!have !d!been !d!told !d!to !d!follow !d!if !d!some !d!overzealous !d!student !d!tries !d!to !d!steal !d!me. !d!I !d!will !d!be !d!wiping !d!your !d!memory !d!and !d!putting !d!you !d!back !d!at !d!the !d!start !d!of !d!the !d!day !d!hoping !d!that !d!you !d!never !d!come !d!back !d!here !d!but !d!I !d!will !d!let !d!you !d!ask !d!me !d!one !d!question.”
 DB103Talk: Why can you talk?
 DB103Yearbook: Why were you left in the !s!yearbook !p!room
-DB103Spit: Refuse to ask a question, your getting your mind wiped anyway
+DB103Spit: Refuse to ask a question, you’re getting your mind wiped anyway
 
 DB103Spit:
 The !d!Buk feels your objection and is deeply enraged by it. You feel it begin to heat up and then burn. It hurts your hands to hold but something deep inside you can’t let it go: you would be stupid to give up that much power. The !d!Buk begins to burn away. !d!“How !d!dare !d!you.” The skin on your hands burns away until it is just a skeleton and then that begins to burn too but the !d!Buk is still getting hotter. You feel the heat start to rise up your arms and burn away that flesh too but still you don’t release the !d!Buk. You clutch it close until you and it become withered.
 RankF: ... 
 
 DB103Yearbook: 
-!d!“Everyone !d!knew !d!as !d!soon !d!as !d!I !d!was !d!printed !d!that !d!I !d!was !d!going !d!to !d!be !d!too !d!powerful !d!for !d!East. !d!I !d!am !d!far !d!from !d!the !d!most !d!powerful !d!being !d!at !d!East !d!but !d!when !d!you !d!liquidate !d!this !d!much !d!status !d!issues !d!start !d!to !d!emerge. !c!The !c!Zeagle !c!Staff !d!realized !d!that !d!they !d!needed !d!a !d!place !d!to !d!put !d!me !d!so !d!that !d!I !d!wasn’t !d!added !d!to !d!circulation. !d!They !d!decided !d!the !p!yearbook !p!room !d!would !d!be !d!the !d!perfect !d!place !d!for !d!me. !d!Although !d!it's !d!not !d!an !d!exciting !d!way !d!to !d!live, !d!it !d!beats !d!the !d!alternative: !d!East !d!Meck !d!in !d!utter !d!chaos.” You feel a sharp hum in your temples and your vision begins to blur then...
+!d!“Everyone !d!knew !d!as !d!soon !d!as !d!I !d!was !d!printed !d!that !d!I !d!was !d!going !d!to !d!be !d!too !d!powerful !d!for !d!East. !d!I !d!am !d!far !d!from !d!the !d!most !d!powerful !d!being !d!at !d!East !d!but !d!when !d!you !d!liquidate !d!this !d!much !d!status !d!issues !d!start !d!to !d!emerge. !c!The !c!Zeagle !c!Staff !d!realized !d!that !d!they !d!needed !d!a !d!place !d!to !d!put !d!me !d!so !d!that !d!I !d!wasn’t !d!added !d!to !d!circulation. !d!They !d!decided !d!the !p!yearbook !p!room !d!would !d!be !d!the !d!perfect !d!place !d!for !d!me. !d!Although !d!it's !d!not !d!an !d!exciting !d!way !d!to !d!live, !d!it !d!beats !d!the !d!alternative: !d!East !d!Meck !d!in !d!utter !d!chaos.” You feel a sharp hum in your temples and your vision begins to blur and then...
 $reset: ...
 
 DB103Talk:
@@ -1875,12 +1997,13 @@ You stand in the center of the vast !s!Orchestra (but at other times !s!Band) !p
 Middle3: Walk outside the exterior door.
 Orchcloset: Walk into the !s!orchestra !p!closet.
 Bandcloset: Walk into the !s!band !p!closet
-BandOff: Glimpse into the !s!band + !s!orchestra !p!office
+BandOff: Go into the !s!band + !s!orchestra !p!office
 Sixh1: Leave into the !p!Six !p!Hundred !p!hall
 
 BandOff:
-You glimpse into the band office. You see all number of elaborate props used to “fix” instruments. There are floor to ceiling drawers that have clamps providing a contingency for anything that could possibly go wrong with an instrument. If you broke an instrument this would be the first place to go.
-OrchBand: Exit
+You enter into the band office. You see all number of elaborate props used to “fix” instruments. There are floor to ceiling drawers that have clamps providing a contingency for anything that could possibly go wrong with an instrument. If you broke an instrument this would be the first place to go.
+OrchBand: Exit to the !s!Orchestra/Band !p!Room
+Choir: Exit to the !s!Choir !p!Room !p!Room
 
 Orchcloset:
 As you walk into the !s!Orchestra !p!Closet, an avalanche of violin cases falls upon you. One of the cases cracks open, revealing a !d!DryeBuk stashed away inside.
@@ -2392,9 +2515,28 @@ Threeh1:
 You are in the !p!Three !p!Hundred, near an intersection. The !p!tech !p!depot that students once flocked to as a safe haven free from bugs and glitches can no longer accommodate the raving masses, as !c!Mr. !c!Henley has been displaced from his original location by a space-hungry marketing teacher, and is now forced to reside in a small closet.
 TechDepot: Enter the miniscule !p!Tech !p!Depot
 Woindrich: Enter !c!Woindrich’s !p!Room
-Johnson3: Enter !c!Johnson’s !p!Room
+Johnson4: Enter !c!Johnson’s !p!Room
 Threeway: Walk to the intersection
 Threeh2: Walk deeper into the !p!300
+
+Johnson4:
+You are in !c!Mr. !c!Johnson’s !p!room. There is a big security scanner that is producing a feed of the classroom that has been turned surreal. He comes over and says to you, “Hey, the smartest !s!phojo student got my trumpet confused with a camera and broke it trying to take pictures. I don’t trust any of my students to fix it so could you go fix it. I will give you !d!11 !d!DryeBux if you do.”
+&bandoff&bandoffJohnson&Johnson42: Sure 
+Threeh1: No, leave
+
+Johnson42:
+!c!Mr. !c!Johnson gave you his trumpet. It is basically just a pile of dust and shrapnel. Now you need to find some place to fix it.
+&Johnson4&Johnson42&Threeh1: Leave
+
+BandOffJohnson:
+You take this as the perfect place to fix !c!Mr. !c!Johnson’s trumpet. There are floor to ceiling shelves full of every instrument fixing tool you could ever need. You grab a couple of clamps and some sort of adhesive and just kinda mix it together with the trumpet dust until it turns vaguely trumpet shaped. !c!Mr. !c!Johnson is going to love it.
+&Johnson42&Johnson43&Orchband: Exit into the !p!Band !p!room
+&Johnson42&Johnson43&Choir: Exit into the !p!Choir !p!room
+
+Johnson43:
+You give !c!Mr. !c!Johnson the new trumpet. He is so grateful that he accepts the sticky mess. He blows in it and it makes some half hearted notes. “Oh yeah that's that beautiful horn I love.” He hits the valves a couple times making it look a thousand times more difficult than it should be. “Oh I almost forgot, here’s your money, kid.”
+Threeh1: Leave
+$dryebux: 11
 
 Woindrich:
 You are in !c!Mr. !c!Woindrich’s room. There is not an unusual amount of equipment in here, but what is here is extremely spread out, almost as if the teacher running this place wants to use the most of his newly-acquired space. You still see remnants of the old tech depot -- a pile of screwdrivers of various sizes and end types, a few bottles of grease for oiling the laptop interiors.

@@ -5,13 +5,12 @@
 // More text effets: shaking, ripple
 // Repeatedly use that number "[n] ... Xthings" >495?
 // Splitscreen of many rooms for trailer
-// Extensive Playtest on Chromebook. Playtest espeically the jarman stuff
+// Make meta quest more clear
+// Meta meta should make sense
 // Show game to incoming freshman as practice for the real Meck
-// Checking your schedule is like savepoints
 // Dialogue text effect
 // Better opening line
 // Balancing for the ending reactions
-// weightlifting
 
 "use strict";
 
@@ -30,7 +29,7 @@ const cooldown = 1000;
 const circleRate = 0.003;
 const circleRR = 0.1;
 const parityOffset = 0.1;
-const keys = "1234567890abcdefghijklmnopqrstuvwxyz";
+const keys = "1234567890abcdefghijklmnopqrstuvwxyz@#$%^&*()_+-=[]{}\\|;:'\",./<>?`~";
 let f = .85;
 const grimeWidth = 100;
 const endIDs = ["rankf", "rankd", "rankc", "rankb", "ranka", "ranks"];
@@ -398,11 +397,22 @@ class Room {
     }
 
     draw(ctx, elapsed, startX, startY, startW, startH) {
+        const oldFS = fontSize;
+        const n = 3;
+        if (this.id === "cp") {
+            fontSize /= n;
+        }
         const pos = new TextPosition(startX, startY, width, height);
         const words = Math.floor(wps * elapsed / 1000);
         this.desc.draw(ctx, pos, words);
         pos.newLine();
-        this.options.forEach((o, i) => o.draw(ctx, pos, words, i));
+        lineHeight = fontSize;
+        this.options.forEach((o, i) => {
+            o.text.segs.forEach(s => s.style.fontSize = fontSize);
+            o.draw(ctx, pos, words, i);
+        });
+        fontSize = oldFS;
+        lineHeight = fontSize;
     }
 }
 
@@ -465,7 +475,9 @@ class Game {
                 f *= .9;
             }
             if (endIDs.includes(id)) {
-                this.lastScene.unapply();
+                if (this.lastScene !== null) {
+                    this.lastScene.unapply();
+                }
                 soundCrystal.load();
                 soundCrystal.play();
             } if (id === "fnf3") {
@@ -1007,7 +1019,7 @@ desc: "You are in !c!Mr. !c!Nguyen’s room. The students are tranquil due to th
 options: [
 ["sevenh1", "Exit to the hall"],
 ],
-DryeBux: "11",
+dryebux: 11,
 },
 {
 id: "shefte",
@@ -1163,6 +1175,13 @@ options: [
 ],
 },
 {
+id: "burbs",
+desc: "You enter !c!Mr. !p!Burbs’s !p!classroom. It has been fitted to embrace a new warehouse-punk aesthetic with high rafters and a sheet metal exterior. There is a large mass of students all bumping into each other repeatedly. They are all moshing to guerilla drumming and unpolished bass guitar and you can see the band as they set themselves apart by not using a stage or mics. The students seem to be loving it. You don’t feel a strong desire to join in but you are happy to watch.",
+options: [
+["sevenh3", "Exit"],
+],
+},
+{
 id: "chemicalstorage",
 desc: "You are in the unexpectedly large !p!Chemical !p!Storage !p!Room. There is a huge quantity of unopened bags of M&M’s, which all seem to be part of some unwanted kit that keeps arriving. The M&M’s are slowly consuming all of the space in the room, and the dangerous chemicals are spilling out into the hall as a result. The M&M’s are rotting.",
 options: [
@@ -1240,6 +1259,13 @@ options: [
 ["staffparking4", "Go towards the trailers"],
 ["gymoutside", "Walk to the !p!Gym entrance"],
 ["trailerunder", "Go under the trailer"],
+],
+},
+{
+id: "trailerunder",
+desc: "You get down on your belly and see an opossum looking back at you. You are making eye contact, both afraid to move closer but with no desire to back away. There are thousands of different ways to interpret this omen but you chose to take it as a good sign.",
+options: [
+["sevenhgym", "Stand back up"],
 ],
 },
 {
@@ -2134,7 +2160,7 @@ options: [
 ["onex", "Shake it up by entering a eight"],
 ["onenine", "Shake it up by entering a nine"],
 ["onex", "Shake it up by entering a zero"],
-["entercode", "Hit the big “reset” button"],
+["entercode", "Hit the big “4$” button"],
 ],
 },
 {
@@ -2551,6 +2577,33 @@ options: [
 ["sixh2", "Continue along the hall"],
 ["middle", "Exit out the classic door"],
 ],
+},
+{
+id: "choir",
+desc: "You are in the !s!Choir !p!room. You see several students with school-sponsored full body ring lights attempting to drum up buzz for whatever the upcoming !s!Choir event is. They are all interviewing each other in one big homogenous melting pot. Questions like “what's your favorite note?” and “why did you join !s!Choir?” fly around like overstuffed doves. Other students throw all journalistic integrity to the wind by demanding “wrong answers only.” Eventually one of the students walks over and engages you in some petty topic.",
+options: [
+["choir2", "Engage them in conversation knowing it will probably make you late"],
+["sixh1", "Ignore them and go into the !p!600 !p!hallway"],
+["middle3", "Ignore them and go into out the rear door"],
+["bandoff", "Peak into the !s!band !p!office"],
+],
+},
+{
+id: "choir2",
+desc: "You tell yourself it won’t take too long. You tell yourself you won’t let it affect your ego. You find a hilarious line on what most interviewees would consider an open-n’-shut question. The interviewer is laughing so hard the audio of the video is almost unlistenable and it takes them a while to finish their question. The interviewer gives you !d!3 !d!DryeBux for your time, an insultingly low amount for how much engagement the video is sure to generate online.",
+options: [
+['choirpostinterview', 'Continue', ['choir','choirpostinterview']],
+],
+},
+{
+id: "choirpostinterview",
+desc: "The Choir students are still feeding coals to their social media machine but know all the questions are a desperate attempt to try to recreate your 15 minutes of fame again with someone with an even more controversial stance. Your !d!Bux are waiting.",
+options: [
+["sixh1", "Exit into the !p!600 !p!hallway"],
+["middle3", "Exit through the backdoor to !p!outside"],
+["bandoff", "Peer into the band office"],
+],
+dryebux: 3,
 },
 {
 id: "cellocloset",
@@ -3097,7 +3150,7 @@ options: [
 ["patio1", "Go down towards the !p!Cafeteria !p!Lobby"],
 ["patio2", "Go down towards the !p!Cafeteria !p!Entrance"],
 ["patio4", "Go up towards the farthest reaches of the !p!Patio"],
-["8072", "Enter the very torn up door labeled as the entrance to the non-existent “807”"],
+["8072", "Enter the very torn up door labeled as the entrance to the non-existent !p!“807”"],
 ["patiostairs", "Go down the stairs next to the building"],
 ],
 },
@@ -3113,8 +3166,8 @@ options: [
 id: "stageauditoriumthing",
 desc: "You try to open the door and you have to break off a large amount of rust to open it, furthering proving that !p!the !p!silver !p!auditorium would prove to be a triangle shirtwaist-esque death trap. You feel guilty about taking this below board way through the school but it is so much faster.",
 options: [
-["auditorium", "Enter the !p!Auditorium"],
-["patio3", "Go on to !p!cafeteria !p!patio"],
+['auditorium', 'Enter the !p!Auditorium', ['stageauditoriumthing','auditorium']],
+['patio3', 'Go on to !p!cafeteria !p!patio', ['stageauditoriumthing','auditorium']],
 ],
 },
 {
@@ -3143,10 +3196,127 @@ id: "twoh2",
 desc: "You are walking along the !p!Two! !p!Hundred. There is a four-way intersection on your side of the hall, and a less impressive three-way intersection on the far side. On the wall, there is a rogue’s gallery of the most senior East Meck Staff, complete with portraits and lists of weaknesses.",
 options: [
 ["winiarski", "Enter !c!Winiarski’s Room"],
-["ibcoord", "Enter the !c!IB !c!Coordinator’s !p!Room"],
+["ibcoord", "Enter the !c!IB !c!Coordinators’ !p!Room"],
 ["fourway", "Go to the big intersection"],
 ["twoh1", "Start the boring tread towards the less impressive one"],
 ["parkerweakness", "Read !c!Parker’s Weakness"],
+],
+},
+{
+id: "ibcoord",
+desc: "You enter the !c!IB !c!Coordinators’ !p!Room. They are staring at you like two headlights. You feel so incredibly intimidated; you are not in IB, you don’t belong here. You see many elaborate charts which outline the many elements of IB and all come together to form one shape. You feel excluded from this exclusive club and wish you could be included. The !c!IB !c!Coordinators are still looking at you; they can tell what you are thinking which isn’t hard as you are starting to whimper. Eventually !c!Ms. !c!Hays speaks, “would you like to join the IB program?”",
+options: [
+["ibcoord2", "Yes"],
+["twoh2", "No, leave"],
+],
+},
+{
+id: "ibcoord2",
+desc: "!c!Ms. !c!Hays sits you down next to at her computer. She has you give out all sorts of personal information but eventually it is determined that you pretty much just need to take more of language and you would be a full on IB student. She tells you you are pretty much good, you just need to pick a path.",
+options: [
+['dp', 'Diploma programme', ['ibcoord','ibcoordib']],
+['cp', 'Career programme', ['ibcoord','ibcoorddib']],
+],
+},
+{
+id: "dp",
+desc: "!c!Ms. !c!Hays clicks the check box and says you are all good. Instantly your phone buzzes. It is a text from !e!the !e!Beagle. It offers you a position at !e!the !e!Beagle saying the bar is low and even if you were to be a guy who just kind of bumbled around actively hurting !e!the !e!Beagle as an institution in the process because you're in DP you would still be great by Beagle standards.",
+options: [
+["twoh2", "Respectfully decline and exit into the hallway"],
+],
+},
+{
+id: "cp",
+desc: "!c!Ms. !c!Hays tells you that in order to be in CP you have to pick a career, and gives you a long laundry list to pick from.",
+options: [
+["cp2", "Nurse Practitioner"],
+["cp2", "Physician Assistant"],
+["cp2", "Dentist"],
+["cp2", "Physical Therapist"],
+["cp2", "Occupational Therapist"],
+["cp2", "Pharmacist"],
+["cp2", "Dental Hygienist"],
+["cp2", "Medical Assistant"],
+["cp2", "Radiologic Technologist"],
+["cp2", "Surgical Technologist"],
+["cp2", "Respiratory Therapist"],
+["cp2", "Anesthesiologist"],
+["cp2", "Pediatrician"],
+["cp2", "Software Developer"],
+["cp2", "Cybersecurity Analyst"],
+["cp2", "Data Scientist"],
+["cp2", "Database Administrator"],
+["cp2", "Network Architect"],
+["cp2", "Cloud Engineer"],
+["cp2", "IT Manager"],
+["cp2", "Web Developer"],
+["cp2", "Systems Analyst"],
+["cp2", "UX/UI Designer"],
+["cp2", "Computer Hardware Engineer"],
+["cp2", "Machine Learning Engineer"],
+["cp2", "Penetration Tester"],
+["cp2", "IT Support Specialist"],
+["cp2", "Financial Manager"],
+["cp2", "Accountant"],
+["cp2", "Financial Advisor"],
+["cp2", "Human Resources Manager"],
+["cp2", "Market Research Analyst"],
+["cp2", "Operations Manager"],
+["cp2", "Management Consultant"],
+["cp2", "Marketing Specialist"],
+["cp2", "Electrician"],
+["cp2", "Plumber"],
+["cp2", "HVAC Technician"],
+["cp2", "Carpenter"],
+["cp2", "Welder"],
+["cp2", "Automotive Mechanic"],
+["cp2", "Construction Manager"],
+["cp2", "Civil Engineer"],
+["cp2", "Wind Turbine Technician"],
+["cp2", "Solar Photovoltaic Installer"],
+["cp2", "Machinist"],
+["cp2", "Pipefitter"],
+["cp2", "Heavy Equipment Operator"],
+["cp2", "Ironworker"],
+["cp2", "Painter"],
+["cp2", "Graphic Designer"],
+["cp2", "Art Director"],
+["cp2", "Writer"],
+["cp2", "Author"],
+["cp2", "Editor"],
+["cp2", "Photographer"],
+["cp2", "Multimedia Artist"],
+["cp2", "Animator"],
+["cp2", "Video Game Designer"],
+["cp2", "Public Speaker"],
+["cp2", "Content Creator"],
+["cp2", "Interior Designer"],
+["cp2", "Landscape Architect"],
+["cp2", "Film Producer"],
+["cp2", "Sound Engineer"],
+["cp2", "Fashion Designer"],
+["cp2", "Technical Writer"],
+],
+},
+{
+id: "cp2",
+desc: "You experienced a small amount of anxiety about your pick but you are maybe 80% confident in your pick and the choice actually really mattered because it determined like 2 of your classes. ",
+options: [
+["twoh2", "Exit, excited for your future but also scared (who isn’t?)"],
+],
+},
+{
+id: "ibcoordib",
+desc: "The multilevel staircase charts actually make sense to you now. You are just a piece in a much larger world, something you never could have realized had you not been indoctrinated into the IB program. !c!Ms. !c!Flanagan looks at you and gives you a thumbs up.",
+options: [
+["twoh2", "Exit"],
+],
+},
+{
+id: "winiarski",
+desc: "You enter !c!Winiarski’s !p!classroom. You hear phones ringing off the hook. !c!Winiarski is sitting in the center of a semicircular desk that has 50 different rotary phones. She is repeatedly answering and giving simple answers to complex questions about her upcoming thread mural. Almost as soon as she answers she slams the phone back down to answer yet another confused offsite participant hoping to make it big.",
+options: [
+["twoh2", "Exit"],
 ],
 },
 {
@@ -3170,7 +3340,7 @@ options: [
 },
 {
 id: "vincent",
-desc: "You are in !c!Mrs. !c!Vincent’s room. You want to cross the room but the tables are arranged in a way that would make that impossible. They seem like a maze designed to contain some sort of abhorrent art beast and prevent it from reaching the rest of East. As far fetched as it seems it is the only possible explanation for why the tables would be arranged this way.  The whole room seems to be shifting and the art on the walls seems to be constantly changing yet still maintaining its near-professional quality. You try to walk deeper into the room to try to examine some but the tables start spinning really fast and you figure you couldn’t get in without having your legs ripped from your body.",
+desc: "You are in !c!Mrs. !c!Vincent’s room. You want to cross the room but the tables are arranged in a way that would make that impossible. They seem like a maze designed to contain some sort of abhorrent art beast and prevent it from reaching the rest of East. As far fetched as it seems it is the only possible explanation for why the tables would be arranged this way.  The whole room seems to be shifting and the art on the walls seems to be constantly changing yet still maintaining its near-professional quality. You try to walk deeper into the room and examine some art but the tables start spinning really fast and you figure you couldn’t get in without having your legs ripped from your body.",
 options: [
 ["twoh1", "Give up and leave"],
 ],
@@ -3196,7 +3366,7 @@ desc: "You are too stunned to respond so after about a couple seconds of radio s
 options: [
 ["db103talk", "Why can you talk?"],
 ["db103yearbook", "Why were you left in the !s!yearbook !p!room"],
-["db103spit", "Refuse to ask a question, your getting your mind wiped anyway"],
+["db103spit", "Refuse to ask a question, you’re getting your mind wiped anyway"],
 ],
 },
 {
@@ -3208,7 +3378,7 @@ options: [
 },
 {
 id: "db103yearbook",
-desc: "!d!“Everyone !d!knew !d!as !d!soon !d!as !d!I !d!was !d!printed !d!that !d!I !d!was !d!going !d!to !d!be !d!too !d!powerful !d!for !d!East. !d!I !d!am !d!far !d!from !d!the !d!most !d!powerful !d!being !d!at !d!East !d!but !d!when !d!you !d!liquidate !d!this !d!much !d!status !d!issues !d!start !d!to !d!emerge. !c!The !c!Zeagle !c!Staff !d!realized !d!that !d!they !d!needed !d!a !d!place !d!to !d!put !d!me !d!so !d!that !d!I !d!wasn’t !d!added !d!to !d!circulation. !d!They !d!decided !d!the !p!yearbook !p!room !d!would !d!be !d!the !d!perfect !d!place !d!for !d!me. !d!Although !d!it's !d!not !d!an !d!exciting !d!way !d!to !d!live, !d!it !d!beats !d!the !d!alternative: !d!East !d!Meck !d!in !d!utter !d!chaos.” You feel a sharp hum in your temples and your vision begins to blur then...",
+desc: "!d!“Everyone !d!knew !d!as !d!soon !d!as !d!I !d!was !d!printed !d!that !d!I !d!was !d!going !d!to !d!be !d!too !d!powerful !d!for !d!East. !d!I !d!am !d!far !d!from !d!the !d!most !d!powerful !d!being !d!at !d!East !d!but !d!when !d!you !d!liquidate !d!this !d!much !d!status !d!issues !d!start !d!to !d!emerge. !c!The !c!Zeagle !c!Staff !d!realized !d!that !d!they !d!needed !d!a !d!place !d!to !d!put !d!me !d!so !d!that !d!I !d!wasn’t !d!added !d!to !d!circulation. !d!They !d!decided !d!the !p!yearbook !p!room !d!would !d!be !d!the !d!perfect !d!place !d!for !d!me. !d!Although !d!it's !d!not !d!an !d!exciting !d!way !d!to !d!live, !d!it !d!beats !d!the !d!alternative: !d!East !d!Meck !d!in !d!utter !d!chaos.” You feel a sharp hum in your temples and your vision begins to blur and then...",
 options: [
 ],
 reset: "...",
@@ -3712,15 +3882,16 @@ options: [
 ["middle3", "Walk outside the exterior door"],
 ["orchcloset", "Walk into the !s!orchestra !p!closet"],
 ["bandcloset", "Walk into the !s!band !p!closet"],
-["bandoff", "Glimpse into the !s!band + !s!orchestra !p!office"],
+["bandoff", "Go into the !s!band + !s!orchestra !p!office"],
 ["sixh1", "Leave into the !p!Six !p!Hundred !p!hall"],
 ],
 },
 {
 id: "bandoff",
-desc: "You glimpse into the band office. You see all number of elaborate props used to “fix” instruments. There are floor to ceiling drawers that have clamps providing a contingency for anything that could possibly go wrong with an instrument. If you broke an instrument this would be the first place to go.",
+desc: "You enter into the band office. You see all number of elaborate props used to “fix” instruments. There are floor to ceiling drawers that have clamps providing a contingency for anything that could possibly go wrong with an instrument. If you broke an instrument this would be the first place to go.",
 options: [
-["orchband", "Exit"],
+["orchband", "Exit to the !s!Orchestra/Band !p!Room"],
+["choir", "Exit to the !s!Choir !p!Room !p!Room"],
 ],
 },
 {
@@ -4505,10 +4676,41 @@ desc: "You are in the !p!Three !p!Hundred, near an intersection. The !p!tech !p!
 options: [
 ["techdepot", "Enter the miniscule !p!Tech !p!Depot"],
 ["woindrich", "Enter !c!Woindrich’s !p!Room"],
-["johnson3", "Enter !c!Johnson’s !p!Room"],
+["johnson4", "Enter !c!Johnson’s !p!Room"],
 ["threeway", "Walk to the intersection"],
 ["threeh2", "Walk deeper into the !p!300"],
 ],
+},
+{
+id: "johnson4",
+desc: "You are in !c!Mr. !c!Johnson’s !p!room. There is a big security scanner that is producing a feed of the classroom that has been turned surreal. He comes over and says to you, “Hey, the smartest !s!phojo student got my trumpet confused with a camera and broke it trying to take pictures. I don’t trust any of my students to fix it so could you go fix it. I will give you !d!11 !d!DryeBux if you do.”",
+options: [
+['johnson42', 'Sure', ['bandoff','bandoffjohnson']],
+["threeh1", "No, leave"],
+],
+},
+{
+id: "johnson42",
+desc: "!c!Mr. !c!Johnson gave you his trumpet. It is basically just a pile of dust and shrapnel. Now you need to find some place to fix it.",
+options: [
+['threeh1', 'Leave', ['johnson4','johnson42']],
+],
+},
+{
+id: "bandoffjohnson",
+desc: "You take this as the perfect place to fix !c!Mr. !c!Johnson’s trumpet. There are floor to ceiling shelves full of every instrument fixing tool you could ever need. You grab a couple of clamps and some sort of adhesive and just kinda mix it together with the trumpet dust until it turns vaguely trumpet shaped. !c!Mr. !c!Johnson is going to love it.",
+options: [
+['orchband', 'Exit into the !p!Band !p!room', ['johnson42','johnson43']],
+['choir', 'Exit into the !p!Choir !p!room', ['johnson42','johnson43']],
+],
+},
+{
+id: "johnson43",
+desc: "You give !c!Mr. !c!Johnson the new trumpet. He is so grateful that he accepts the sticky mess. He blows in it and it makes some half hearted notes. “Oh yeah that's that beautiful horn I love.” He hits the valves a couple times making it look a thousand times more difficult than it should be. “Oh I almost forgot, here’s your money, kid.”",
+options: [
+["threeh1", "Leave"],
+],
+dryebux: 11,
 },
 {
 id: "woindrich",
