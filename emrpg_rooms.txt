@@ -151,9 +151,20 @@ The Cameras have maybe 40 different angles on the !p!drum !p!shed near the side 
 ShefteOffice: Back away from the feed before you become too absorbed in other people’s !p!East !p!Meck narratives instead of your own.
 
 Wojo:
-You are in the !s!physics !p!classroom. The students have set up some kind of giant Rube Goldberg machine that takes up most of the room.
+You are in the !s!physics !p!classroom. The students have set up some kind of giant Rube Goldberg machine that takes up most of the room. They are clamoring about the contraption, cheering on the small polyhedra that are being shot every whichaway by a tapestry of springs and solenoids.
 TouchMachine: Touch the machine
+WojoCloset: Go into the closet behind the machine
 Sevenh1: Exit to the hall
+
+WojoCloset:
+You are in !c!Mr. !c!Wojo’s closet. There is a ladder leading up to the inside of the ceiling.
+WojoCeiling: Go up the ladder
+Wojo: Leave
+
+WojoCeiling:
+You are in the ceiling above !c!Mr. !c!Wojo’s closet. It is dark enough above these floor tiles that the only things you can see are the hyper-reflective eyes of rats a few meters away and the distinctive glimmer of a !d!DryeBuk !d!Bill. There is a ladder going down to the ground floor.
+WojoCloset: Climb down
+$dryebux: 3
 
 TouchMachine:
 You touch a small piece of the large blue plastic structure. When your finger makes contact, the plastic around it fizzes and pops and seems to boil off into thin air, as if made out of some kind of pure evil. The whole structure collapses as a result of the dense dependency network of the machine. You have been banned from this classroom.
@@ -770,7 +781,7 @@ Tape7:
 Tape8: ...
 
 Tape8:
-!c!BEAGLER: “It did. Part of the process, if you recall, was that the Techlenburg article became the truth. Just as Truth became Beagle, Zeagle became Truth. Our world, the world of Ethics, and theirs, the world of Aesthetics, will unite again.”
+!c!BEAGLER: “I did. Part of the process, if you recall, was that the Techlenburg article became the truth. Just as Truth became Beagle, Zeagle became Truth. Our world, the world of Ethics, and theirs, the world of Aesthetics, will unite again.”
 Tape9: ...
 
 Tape9:
@@ -786,7 +797,7 @@ Tape11:
 Tape12: ...
 
 Tape12:
-!c!BEAGLER: “What do these articles have in common? They were both published during 4th quarter. The tail end of the school year. The beginning of the reconvergence: The reunion of the timelines. The reunion of Eagle with Zeagle.”
+!c!BEAGLER: “What do these articles have in common? They were both published during 4th quarter. The tail end of the school year. The beginning of the reconvergence: The reunion of the timelines. The reunion of Eagle with Zeagle. And there are many more examples.”
 Tape13: ...
 
 Tape13:
@@ -1552,7 +1563,7 @@ Twoh2: No, leave
 IBCoord2:
 !c!Ms. !c!Hays sits you down next to at her computer. She has you give out all sorts of personal information but eventually it is determined that you pretty much just need to take more of language and you would be a full on IB student. She tells you you are pretty much good, you just need to pick a path.
 &IBCoord&IBCoordIB&DP: Diploma programme
-&IBCoord&IBCoorddIB&CP: Career programme
+&IBCoord&IBCoordIB&CP: Career programme
 
 DP:
 !c!Ms. !c!Hays clicks the check box and says you are all good. Instantly your phone buzzes. It is a text from !e!the !e!Beagle. It offers you a position at !e!the !e!Beagle saying the bar is low and even if you were to be a guy who just kind of bumbled around actively hurting !e!the !e!Beagle as an institution in the process because you're in DP you would still be great by Beagle standards.
@@ -1638,7 +1649,13 @@ Twoh2: Exit
 
 Winiarski:
 You enter !c!Winiarski’s !p!classroom. You hear phones ringing off the hook. !c!Winiarski is sitting in the center of a semicircular desk that has 50 different rotary phones. She is repeatedly answering and giving simple answers to complex questions about her upcoming thread mural. Almost as soon as she answers she slams the phone back down to answer yet another confused offsite participant hoping to make it big.
-Twoh2: Exit 
+Winiarski2: Look in the back of the room
+Twoh2: Exit
+
+Winiarski2:
+You look in the back and find a pile of large cardboard boxes, each labeled with the name of a very specific instrument of crochet or mache production. Out of one of the boxes, a squirrel jumps out and scurries down the room and into the hall. In that same box, you spot some !d!DryeBux.
+Winiarski: Go back to the front
+$dryebux: 3
 
 ParkerWeakness:
 N/A
@@ -2076,7 +2093,7 @@ Zigzag2: Walk towards the !p!Student !p!Parking !p!Lot
 Center: Walk towards the !p!New !p!Buildings
 
 Split:
-You stand in the middle of the bustling !p!400 !p!Split. There are myriads of people here, each one leaning on their officially-assigned steel pillar. You can still see the faint outline of the gargantuan Beagle poster on the wall.
+You stand in the middle of the bustling !p!400 !p!Split. There are myriads of people here, each one leaning on their officially-assigned steel pillar. You can still see the faint outline of the gargantuan !e!Beagle poster on the wall.
 Fourh2: Enter the !p!Upper !p!Four !p!Hundred
 Fourh3: Enter the !p!Lower !p!Four !p!Hundred
 Splitoutside: Go East, towards the !p!300
@@ -2099,7 +2116,7 @@ You enter !c!Ms. !c!Billota’s room. Unfortunately, you failed to remember that
 &Billota&Ban&Fourh2: Continue
 
 Rupert:
-You are in !c!Coach !c!Rupert’s room. There are many students in here, but none of them are in their seats. They are in a line behind !c!Ms. !c!Rupert desk, all waiting their turn to ask her some generic question (can I go to the bathroom, can I fill my water bottle, etc). She tells each of them in turn to wait until she is done talking to the person before them in line, wrapping around at the end, creating an ouroboros-esque deadlock.
+You are in !c!Coach !c!Rupert’s room. There are many students here, but none of them are in their seats. They are in a line behind !c!Ms. !c!Rupert desk, all waiting their turn to ask her some generic question (can I go to the bathroom, can I fill my water bottle, etc). She tells each of them in turn to wait until she is done talking to the person before them in line, wrapping around at the end, creating a Monroe-esque deadlock.
 Fourh2: Exit to the hall
 
 Fourh1:
@@ -2122,8 +2139,9 @@ Split: Exit to the !p!400 !p!Split
 Trailers7: Exit on the other side of the hall
 
 Buchanan:
-You are in !c!Ms. !c!Buchanan’s room. In the window, there are several bright green plants in clay pots. In the corner of the room, there is a full set of TV Studio recording equipment that has been smashed into tiny pieces.
+You are in !c!Ms. !c!Buchanan’s room. In the window, there are several bright green plants in clay pots. In the corner of the room, there is a full set of TV Studio recording equipment that has been smashed into tiny pieces. Under the pile you spot the distinctive glimmer of a !d!DryeBuk.
 Fourh3: Exit to the hall
+$dryebux: 3
 
 FourhNo:
 As you move to set your fist on the door to knock, you are immediately stopped by a security associate. They explain that this door never is, never has been, and never will be used as an entrance. You will have to use the external door facing the !p!300.
@@ -2278,8 +2296,20 @@ Fivek2A: Continue along the hall
 
 ROTCStore:
 You are in the nominally-defunct !p!ROTC !p!Store. Although Drye ordered the destruction of this place several years ago, it is still operating in a shady, unofficial capacity. An ROTC student is selling various items that could come in handy.
-Blackbird: Purchase !e!SR-71 !e!Blackbird !e!aircraft
+$jetpack: Purchase !e!Expiremental !e!Military !e!Jetpack !d!(1 !d!DryeBuk)
 Fivek3A: Exit to the hall and pretend you aren’t involved in this
+
+JetpackPreOwn:
+You already own the !e!Jetpack, and this student, although shady at best, wil not stoop so low morally as to trust one person with two jetpacks.
+ROTCStore: Continue
+
+JetpackBroke:
+“What are you trying to pull?! You don’t even have a single !d!DryeBuk?! I ought to knock your block off!”
+ROTCStore: Continue
+
+JetpackBuy:
+You have acquired the !e!Jetpack. The !e!Jetpack isn’t strong enough to actually propel you very far above the ground, but will consistantly speed you up. (Press space to skip through dialogue for now on).
+ROTCStore: Continue
 
 FivekElevatorA:
 You are in the !p!5000 building elevator, on the !f!first !f!floor.
@@ -2921,7 +2951,7 @@ You are in !c!Ms. !c!Baldwin’s room. A !c!student in an inverted baseball cap 
 Fourk3C: Exit to the hall
 
 Comer:
-You are in !c!Mr. !c!Comer’s !p!Room. You feel educated as you study the posters that explain the optimal way to apologize. You think you might try the strategy out later today in !s!Chemistry.
+You are in !c!Mr. !c!Comer’s !p!Room. You feel educated as you study the posters that explain the optimal way to apologize. You think you might try the strategy out later today in !s!Chemistry. You also glimpse at the military-style bathroom passes hung on the wall, and appreciate the rigor of this classroom.
 Fourk3C: Exit to the hall 
 
 Rose:
@@ -2950,7 +2980,7 @@ $back: Continue
 DriversEd1:
 You wake up in a daze, surrounded by students in desks. Some teacher is lecturing in the front of the room about the various penalties for driving past a stopped schoolbus at various speeds. The teacher points at you to answer a question: “If you are driving at below ten above the speed limit, have illicit drugs in the trunk, and drive past a schoolbus that just stopped in the opposite direction, how long will your license be suspended for?”
 DriversEd2: 6 months
-DriversEd2: 12 monthsk
+DriversEd2: 12 months
 DriversEd2: 18 months
 DriversEd2: 24 months
 

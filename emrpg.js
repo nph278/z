@@ -345,6 +345,7 @@ class Action {
         } else if (type === "destroy") {
         } else if (type === "mini") {
         } else if (type === "normal") {
+        } else if (type === "jetpack") {
         } else {
             alert("Bad action type: "+ type);
         }
@@ -378,6 +379,9 @@ class Room {
         }
         if (spec.reset !== undefined) {
             this.options.push(new RoomOption(new Action("reset", []), spec.reset, this.options.length));
+        }
+        if (spec.jetpack !== undefined) {
+            this.options.push(new RoomOption(new Action("jetpack", []), spec.jetpack, this.options.length));
         }
         if (spec.hint !== undefined) {
             this.options.push(new RoomOption(new Action("hint", []), spec.hint, this.options.length));
@@ -458,6 +462,7 @@ class Game {
             .filter(r => r.dryebux !== undefined && r.id !== "techdepot3");
         this.hintIDs = this.dryebukRooms.map(r => r.id);
         this.maxBux = this.dryebukRooms.map(r => r.dryebux).reduce((a, b) => a + b);
+        this.jetpack = false;
         console.log(this.maxBux);
     }
 
@@ -762,6 +767,16 @@ class Game {
         } else if (a.type === "reset") {
             this.reset();
             soundOwen.pause();
+        } else if (a.type === "jetpack") {
+            if (this.jetpack) {
+                this.enterRoomId("jetpackpreown");
+            } else if (this.dryebux < 1) {
+                this.enterRoomId("jetpackbroke");
+            } else {
+                this.enterRoomId("jetpackbuy");
+                this.dryebux--;
+                this.jetpack = true;
+            }
         } else if (a.type === "back") {
             soundPhone.load();
             soundPhone.play();
@@ -812,6 +827,8 @@ class Game {
                 } else {
                     this.subgame.handleKey(k);
                 }
+            } else if (this.jetpack && k === " ") {
+                this.roomEnterTime -= 100000;
             } else if (this.elapsedTime > realCooldown && keys.includes(k)) {
                 const n = keys.indexOf(k);
                 if (n < this.room.options.length) {
@@ -1121,11 +1138,28 @@ options: [
 },
 {
 id: "wojo",
-desc: "You are in the !s!physics !p!classroom. The students have set up some kind of giant Rube Goldberg machine that takes up most of the room.",
+desc: "You are in the !s!physics !p!classroom. The students have set up some kind of giant Rube Goldberg machine that takes up most of the room. They are clamoring about the contraption, cheering on the small polyhedra that are being shot every whichaway by a tapestry of springs and solenoids.",
 options: [
 ["touchmachine", "Touch the machine"],
+["wojocloset", "Go into the closet behind the machine"],
 ["sevenh1", "Exit to the hall"],
 ],
+},
+{
+id: "wojocloset",
+desc: "You are in !c!Mr. !c!Wojo’s closet. There is a ladder leading up to the inside of the ceiling.",
+options: [
+["wojoceiling", "Go up the ladder"],
+["wojo", "Leave"],
+],
+},
+{
+id: "wojoceiling",
+desc: "You are in the ceiling above !c!Mr. !c!Wojo’s closet. It is dark enough above these floor tiles that the only things you can see are the hyper-reflective eyes of rats a few meters away and the distinctive glimmer of a !d!DryeBuk !d!Bill. There is a ladder going down to the ground floor.",
+options: [
+["wojocloset", "Climb down"],
+],
+dryebux: 3,
 },
 {
 id: "touchmachine",
@@ -2064,7 +2098,7 @@ options: [
 },
 {
 id: "tape8",
-desc: "!c!BEAGLER: “It did. Part of the process, if you recall, was that the Techlenburg article became the truth. Just as Truth became Beagle, Zeagle became Truth. Our world, the world of Ethics, and theirs, the world of Aesthetics, will unite again.”",
+desc: "!c!BEAGLER: “I did. Part of the process, if you recall, was that the Techlenburg article became the truth. Just as Truth became Beagle, Zeagle became Truth. Our world, the world of Ethics, and theirs, the world of Aesthetics, will unite again.”",
 options: [
 ["tape9", "..."],
 ],
@@ -2092,7 +2126,7 @@ options: [
 },
 {
 id: "tape12",
-desc: "!c!BEAGLER: “What do these articles have in common? They were both published during 4th quarter. The tail end of the school year. The beginning of the reconvergence: The reunion of the timelines. The reunion of Eagle with Zeagle.”",
+desc: "!c!BEAGLER: “What do these articles have in common? They were both published during 4th quarter. The tail end of the school year. The beginning of the reconvergence: The reunion of the timelines. The reunion of Eagle with Zeagle. And there are many more examples.”",
 options: [
 ["tape13", "..."],
 ],
@@ -3249,7 +3283,7 @@ id: "ibcoord2",
 desc: "!c!Ms. !c!Hays sits you down next to at her computer. She has you give out all sorts of personal information but eventually it is determined that you pretty much just need to take more of language and you would be a full on IB student. She tells you you are pretty much good, you just need to pick a path.",
 options: [
 ['dp', 'Diploma programme', ['ibcoord','ibcoordib']],
-['cp', 'Career programme', ['ibcoord','ibcoorddib']],
+['cp', 'Career programme', ['ibcoord','ibcoordib']],
 ],
 },
 {
@@ -3350,8 +3384,17 @@ options: [
 id: "winiarski",
 desc: "You enter !c!Winiarski’s !p!classroom. You hear phones ringing off the hook. !c!Winiarski is sitting in the center of a semicircular desk that has 50 different rotary phones. She is repeatedly answering and giving simple answers to complex questions about her upcoming thread mural. Almost as soon as she answers she slams the phone back down to answer yet another confused offsite participant hoping to make it big.",
 options: [
+["winiarski2", "Look in the back of the room"],
 ["twoh2", "Exit"],
 ],
+},
+{
+id: "winiarski2",
+desc: "You look in the back and find a pile of large cardboard boxes, each labeled with the name of a very specific instrument of crochet or mache production. Out of one of the boxes, a squirrel jumps out and scurries down the room and into the hall. In that same box, you spot some !d!DryeBux.",
+options: [
+["winiarski", "Go back to the front"],
+],
+dryebux: 3,
 },
 {
 id: "parkerweakness",
@@ -4036,7 +4079,7 @@ options: [
 },
 {
 id: "split",
-desc: "You stand in the middle of the bustling !p!400 !p!Split. There are myriads of people here, each one leaning on their officially-assigned steel pillar. You can still see the faint outline of the gargantuan Beagle poster on the wall.",
+desc: "You stand in the middle of the bustling !p!400 !p!Split. There are myriads of people here, each one leaning on their officially-assigned steel pillar. You can still see the faint outline of the gargantuan !e!Beagle poster on the wall.",
 options: [
 ["fourh2", "Enter the !p!Upper !p!Four !p!Hundred"],
 ["fourh3", "Enter the !p!Lower !p!Four !p!Hundred"],
@@ -4071,7 +4114,7 @@ options: [
 },
 {
 id: "rupert",
-desc: "You are in !c!Coach !c!Rupert’s room. There are many students in here, but none of them are in their seats. They are in a line behind !c!Ms. !c!Rupert desk, all waiting their turn to ask her some generic question (can I go to the bathroom, can I fill my water bottle, etc). She tells each of them in turn to wait until she is done talking to the person before them in line, wrapping around at the end, creating an ouroboros-esque deadlock.",
+desc: "You are in !c!Coach !c!Rupert’s room. There are many students here, but none of them are in their seats. They are in a line behind !c!Ms. !c!Rupert desk, all waiting their turn to ask her some generic question (can I go to the bathroom, can I fill my water bottle, etc). She tells each of them in turn to wait until she is done talking to the person before them in line, wrapping around at the end, creating a Monroe-esque deadlock.",
 options: [
 ["fourh2", "Exit to the hall"],
 ],
@@ -4106,10 +4149,11 @@ options: [
 },
 {
 id: "buchanan",
-desc: "You are in !c!Ms. !c!Buchanan’s room. In the window, there are several bright green plants in clay pots. In the corner of the room, there is a full set of TV Studio recording equipment that has been smashed into tiny pieces.",
+desc: "You are in !c!Ms. !c!Buchanan’s room. In the window, there are several bright green plants in clay pots. In the corner of the room, there is a full set of TV Studio recording equipment that has been smashed into tiny pieces. Under the pile you spot the distinctive glimmer of a !d!DryeBuk.",
 options: [
 ["fourh3", "Exit to the hall"],
 ],
+dryebux: 3,
 },
 {
 id: "fourhno",
@@ -4347,8 +4391,29 @@ options: [
 id: "rotcstore",
 desc: "You are in the nominally-defunct !p!ROTC !p!Store. Although Drye ordered the destruction of this place several years ago, it is still operating in a shady, unofficial capacity. An ROTC student is selling various items that could come in handy.",
 options: [
-["blackbird", "Purchase !e!SR-71 !e!Blackbird !e!aircraft"],
 ["fivek3a", "Exit to the hall and pretend you aren’t involved in this"],
+],
+jetpack: "Purchase !e!Expiremental !e!Military !e!Jetpack !d!(1 !d!DryeBuk)",
+},
+{
+id: "jetpackpreown",
+desc: "You already own the !e!Jetpack, and this student, although shady at best, wil not stoop so low morally as to trust one person with two jetpacks.",
+options: [
+["rotcstore", "Continue"],
+],
+},
+{
+id: "jetpackbroke",
+desc: "“What are you trying to pull?! You don’t even have a single !d!DryeBuk?! I ought to knock your block off!”",
+options: [
+["rotcstore", "Continue"],
+],
+},
+{
+id: "jetpackbuy",
+desc: "You have acquired the !e!Jetpack. The !e!Jetpack isn’t strong enough to actually propel you very far above the ground, but will consistantly speed you up. (Press space to skip through dialogue for now on).",
+options: [
+["rotcstore", "Continue"],
 ],
 },
 {
@@ -5352,7 +5417,7 @@ options: [
 },
 {
 id: "comer",
-desc: "You are in !c!Mr. !c!Comer’s !p!Room. You feel educated as you study the posters that explain the optimal way to apologize. You think you might try the strategy out later today in !s!Chemistry.",
+desc: "You are in !c!Mr. !c!Comer’s !p!Room. You feel educated as you study the posters that explain the optimal way to apologize. You think you might try the strategy out later today in !s!Chemistry. You also glimpse at the military-style bathroom passes hung on the wall, and appreciate the rigor of this classroom.",
 options: [
 ["fourk3c", "Exit to the hall"],
 ],
@@ -5400,7 +5465,7 @@ id: "driversed1",
 desc: "You wake up in a daze, surrounded by students in desks. Some teacher is lecturing in the front of the room about the various penalties for driving past a stopped schoolbus at various speeds. The teacher points at you to answer a question: “If you are driving at below ten above the speed limit, have illicit drugs in the trunk, and drive past a schoolbus that just stopped in the opposite direction, how long will your license be suspended for?”",
 options: [
 ["driversed2", "6 months"],
-["driversed2", "12 monthsk"],
+["driversed2", "12 months"],
 ["driversed2", "18 months"],
 ["driversed2", "24 months"],
 ],
