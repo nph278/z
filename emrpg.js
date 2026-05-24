@@ -803,6 +803,7 @@ class Game {
     }
 
     handleKey(k) {
+        const realCooldown = (this.room.id === "jarman2") ? 3500 : cooldown;
         if (!this.eyeOn) {
             if (this.subgame !== null) {
                 if (this.subgame.subgame === null && k === "q") {
@@ -811,7 +812,7 @@ class Game {
                 } else {
                     this.subgame.handleKey(k);
                 }
-            } else if (this.elapsedTime > cooldown && keys.includes(k)) {
+            } else if (this.elapsedTime > realCooldown && keys.includes(k)) {
                 const n = keys.indexOf(k);
                 if (n < this.room.options.length) {
                     this.performAction(this.room.options[n].action, n);
