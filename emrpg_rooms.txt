@@ -2297,7 +2297,25 @@ Fivek2A: Continue along the hall
 ROTCStore:
 You are in the nominally-defunct !p!ROTC !p!Store. Although Drye ordered the destruction of this place several years ago, it is still operating in a shady, unofficial capacity. An ROTC student is selling various items that could come in handy.
 $jetpack: Purchase !e!Expiremental !e!Military !e!Jetpack !d!(1 !d!DryeBuk)
+$plane: Purchase !e!One !e!Time !e!Supersonic !e!Plane !e!Trip !d!(1 !d!DryeBuk)
 Fivek3A: Exit to the hall and pretend you aren’t involved in this
+
+PlaneRide:
+An !s!Air !s!Force !s!JROTC member escorts you to their !e!Lockheed !e!SR-71 !e!Blackbird parked next to the school buses. You strap in, and they ask where to.
+Football: !p!Football !p!field
+Softball: !p!Softball !p!field
+Baseball: !p!Baseball !p!field
+Middle: !p!Student !p!parking !p!lot
+Staffparking5: !p!Staff !p!parking !p!lot
+FourSevenPath: Between the !p!400 and the !p!700
+FourhGym: Between the !p!400 and the !p!Gym
+Center: Between the !p!400 and the !p!300
+Courtyard2: The !p!Courtyard
+ShotDown: Back of the !p!4000
+
+ShotDown:
+As your pilot takes off from the !p!bus !p!lot and dashes towards the !p!Four !p!Thousand, a !c!guard on the !p!4000 roof takes notice. He aims his ground-to-air missile launcher directly at you, and fires (The sovereign nation of the !p!4000 does not take kindly to unauthorized invasions into its airspace). Your plane bursts into flames, and you and your pilot plummet to your deaths.
+RankF: Continue
 
 JetpackPreOwn:
 You already own the !e!Jetpack, and this student, although shady at best, wil not stoop so low morally as to trust one person with two jetpacks.
@@ -2309,6 +2327,10 @@ ROTCStore: Continue
 
 JetpackBuy:
 You have acquired the !e!Jetpack. The !e!Jetpack isn’t strong enough to actually propel you very far above the ground, but will consistantly speed you up. (Press space to skip through dialogue for now on).
+ROTCStore: Continue
+
+JetpackChange:
+Unfortunately your current supply of !d!DryeBux is too small for it to be possible to make change for a !d!one. Remember that !d!DryeBux only come in !d!threes, !d!sevens, !d!elevens, and !d!one !d!hundred !d!and !d!ones (at least according to !c!Drye that is). You will either need at least three !d!threes or one of any larger bill for the shopkeep to properly be able to make change.
 ROTCStore: Continue
 
 FivekElevatorA:
@@ -2589,7 +2611,11 @@ TechDepot4: Tell him you are the one who created this simulation
 
 TechDepot4:
 !c!Henley does not believe you. “What you are effectively saying is that you are the master of this world”, he explains. He says you must prove that you are all-powerful for him to believe you.
-TechDepot5: Continue
+$resize: Continue
+
+SubgameResize:
+You figure you could prove your omnipotence to !c!Henley’s character and progress in the game if you resized the game window.
+$resize2: Resize the game window
 
 TechDepot5:
 !c!Henley immediately feels even more cramped than he already did in this tiny room. He knows that the window containing the simulation he is in must have been shrunk, and that you (or rather the !c!player controlling you) must have been the one to do it.
@@ -2755,7 +2781,7 @@ Fourk2A: Walk to the fans
 Sawyer:
 You see !c!Mrs. !c!Sawyer standing at a large podium quasi-rhythmically blowing into a harsh whistle. There is a table of !s!AP !s!Statistics students who are sorting sweet treats and regional delicacies into jars corresponding to the treat’s colors. Once a jar is filled up all of the students are forced according to !c!Mrs. !c!Sawyer’s demand to eat up the tasty treat. The students resist for a few seconds and are reminded that they are some of the luckiest in the school and that !s!Analysis students would kill for this type of pampering, so they choke down more disgustingly sweet pastries.
 Sawyer2: Attempt to free the students
-Four3A: Run free before you are taken in
+Fourk3A: Run free before you are taken in
 
 Sawyer2:
 You figure the best way to destroy the system is from the inside so you grab a seat at the table. You quickly fall into the swing of the sorting. It is fun to get your hands dirty for once but then the yellow pastry jar reaches its fill line and you remember why you came here. The students are hesitant to eat yet another helping and you are left to eat the bulk of the jar.
