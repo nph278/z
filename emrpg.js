@@ -1,7 +1,6 @@
 // Hi Reid
 
 // Trailer
-// More text effets: shaking, ripple
 // Repeatedly use that number "[n] ... Xthings" >495?
 // Splitscreen of many rooms for trailer
 // Meta meta should make sense
