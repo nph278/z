@@ -116,7 +116,9 @@ let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
               "Weather man strike postponed for rain delay",
               "Drye spotted wearing rose-tinted glasses",
               "Big New Theorem Changes Everything",
-              "Free Download Accurate Nervous System Simulator"];
+              "Free Download Accurate Nervous System Simulator",
+              "New Drye Catchphrase goes Viral",
+              "Bribe Record Broken but Drye turns Blind Eye"];
 if (!ismobile) {
     alerts.push("Hint: Hold J");
 }

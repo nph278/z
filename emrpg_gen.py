@@ -58,10 +58,11 @@ for para in paras:
                 print("[\"" + oid + "\", \"" + odesc + "\"],")
     print("],")
     for q in extras:
-        if q[0] == "dryebux":
-            print(q[0] + ": " + q[1] + ",")
+        q0 = q[0].lower()
+        if q0 == "dryebux":
+            print(q0 + ": " + q[1] + ",")
         else:
-            print(q[0] + ": \"" + q[1] + "\",")
+            print(q0 + ": \"" + q[1] + "\",")
     print("},")
 
 for rid in references:

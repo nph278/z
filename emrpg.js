@@ -8,7 +8,8 @@
 // Dialogue text effect
 // Better opening line
 // Balancing for the ending reactions
-// 700 scene
+// Trailer scene
+// Gym scene
 
 "use strict";
 
@@ -98,6 +99,7 @@ const scene_tunnel = new Scene("rpgtunnel.gif", "banger.mp3");
 const scene_musical = new Scene("rpgmusical.gif", "rpgmusical.mp3");
 const scene_900 = new Scene("rpg900.gif", "rpg900.mp3");
 const scene_pool = new Scene("rpgpool.gif", "rpgpool.mp3");
+const scene_700 = new Scene("rpg700.gif", "rpg700.mp3");
 
 class TextStyle {
     constructor() {
@@ -571,6 +573,14 @@ class Game {
                 this.enterScene(scene_pool);
             } else if (id === "fivekelevatorc") {
                 this.enterScene(scene_fivek);
+            } else if (id === "middle2") {
+                this.enterScene(scene_main);
+            } else if (id === "sevenhgym") {
+                this.enterScene(scene_main);
+            } else if (id === "sevenh1") {
+                this.enterScene(scene_700);
+            } else if (id === "sevenh3") {
+                this.enterScene(scene_700);
             }
 
             if (id === "tunnel4") {
@@ -859,7 +869,7 @@ class Game {
         }
     }
 
-    handleKey(k) {
+    handleKey(k, pd) {
         const realCooldown = (this.room.id === "jarman2") ? 3500 : cooldown;
         if (!this.eyeOn) {
             if (this.subgame !== null) {
@@ -870,8 +880,10 @@ class Game {
                     this.subgame.handleKey(k);
                 }
             } else if (this.jetpack && k === " ") {
+                pd();
                 this.roomEnterTime -= 100000;
             } else if (this.elapsedTime > realCooldown && keys.includes(k)) {
+                pd();
                 const n = keys.indexOf(k);
                 if (n < this.room.options.length) {
                     this.performAction(this.room.options[n].action, n);
@@ -5612,7 +5624,7 @@ addEventListener('load', async (event) => {
         requestAnimationFrame(() => game.draw(ctx, 0, 0, width, height));
     }, 1000/fps);
     addEventListener("keydown", (event) => {
-        game.handleKey(event.key);
+        game.handleKey(event.key, () => event.preventDefault());
     });
     canvas.addEventListener("click", (event) => {
         game.handleClick();
