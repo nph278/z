@@ -27,7 +27,7 @@ Another !e!day, another !e!Meck. (Use the number keys to make choices. You will 
 Intro1: Continue
 
 Intro1:
-You wake up fifteen minutes later than you usually do. Luckily you walk to school, so you won't miss the bus.
+You wake up !t!fifteen !t!minutes later than you usually do. Luckily you walk to school, so you won't miss the bus.
 Intro2: Get ready quickly so as not to be late
 Leisure: Get ready at exactly the same speed you usually do
 
@@ -79,7 +79,8 @@ Middle2:
 You stand outside under a vast web of metallic structures. The !p!Four and !p!Seven !p!Hundreds are very close.
 Fourh1: Enter the !p!Four !p!Hundred
 Sevenh1: Enter the !p!Seven !p!Hundred.
-FourSevenPath: Go north, squeezing between the two
+FourSevenPath: Go north, left of the !p!400
+Zigzag1: Go north, right of the !p!400 and towards the !p!4000
 Middle: Go south, towards the !p!Security !p!Scanners
 Middle3: Go east, towards the !p!Courtyard
 Media: Walk to the !p!Media !p!Center
@@ -132,7 +133,7 @@ You hold back a little hoping to be able to over take at the end when your compe
 Sevenh1: Get into the hallway before he can fire it
 
 Autogamewin: 
-You start cranking so hard that your hand and wrench blend into one big motion blur. The bolts practically unscrew themselves and you can quickly get them back on, catching them before they fly off with the amount of speed on them. Your elbow starts to give but you push through. Even with your effort you still only beat the runner up by mere milliseconds, leading to great debate over potential scandals with the competition. While the students are yelling at each other, !c!Shefte hands you your victory prize, a !d!Drye !d!Buk !d!Bill.
+You start cranking so hard that your hand and wrench blend into one big motion blur. The bolts practically unscrew themselves and you can quickly get them back on, catching them before they fly off with the amount of speed on them. Your elbow starts to give but you push through. Even with your effort you still only beat the runner up by mere !t!milliseconds, leading to great debate over potential scandals with the competition. While the students are yelling at each other, !c!Shefte hands you your victory prize, a !d!Drye !d!Buk !d!Bill.
 &AutoShop&AutoShop2&AutoShop2: Continue
 
 AutoShop2:
@@ -218,7 +219,7 @@ Sevenh2: Continue down the hall, towards the !p!Media !p!Center
 SevenhGym: Exit towards the !p!Gym
 
 Burbs:
-You enter !c!Mr. !p!Burbs’s !p!classroom. It has been fitted to embrace a new warehouse-punk aesthetic with high rafters and a sheet metal exterior. There is a large mass of students all bumping into each other repeatedly. They are all moshing to guerilla drumming and unpolished bass guitar and you can see the band as they set themselves apart by not using a stage or mics. The students seem to be loving it. You don’t feel a strong desire to join in but you are happy to watch.
+You enter !c!Mr. !c!Burbs’s !p!classroom. It has been fitted to embrace a new warehouse-punk aesthetic with high rafters and a sheet metal exterior. There is a large mass of students all bumping into each other repeatedly. They are all moshing to guerilla drumming and unpolished bass guitar and you can see the band as they set themselves apart by not using a stage or mics. The students seem to be loving it. You don’t feel a strong desire to join in but you are happy to watch.
 Sevenh3: Exit 
 
 ChemicalStorage:
@@ -347,6 +348,10 @@ You are in a small lobby outside the !p!Gym, on the side farther from the rest o
 Gym: Enter the !p!Gym
 Weightlifting: Enter the !p!Weightlifting !p!Dojo
 Gymoutside: Leave to the outside
+
+Weightlifting:
+You are in the large !p!Weightlifting !p!Room. Mangled hunks of rebar fill the room and arrange themselves into shapes that make sense to an extent but clearly the patterns have been extended past the limit of reasonability. You see yourself in the large rectangular mirror on the wall and think about how much better you could look if you took this class. 
+GymExit: Leave, reflective of what could have been and what could still be.
 
 Gymoutside:
 You are in a small grassy area near the !p!Gym. The large oak trees make you feel nostalgic, and you make a few circles around the lot.
@@ -480,7 +485,6 @@ Gymoutside: Go towards the !p!Gym
 Sevenhgym: Go between !p!700 and the !p!Gym
 Staffparking5: Go away from civilization
 Staffparking1: Go towards the !p!Student !p!Parking !p!Lot
-SmallShed: Go into the small shed next to the lot
 
 Gymlot1:
 You stand in the highly restricted !p!Gym !p!Parking !p!Lot. You ignore the trespassing signs, as those are presumably only directed towards people with cars and such.
@@ -570,7 +574,7 @@ Gymlot2: Walk down to the !p!Gym !p!Parking !p!Lot
 Track2: Run over to the !p!Track
 
 Dugout:
-You enter the dugout. You see a long well worn bench with pictures of school beauties from years past to remind the players what they are fighting for taped across from them. The amount the team has sacrificed in order to bring their school mates at home some pride astonishes you.
+You enter the !p!dugout. You see a long well worn bench with pictures of class beauties from years past to remind the players what they are fighting for taped across from them. The amount the team has sacrificed in order to bring their school mates at home some pride astonishes you.
 Baseball: Walk away inspired 
 
 Commentary:
@@ -1101,7 +1105,7 @@ FourX:
 You enter another key, after the square-esque initial four. Who are you kidding? Everyone knows you don’t know the code, and at this point you are just insulting everyone’s intelligence by acting like we don’t know. Give up. Give up. Give up.
 EnterCode: Try again
 
-Fours.
+Fours:
 You add more fours. Then more. Over, and over, and over again.
 Fours: Just keep going
 Mash: Accidentally slam your open palm into the keypad
@@ -1126,7 +1130,7 @@ Ones: Switch to a new strategy
 EnterCode: Try again being more methodical this time
 
 Mash2:
-All of a sudden you hear a bell. You must have missed your opportunity to get to first block on time. Oh well. You start making your way there but you are met with a stampede of your classmates rushing out excited to return to their everyday lives. You realize that that hadn’t been the 7:15 bell but rather its afternoon counterpart. How long had you been mashing? Hours? Days? You overhear some students talking about their upcoming AP Exams. Isn’t it December? You decide to head back home to collect yourself. All that mashing made you tired anyways.
+All of a sudden you hear a bell. You must have missed your opportunity to get to first block on time. Oh well. You start making your way there but you are met with a stampede of your classmates rushing out excited to return to their everyday lives. You realize that that hadn’t been the 7:15 bell but rather its afternoon counterpart. How long had you been mashing? !t!Hours? Days? You overhear some students talking about their upcoming AP Exams. Isn’t it December? You decide to head back home to collect yourself. All that mashing made you tired anyways.
 RankF: Continue
 
 Studentlot:
@@ -1162,7 +1166,7 @@ You tell yourself it won’t take too long. You tell yourself you won’t let it
 &Choir&ChoirPostInterview&ChoirPostInterview: continue
 
 ChoirPostInterview:
-The Choir students are still feeding coals to their social media machine but know all the questions are a desperate attempt to try to recreate your 15 minutes of fame again with someone with an even more controversial stance. Your !d!Bux are waiting.
+The Choir students are still feeding coals to their social media machine but know all the questions are a desperate attempt to try to recreate your !t!15 !t!minutes of fame again with someone with an even more controversial stance. Your !d!Bux are waiting.
 Sixh1: Exit into the !p!600 !p!hallway
 Middle3: Exit through the backdoor to !p!outside
 BandOff: Peer into the band office
@@ -1247,8 +1251,28 @@ Sixh2: Go along the hall, towards the !p!Media !p!Center
 CafeLobby1: Enter the !p!Cafeteria !p!Lobby
 $dryebux: 3
 
+Livchin:
+You are in !c!Ms. !c!Livchin’s !p!Classroom. The room is partitioned into five equal segments, each themed around one of the Big Five Personality Traits. On the boundary between any of the two segments there are various symbols of resistance pinned to the wall. On the wall of the segment themed around “Openness to Experience” there is a door cracked wide open.
+Openness: Enter the Openness Door
+Sixh3: Go to the hall instead
+
+Openness:
+You are inside what looks at first to be a bright pink circus tent, but upon closer inspection is actually a larger-than-life model of the human brain. Inside one of the folds that you think corresponds to the ventral striatum you spot a !c!man in a suit rattling a container of pills.
+MedicineMan: Talk to the !c!man
+Livchin: Go back to !c!Livchin’s !p!Room
+
+MedicineMan:
+The man tells you that he is an accredited psychiatrist trying to sell his new Ziprasidone alternative and that he needs help advertising it.
+&MedicineMan&MedicineMan2&MedicineMan2: Promise you will advertise to get a quick buck knowing you won’t actually because your system of morals prohibits it
+Openness: Refuse
+
+MedicineMan2:
+The man gives you the pills and also a few !d!DryeBux. He is jumping in joy as he knows he’s about to make it big.
+Openness: Continue
+$dryebux: 7
+
 Komito:
-You recognize this as !c!Ms. !c!Komito’s classroom. You gaze up at the rim of the classroom and see hand painted canvases of every president. Washington is beautiful with an artist’s touch on every element but as your eyes follow the presidential succession the renderings grow more and more abstract. Their proportions become warped and the colors morph into a swirling blend. Somewhere around Hoover the paintings are so abstract that you can’t really tell which one is which (other than Bush jr. which is pretty much regular except his head is slightly too large for his body); They are all just a cerebral mess of dots and hashes.
+You recognize this as !c!Ms. !c!Komito’s classroom. You gaze up at the rim of the classroom and see hand painted canvases of every president. !c!Washington is beautiful with an artist’s touch on every element but as your eyes follow the presidential succession the renderings grow more and more abstract. Their proportions become warped and the colors morph into a swirling blend. Somewhere around !c!Hoover the paintings are so abstract that you can’t really tell which one is which (other than !c!Bush !c!jr. which is pretty much regular except his head is slightly too large for his body); They are all just a cerebral mess of dots and hashes.
 Sixh3: Exit confused
 
 Wilson:
@@ -1325,7 +1349,7 @@ SludgeBreath: Stop and breath
 SludgeFivekside2: Go through the door
 
 SludgeBreath:
-After stopping for only two seconds, you are violently tackled by the three security guards at once. Failure.
+After stopping for only !t!two !t!seconds, you are violently tackled by the three security guards at once. Failure.
 RankF: Continue
 
 SludgeFivekside2:
@@ -1367,7 +1391,6 @@ You are at the most bustling corner of the !p!Six !p!Hundred. Students -- some f
 Price: Enter !c!Price’s !p!Room.
 Mercabi: Enter !c!Mercabi’s !p!Room
 Copier: Enter the !p!Copier !p!Room
-Green: Enter !c!Mr. !c!Green’s !p!room
 Sixh2: Go South, towards the Heart of the building
 Sixh5: Go towards the !p!Cafeteria
 CourtyardCorner: Exit through the door labelled “EXIT ONLY, PLEASE USE THIS DOOR”
@@ -1398,6 +1421,10 @@ Dean: Enter !c!Dean’s !p!Room
 Cudabac: Enter !c!Cudabac’s !p!Room
 Sixh4: Go down the hall to the corner
 CafeLobby2: Enter the !p!Cafeteria !p!Lobby
+
+Cudabac:
+You are in !c!Mr. !c!Cudabac’s room. He is flexing his small piece of ancient roman pottery in front of a very impressed class. There are a few black ink stains on the table in the front that vaguely make out the shape of a faded QR Code.
+Sixh5: Exit to the hall
 
 Barone:
 You are in !c!Mr. !c!Barone’s room. Everything in his room made of glass -- the windows, cups, and lightbulbs -- are completely shattered. You reason that this is due to the extreme temperature swing this room experiences; The transition from extreme hot in the summer to extreme cold in the winter must have caused thermal shock in the glass.
@@ -1434,15 +1461,15 @@ Cafe2: Head to the other door where !c!Drye and friends sometimes hang out durin
 Cafe3: Head to back corner of the !p!cafeteria by the infamous !c!Backwall !c!Eagle
 Cafe4: Walk across to over by the microwaves
 Cafelobby1: Exit the !p!cafeteria
-#LunchCounter: Try to get some last minute breakfast 
+#LunchCounter: Try to get some last !t!minute breakfast 
 
 LunchCounter:
-You go past the revolving gate and enter the line. There are no workers ready to serve you, but you ring the service bell enough times to attract their attention. You say you need breakfast and they are clearly aggravated that you wait until the last minutes till closing for your request. You see a ceiling high stack of the most delicious looking pancakes you have ever seen and a syrup river that would most likely prove itself unnecessary due to the pancakes’ intrinsic flavor. Unfortunately after about a minute of waiting they hand you a tray with a gritty grey pulp on it. The !c!cafeteria !c!staff have decided to punish you for your greed.
+You go past the revolving gate and enter the line. There are no workers ready to serve you, but you ring the service bell enough times to attract their attention. You say you need breakfast and they are clearly aggravated that you wait until the last !t!minutes till closing for your request. You see a ceiling high stack of the most delicious looking pancakes you have ever seen and a syrup river that would most likely prove itself unnecessary due to the pancakes’ intrinsic flavor. Unfortunately after about a !t!minute of waiting they hand you a tray with a gritty grey pulp on it. The !c!cafeteria !c!staff have decided to punish you for your greed.
 LunchTable: Grab a seat and chow down 
 LunchSpite: Throw the food away while making eye contact with a !p!cafeteria staff member
 
 LunchTable:
-You sit down on one of the myriad of empty seats. While it takes you a few minutes to build up the confidence to put the slurry into your mouth, when you do, you are pleasantly surprised. As it turns out, this sludge is actually the precursor to the pancakes. The pancakes are just an organized arrangement of sludge puddles with some minor cosmetic adjustments. Yum!
+You sit down on one of the myriad of empty seats. While it takes you !t!a !t!few !t!minutes to build up the confidence to put the slurry into your mouth, when you do, you are pleasantly surprised. As it turns out, this sludge is actually the precursor to the pancakes. The pancakes are just an organized arrangement of sludge puddles with some minor cosmetic adjustments. Yum!
 Cafe1: Continue
 
 LunchSpite:
@@ -1467,7 +1494,7 @@ Patio2: Exit the !p!Cafeteria, and move outside
 
 Cafe4:
 You stand in the !p!cafeteria, next to a small set of microwaves. You wonder what kind of catastrophe must have occurred here for there to be so many warning signs explaining what is and is not allowed in the microwaves.
-Cafe3: Move along the !p!Backwall to visit the !c!Giant !c!Eagle
+Cafe3: Move along the !p!Backwall to visit the !c!Backwall !c!Eagle
 Cafe2: Move towards the tables in the front
 Cafe1: Move towards the divisive lunch lines
 
@@ -1519,7 +1546,7 @@ You stand in a well-organized group of blue tables. There are a few trees near y
 Patio1: Go down towards the !p!Cafeteria !p!Lobby
 Patio2: Go down towards the !p!Cafeteria !p!Entrance
 Patio4: Go up towards the farthest reaches of the !p!Patio
-8072: Enter the very torn up door labeled as the entrance to the non-existent !p!“807” 
+8072: Enter the very torn up door labeled as the entrance to !p!“807” 
 Patiostairs: Go down the stairs next to the building
 
 Patiostairs:
@@ -1528,12 +1555,23 @@ StageAuditoriumThing: Go through the door
 Patio3: Go up the stairs
 
 StageAuditoriumThing:
-You try to open the door and you have to break off a large amount of rust to open it, furthering proving that !p!the !p!silver !p!auditorium would prove to be a triangle shirtwaist-esque death trap. You feel guilty about taking this below board way through the school but it is so much faster.
+You try to open the door and you have to break off a large amount of rust to open it, further proving that !p!the !p!silver !p!auditorium would prove to be a triangle shirtwaist-esque death trap. You feel guilty about taking this below board way through the school but it is so much faster.
 &StageAuditoriumThing&Auditorium&Auditorium: Enter the !p!Auditorium
 &StageAuditoriumThing&Auditorium&Patio3: Go on to !p!cafeteria !p!patio
 
-CafeLobby3:
-You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.
+Auditorium:
+You are in the !c!Auditorium. The dancers are vigorously dancing in one of the many dance breaks. You know from industry insiders that it is really just a thinly veiled way to give the actors an opportunity to catch their breath and for the stage hands to replace sets in the background but you still can’t help but feel deeply moved by the east meck themed moves of the dancers. 
+StageClassroom: Go up the small set of stairs to !p!Back !p!Stage
+AuditoriumBooth: Enter the !p!Lighting !p!Booth
+StageAuditoriumThing: Exit through the !p!emergency !p!exit
+AuditoriumLobby: Exit into the !c!Auditorium !c!lobby, begrudgingly
+
+AuditoriumBooth:
+The !p!Lighting !p!Booth is dark and hard to navigate because basically every light in the whole auditorium is pointed at the stage in order to get it as bright as possible. You delicately walk up the stairs carefully to not trip on practically invisible wires. As you reach the top you see an elderly computer which seems to be painfully chugging through a laundry list of lighting cues which all subtly alter the blindingly bright lights. You find a !d!Drye !d!Buk sitting on a ledge and you could totally take it without any of the many lighting designers noticing as they are fully distracted by somehow coordinating the many cues.
+Auditorium: Exit to the !p!Auditorium
+$dryebux: 3
+
+CafeLobby3: You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.
 AuditoriumLobby: Enter the !p!Auditorium !p!Lobby through one of the million components of this large array of doors
 Courtyard2: Exit to the !p!Courtyard
 Patio1: Exit to the !p!Patio
@@ -1670,6 +1708,11 @@ Threeway: Go to the intersection
 Twoh2: Continue down the hall
 Courtyard1: Exit to the !p!Courtyard
 
+Armstrong:
+!c!Ms. !c!Armstrong is sitting in the center of the room, surrounded by what seems to be hundreds of students. All conversations are drowned out by their helpless cries: “Ms. Armstrong! Ms. Armstrong!” In the back of the room, you notice a pack of students that appear to be searching for something.
+RingSearch: Join in on the search
+Twoh1: Exit to the hall
+
 Vincent:
 You are in !c!Mrs. !c!Vincent’s room. You want to cross the room but the tables are arranged in a way that would make that impossible. They seem like a maze designed to contain some sort of abhorrent art beast and prevent it from reaching the rest of East. As far fetched as it seems it is the only possible explanation for why the tables would be arranged this way.  The whole room seems to be shifting and the art on the walls seems to be constantly changing yet still maintaining its near-professional quality. You try to walk deeper into the room and examine some art but the tables start spinning really fast and you figure you couldn’t get in without having your legs ripped from your body.
 Twoh1: Give up and leave
@@ -1680,11 +1723,11 @@ Twoh1: Back away, afraid
 103DRYEBUK: Reach for the buk
 
 103DRYEBUK:
-You feel its power as your hand reaches closer until you make contact and the world seems to go still for a second and everything goes quiet... and then you hear in your mind a subtly southern inoffensive voice: !d!“Hello !d!student, !d!you !d!must !d!really !d!love !d!power”. You look down and see the face on the !d!buk flashing a big smile. !d!“So !d!what !d!makes !d!you !d!think !d!you !d!deserve !d!to !d!wield !d!me?” You see the miniature !c!Drye mouthing along to the telepathic question.
+You feel its power as your hand reaches closer until you make contact and the world seems to go still for a !t!second and everything goes quiet... and then you hear in your mind a subtly southern inoffensive voice: !d!“Hello !d!student, !d!you !d!must !d!really !d!love !d!power”. You look down and see the face on the !d!buk flashing a big smile. !d!“So !d!what !d!makes !d!you !d!think !d!you !d!deserve !d!to !d!wield !d!me?” You see the miniature !c!Drye mouthing along to the telepathic question.
 103DRYEBUK2: Continue...
 
 103DRYEBUK2:
-You are too stunned to respond so after about a couple seconds of radio silence the !d!Buk responds !d!“I !d!will !d!answer !d!for !d!you, !d!you !d!do !d!not.” !d!“No !d!one !d!does.” !d!“I !d!was !d!too !d!coveted !d!and !d!needed !d!to !d!be !d!held !d!from !d!the !d!rest !d!of !d!East !d!Meck.” !d!“There !d!is !d!a !d!very !d!specific !d!protocol !d!I !d!have !d!been !d!told !d!to !d!follow !d!if !d!some !d!overzealous !d!student !d!tries !d!to !d!steal !d!me. !d!I !d!will !d!be !d!wiping !d!your !d!memory !d!and !d!putting !d!you !d!back !d!at !d!the !d!start !d!of !d!the !d!day !d!hoping !d!that !d!you !d!never !d!come !d!back !d!here !d!but !d!I !d!will !d!let !d!you !d!ask !d!me !d!one !d!question.”
+You are too stunned to respond so after about a !t!couple !t!seconds of radio silence the !d!Buk responds !d!“I !d!will !d!answer !d!for !d!you, !d!you !d!do !d!not.” !d!“No !d!one !d!does.” !d!“I !d!was !d!too !d!coveted !d!and !d!needed !d!to !d!be !d!held !d!from !d!the !d!rest !d!of !d!East !d!Meck.” !d!“There !d!is !d!a !d!very !d!specific !d!protocol !d!I !d!have !d!been !d!told !d!to !d!follow !d!if !d!some !d!overzealous !d!student !d!tries !d!to !d!steal !d!me. !d!I !d!will !d!be !d!wiping !d!your !d!memory !d!and !d!putting !d!you !d!back !d!at !d!the !d!start !d!of !d!the !d!day !d!hoping !d!that !d!you !d!never !d!come !d!back !d!here !d!but !d!I !d!will !d!let !d!you !d!ask !d!me !d!one !d!question.”
 DB103Talk: Why can you talk?
 DB103Yearbook: Why were you left in the !s!yearbook !p!room
 DB103Spit: Refuse to ask a question, you’re getting your mind wiped anyway
@@ -1711,9 +1754,12 @@ Splitoutside: Leave through the door
 Twoh3:
 You are in the small hall outside !p!Student !p!Services. There is a small table as well as an inconspicuous desk placed next to the wall, presumably to accommodate students waiting for their counselor, though the contents of the !p!student !p!services room itself makes this seem unlikely.
 Registrar: Enter the !c!Registrar’s !p!Room
-Nance: Enter !c!Nance’s !p!Room
 Threeway: Walk towards the !p!Three !p!Hundred.
 StudentServices: Enter !p!Student !p!Services
+
+Registrar:
+You walk into the !c!Registrar’s !p!room. You start making smalltalk with the !c!Registrar but eventually you snap back to reality and realize you have accidentally re-registered yourself for enrollment at East Meck. Now there are two of you in the system. This will have some benefits but also some drawbacks. You will get two chromebooks and so you can dual-monitor your assignments, but you will also have to pay twice the orchestra fees and get vaccinated twice for HPV.
+Twoh3: Exit
 
 StudentServices:
 You are behind an elaborate desk, that of the front receptionist for the !p!Student !p!Services !p!Department. To your right, there is a very neatly-arranged array of approximately 200 chairs. There are many students sitting down in these chairs, and they were considerate enough to have filled up the chairs in lexicographic order. Each student is holding a pink schedule slip, but one of them is holding a smaller, more yellow one.
@@ -1745,8 +1791,28 @@ Dimmick: Enter your !p!counselor’s !p!office (last name in range MOM-RAI)
 Saucedo: Enter your !p!counselor’s !p!office (last name in range RAJ-STAL)
 Johnson3: Enter your !p!counselor’s !p!office (last name in range STAM-Z)
 
+Burgess:
+You are in !c!Burgess’s !p!room. The room is dark except for a few twinkly lights that somehow seem to make the room appear even darker by contrast. You can’t really see anything but you feel a microbial presence emanating from a small aluminum can labeled “PROBIOTIC SODA”. You hear someone pick up the soda and start sipping violently.
+Counseling: Exit away from the feeling
+
+Ross:
+You are in !c!Ross’s !p!room. All the lights are off but you hear a subtle beeping. As you walk deeper into the room you see !c!Ross plugged into a large charging port. Her mouth is open and a red light is blinking. As you approach closer the charger the light flips green.
+Counseling: Run, before she has a cybernetic freakout  
+
+Ibarra:
+You are in !c!Ibarra’s !p!room. You see her standing in a big ducktaped circle with a blindfold on. She is standing on a large pylon hopping around. She is throwing flaming darts at small pieces of paper labeled “schedule.” She is surprisingly accurate for her set up but you imagine any more practical counselor could do it better.
+Counseling: Leave, before you get hit
+
+Johnson2:
+You are in !c!Johnson’s !p!office. She is talking with a student about their future and what C they wish to pursue. They are clearly confused by the selection but !c!Johnson is somehow managing to cut through the noise. She stands as a bright lantern in a field of dark smog directing the student from stranding themself on the rocks of the world.
+Counseling: Exit, awe inspired 
+
+Dimmick:
+You are in !c!Dimmick’s !p!room you can see her talking with a student. She is trying to wear the student down by repeatedly asking them the same question until the student delivers a different answer than the one they have been delivering. Although the technique is undeniably genius it is frustrating to compete with and the student, with clouded judgement and thus unable to evaluate the technique on merit, is getting visibly upset by the avant garde technique.
+Counseling: Exit before the student does something violent
+
 Saucedo: 
-You don’t want to burst in as you can hear a student deep in debate with !c!Mr. !c!Valdivia !c!Saucedo. You can’t make out exactly what is being said but you can !c!Mr. !c!Valdivia !c!Saucedo is winning. The student seems to be so deeply conceded by excellent social maneuvers by the young gun counselor. 
+You don’t want to burst in as you can hear a student deep in debate with !c!Mr. !c!Valdivia !c!Saucedo. You can’t make out exactly what is being said but you can !c!Valdivia !c!Saucedo is winning. The student seems to be so deeply conceded by excellent social maneuvers by the young gun counselor. He knows what the student wants and uses that to give the student what they need.
 Counseling: Exit to the hall
 
 Officeoutside:
@@ -1786,7 +1852,7 @@ You are in a large room full of elaborate cages. These are the cages that !c!Dry
 Officehall: Exit to the hall
 
 DryeEnter:
-After ruminating for what feels like hours, you finally build up the courage to enter !c!Drye’s !p!Room, and meet your biggest inspiration. As you open the door, the suspense you built up for so long fizzles out immediately: He’s not here.
+After ruminating for what feels like !t!hours, you finally build up the courage to enter !c!Drye’s !p!Room, and meet your biggest inspiration. As you open the door, the suspense you built up for so long fizzles out immediately: He’s not here.
 &DryeEnter&Drye&Drye: Continue
 
 Drye:
@@ -1813,7 +1879,7 @@ A crunchy sound is emitted by the device. You would usually interpret this as a 
 Button2: Hit the big red button
 
 Button2:
-An extremely loud alarm plays for a few seconds, and then you hear an extremely loud bang and a flash of white light. Whatever it was must have happened at least twenty miles away though, as East Meck seems to have been unaffected.
+An extremely loud alarm plays for a !t!few !t!seconds, and then you hear an extremely loud bang and a flash of white light. Whatever it was must have happened at least twenty miles away though, as East Meck seems to have been unaffected.
 &DryeDesk2&DryeDesk3&Drye: Ok
 
 DryeChair:
@@ -1893,6 +1959,7 @@ StageClassroom2: Stick around to hear more of the preview for this year's musica
 StageShop2: Enter !p!Stage !p!Workshop
 Eighth1: Exit to the !p!800 !p!hall
 8072: Enter the !p!Stage !p!Office
+Auditorium: Go through the door to the !p!Auditorium
 
 StageClassroom2:
 You find yourself absorbed into the rehearsal. It definitely still has some kinks to work out, and they are still trying out new things to see what they like and what their fan base likes so they eventually will get a finished product everyone is happy with. The curtain closes briefly and everyone works to transition the stage for one of the many climatic numbers !e!(“4k !e!tango”) and someone hands you one of several props that need to move and so you find yourself helping in the transition.
@@ -1909,7 +1976,7 @@ StageClassroom: Leave them for dead and go to the !p!stage
 Patio3: Abandon them and exit into the !p!cafeteria !p!patio
 
 807help:
-You also began examining every square inch of everything in this room. You at first want to allow !c!Mrs. !c!Macleod to maintain a level of privacy but after a few minutes you are too desperate to begin looking through a pile of family photographs hoping that it might contain what you are looking for. Eventually when the student gathers up the courage to ask her, !c!Mrs. !c!Macleod comes into the room and suddenly remembers that the thing never actually existed. 
+You also began examining every square inch of everything in this room. You at first want to allow !c!Mrs. !c!Macleod to maintain a level of privacy but after !t!a !t!few !t!minutes you are too desperate to begin looking through a pile of family photographs hoping that it might contain what you are looking for. Eventually when the student gathers up the courage to ask her, !c!Mrs. !c!Macleod comes into the room and suddenly remembers that the thing never actually existed. 
 StageClassroom: Exit, frustrated, into the !p!stage 
 Patio3: Exit, frustrated, into the !p!cafeteriaria !p!patio
 
@@ -1928,7 +1995,7 @@ Dance2: Comply
 Eighth1: Just Leave
 
 Dance2:
-You take a minute to unlace your shoes and they all wait around for you. Once you finally finish you hop into the beat but they picked a particularly difficult dance sequence to throw you off. You are lost in a flood of hip checks, being slammed back and forth until you reach the end of the chain and are knocked to the ground.
+You take a !t!minute to unlace your shoes and they all wait around for you. Once you finally finish you hop into the beat but they picked a particularly difficult dance sequence to throw you off. You are lost in a flood of hip checks, being slammed back and forth until you reach the end of the chain and are knocked to the ground.
 Eighth1: Crawl out
 
 ExiledCounselor:
@@ -1941,7 +2008,7 @@ As you listen more an argument emerges between the !c!Social !c!Worker and the s
 Eighth1: Back away from the door
 
 Eighth2:
-You are in the even colder part of the !p!800. There are some bougie !p!staff !p!bathrooms as well as the entrances to offices of staff members you’ve never heard of. 
+You are in the even colder part of the !p!800. There are some bougie !p!staff !p!bathrooms as well as the entrances to offices of staff members you’ve never heard of.  In the corner of the hall you see a discarded pile of bright orange traffic cones.
 AuditoriumLobby: Go straight, into the !p!Auditorium !p!Lobby
 StaffBathroom: Enter one of the !p!staff !p!bathrooms
 CaveDoor: Enter the !p!auditorium !p!cave
@@ -1973,7 +2040,7 @@ Eighth2: Exit the !p!cave
 #Meckguesser: Submit a picture of the funny sign to !e!MeckGuesser
 
 MeckGuesser:
-As you open the application you are sucked into the game which is by a long shot the most compelling thing !c!the !c!Beagle has ever made. You are kept from thinking too long about the picture because it is just kinda a guy and not much to go off so you just kind of click somewhere that could be where it would be if the map works how you think it does. You are 8 meters away but it only gives you like 2 bones. 
+As you open the application you are sucked into the game which is by a long shot the most compelling thing !c!the !c!Beagle has ever made. You are kept from thinking too long about the picture because it is just kinda a guy and not much to go off so you just kind of click somewhere that could be where it would be if the map works how you think it does. You are 8 meters away but it only gives you like 2 bones.
 CaveDoor: Get frustrated and close !c!the !c!Beagle website
 MeckGuesser2: Try to submit a picture 
 
@@ -2000,6 +2067,27 @@ Fivekside2: Exit the building
 Oneh1: Continue down the hall
 Recovery: Enter !s!Recovery room to make up missing credits
 
+Recovery:
+You are in the !s!Recovery room. You remember that you’re missing one or two credit !t!hours that are required for graduation and you figure you could just swing into one of the computers for a !t!couple !t!minutes and knock them out. 
+Recovery2: Yeah I’ll go for it
+Oneh2: Nah I’ll do it later
+
+Recovery2:
+You start to work on redeeming yourself after failing your !s!Math exam last year. A question pops up for you to answer: “In a group of 100 people, how many different pairs of people could you choose?”
+RecoveryWrong: 495
+RecoveryRight: 4950
+RecoveryWrong: 49500
+RecoveryWrong: 495000
+
+RecoveryWrong:
+A big red X pops up on the screen: You were wrong. It looks like you will have to try again another day, and will have to leave for now with a glaring gap in your resume remaining.
+&Recovery2&RecoveryWrong&Recovery: Continue
+
+RecoveryRight:
+A big green check mark pops up on the screen: You were right. Your credit has been added back to your permanent record, and the machine also dispenses a few !d!DryeBux for you as a more short-term reward.
+&Recovery2&RecoveryRight&Recovery: Continue
+$dryebux: 7
+
 Nurse:
 You can now see the source of the screaming. As this building is on the old, grimy side of campus, technology has not progressed much in the last 75 years here. An outdated surgical method is being applied without anesthetic or any kind of pain medication.
 Oneh1: Exit to the hall
@@ -2010,7 +2098,7 @@ Oneh1: Exit to the hall
 $dryebux: 3
 
 OrchBand:
-You stand in the center of the vast !s!Orchestra (but at other times !s!Band) !p!room. The floor is littered with cellos, each with their respective end-pin protruding dangerously. The sun bounces off the intricate matrix of trophies and blinds you temporarily.
+You stand in the center of the vast !s!Orchestra ( but at other times !s!Band ) !p!room. The floor is littered with cellos, each with their respective end-pin protruding dangerously. The sun bounces off the intricate matrix of trophies and blinds you temporarily.
 Middle3: Walk outside the exterior door.
 Orchcloset: Walk into the !s!orchestra !p!closet.
 Bandcloset: Walk into the !s!band !p!closet
@@ -2157,6 +2245,10 @@ Splitoutside: Go South towards the !p!600.
 Outsidestairs: Take the stairs towards the !p!Thousands
 Slope: Descend the gravel slope instead
 
+ISS:
+As you walk into the !s!ISS !p!Room, you see a student hastily cover up a large hole in the wall with an IB Career Path versus Diploma Path poster. They are holding a small plastic spoon and start leaning on the wall and whistling, hoping you didn’t notice their slow and steady escape plan.
+Center: Exit to the outside
+
 Corson:
 You are in !c!Ms. !c!Corson’s room. The inside of the room looks like any other room except for one major difference: !c!Ms. !c!Corson’s desk is extremely small -- maybe fit for a preschooler -- and all of the student desks are extremely large.
 Center: Exit to the outside
@@ -2294,8 +2386,12 @@ FivekElevatorA: Enter the elevator
 FivekStairs2A: Take the stairs
 Fivek2A: Continue along the hall
 
+ROTC2:
+You are in a large !s!ROTC !p!classroom. Several uniformed students are in a line, and a stern looking drill sergeant is walking down with a microscope in hand. He is using the device to find and point out microscopic imperfections in the uniforms and screaming while docking points from their inspection score to match.
+Fivek3A: Exit to the hall
+
 ROTCStore:
-You are in the nominally-defunct !p!ROTC !p!Store. Although Drye ordered the destruction of this place several years ago, it is still operating in a shady, unofficial capacity. An ROTC student is selling various items that could come in handy.
+You are in the nominally-defunct !p!ROTC !p!Store. Although Drye ordered the destruction of this place several years ago, it is still operating in a shady, unofficial capacity. An ROTC student is selling various military goods and services that could come in handy.
 $jetpack: Purchase !e!Expiremental !e!Military !e!Jetpack !d!(1 !d!DryeBuk)
 $plane: Purchase !e!One !e!Time !e!Supersonic !e!Plane !e!Trip !d!(1 !d!DryeBuk)
 Fivek3A: Exit to the hall and pretend you aren’t involved in this
@@ -2338,21 +2434,21 @@ You are in the !p!5000 building elevator, on the !f!first !f!floor.
 FivekElevatorB: Go to !f!floor !f!2
 FivekElevatorC: Go to !f!floor !f!3
 Fivek3A: Exit the elevator
-PoolFail: Hit the button firmly one hundred times at a steady rate of six presses per second
+PoolFail: Hit the button firmly one hundred times at a steady rate of six presses per !t!second
 
 FivekElevatorB:
 You are in the !p!5000 building elevator, on the !f!second !f!floor.
 FivekElevatorA: Go to !f!floor !f!1
 FivekElevatorC: Go to !f!floor !f!3
 Fivek3B: Exit the elevator
-PoolFail: Hit the button firmly one hundred times at a steady rate of six presses per second
+PoolFail: Hit the button firmly one hundred times at a steady rate of six presses per !t!second
 
 FivekElevatorC:
 You are in the !p!5000 building elevator, on the !f!third !f!floor.
 FivekElevatorA: Go to !f!floor !f!1
 FivekElevatorB: Go to !f!floor !f!2
 Fivek3C: Exit the elevator
-Pool1: Hit the button firmly one hundred times at a steady rate of six presses per second
+Pool1: Hit the button firmly one hundred times at a steady rate of six presses per !t!second
 
 PoolFail:
 You seem to have forgotten that the !p!5000 elevator is hard-wired to eject anyone attempting pool access from the !f!first !f!two !f!floors. The elevator shoots up extremely fast, and a hatch is opened at the top. You fly out, and land liquified in the !p!bus !p!lot.
@@ -2420,8 +2516,12 @@ MasonGoins: Enter !c!Mason !c!Goins’s !p!Room
 Fivekstairs1B: Enter the stairs
 Fivek2B: Continue down the hall
 
+Canon:
+You are in !c!Ms. !c!Cañon’s room. She is discussing her personal list of the greatest songs about moms. She made the controversial move to include !e!“Dear !e!Mama” by Tupac despite never having listened to the song due to her aversion to hip hop.
+Fivek1B: Exit, curious about what this implies about the rest of her listens
+
 MasonGoins:
-It seems that !c!Mr. !c!Mason !c!Goins is having some sort of power trip. He has enlisted several students to go out in the hall and slowly expand the borders separating his classroom from the rest of the !p!5000.
+It seems that !c!Don !c!Travis is having some sort of power trip. He has enlisted several students to go out in the hall and slowly expand the borders separating his classroom from the rest of the !p!5000.
 Fivek1B: Exit to the hall
 
 Rodriguez:
@@ -2433,9 +2533,14 @@ Fivek2B:
 You are in the middle of the !f!second !f!floor of the !p!5000. The intense cultural exchange occurring in the hall warms your heart and lights your mind on fire.
 Chen: Enter !c!Chen’s !p!Room
 Vazquez: Enter !c!Vázquez’s !p!Room
+Garcia: Enter !c!Garcia’s !p!Room
 FivekData: Enter the !p!Data !p!Room
 Fivek1B: Go towards the back of the building
 Fivek3B: Go towards the front
+
+FivekData:
+The !p!5000 has not yet entered the digital age and so all of the students’ personal data is stored in a giant array of notecards with handwritten text on them. Under each student’s notecard there is a large stack of paper, one for each canvas assignment they have been ordered to complete during their high school career. Several data staff members are rushing around the room with large stamps to mark all assignments as completed when the student finishes them.
+Fivek2B: Exit to the hall
 
 Chen:
 The students in the !s!Chinese room are learning how to differentiate between three words with identical pronunciations and almost indistinguishable uses. One !c!student, who appears to be the source for the bulk of Campus’s !d!Dryebuk !d!supply, hands you an extra.
@@ -2451,7 +2556,15 @@ FivekElevatorB: Enter the elevator
 FivekStairs2B: Take the stairs
 Fivek2B: Continue along the hall
 
-Fivekstairs2B:
+Beamer:
+!c!Mr. !c!Beamer isn’t here today. Luckily for his students there is a dispersion list prominently displayed on his wall. It seems his class will be split in a million different directions like when they use four horses running in different directions to execute someone inhumanely. Everyone will be alone and surrounded by strangers for today.
+Fivek3B: Exit to the hall
+
+MsGrube:
+You enter !c!Mrs. !c!Grube’s !p!room. The students appear to reenact one of the darker !c!Grimms !c!brothers’ fairy tales. The students all have scripts in hand and are cautiously reading through the fairy tale as their respective parts. The students have reached a particularly twisted part of the story that you can tell even the depraved mind of the !c!Brothers !c!Grimm felt it might have been too far. The students glance at each other asking are we really doing this. This pause sends !c!Mrs. !c!Grube livid as she had been intently latching on to every passing line as if it was delivered by the best opera singer in the world. She tries to get the show back on track though her preferred method of yelling and throwing things does not seem to motivate the young actors.
+Fivek3B: Leave before it gets to intense
+
+Fivekstairs2B: 
 You are on the !f!second !f!floor of the !p!5000’s !p!Front !p!Stairwell. The idea of going up ( in the direction of the !p!rooftop !p!pool ) scares you, but not enough to measurably hinder your movement.
 Fivekstairs2C: Bravely ascend
 Fivekstairs2A: Cowardously descend
@@ -2466,11 +2579,16 @@ FIvek1C:
 You are on the back end of the !f!third !f!floor of the !p!5000 !p!building. You can tell from the misery leaking from the !s!business rooms ahead of you that the !p!rooftop !p!pool is right above you. The back stairs are accessible.
 Uglehus: Enter !c!Uglehus’s !p!Room
 Hartwell: Enter !c!Hartwell’s !p!Room
+Fant: Enter !c!Fant’s !p!Room
 Fivekstairs1C: Enter the stairs
 Fivek2C: Continue along the hall
 
+Fant:
+You are in !c!Mr. !c!Fant’s !p!Room. There is an extremely large version of one of those spiral coin donation spinning funnel vortex donation tunnels. You scrounge around in your pockets for some loose !ec!EddeCoin, and find a few spare. You forgot you had any because they are so useless (current conversion rate about !ec!1,000,000,000 to !d!1, they are less valuable than the cheap plastic they are made of). You drop one of the !ec!coins into the device, and watch as it gracefully spins to the center. Right before it hits the dropoff point !c!Mr. !c!Fant reaches in, grabs the coin, and throws it at you: !e!“Don’t !e!waste !e!your !e!money.”
+Fivek1C: Exit to the hall
+
 Uglehus:
-As you open the door to !c!Mr. !c!Uglehus’s !p!room you are hit with a wave of referrals. It appears that he has transformed his room into a referral ball pit with referrals cruppled floor to ceiling for him and his few subordinate students to play in. The referral balls are draining out of the pit and in just a couple more seconds the whole pit might be empty.
+As you open the door to !c!Mr. !c!Uglehus’s !p!room you are hit with a wave of referrals. It appears that he has transformed his room into a referral ball pit with referrals crumpled floor to ceiling for him and his few subordinate students to play in. The referral balls are draining out of the pit and in just a couple more !t!seconds the whole pit might be empty.
 Fivek1C: Close the door before !c!Mr. !c!Uglehus and his students are left beached on the ground in their swim suits waiting to regain their land legs
 
 Hartwell:
@@ -2481,11 +2599,17 @@ Fivek2C:
 You are in the middle of the !f!third !f!floor of the !p!5000 !p!building. The !c!Parkerisms on the wall offset the sadness induced by the !p!pool to some extent.
 Potts: Enter !c!Potts’s !p!Room
 McGregor: Enter !c!McGregor’s !p!Room
+Vaughter: Enter !c!Vaughter’s !p!Room
+Brantley: Enter !c!Brantley’s !p!Room
+Pittman: Enter !c!Pittman’s !p!Room
 Fivek1C: Go towards the back of the building
 Fivek3C: Go towards the front
 
+Pittman:
+Inside !c!Mr. !c!Pittman’s !p!classroom. He is lecturing students on their fundamental misunderstanding of the way in which restaurants function. He explains that they do not just have food already and actually have to purchase it. Though he doe
+
 Potts:
-You are in !c!Ms. !c!Potts’s room. !c!Ms. !c!Potts tilts her head to the side and grins as a gaggle of freshmen recite her home address aloud. The warmup question has been on the board for 45 minutes (you are very late at this point). A student raises her hand to ask what the difference between a tuple and a list is. !c!Ms. !c!Potts points at her, eyes narrowing, and tells her that she’ll “look into it”.
+You are in !c!Ms. !c!Potts’s room. !c!Ms. !c!Potts tilts her head to the side and grins as a gaggle of freshmen recite her home address aloud. The warmup question has been on the board for !t!45 !t!minutes (you are very late at this point). A student raises her hand to ask what the difference between a tuple and a list is. !c!Ms. !c!Potts points at her, eyes narrowing, and tells her that she’ll “look into it”.
 Fivek2C: Exit to the hall
 
 McGregor:
@@ -2500,6 +2624,28 @@ Young: Enter !c!Young’s !p!Room
 FivekStairs2C: Enter the stairs
 FivekElevatorC: Use the elevator
 Fivek2C: Continue along the hall
+
+Young:
+You enter !c!Madame !c!Young’s room. There is a large pile of crêpes that are topped with all manner. French club is laying down against the wall holding their stomachs. It appears their eyes were bigger than their stomachs. !c!Madame !c!Young is still happily trudging along through the crêpes having eaten a quarter of them. A tall chiseled presidential figure offers you a deal. “We need to finish all these crêpes before !c!Madame !c!Young gets here. Can you help? We will give you !d!7 !d!DryeBux.”
+YoungCrepe: Sure
+Fivek3c: No
+
+YoungCrepe:
+You are generally good at following authority but these crêpes are testing your blind obedience. You jump right into the pile and start chipping away but there are so many. !s!French club must have been at this for !t!hours because the pile is almost as tall as you are. 
+YoungCrepe2: Keep eating
+
+YoungCrepe2: 
+You feel disgusted with yourself. It feels like you have been at this eating the stack for !t!hours but in reality it has only been about a !t!minute. !s!French club is growing almost as impatient as they are full. !c!Young is going to be here soon and if there is a single crêpe left on the ground she will go ballistic. 
+YoungCrepe3: Keep eating
+
+YoungCrepe3:
+You are down to maybe three more crêpes but you feel physically unable to eat anymore. You just to crunch them into a tiny ball and hold them in your mouth but your body automatically spits them out on the ground. Eventually, !c!Madame !c!Young finally arrives. “Crêpes I love those !s!French delicacies.” She pops the saliva covered bread ball into her gullet and swallows. Almost in slow motion !s!French clubs yell for her to not to do it. “ Mmm that is really. Good very !s!French. ” “That was so good I will give you !d!11 !d!DryeBux for it.”
+&Young&YoungPostCrepe&Fivek3C: Leave
+$DryeBux: 11
+
+YoungPostCrepe:
+!c!Madame !c!Young is incredibly grateful for the crêpe you gave her.
+Fivek3C: Leave
 
 Oates:
 !c!Mr. !c!Oates immediately jumps into conversation with you. He explains that he really hates this hall, but that he isn’t allowed on the much nicer !f!lower !f!floors because the language he teaches is dead, and would thus suck the liveliness out of the other language classes surrounding him.
@@ -2529,19 +2675,31 @@ Trap1: Turn around dejectedly
 
 Threeh3:
 You are at the end of the !p!Three !p!Hundred, the furthest extent of the tentacles of the !p!Old !p!Building. Looking one way, you see a door leading to the outside of the !p!5000. Looking the other way, you see nothing but unfamiliar faces and subject-ambiguous classrooms.
-Roberts2: Enter !c!Roberts's !p!Room
-Cohen: Enter !c!Cohen's !p!Room
-Costas: Enter !c!Costas's !p!Room
-Cochran: Enter !c!Cochran's !p!Room
+ESL3: Enter !c!Cochrane's !p!Room
+ESL1: Enter !c!Roberts's !p!Room
+ESL2: Enter !c!Cohen's !p!Room
+ESL3: Enter !c!Costas's !p!Room
 Fivekside1: Exit to the outside
 Threeh2: Continue down the hall
+
+ESL1:
+You are in an !s!English !c!as !s!a !s!second !c!language !c!classroom . The students seem to be coming along great. They really seem to be getting a hand on the !s!english and are pretty much experts. They are holding an open mic event where students gets !t!five !t!minutes to do some they have been working on all quarter stand up. A lot of the students have solid fundamentals but their content is just not that relatable.
+$bACk: Exit
+
+ESL2:
+You are in an !s!English !c!as !s!a !s!second !s!language !p!classroom . The students' progress is coming along nicely. They are all gathered around a large ancient book and seem to be attempting to unencrypt whatever ancient secrets it holds within its pages. They all are holding magnifying glasses to the text and closely examining every character. Anything could be a clue.
+$BaCK: Exit
+
+ESL3:
+You are in an !s!English !c!as !c!a !c!Second !c!language !p!classroom . The students are spray painting a brick wall with various phrases they have picked up from their lessons. Though a lot of the phrases do not make complete sense in graffiti form due to the script of the letters no one who wasn’t paying an extraordinary amount of attention would realize. 
+$bacK: Exit
 
 Threeh2:
 You are in the middle of the unfamiliar !p!300 !p!hall. You are bombarded with faces you have never seen, and you can’t tell the subjects of any of the classrooms except !c!Mr. !c!Zurhellen’s, who has evidently been banished to here. A teacher you have never seen waves at you. You wave back, assuming that they must have been your computer lab teacher in 2nd grade.
 Zurhellen: Enter !c!Zurhellen’s !p!Room
 Speizman: Enter !c!Speizman’s !p!Room
-Feldstein: Enter !c!Feldstein’s !p!Room
-Durante: Enter !c!Durante’s !p!Room
+Bowman: Enter !c!Bowman’s !p!Room
+ESL1: Enter !c!Feldstein’s !p!Room
 Threeh3: Walk towards the !p!5000
 Threeh1: Walk towards !p!Student !p!Services
 
@@ -2567,6 +2725,8 @@ Threeh1:
 You are in the !p!Three !p!Hundred, near an intersection. The !p!tech !p!depot that students once flocked to as a safe haven free from bugs and glitches can no longer accommodate the raving masses, as !c!Mr. !c!Henley has been displaced from his original location by a space-hungry marketing teacher, and is now forced to reside in a small closet.
 TechDepot: Enter the miniscule !p!Tech !p!Depot
 Woindrich: Enter !c!Woindrich’s !p!Room
+Durante: Enter !c!Durante’s !p!Room
+ESL2: Enter !c!Lintz’s !p!Room
 Johnson4: Enter !c!Johnson’s !p!Room
 Threeway: Walk to the intersection
 Threeh2: Walk deeper into the !p!300
@@ -2604,7 +2764,7 @@ TechDepot2:
 Threeh1: Exit into the hall
 
 TechDepot3:
-!c!Henley utilizes his simulation-hacking skills to produce the requested !d!DryeBux. The crampedness of his room is becoming less and less crushing by the minute with his new discovery.
+!c!Henley utilizes his simulation-hacking skills to produce the requested !d!DryeBux. The crampedness of his room is becoming less and less crushing by the !t!minute with his new discovery.
 $dryebux: 101
 Threeh1: Exit into the hall gleefully
 TechDepot4: Tell him you are the one who created this simulation
@@ -2726,7 +2886,7 @@ FourkEnter: Enter the !p!Four !p!Thousand
 Fnf3: Escape via the !p!495000
 
 FourkEnter:2
-Since you are so late at this point, you need to wait for someone to let you in. After about five minutes, a kindhearted student slowly approaches the door, and eventually opens it.
+Since you are so late at this point, you need to wait for someone to let you in. After about !t!five !t!minutes, a kindhearted student slowly approaches the door, and eventually opens it.
 Fourkstairs1A: Continue
 
 Fourkstairs1A:
@@ -2765,10 +2925,6 @@ Boone: Enter !c!Boone's !p!Room
 Fourk1A: Walk towards the back of the building
 Fourk3A: Walk towards the front
 
-Boone:
-As you slowly enter !c!Ms. !c!Boone’s room, the fan sound from the hall is gradually replaced by a series of repeated popping noises. When you make it fully into the room, you notice several “pop quizzes” being sprung upon unsuspecting students. You will ponder the exact nature of this situation in the hallway.
-Fourk2A: Ponder 
-
 Fourk3A:
 You are on the front end of the !f!first !f!floor of the !p!4000. Giant fans are whirring down the hall, but a nearby elevator or set of stairs could provide an escape from the whirring.
 Barbee: Enter !c!Barbee's !p!Room
@@ -2778,8 +2934,12 @@ Fourkstairs2A: Enter the stairs
 FourkElevator: Enter the elevator
 Fourk2A: Walk to the fans
 
+Freigberg:
+You are in !c!Ms.!c!Freiberg’s room. She is facing away from you and quietly whispering positive affirmations to herself. As you quietly walk closer you realize she is polishing her !e!golden !e!eagle award which appeared to have been smudged by some rebellious student trying to get revenge on their well awarded math teacher. She is now silently weeping into the trophy which is not helping the smudged look.
+Fourk3A: Exit
+
 Sawyer:
-You see !c!Mrs. !c!Sawyer standing at a large podium quasi-rhythmically blowing into a harsh whistle. There is a table of !s!AP !s!Statistics students who are sorting sweet treats and regional delicacies into jars corresponding to the treat’s colors. Once a jar is filled up all of the students are forced according to !c!Mrs. !c!Sawyer’s demand to eat up the tasty treat. The students resist for a few seconds and are reminded that they are some of the luckiest in the school and that !s!Analysis students would kill for this type of pampering, so they choke down more disgustingly sweet pastries.
+You see !c!Mrs. !c!Sawyer standing at a large podium quasi-rhythmically blowing into a harsh whistle. There is a table of !s!AP !s!Statistics students who are sorting sweet treats and regional delicacies into jars corresponding to the treat’s colors. Once a jar is filled up all of the students are forced according to !c!Mrs. !c!Sawyer’s demand to eat up the tasty treat. The students resist for a !t!few !t!seconds and are reminded that they are some of the luckiest in the school and that !s!Analysis students would kill for this type of pampering, so they choke down more disgustingly sweet pastries.
 Sawyer2: Attempt to free the students
 Fourk3A: Run free before you are taken in
 
@@ -2789,7 +2949,7 @@ SawyerFail: Eat the pastries
 Sawyer3: Don’t eat the pastries and stand up to !c!Mrs !c!Sawyer
 
 Sawyer3:
-As you continue to not eat the pastry !c!Mrs. !c!Sawyer grows more and more frustrated. She blows her whistle louder and louder until it is a near ear breaking blast but you manage to not be worn down. By this point she gets down from her podium and is circling you as her face grows red from the large quantity of air she has to force through the small hole. After a couple of minutes of tooth rattling blast she passes out on the ground exhausted. A cheer erupts from the crowd of students and they toss you some !d!DryeBux as a reward for your work.
+As you continue to not eat the pastry !c!Mrs. !c!Sawyer grows more and more frustrated. She blows her whistle louder and louder until it is a near ear breaking blast but you manage to not be worn down. By this point she gets down from her podium and is circling you as her face grows red from the large quantity of air she has to force through the small hole. After a !t!couple !t!of !t!minutes of tooth rattling blast she passes out on the ground exhausted. A cheer erupts from the crowd of students and they toss you some !d!DryeBux as a reward for your work.
 &Sawyer&SawyerSucess&SawyerSucess: Continue
 
 SawyerSucess:
@@ -2916,6 +3076,10 @@ Jacobs: Enter !c!Jacobs’ !p!Room
 Inabennet: Enter !c!Inabennet’s !p!Room
 Fourkstairs1C: Enter the stairs
 Fourk2C: Continue down the hall
+
+Mook:
+You are in !c!Ms. !c!Mook. There appears to be some sort of mock comic con happening with students exchanging various prints from their respective fandoms. !c!Mook is participating and seems to be absolutely taking down the house. She is negotiating with the young artists to get memorabilia from some of her favorite fandoms for seemingly just a few pennies and springs found in her pockets. You try to explain to these starving artists that their work is worth more than !c!Ms. !c!Mook’s pocket lint but they insisted that this is a better this way.
+Fourk1C: Leave, dejected
 
 Jacobs:
 You are in !c!Ms. !c!Jacobs’ room. You are enchanted by the extremely high-quality social contract installation, which provides a sharp contrast to the flimsy paper-and-pen sheets in the other rooms you’ve been to. The swarm of hummingbirds surrounding the legal obligations is a beautiful reminder of the eternal peace between Staff and Student.
