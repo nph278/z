@@ -254,7 +254,7 @@ You apologize profusely. Although !c!Grube really does feel for you, it would be
 Sevenh3: Continue
 
 Graham:
-You stand in Ms. Graham’s room. You are entranced by the orderliness of the “Quilt periodic table” but worried that chemistry students might confuse it for the real thing.
+You stand in !c!Ms. !c!Graham’s room. You are entranced by the orderliness of the “Quilt periodic table” but worried that chemistry students might confuse it for the real thing.
 Sevenh3: Exit to the hall
 Scioly: Look at the !e!Science !e!Olympiad boxes in the back
 
@@ -1231,7 +1231,7 @@ Sixh2: ???? Direction ????
 CafeLobby1: ???? Direction ????
 
 Gearhart:
-You are in !c!Mr. !c!Gearhart’s room. You see a huge hand-carved wooden tiger in the middle of the room. The floor has been meticulously combed for crumbs to deter any potential influx of cockroaches or other pervasive 600-grime. Mr. Gearhart is standing at the front, facing an empty classroom, repeating the name “Bueller”.
+You are in !c!Mr. !c!Gearhart’s room. You see a huge hand-carved wooden tiger in the middle of the room. The floor has been meticulously combed for crumbs to deter any potential influx of cockroaches or other pervasive 600-grime. !c!Mr. !c!Gearhart is standing at the front, facing an empty classroom, repeating the name “Bueller”.
 #CurrentEvents: Ask him about current events
 Sixh3: Exit to the hall
 
@@ -1793,7 +1793,7 @@ DB103Spit: Refuse to ask a question, you’re getting your mind wiped anyway
 
 DB103Spit:
 The !d!Buk feels your objection and is deeply enraged by it. You feel it begin to heat up and then burn. It hurts your hands to hold but something deep inside you can’t let it go: you would be stupid to give up that much power. The !d!Buk begins to burn away. !d!“How !d!dare !d!you.” The skin on your hands burns away until it is just a skeleton and then that begins to burn too but the !d!Buk is still getting hotter. You feel the heat start to rise up your arms and burn away that flesh too but still you don’t release the !d!Buk. You clutch it close until you and it become withered.
-RankF: ... 
+RankF: ...
 
 DB103Yearbook: 
 !d!“Everyone !d!knew !d!as !d!soon !d!as !d!I !d!was !d!printed !d!that !d!I !d!was !d!going !d!to !d!be !d!too !d!powerful !d!for !d!East. !d!I !d!am !d!far !d!from !d!the !d!most !d!powerful !d!being !d!at !d!East !d!but !d!when !d!you !d!liquidate !d!this !d!much !d!status !d!issues !d!start !d!to !d!emerge. !c!The !c!Zeagle !c!Staff !d!realized !d!that !d!they !d!needed !d!a !d!place !d!to !d!put !d!me !d!so !d!that !d!I !d!wasn’t !d!added !d!to !d!circulation. !d!They !d!decided !d!the !p!yearbook !p!room !d!would !d!be !d!the !d!perfect !d!place !d!for !d!me. !d!Although !d!it's !d!not !d!an !d!exciting !d!way !d!to !d!live, !d!it !d!beats !d!the !d!alternative: !d!East !d!Meck !d!in !d!utter !d!chaos.” You feel a sharp hum in your temples and your vision begins to blur and then...
@@ -1801,7 +1801,7 @@ $reset: ...
 
 DB103Talk:
 !d!“I !d!was !d!a !d!mistake, !d!a !d!product !d!of !d!an !d!experiment !d!gone !d!awry. !d!It !d!was !d!too !d!much !d!power, !d!too !d!much !d!status !d!infused !d!into !d!one !d!object. !d!When !d!power !d!is !d!this !d!condensed !d!this !d!much !d!consciousness !d!comes !d!soon !d!after.” You feel a buzzing in the very back of your skull and then...
-$reset: ...   
+$reset: ...
 
 Threeway:
 You are at an intersection of halls. The !p!Three !p!Hundred, main part of the !p!Two !p!Hundred, and path to !p!Student !p!Services are all available. There is also an external door leading towards the !p!400 !p!Split. The animated sign on the !p!Student !p!Services building greets you with a warm welcome.
@@ -2042,7 +2042,7 @@ As you are walking there you see a table with a long hall pass on it. It looks l
 &Nguyen&NguyenSuccess&&8072&807&&StageShop2&StageShop&807: Grab the pass, it might come in handy.
 
 807: 
-You enter a room. You see !s!tech !s!theater student frantically looking for something. They are desperately looking through every square inch of the desk fully invading !c!Mrs. !c!Macleod’s privacy per her instructions. They look pitiful and you have a strong desire to help them.
+You enter a room. You see a !s!tech !s!theater student frantically looking for something. They are desperately looking through every square inch of the desk fully invading !c!Mrs. !c!Macleod’s privacy per her instructions. They look pitiful and you have a strong desire to help them.
 807help: Help find it 
 StageClassroom: Leave them for dead and go to the !p!stage 
 Patio3: Abandon them and exit into the !p!cafeteria !p!patio
@@ -2180,7 +2180,7 @@ Sixh1: Leave into the !p!Six !p!Hundred !p!hall
 BandOff:
 You enter into the band office. You see all number of elaborate props used to “fix” instruments. There are floor to ceiling drawers that have clamps providing a contingency for anything that could possibly go wrong with an instrument. If you broke an instrument this would be the first place to go.
 OrchBand: Exit to the !s!Orchestra/Band !p!Room
-Choir: Exit to the !s!Choir !p!Room !p!Room
+Choir: Exit to the !s!Choir !p!Room
 
 Orchcloset:
 As you walk into the !s!Orchestra !p!Closet, an avalanche of violin cases falls upon you. One of the cases cracks open, revealing a !d!DryeBuk stashed away inside.
@@ -2219,7 +2219,7 @@ StudentServices: Enter !p!Student !p!Services
 Twoh1: Enter the !p!Two !p!Hundred
 
 Courtyard2:
-You stand under one of the large central trees of the !p!Courtyard. You observe students sitting on the ad-hoc brick protrusions lining the ground, neglecting the purpose-built yellow benches. You admire the mural of Parker holding up the administrators of East Mecks by marionette strings, artistically codifying his role as East Meck’s !e!Grand !e!Puppeteer.
+You stand under one of the large central trees of the !p!Courtyard. You observe students sitting on the ad-hoc brick protrusions lining the ground, neglecting the purpose-built yellow benches. You admire the mural of !c!Parker holding up the administrators of East Mecks by marionette strings, artistically codifying his role as East Meck’s !e!Grand !e!Puppeteer.
 CafeLobby3: Go inside, near the !p!Auditorium.
 Courtyard1: Walk to the sheltered region of the !p!Courtyard.
 CourtyardCorner: Walk to the corner of the !p!Courtyard, near the blue Exit.
@@ -2507,16 +2507,16 @@ ROTCStore: Continue
 
 FivekElevatorA:
 You are in the !p!5000 building elevator, on the !f!first !f!floor.
+Fivek3A: Exit the elevator
 FivekElevatorB: Go to !f!floor !f!2
 FivekElevatorC: Go to !f!floor !f!3
-Fivek3A: Exit the elevator
 PoolFail: Hit the button firmly one hundred times at a steady rate of six presses per !t!second
 
 FivekElevatorB:
 You are in the !p!5000 building elevator, on the !f!second !f!floor.
 FivekElevatorA: Go to !f!floor !f!1
-FivekElevatorC: Go to !f!floor !f!3
 Fivek3B: Exit the elevator
+FivekElevatorC: Go to !f!floor !f!3
 PoolFail: Hit the button firmly one hundred times at a steady rate of six presses per !t!second
 
 FivekElevatorC:
@@ -2696,6 +2696,10 @@ Brantley: Enter !c!Brantley’s !p!Room
 Pittman: Enter !c!Pittman’s !p!Room
 Fivek1C: Go towards the back of the building
 Fivek3C: Go towards the front
+
+Vaughter:
+You are in !c!Ms. !c!Vaughter’s !p!Room. The !e!Junior !e!Board, the most powerful board, is meeting here and  discussing different places around campus they can secure income from so they can still benefit from their corruption long after their positions of power are passed on.
+Fivek2C: Exit to the hall
 
 Brantley:
 You are in !c!Mr. !c!Brantley’s !p!room. !c!Brantley is ranting about how all the other classrooms in his hall are losing money while his is turning a profit. “These classes are all in the red. They spend so much on school supplies and get nothing in return. I’m in the black. I only make a purchase if I know I can flip it around to increase the class’s value later.”
@@ -2958,7 +2962,7 @@ You enter the passport line. After what feels like an eternity, you are finally 
 Fnf3: Continue
 
 Fnfstairwell:
-You stand in the brand new !p!495000 stairwell. Pieces of the wall are still missing, highlighting how Parker is rusty on school maintenance.
+You stand in the brand new !p!495000 stairwell. Pieces of the wall are still missing, highlighting how !c!Parker is rusty on school maintenance.
 Fnf1: Go downstairs
 Fnf2: Go upstairs
 
@@ -2983,7 +2987,7 @@ Fnf2: Gleefully waltz back into the hall
 
 Fnf3:
 You stand on the !p!4000 side of the !p!495000. There is a lonely passport-checking station that hasn’t seen any customers yet (people have no reason to leave the !p!4000 at this time).
-Fourkback: Exit to !p!4000 building.
+Fourkback: Exit to the back of the !p!4000 building.
 Fnfpass2: Scan your passport to get to the other side
 
 Fnfpass2:

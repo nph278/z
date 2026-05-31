@@ -1442,7 +1442,7 @@ const roomSpecs = [
     },
     {
         id: "graham",
-        desc: "You stand in Ms. Graham’s room. You are entranced by the orderliness of the “Quilt periodic table” but worried that chemistry students might confuse it for the real thing.",
+        desc: "You stand in !c!Ms. !c!Graham’s room. You are entranced by the orderliness of the “Quilt periodic table” but worried that chemistry students might confuse it for the real thing.",
         options: [
             ["sevenh3", "Exit to the hall"],
             ["scioly", "Look at the !e!Science !e!Olympiad boxes in the back"],
@@ -2911,7 +2911,7 @@ const roomSpecs = [
     },
     {
         id: "gearhart",
-        desc: "You are in !c!Mr. !c!Gearhart’s room. You see a huge hand-carved wooden tiger in the middle of the room. The floor has been meticulously combed for crumbs to deter any potential influx of cockroaches or other pervasive 600-grime. Mr. Gearhart is standing at the front, facing an empty classroom, repeating the name “Bueller”.",
+        desc: "You are in !c!Mr. !c!Gearhart’s room. You see a huge hand-carved wooden tiger in the middle of the room. The floor has been meticulously combed for crumbs to deter any potential influx of cockroaches or other pervasive 600-grime. !c!Mr. !c!Gearhart is standing at the front, facing an empty classroom, repeating the name “Bueller”.",
         options: [
             ["currentevents", "Ask him about current events", true],
             ["sixh3", "Exit to the hall"],
@@ -3753,7 +3753,7 @@ const roomSpecs = [
         id: "db103spit",
         desc: "The !d!Buk feels your objection and is deeply enraged by it. You feel it begin to heat up and then burn. It hurts your hands to hold but something deep inside you can’t let it go: you would be stupid to give up that much power. The !d!Buk begins to burn away. !d!“How !d!dare !d!you.” The skin on your hands burns away until it is just a skeleton and then that begins to burn too but the !d!Buk is still getting hotter. You feel the heat start to rise up your arms and burn away that flesh too but still you don’t release the !d!Buk. You clutch it close until you and it become withered.",
         options: [
-            ["rankf", "... "],
+            ["rankf", "..."],
         ],
     },
     {
@@ -4151,7 +4151,7 @@ const roomSpecs = [
     },
     {
         id: "807",
-        desc: "You enter a room. You see !s!tech !s!theater student frantically looking for something. They are desperately looking through every square inch of the desk fully invading !c!Mrs. !c!Macleod’s privacy per her instructions. They look pitiful and you have a strong desire to help them.",
+        desc: "You enter a room. You see a !s!tech !s!theater student frantically looking for something. They are desperately looking through every square inch of the desk fully invading !c!Mrs. !c!Macleod’s privacy per her instructions. They look pitiful and you have a strong desire to help them.",
         options: [
             ["807help", "Help find it"],
             ["stageclassroom", "Leave them for dead and go to the !p!stage"],
@@ -4368,7 +4368,7 @@ const roomSpecs = [
         desc: "You enter into the band office. You see all number of elaborate props used to “fix” instruments. There are floor to ceiling drawers that have clamps providing a contingency for anything that could possibly go wrong with an instrument. If you broke an instrument this would be the first place to go.",
         options: [
             ["orchband", "Exit to the !s!Orchestra/Band !p!Room"],
-            ["choir", "Exit to the !s!Choir !p!Room !p!Room"],
+            ["choir", "Exit to the !s!Choir !p!Room"],
         ],
     },
     {
@@ -4427,7 +4427,7 @@ const roomSpecs = [
     },
     {
         id: "courtyard2",
-        desc: "You stand under one of the large central trees of the !p!Courtyard. You observe students sitting on the ad-hoc brick protrusions lining the ground, neglecting the purpose-built yellow benches. You admire the mural of Parker holding up the administrators of East Mecks by marionette strings, artistically codifying his role as East Meck’s !e!Grand !e!Puppeteer.",
+        desc: "You stand under one of the large central trees of the !p!Courtyard. You observe students sitting on the ad-hoc brick protrusions lining the ground, neglecting the purpose-built yellow benches. You admire the mural of !c!Parker holding up the administrators of East Mecks by marionette strings, artistically codifying his role as East Meck’s !e!Grand !e!Puppeteer.",
         options: [
             ["cafelobby3", "Go inside, near the !p!Auditorium"],
             ["courtyard1", "Walk to the sheltered region of the !p!Courtyard"],
@@ -4872,9 +4872,9 @@ const roomSpecs = [
         id: "fivekelevatora",
         desc: "You are in the !p!5000 building elevator, on the !f!first !f!floor.",
         options: [
+            ["fivek3a", "Exit the elevator"],
             ["fivekelevatorb", "Go to !f!floor !f!2"],
             ["fivekelevatorc", "Go to !f!floor !f!3"],
-            ["fivek3a", "Exit the elevator"],
             ["poolfail", "Hit the button firmly one hundred times at a steady rate of six presses per !t!second"],
         ],
     },
@@ -4883,8 +4883,8 @@ const roomSpecs = [
         desc: "You are in the !p!5000 building elevator, on the !f!second !f!floor.",
         options: [
             ["fivekelevatora", "Go to !f!floor !f!1"],
-            ["fivekelevatorc", "Go to !f!floor !f!3"],
             ["fivek3b", "Exit the elevator"],
+            ["fivekelevatorc", "Go to !f!floor !f!3"],
             ["poolfail", "Hit the button firmly one hundred times at a steady rate of six presses per !t!second"],
         ],
     },
@@ -5166,6 +5166,13 @@ const roomSpecs = [
             ["pittman", "Enter !c!Pittman’s !p!Room"],
             ["fivek1c", "Go towards the back of the building"],
             ["fivek3c", "Go towards the front"],
+        ],
+    },
+    {
+        id: "vaughter",
+        desc: "You are in !c!Ms. !c!Vaughter’s !p!Room. The !e!Junior !e!Board, the most powerful board, is meeting here and  discussing different places around campus they can secure income from so they can still benefit from their corruption long after their positions of power are passed on.",
+        options: [
+            ["fivek2c", "Exit to the hall"],
         ],
     },
     {
@@ -5589,7 +5596,7 @@ const roomSpecs = [
     },
     {
         id: "fnfstairwell",
-        desc: "You stand in the brand new !p!495000 stairwell. Pieces of the wall are still missing, highlighting how Parker is rusty on school maintenance.",
+        desc: "You stand in the brand new !p!495000 stairwell. Pieces of the wall are still missing, highlighting how !c!Parker is rusty on school maintenance.",
         options: [
             ["fnf1", "Go downstairs"],
             ["fnf2", "Go upstairs"],
@@ -5630,7 +5637,7 @@ const roomSpecs = [
         id: "fnf3",
         desc: "You stand on the !p!4000 side of the !p!495000. There is a lonely passport-checking station that hasn’t seen any customers yet (people have no reason to leave the !p!4000 at this time).",
         options: [
-            ["fourkback", "Exit to !p!4000 building"],
+            ["fourkback", "Exit to the back of the !p!4000 building"],
             ["fnfpass2", "Scan your passport to get to the other side"],
         ],
     },
