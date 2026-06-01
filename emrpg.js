@@ -1061,7 +1061,7 @@ const roomSpecs = [
     },
     {
         id: "start",
-        desc: "Another !e!day, another Meck. (Use the number keys to make choices. You will fail if you do not read all text carefully.)",
+        desc: "Another day at East Meck. (Use the number keys to make choices. You will fail if you do not read all text carefully.)",
         options: [
             ["intro1", "Continue"],
         ],
