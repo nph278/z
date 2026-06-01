@@ -23,7 +23,7 @@ THE END. Rank: !r!S. You are rich. Your classmates overthrow !c!Ms. !c!Kinney an
 $reset: Try the day again
 
 Start:
-Another !e!day, another Meck. (Use the number keys to make choices. You will fail if you do not read all text carefully.)
+Another day at East Meck. (Use the number keys to make choices. You will fail if you do not read all text carefully.)
 Intro1: Continue
 
 Intro1:
@@ -1770,7 +1770,13 @@ You look and look but no ring is found. A nearby student tells you that this par
 RingSearch: Keep Looking
 
 RingWait:
-You sit down and wait for what feels like hours but is actually days. You check your watch and the time is exactly what you remember it was when you first sat down, so although you 
+You sit down and wait for what feels like !t!hours but is actually !t!days. You check your watch and the time is exactly what you remember it was when you first sat down, so it must have been !t!days. You get up, and find the ring sitting calmly on !c!Ms. !c!Armstrong’s desk. How curious! You hand it to !c!Armstrong and she gives a few !d!DryeBux as a thanks.
+&Armstrong&Armstrong2&Armstrong2: Continue
+
+Armstrong2:
+!c!Ms. !c!Armstrong is sitting in the center of the room, surrounded by what seems to be hundreds of students. All conversations are drowned out by their helpless cries: “Ms. Armstrong! Ms. Armstrong!” !c!Ms. !c!Armstrong is overjoyed that her ring has been returned, and is happy to give you a few !d!Bux.
+Twoh1: Exit to the hall
+$dryebux: 7
 
 Vincent:
 You are in !c!Mrs. !c!Vincent’s room. You want to cross the room but the tables are arranged in a way that would make that impossible. They seem like a maze designed to contain some sort of abhorrent art beast and prevent it from reaching the rest of East. As far fetched as it seems it is the only possible explanation for why the tables would be arranged this way.  The whole room seems to be shifting and the art on the walls seems to be constantly changing yet still maintaining its near-professional quality. You try to walk deeper into the room and examine some art but the tables start spinning really fast and you figure you couldn’t get in without having your legs ripped from your body.

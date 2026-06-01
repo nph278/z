@@ -3702,9 +3702,18 @@ const roomSpecs = [
     },
     {
         id: "ringwait",
-        desc: "You sit down and wait for what feels like hours but is actually days. You check your watch and the time is exactly what you remember it was when you first sat down, so although you ",
+        desc: "You sit down and wait for what feels like !t!hours but is actually !t!days. You check your watch and the time is exactly what you remember it was when you first sat down, so it must have been !t!days. You get up, and find the ring sitting calmly on !c!Ms. !c!Armstrong’s desk. How curious! You hand it to !c!Armstrong and she gives a few !d!DryeBux as a thanks.",
         options: [
+            ['armstrong2', 'Continue', ['armstrong','armstrong2']],
         ],
+    },
+    {
+        id: "armstrong2",
+        desc: "!c!Ms. !c!Armstrong is sitting in the center of the room, surrounded by what seems to be hundreds of students. All conversations are drowned out by their helpless cries: “Ms. Armstrong! Ms. Armstrong!” !c!Ms. !c!Armstrong is overjoyed that her ring has been returned, and is happy to give you a few !d!Bux.",
+        options: [
+            ["twoh1", "Exit to the hall"],
+        ],
+        dryebux: 7,
     },
     {
         id: "vincent",
