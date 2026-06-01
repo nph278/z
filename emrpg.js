@@ -1,24 +1,5 @@
 // Hi Reid
-
-// Trailer
-// Repeatedly use that number "[n] ... Xthings" >495?
-// "Effectively every teacher"
-// Original Soundtrack
-// Dryebux max number
-// Splitscreen of many rooms for trailer
-// Meta meta should make sense
-// Show game to incoming freshman as practice for the real Meck
-// Dialogue text effect
-// Better opening line - uneasy dreams
-// Balancing for the ending reactions
-// Fields scene and trailers correct
-// Use deer crashing
-// Final jumping-up = exit from the sub-world
-// Reconvergence of fact and fiction is flattening of a hierarchy
-// Comedy art is hierarchy
-// QR Codes in trailer
-// Bandcamp
-// UPDATE ROOMS AND MYSTERY TRAILERS
+// This took a while.
 
 "use strict";
 
@@ -39,8 +20,7 @@ const circleRR = 0.1;
 const parityOffset = 0.1;
 const keys = "1234567890abcdefghijklmnopqrstuvwxyz@#$%^&*()_+-=[]{}\\|;:'\",./<>?`~";
 const abc = "qwertyuiopasdfhjklzxcvbnm";
-let origf = .85;
-let f = origf;
+const origf = .85;
 const grimeWidth = 100;
 const endIDs = ["rankf", "rankd", "rankc", "rankb", "ranka", "ranks"];
 
@@ -553,7 +533,7 @@ class Game {
         this.hintIDs = this.dryebukRooms.map(r => r.id);
         this.maxBux = this.dryebukRooms.map(r => r.dryebux).reduce((a, b) => a + b);
         this.jetpack = false;
-        console.log(this.maxBux);
+        this.f = origf;
     }
 
     constructor(metaLevel, canvas) {
@@ -671,8 +651,8 @@ class Game {
     }
 
     draw(ctx, startX, startY, startW, startH) {
-        if (this.room.id === "techdepot5") {
-            f = origf * (1 - .1 * Math.tanh(this.elapsedTime / 1000));
+        if (this.supergame !== null && this.room.id === "techdepot5") {
+            this.supergame.f = origf * (1 - .1 * Math.tanh(this.elapsedTime / 1000));
         }
         if (this.grimeOn) {
             let grimeOffset = 0;
@@ -777,14 +757,14 @@ class Game {
             const m = 10;
             ctx.drawImage(i, width - i.width - m, startH - i.height - m);
         }
-        const g = f + .01;
+        const g = this.f + .01;
         if (this.subgame !== null) {
-            fontSize *= f;
+            fontSize *= this.f;
             lineHeight = fontSize;
             ctx.fillStyle = "black";
             ctx.fillRect(startX + startW * (1 - g), startY, startW * g, startH * g);
-            this.subgame.draw(ctx, startX + startW * (1 - f), startY, startW * f, startH * f);
-            fontSize /= f;
+            this.subgame.draw(ctx, startX + startW * (1 - this.f), startY, startW * this.f, startH * this.f);
+            fontSize /= this.f;
             lineHeight = fontSize;
             ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
             ctx.fillRect(startX + startW * (1 - g), startY, startW * g, startH * g);
@@ -909,8 +889,12 @@ class Game {
                     window.location.href = "https://www.eastmeckeagle.com";
                 }, 2000);
             } else {
-                this.supergame.enterRoomId("gamecrash");
-                this.supergame.cracked = true;
+                if (this.supergame.supergame === null) {
+                    this.supergame.enterRoomId("gamecrash");
+                    this.supergame.cracked = true;
+                } else {
+                    this.supergame.enterRoomId("gamecrash2");
+                }
                 this.supergame.subgame = null
             }
         } else if (a.type === "mini") {
@@ -920,11 +904,11 @@ class Game {
         } else if (a.type === "end") {
             if (this.dryebux === 0) {
                 this.enterRoomId("rankd");
-            } else if (this.dryebux < 15) {
+            } else if (this.dryebux < 30) {
                 this.enterRoomId("rankc");
-            } else if (this.dryebux < 40) {
+            } else if (this.dryebux < 100) {
                 this.enterRoomId("rankb");
-            } else if (this.dryebux < 150) {
+            } else if (this.dryebux < 400) {
                 this.enterRoomId("ranka");
             } else {
                 this.enterRoomId("ranks");
@@ -938,9 +922,13 @@ class Game {
             if (this.subgame !== null) {
                 if (this.subgame.subgame === null && k === "q") {
                     this.subgame = null;
-                    this.enterRoomId("gamequit")
+                    if (this.supergame === null) {
+                        this.enterRoomId("gamequit")
+                    } else {
+                        this.enterRoomId("gamequit3")
+                    }
                 } else {
-                    this.subgame.handleKey(k);
+                    this.subgame.handleKey(k, e);
                 }
             } else if (this.jetpack && k === " ") {
                 e.preventDefault();
@@ -1021,7 +1009,7 @@ const trailerSpecs = [
     },
     {
         id: "mysterytrailer",
-        desc: "This trailer is mostly encased in amber. The trailer is preserved in time; it looks straight out of the year 2005. You see something written on a white board asking for donations to support victims of hurricane Katrina. You also see a poster for the upcoming movie Star Wars III: Revenge of the Sith.",
+        desc: "This trailer is mostly encased in amber. The trailer is preserved in time; it looks straight out of the year !t!2005. You see something written on a white board asking for donations to support victims of hurricane Katrina. You also see a poster for the upcoming movie !e!Star !e!Wars !e!III: !e!Revenge !e!of !e!the !e!Sith.",
         options: [
         ],
         back: "Exit quickly as to not taint the site",
@@ -1867,7 +1855,7 @@ const roomSpecs = [
     },
     {
         id: "softballfail",
-        desc: "You were clearly incorrect, and slam directly into a very tall tuba player. A long line of trumpeters follow, and step all over you. You are squashed to death.",
+        desc: "You were clearly incorrect, and slam directly into a !c!very !c!tall !c!tuba !c!player. A long line of trumpeters follow, and step all over you. You are squashed to death.",
         options: [
             ["rankf", "Continue"],
         ],
@@ -2870,7 +2858,7 @@ const roomSpecs = [
     },
     {
         id: "msmiller",
-        desc: "You are in !c!Ms. !c!Miller’s !p!room. You see secretive students attempting to discuss things among themselves at an (at least to you) almost imperceptible whisper though !c!Ms. !c!Miller appears to be able to hear them loud and clear as she interprets what one of said as funny (not funny in the way a joke is funny but more in the way a sad dog is funny) and makes a meal out of writing it on her overheard board which takes up a large percentage of white board despite clearly not seeing much use. Now the students are talking even quieter, attempting to not set off their unwanted listener again though a few power hungry students are now saying irreverent lines in an attempt to get their quotes immortalized as well but !c!Ms !c!Miller sees right through this and doesn’t bite at their cheap worms.",
+        desc: "You are in !c!Ms. !c!Miller’s !p!room. You see secretive students attempting to discuss things among themselves at an (at least to you) almost imperceptible whisper though !c!Ms. !c!Miller appears to be able to hear them loud and clear as she interprets what one of said as funny (not funny in the way a joke is funny but more in the way a sad dog is funny) and makes a meal out of writing it on her overheard board which takes up a large percentage of white board despite clearly not seeing much use. Now the students are talking even quieter, attempting to not set off their unwanted listener again though a few power hungry students are now saying irreverent lines in an attempt to get their quotes immortalized as well but !c!Ms. !c!Miller sees right through this and doesn’t bite at their cheap worms.",
         options: [
             ["sixh2", "Exit, as quietly as possible"],
         ],
@@ -2948,7 +2936,7 @@ const roomSpecs = [
     },
     {
         id: "wilson2",
-        desc: "You enter !c!Ms !c!Wilson’s !p!room. The music is still sort of echoing around the room and you hear little snippets of classic tracks. There are several posters which are rooted in false pretenses though she does not seem to notice. She has several sections on her board, all of which refer to mostly the same upcoming assignments, except one of them describes a long chain of !e!flipped !e!classroom assignments though it is unclear what about the classroom is flipped.",
+        desc: "You enter !c!Ms. !c!Wilson’s !p!room. The music is still sort of echoing around the room and you hear little snippets of classic tracks. There are several posters which are rooted in false pretenses though she does not seem to notice. She has several sections on her board, all of which refer to mostly the same upcoming assignments, except one of them describes a long chain of !e!flipped !e!classroom assignments though it is unclear what about the classroom is flipped.",
         options: [
             ["sixh3quiet", "Exit"],
         ],
@@ -3829,13 +3817,13 @@ const roomSpecs = [
         options: [
             ["studentservices", "Go to the !p!Student !p!Services desk"],
             ["tart", "Enter your !p!counselor’s !p!office (last name in range A-BRO)"],
-            ["ross", "Enter your !p!counselor’s !p!office (last name in range BRP-EL)"],
-            ["ibarra", "Enter your !p!counselor’s !p!office (last name in range EM-HARG)"],
-            ["johnson2", "Enter your !p!counselor’s !p!office (last name in range HARH-LEAC)"],
-            ["burgess", "Enter your !p!counselor’s !p!office (last name in range LEAD-MOL)"],
-            ["dimmick", "Enter your !p!counselor’s !p!office (last name in range MOM-RAI)"],
-            ["saucedo", "Enter your !p!counselor’s !p!office (last name in range RAJ-STAL)"],
-            ["johnson3", "Enter your !p!counselor’s !p!office (last name in range STAM-Z)"],
+            ["ross", "Enter your !p!counselor’s !p!office (last name in BRP-EL)"],
+            ["ibarra", "Enter your !p!counselor’s !p!office (last name in EM-HARG)"],
+            ["johnson2", "Enter your !p!counselor’s !p!office (last name in HARH-LEAC)"],
+            ["burgess", "Enter your !p!counselor’s !p!office (last name in LEAD-MOL)"],
+            ["dimmick", "Enter your !p!counselor’s !p!office (last name in MOM-RAI)"],
+            ["saucedo", "Enter your !p!counselor’s !p!office (last name in RAJ-STAL)"],
+            ["johnson3", "Enter your !p!counselor’s !p!office (last name in STAM-Z)"],
         ],
     },
     {
@@ -4247,11 +4235,19 @@ const roomSpecs = [
     },
     {
         id: "zeaglehq",
-        desc: "You are in the headquarters of the school newspaper, the !e!Zeagle. You see the newspaper staff working diligently to expose !c!Mr. !c!Watts’s latest exploits. There is a gigantic pile of !d!Money on one of the cabinets. It seems this organization is all about profit. You consider taking some of the !d!money (A small enough amount that they won’t even notice it’s gone).",
+        desc: "You are in the headquarters of the school newspaper, the !e!Zeagle. You see the newspaper staff working diligently to expose !c!Mr. !c!Watts’s latest exploits. There is a gigantic pile of !d!Money on one of the cabinets. It seems this organization is all about profit. You consider taking some of the !d!money (A small enough amount that they won’t even notice it’s gone). There are also a few posters on the wall.",
         options: [
             ["nineh2", "Exit to the hall"],
+            ["zeagleposters", "Look at the posters"],
         ],
         dryebux: 3,
+    },
+    {
+        id: "zeagleposters",
+        desc: "One of the posters is just a big list of kinds of hierarchy, including “reality -- fiction”, “head beagler -- beaglers”, “art -- comedy”, etc. On some of them there are large red X’s scrawled, seemingly to indicate they have been “dealt with” somehow. Another poster reads “ZEAGLE STAFF, REMEMBER: RECONVERGENCE OF FACT AND FICTION = FLATTENING OF REALITY FICTION HIERARCHY = EXIT FROM THE SUBWORLD = END OF SUSPENSION OF DISBELIEF = THE EXISTENTIAL. LIFE IS THE WORLD.” A third poster is a fake advertisement for a !c!Ludwig !c!Wittgenstein action figure.",
+        options: [
+            ["zeaglehq", "Ok"],
+        ],
     },
     {
         id: "cavedoor",
@@ -4601,11 +4597,11 @@ const roomSpecs = [
         desc: "You are in !c!LeCompte’s !s!environmental !s!science !p!room. There are piles of dirt everywhere, and various types of flowering plant are sprouting up from under the floor tiles. The students are also covered in dirt and playing with the mud and are learning about acid rain.",
         options: [
             ["center", "Exit to the outside"],
-            ["floortile", "Look under a floor tile that was pushed up by the plant"],
+            ["lecomtefloortile", "Look under a floor tile that was pushed up by the plant"],
         ],
     },
     {
-        id: "floortile",
+        id: "lecomtefloortile",
         desc: "Under the floor tile, you find an extremely muddy !d!DryeBuk. While it would probably not be accepted in its current state you figure it will be salvageable.",
         options: [
             ["lecomte", "Continue"],
@@ -5537,11 +5533,11 @@ const roomSpecs = [
         desc: "You are under an incredibly complex network of steel, and above a similarly complex web of concrete. The ground is sloped in every direction.",
         options: [
             ["fivekside2", "Go to the side of the !p!5000"],
-            ["cranny", "Go to the nook between the !p!Office and the !p!100"],
+            ["cranny100office", "Go to the nook between the !p!Office and the !p!100"],
         ],
     },
     {
-        id: "cranny",
+        id: "cranny100office",
         desc: "You are in a very tight nook between the !p!Front !p!Office and the !p!One !p!Hundred !p!Hall. You can tell this is one of the most stylish spots on campus. There is a large tree by the wall, and under the tree you spot some !d!DryeBux.",
         options: [
             ["buslotside", "Walk towards the !p!bus !p!lot"],
@@ -5851,7 +5847,7 @@ const roomSpecs = [
     },
     {
         id: "barbee",
-        desc: "You are in !c!Ms. !c!Barbee’s room. You are bombarded with posters that recontextualize your current situation. A particular post of a disgusting looking dog finally puts the pieces together for you. !e!You !e!are !e!not !e!trying !e!make !e!it !e! !e!to !e!first !e!block. If you were, you would be there already. There is something that you are avoiding, some reason you don’t want to go, maybe it is that you are not powerful enough in the East Meck ecosystem yet. !c!Ms !c!Barbee, always quick to help out a student in need (especially when they are crying and drooling on her nice Persian rug) gives you some !d!Drye !d!Bux. Maybe these will help.",
+        desc: "You are in !c!Ms. !c!Barbee’s room. You are bombarded with posters that recontextualize your current situation. A particular post of a disgusting looking dog finally puts the pieces together for you. !e!You !e!are !e!not !e!trying !e!make !e!it !e! !e!to !e!first !e!block. If you were, you would be there already. There is something that you are avoiding, some reason you don’t want to go, maybe it is that you are not powerful enough in the East Meck ecosystem yet. !c!Ms. !c!Barbee, always quick to help out a student in need (especially when they are crying and drooling on her nice Persian rug) gives you some !d!Drye !d!Bux. Maybe these will help.",
         options: [
             ["fourk3a", "Exit to the hall"],
         ],
@@ -6005,10 +6001,24 @@ const roomSpecs = [
         ],
     },
     {
+        id: "gamequit3",
+        desc: "You exit the extremely fun game. You really, really want to see !c!Mr. !c!Henley at the !p!Tech !p!Depot.",
+        options: [
+            ["jarman", "Continue"],
+        ],
+    },
+    {
         id: "gamecrash",
         desc: "The game crashes. It seems that the game world was completely destroyed. You feel a sudden urge to see !c!Mr. !c!Henley.",
         options: [
             ['jarman', 'Continue', ['techdepot','techdepot1a']],
+        ],
+    },
+    {
+        id: "gamecrash2",
+        desc: "The game crashes. It seems that the game world was completely destroyed. You remember why you wanted to go see !c!Mr. !c!Henley so bad today.",
+        options: [
+            ["jarman", "Continue"],
         ],
     },
     {

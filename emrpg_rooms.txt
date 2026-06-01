@@ -544,7 +544,7 @@ SoftballPass: Avoid as if they are spelling “Z”
 SoftballFail: Avoid as if they are spelling “B”
 
 SoftballFail:
-You were clearly incorrect, and slam directly into a very tall tuba player. A long line of trumpeters follow, and step all over you. You are squashed to death.
+You were clearly incorrect, and slam directly into a !c!very !c!tall !c!tuba !c!player. A long line of trumpeters follow, and step all over you. You are squashed to death.
 RankF: Continue
 
 SoftballPass:
@@ -1205,7 +1205,7 @@ Sixh4: Head towards the !p!Courtyard
 Nook: Exit through the exterior door
 
 MsMiller:
-You are in !c!Ms. !c!Miller’s !p!room. You see secretive students attempting to discuss things among themselves at an (at least to you) almost imperceptible whisper though !c!Ms. !c!Miller appears to be able to hear them loud and clear as she interprets what one of said as funny (not funny in the way a joke is funny but more in the way a sad dog is funny) and makes a meal out of writing it on her overheard board which takes up a large percentage of white board despite clearly not seeing much use. Now the students are talking even quieter, attempting to not set off their unwanted listener again though a few power hungry students are now saying irreverent lines in an attempt to get their quotes immortalized as well but !c!Ms !c!Miller sees right through this and doesn’t bite at their cheap worms.
+You are in !c!Ms. !c!Miller’s !p!room. You see secretive students attempting to discuss things among themselves at an (at least to you) almost imperceptible whisper though !c!Ms. !c!Miller appears to be able to hear them loud and clear as she interprets what one of said as funny (not funny in the way a joke is funny but more in the way a sad dog is funny) and makes a meal out of writing it on her overheard board which takes up a large percentage of white board despite clearly not seeing much use. Now the students are talking even quieter, attempting to not set off their unwanted listener again though a few power hungry students are now saying irreverent lines in an attempt to get their quotes immortalized as well but !c!Ms. !c!Miller sees right through this and doesn’t bite at their cheap worms.
 Sixh2: Exit, as quietly as possible
 
 Sifford:
@@ -1256,7 +1256,7 @@ CafeLobby1: Enter the !p!Cafeteria !p!Lobby
 $dryebux: 3
 
 Wilson2:
-You enter !c!Ms !c!Wilson’s !p!room. The music is still sort of echoing around the room and you hear little snippets of classic tracks. There are several posters which are rooted in false pretenses though she does not seem to notice. She has several sections on her board, all of which refer to mostly the same upcoming assignments, except one of them describes a long chain of !e!flipped !e!classroom assignments though it is unclear what about the classroom is flipped.
+You enter !c!Ms. !c!Wilson’s !p!room. The music is still sort of echoing around the room and you hear little snippets of classic tracks. There are several posters which are rooted in false pretenses though she does not seem to notice. She has several sections on her board, all of which refer to mostly the same upcoming assignments, except one of them describes a long chain of !e!flipped !e!classroom assignments though it is unclear what about the classroom is flipped.
 Sixh3quiet: Exit
 
 Livchin:
@@ -1842,13 +1842,13 @@ Counseling:
 The !p!counseling !p!hall is extremely cramped. The hall was small to start out with, but the situation is made several orders of magnitude worse by the rolling waves of desks placed along either side of the hall. When these waves constructively interfere, an extremely narrow passage is created.
 StudentServices: Go to the !p!Student !p!Services desk
 Tart: Enter your !p!counselor’s !p!office (last name in range A-BRO)
-Ross: Enter your !p!counselor’s !p!office (last name in range BRP-EL)
-Ibarra: Enter your !p!counselor’s !p!office (last name in range EM-HARG)
-Johnson2: Enter your !p!counselor’s !p!office (last name in range HARH-LEAC)
-Burgess: Enter your !p!counselor’s !p!office (last name in range LEAD-MOL)
-Dimmick: Enter your !p!counselor’s !p!office (last name in range MOM-RAI)
-Saucedo: Enter your !p!counselor’s !p!office (last name in range RAJ-STAL)
-Johnson3: Enter your !p!counselor’s !p!office (last name in range STAM-Z)
+Ross: Enter your !p!counselor’s !p!office (last name in BRP-EL)
+Ibarra: Enter your !p!counselor’s !p!office (last name in EM-HARG)
+Johnson2: Enter your !p!counselor’s !p!office (last name in HARH-LEAC)
+Burgess: Enter your !p!counselor’s !p!office (last name in LEAD-MOL)
+Dimmick: Enter your !p!counselor’s !p!office (last name in MOM-RAI)
+Saucedo: Enter your !p!counselor’s !p!office (last name in RAJ-STAL)
+Johnson3: Enter your !p!counselor’s !p!office (last name in STAM-Z)
 
 Tart:
 You enter !c!Ms. !c!Tart. She is in the process of posting a newspaper clipping that names her as !e!the !e!third !e!most !e!helpful !e!counselor. She seems incredibly proud of this achievement as she is posting it in one of the most visible places in her office, a spot that you could not avoid looking at no matter how hard you try.
@@ -2102,9 +2102,14 @@ Nineh1: Continue down the hall
 ZeagleHQ: Enter !p!Room !p!901
 
 ZeagleHQ:
-You are in the headquarters of the school newspaper, the !e!Zeagle. You see the newspaper staff working diligently to expose !c!Mr. !c!Watts’s latest exploits. There is a gigantic pile of !d!Money on one of the cabinets. It seems this organization is all about profit. You consider taking some of the !d!money (A small enough amount that they won’t even notice it’s gone).
+You are in the headquarters of the school newspaper, the !e!Zeagle. You see the newspaper staff working diligently to expose !c!Mr. !c!Watts’s latest exploits. There is a gigantic pile of !d!Money on one of the cabinets. It seems this organization is all about profit. You consider taking some of the !d!money (A small enough amount that they won’t even notice it’s gone). There are also a few posters on the wall.
 Nineh2: Exit to the hall 
+ZeaglePosters: Look at the posters
 $dryebux: 3
+
+ZeaglePosters:
+One of the posters is just a big list of kinds of hierarchy, including “reality -- fiction”, “head beagler -- beaglers”, “art -- comedy”, etc. On some of them there are large red X’s scrawled, seemingly to indicate they have been “dealt with” somehow. Another poster reads “ZEAGLE STAFF, REMEMBER: RECONVERGENCE OF FACT AND FICTION = FLATTENING OF REALITY FICTION HIERARCHY = EXIT FROM THE SUBWORLD = END OF SUSPENSION OF DISBELIEF = THE EXISTENTIAL. LIFE IS THE WORLD.” A third poster is a fake advertisement for a !c!Ludwig !c!Wittgenstein action figure.
+ZeagleHQ: Ok
 
 CaveDoor:
 You open the door. You peek through the curtain and see an elaborate set that seems like it would require a full staff working round the clock to maintain, let alone move around for the quick transitions required of a musical where the words are so tightly packed. You look at the sign on the wall and realize it is really funny saying something weird. 
@@ -2332,9 +2337,9 @@ Center: Exit to the outside
 LeComte:
 You are in !c!LeCompte’s !s!environmental !s!science !p!room. There are piles of dirt everywhere, and various types of flowering plant are sprouting up from under the floor tiles. The students are also covered in dirt and playing with the mud and are learning about acid rain.
 Center: Exit to the outside
-FloorTile: Look under a floor tile that was pushed up by the plant
+LeComteFloorTile: Look under a floor tile that was pushed up by the plant
 
-FloorTile:
+LeComteFloorTile:
 Under the floor tile, you find an extremely muddy !d!DryeBuk. While it would probably not be accepted in its current state you figure it will be salvageable.
 LeComte: Continue
 $dryebux: 3
@@ -2926,9 +2931,9 @@ BuslotSide: Go towards Monroe
 BuslotSide:
 You are under an incredibly complex network of steel, and above a similarly complex web of concrete. The ground is sloped in every direction.
 Fivekside2: Go to the side of the !p!5000
-Cranny: Go to the nook between the !p!Office and the !p!100
+Cranny100Office: Go to the nook between the !p!Office and the !p!100
 
-Cranny:
+Cranny100Office:
 You are in a very tight nook between the !p!Front !p!Office and the !p!One !p!Hundred !p!Hall. You can tell this is one of the most stylish spots on campus. There is a large tree by the wall, and under the tree you spot some !d!DryeBux.
 BuslotSide: Walk towards the !p!bus !p!lot
 $dryebux: 7
@@ -3121,7 +3126,7 @@ You spend all your time rotting away sorting more delights and don’t even hear
 RankF: Oh well
 
 Barbee:
-You are in !c!Ms. !c!Barbee’s room. You are bombarded with posters that recontextualize your current situation. A particular post of a disgusting looking dog finally puts the pieces together for you. !e!You !e!are !e!not !e!trying !e!make !e!it !e! !e!to !e!first !e!block. If you were, you would be there already. There is something that you are avoiding, some reason you don’t want to go, maybe it is that you are not powerful enough in the East Meck ecosystem yet. !c!Ms !c!Barbee, always quick to help out a student in need (especially when they are crying and drooling on her nice Persian rug) gives you some !d!Drye !d!Bux. Maybe these will help.
+You are in !c!Ms. !c!Barbee’s room. You are bombarded with posters that recontextualize your current situation. A particular post of a disgusting looking dog finally puts the pieces together for you. !e!You !e!are !e!not !e!trying !e!make !e!it !e! !e!to !e!first !e!block. If you were, you would be there already. There is something that you are avoiding, some reason you don’t want to go, maybe it is that you are not powerful enough in the East Meck ecosystem yet. !c!Ms. !c!Barbee, always quick to help out a student in need (especially when they are crying and drooling on her nice Persian rug) gives you some !d!Drye !d!Bux. Maybe these will help.
 Fourk3A: Exit to the hall
 $dryebux: 3
 
@@ -3218,9 +3223,17 @@ GameQuit2:
 A PDF file of the crossword opens in a new tab. Because you are unfamiliar with !c!Mr. !c!Jarman’s computers, you accidentally close the game while trying to close the PDF. Oh well.
 Jarman: Continue
 
+GameQuit3:
+You exit the extremely fun game. You really, really want to see !c!Mr. !c!Henley at the !p!Tech !p!Depot.
+Jarman: Continue
+
 GameCrash:
 The game crashes. It seems that the game world was completely destroyed. You feel a sudden urge to see !c!Mr. !c!Henley.
 &TechDepot&TechDepot1A&Jarman: Continue
+
+GameCrash2:
+The game crashes. It seems that the game world was completely destroyed. You remember why you wanted to go see !c!Mr. !c!Henley so bad today.
+Jarman: Continue
 
 Cooper:
 !c!Mr. !c!Cooper is hiding behind his desk, hoping for nobody to come in. As you look closer at him, you see that most of his body is encased in some kind of sarcophagus. He knows you are in here but tries to not make eye contact. He has a chart on the wall ranking the various kinds of !s!math question he asks on the Scoville scale for spiciness.
