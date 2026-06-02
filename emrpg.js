@@ -4554,7 +4554,7 @@ const roomSpecs = [
     },
     {
         id: "wood",
-        desc: "You are in !c!Ms.!c!Wood’s !p!room . The air is thick and dense. You realize that the air in here is entirely pure with no unnecessary crap. You take another huge inhale and realize there is no reason for you to exhale as there is nothing you need to get rid of. It occurs to you that you should probably get out quickly  before you deprive your body of some of the other elements it relies on.",
+        desc: "You are in !c!Ms. !c!Wood’s !p!room. The air is thick and dense. You realize that the air in here is entirely pure with no unnecessary crap. You take another huge inhale and realize there is no reason for you to exhale as there is nothing you need to get rid of. It occurs to you that you should probably get out quickly before you deprive your body of some of the other elements it relies on.",
         options: [
             ["fourh3", "Exit after taking another big sip of air"],
         ],
