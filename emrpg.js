@@ -563,8 +563,6 @@ class Game {
                 }
                 soundCrystal.load();
                 soundCrystal.play();
-            } else if (this.room !== undefined && this.room.id === "planeride") {
-                this.enterScene(scene_main);
             } else if (id === "fnf3") {
                 this.enterScene(scene_fourk);
             } else if (id === "intro3") {
@@ -577,6 +575,8 @@ class Game {
             } else if (id === "tunnel1") {
                 this.enterScene(scene_tunnel);
             } else if (id === "auditoriumlobby") {
+                this.enterScene(scene_musical);
+            } else if (id === "auditorium") {
                 this.enterScene(scene_musical);
             } else if (id === "eighth1") {
                 this.enterScene(scene_musical);
@@ -608,9 +608,9 @@ class Game {
                 this.enterScene(scene_700);
             } else if (id === "sevenh3") {
                 this.enterScene(scene_700);
-            } else if (["fnf1",  "fourhstairs",  "fourhgym",  "threehstairs",  "manhole",  "officeoutside",  "patio3",  "patio4",  "cafelobby3",  "guardeddoor",  "mediaside",  "fivekback",  "fivekfront",  "middle2",  "sevenhgym", "mediaside", "sevenhgym", "fourhgym", "trailers7", "center2"].includes(id)) {
+            } else if (["fnf1",  "fourhstairs",  "fourhgym",  "threehstairs",  "manhole",  "officeoutside",  "patio3",  "patio4",  "cafelobby3",  "guardeddoor",  "mediaside",  "fivekback",  "fivekfront",  "middle2",  "sevenhgym", "mediaside", "sevenhgym", "fourhgym", "trailers7", "center2", "middle", "foursevenpath", "center", "courtyard2", "patiostairs"].includes(id)) {
                 this.enterScene(scene_main);
-            } else if (["tennis", "trailers5", "trailers6", "gymoutside", "staffparking4", "staffparking1", "trailers1", "trailers2", "softball", "softball2"].includes(id)) {
+            } else if (["tennis", "trailers5", "trailers6", "gymoutside", "staffparking4", "staffparking1", "trailers1", "trailers2", "softball", "softball2", "football", "softball", "baseball", "staffparking5"].includes(id)) {
                 this.enterScene(scene_trailers);
             } else if (["gym", "gym2", "wrestling", "gymlobby", "gymexit"].includes(id)) {
                 this.enterScene(scene_gym);
@@ -3462,9 +3462,8 @@ const roomSpecs = [
     },
     {
         id: "patiostairs",
-        desc: "You are in a small region cut into the ground next to the !p!lunch !p!patio. There are stairs leading upwards and a double-door leading inside:",
+        desc: "You are in a small region cut into the ground next to the !p!lunch !p!patio. There are stairs leading upwards and a one-way double-door leading inside.",
         options: [
-            ["stageauditoriumthing", "Go through the door"],
             ["patio3", "Go up the stairs"],
         ],
     },
@@ -3472,8 +3471,7 @@ const roomSpecs = [
         id: "stageauditoriumthing",
         desc: "You try to open the door and you have to break off a large amount of rust to open it, further proving that !p!the !p!silver !p!auditorium would prove to be a triangle shirtwaist-esque death trap. You feel guilty about taking this below board way through the school but it is so much faster.",
         options: [
-            ['auditorium', 'Enter the !p!Auditorium', ['stageauditoriumthing','auditorium']],
-            ['patio3', 'Go on to !p!cafeteria !p!patio', ['stageauditoriumthing','auditorium']],
+            ['patiostairs', 'Go on to !p!cafeteria !p!patio', ['stageauditoriumthing','patiostairs']],
         ],
     },
     {
@@ -3496,8 +3494,9 @@ const roomSpecs = [
     },
     {
         id: "cafelobby3",
-        desc: "AuditoriumLobby: Enter the !p!Auditorium !p!Lobby through one of the million components of this large array of doors",
+        desc: "You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.",
         options: [
+            ["auditoriumlobby", "Enter the !p!Auditorium !p!Lobby through one of the million components of this large array of doors"],
             ["courtyard2", "Exit to the !p!Courtyard"],
             ["patio1", "Exit to the !p!Patio"],
             ["fourway", "Walk towards the northern part of the !p!Old !p!Building"],
@@ -4554,7 +4553,7 @@ const roomSpecs = [
     },
     {
         id: "wood",
-        desc: "You are in !c!Ms. !c!Wood’s !p!room. The air is thick and dense. You realize that the air in here is entirely pure with no unnecessary crap. You take another huge inhale and realize there is no reason for you to exhale as there is nothing you need to get rid of. It occurs to you that you should probably get out quickly before you deprive your body of some of the other elements it relies on.",
+        desc: "You are in !c!Ms. !c!Wood’s !p!room. The air is thick and dense. You realize that the air in here is entirely pure with no unnecessary crap. You take another huge inhale and realize there is no reason for you to exhale as there is nothing you need to get rid of. It occurs to you that you should probably get out quickly  before you deprive your body of some of the other elements it relies on.",
         options: [
             ["fourh3", "Exit after taking another big sip of air"],
         ],
@@ -4840,7 +4839,7 @@ const roomSpecs = [
     },
     {
         id: "shotdown",
-        desc: "As your pilot takes off from the !p!bus !p!lot and dashes towards the !p!Four !p!Thousand, a !c!guard on the !p!4000 roof takes notice. He aims his ground-to-air missile launcher directly at you, and fires (The sovereign nation of the !p!4000 does not take kindly to unauthorized invasions into its airspace). Your plane bursts into flames, and you and your pilot plummet to your deaths.",
+        desc: "As your pilot takes off from the !p!bus !p!lot and dashes towards the !p!Four !p!Thousand, a !c!guard on the !p!4000 roof takes notice. He aims his ground-to-air missile launcher directly at you, and fires (The sovereign nation of the !p!4000 does not take kindly to unauthorized invasions into its airspace). Your plane bursts into flames, and you and your pilot plummet to your respective deaths.",
         options: [
             ["rankf", "Continue"],
         ],

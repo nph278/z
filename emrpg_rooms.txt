@@ -1590,14 +1590,12 @@ Patio4: Go up towards the farthest reaches of the !p!Patio
 Patiostairs: Go down the stairs next to the building
 
 Patiostairs:
-You are in a small region cut into the ground next to the !p!lunch !p!patio. There are stairs leading upwards and a double-door leading inside:
-StageAuditoriumThing: Go through the door
+You are in a small region cut into the ground next to the !p!lunch !p!patio. There are stairs leading upwards and a one-way double-door leading inside.
 Patio3: Go up the stairs
 
 StageAuditoriumThing:
 You try to open the door and you have to break off a large amount of rust to open it, further proving that !p!the !p!silver !p!auditorium would prove to be a triangle shirtwaist-esque death trap. You feel guilty about taking this below board way through the school but it is so much faster.
-&StageAuditoriumThing&Auditorium&Auditorium: Enter the !p!Auditorium
-&StageAuditoriumThing&Auditorium&Patio3: Go on to !p!cafeteria !p!patio
+&StageAuditoriumThing&Patiostairs&Patiostairs: Go on to !p!cafeteria !p!patio
 
 Auditorium:
 You are in the !c!Auditorium. The dancers are vigorously dancing in one of the many dance breaks. You know from industry insiders that it is really just a thinly veiled way to give the actors an opportunity to catch their breath and for the stage hands to replace sets in the background but you still can’t help but feel deeply moved by the east meck themed moves of the dancers. 
@@ -1611,7 +1609,8 @@ The !p!Lighting !p!Booth is dark and hard to navigate because basically every li
 Auditorium: Exit to the !p!Auditorium
 $dryebux: 3
 
-CafeLobby3: You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.
+CafeLobby3:
+You are in a hallway that is usually described as part of the extensive !p!“Cafeteria !p!Lobby”, though the !p!Cafeteria is not accessible directly from here. You reason to yourself that this is probably due to the fact that this zone is permitted during lunches. In any case, the neon red Zeagle poster on the wall enchants you.
 AuditoriumLobby: Enter the !p!Auditorium !p!Lobby through one of the million components of this large array of doors
 Courtyard2: Exit to the !p!Courtyard
 Patio1: Exit to the !p!Patio
@@ -2497,7 +2496,7 @@ Courtyard2: The !p!Courtyard
 ShotDown: Back of the !p!4000
 
 ShotDown:
-As your pilot takes off from the !p!bus !p!lot and dashes towards the !p!Four !p!Thousand, a !c!guard on the !p!4000 roof takes notice. He aims his ground-to-air missile launcher directly at you, and fires (The sovereign nation of the !p!4000 does not take kindly to unauthorized invasions into its airspace). Your plane bursts into flames, and you and your pilot plummet to your deaths.
+As your pilot takes off from the !p!bus !p!lot and dashes towards the !p!Four !p!Thousand, a !c!guard on the !p!4000 roof takes notice. He aims his ground-to-air missile launcher directly at you, and fires (The sovereign nation of the !p!4000 does not take kindly to unauthorized invasions into its airspace). Your plane bursts into flames, and you and your pilot plummet to your respective deaths.
 RankF: Continue
 
 JetpackPreOwn:
