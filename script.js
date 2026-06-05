@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 f.setAttribute("data-disabled", "true");
             });
             e.parentElement.querySelectorAll(".p").forEach(f => {
-                f.outerHTML = "<p>" + f.alt + "</p>";
+                f.outerHTML = "<p class=transcript>" + f.alt + "</p>";
             });
             e.outerHTML = "";
             make_notification("While the Seeing-Eye is a Nece$$ary Establishment, transcripts are a Poor Replacement 4 The Original, and $o are Not Official Outlets of New$ Media");
@@ -214,7 +214,7 @@ window.addEventListener("blur", (event) => {
 });
 
 window.addEventListener("load", async (event) => {
-    const ps = document.querySelectorAll(".news p");
+    const ps = document.querySelectorAll("[data-src]");
 
     for (let i = 0; i < ps.length; i++) {
         const e = ps[i];
