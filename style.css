@@ -768,11 +768,21 @@ input { /* 1 */
     width: 100%;
 }
 
-.p-eagle {
+.p-eagle, .opinion .p-eagle {
     color: black;
     background: white;
     font-family: "Cabin", sans-serif;
     padding: 1em;
+}
+
+.p-eagle.semieagle {
+    background: grey;
+}
+
+.p-eagle .mix {
+    font-family: "major mono display", monospace;
+    color: white;
+    background: black;
 }
 
 .noneagle {
