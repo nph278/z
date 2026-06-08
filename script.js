@@ -121,7 +121,10 @@ let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
               "Bribe Record Broken but Drye turns Blind Eye",
               "Drye violates another Intergalatic protocol",
               "Morning News hacked by same guy Again",
-              "Drye Sea Scrolls"];
+              "Drye Sea Scrolls",
+              "Wind Tunnel forms between 4k&5k: Watch",
+              "Thief Burned by Cursed Idol in fully removed locker",
+              "Dispersal order, JROTC National Guard called in"];
 if (!ismobile) {
     alerts.push("Hint: Hold J");
 }
