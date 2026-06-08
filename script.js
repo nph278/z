@@ -118,7 +118,10 @@ let alerts = ["<span class=room>700</span> Hall Clo$ed For Repair$",
               "Big New Theorem Changes Everything",
               "Free Download Accurate Nervous System Simulator",
               "New Drye Catchphrase goes Viral",
-              "Bribe Record Broken but Drye turns Blind Eye"];
+              "Bribe Record Broken but Drye turns Blind Eye",
+              "Drye violates another Intergalatic protocol",
+              "Morning News hacked by same guy Again",
+              "Drye Sea Scrolls"];
 if (!ismobile) {
     alerts.push("Hint: Hold J");
 }

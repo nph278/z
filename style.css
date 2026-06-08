@@ -793,3 +793,7 @@ input { /* 1 */
     animation-duration: 4s;
     animation-iteration-count: infinite;
 }
+
+section.eagle1 {
+    background-color: #303030;
+}
