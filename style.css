@@ -797,3 +797,13 @@ input { /* 1 */
 section.eagle1 {
     background-color: #303030;
 }
+
+section.eagle2 {
+    background-color: #707080;
+    border-color: black;
+    border-style: solid;
+}
+
+section.eagle2 img.i {
+    animation-duration: 10s;
+}
