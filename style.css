@@ -807,3 +807,31 @@ section.eagle2 {
 section.eagle2 img.i {
     animation-duration: 10s;
 }
+
+section.eagle3 {
+    background-color: white;
+    font-family: "Cabin", sans-serif;
+    color: black;
+}
+
+section.eagle3 img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    min-width: 50%;
+    max-width: 100%;
+    margin-bottom: 3em;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
+
+section.eagle3 h2 {
+    transform: none;
+    filter: none;
+    font-family: "Cabin", sans-serif;
+    margin-bottom: 1em;
+    font-size: 3em;
+}
+
