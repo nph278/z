@@ -7,6 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Coral+Pixels&display=swap');
 
 @font-face {
     font-family: 'FixederSys';
@@ -285,6 +286,38 @@ span.exp {
     text-align: center;
 }
 
+#ice {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 95;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    user-select: none;
+}
+
+#thaw {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 96;
+    width: 200px;
+    height: 100px;
+    display: none;
+    user-select: none;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    background-image: url("./inferno.jpg");
+    background-size: 100% 100%;
+    image-rendering: auto;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+}
+
 #drye {
     position: fixed;
     top: 0;
@@ -293,6 +326,7 @@ span.exp {
     width: 100vw;
     height: 100vh;
     display: none;
+    user-select: none;
 }
 
 .eye {
@@ -429,6 +463,15 @@ span.exp {
     color: black;
     background: gold;
     border-color: black;
+}
+
+.icebutton {
+    color: white;
+    background: turquoise;
+    border-color: white;
+    background-image: url("./ice_overlay.jpg");
+    background-size: 100% 100%;
+    image-rendering: auto;
 }
 
 .special p {
@@ -835,3 +878,40 @@ section.eagle3 h2 {
     font-size: 3em;
 }
 
+p.comment1 {
+    font-family: "Coral Pixels", times, serif;
+    font-size: 35pt;
+    text-align: center;
+    background-color: lightblue;
+    color: white;
+    animation-name: para;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+p.comment2 {
+    font-family: "Libertinus Serif", times, serif;
+    font-size: 20pt;
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
+
+#icedrill {
+    width: 100vw;
+    height: 100vw;
+    user-select: none;
+}
+
+#drillhtml {
+    cursor: none;
+}
+
+#drillcrank {
+    position: absolute;
+    width: 20vw;
+    user-select: none;
+}
