@@ -109,11 +109,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         e.addEventListener("change",rememberHack);
     })
 
-    const c = localStorage.getItem("gold_code");
-    if (c) {
-        enable_gold(c);
-    }
-
     ice.style.opacity = "70%";
     ice.addEventListener("click", () => {
         freezeclicks++;
@@ -409,11 +404,6 @@ const types = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,
 
 let oldinjury = [];
 
-const gold = () => {
-    const code = document.querySelector("#goldcode").value.toUpperCase();
-    enable_gold(code);
-}
-
 const extraslogans = [
     "$atire i$ Predicated on a Fallacy",
     "$keptici$m i$ not Irrefutable",
@@ -421,23 +411,6 @@ const extraslogans = [
     "Ethic$ and Ae$thetic$ are One",
     "The Tape wa$ $plit in Two"
 ];
-
-const enable_gold = (code) => {
-    if (hashes.includes(sha256(code))) {
-        document.querySelector("#goldform").outerHTML = "";
-        make_notification("Zeagle GOLD Activated!");
-        extraslogans.forEach(s => {
-            document.querySelector("#slogans").innerHTML += "<section>" + s + "</section>";
-        });
-        notif_interval = 5000;
-        document.querySelector("h1 img").src = "./logo_gold.jpg";
-        document.querySelector("#extlinks").innerHTML += "<a class='extlink goldlink' href='./gold_merch.html'>click 4 gold merch</a>";
-        window.scrollTo(0, 0);
-        localStorage.setItem("gold_code", code);
-    } else {
-        alert("INVALID GOLD CODE");
-    }
-}
 
 const phil = [
     "occam's razor",
