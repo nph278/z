@@ -8,6 +8,7 @@ const ice_sounds = [1,2,3,4,5,6].map((i) => {
 const images = [
     "a.jpeg",
     "b.jpeg",
+    "q.jpeg",
     "19204429-F080-47B7-B255-FB0A7026ED2A.jpeg",
     "beagle1.png",
     "IMG_0345.jpeg",
